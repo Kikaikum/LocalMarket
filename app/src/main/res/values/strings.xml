@@ -4,7 +4,7 @@
     <string name="insert_pwd">Password...</string>
     <string name="login">Login</string>
     <string name="sing_up">Sing up</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="vendedor">¿Registrarse como vendedor?</string>
+
 
 </resources>
