@@ -1,0 +1,22 @@
+<resources>
+    <string name="app_name">Local Market</string>
+    <string name="insert_email">Correo electronico...</string>
+    <string name="insert_pwd">Password...</string>
+    <string name="login">Login</string>
+    <string name="sing_up">Sing up</string>
+    <string name="vendedor">¿Registrarse como vendedor?</string>
+
+    <string name="password">Contraseña</string>
+    <string name="email">Correo electrónico</string>
+    <string name="username">Nombre de usuario</string>
+    <string name="save">Guardar</string>
+    <string name="delete">Eliminar cuenta</string>
+    <string name="nombre">Nombre</string>
+    <string name="listo">Listo</string>
+
+    <string name="indroduce_password_actual">Contraseña actual</string>
+    <string name="introduce_new_password">Nueva contraseña</string>
+
+
+
+</resources>
