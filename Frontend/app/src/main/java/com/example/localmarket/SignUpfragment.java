@@ -12,13 +12,22 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import com.example.localmarket.model.SignUpResponse;
+import com.example.localmarket.network.service.AuthService;
+
 public class SignUpfragment extends Fragment {
 
     private EditText editTextUsername, editTextEmail, editTextPassword;
     private Button buttonSignUp;
+    private AuthService authService;
 
     public SignUpfragment() {
         // Constructor vacío requerido por Fragment
+    }
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        authService = new AuthService();
     }
 
     @Nullable
@@ -26,6 +35,8 @@ public class SignUpfragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         // Inflar el diseño del fragmento
         View view = inflater.inflate(R.layout.signup_fragment, container, false);
+
+        authService = new AuthService();
 
         // Buscar referencias de los elementos de la interfaz de usuario
         editTextUsername = view.findViewById(R.id.editTextUsername);
@@ -43,7 +54,7 @@ public class SignUpfragment extends Fragment {
                     signUp();
                 } else {
                     // Mostrar un mensaje de error si los campos no son válidos
-                    Toast.makeText(getActivity(), "Por favor, complete todos los campos.", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getActivity(), R.string.message_empty_fields, Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -62,10 +73,23 @@ public class SignUpfragment extends Fragment {
 
     // Método para enviar la información de registro al servidor
     private void signUp() {
-        // Aquí puedes implementar la lógica para enviar la información de registro al servidor
-        // Por ejemplo, puedes utilizar Retrofit, Volley o cualquier otra biblioteca para realizar la solicitud HTTP
-        // También puedes mostrar un ProgressDialog mientras se envía la solicitud y manejar las respuestas del servidor
-        // Aquí se muestra un Toast como ejemplo
-        Toast.makeText(getActivity(), "Registro exitoso", Toast.LENGTH_SHORT).show();
+        String username = editTextUsername.getText().toString().trim();
+        String email = editTextEmail.getText().toString().trim();
+        String password = editTextPassword.getText().toString().trim();
+
+        authService.signUpUser(email, password, username, new AuthService.AuthCallback<SignUpResponse>() {
+            @Override
+            public void onSuccess(SignUpResponse response) {
+                // Manejar la respuesta del servidor para el registro exitoso
+                Toast.makeText(getActivity(), "Registro exitoso", Toast.LENGTH_SHORT).show();
+                // Aquí puedes manejar la navegación post-registro, como abrir el fragmento de inicio
+            }
+
+            @Override
+            public void onError(Throwable t) {
+                // Manejar el error de registro
+                Toast.makeText(getActivity(), "Error en el registro: " + t.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 }
