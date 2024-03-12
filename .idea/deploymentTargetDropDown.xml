@@ -2,10 +2,7 @@
 <project version="4">
   <component name="deploymentTargetDropDown">
     <value>
-      <entry key="Local Market.Local_Market.app">
-        <State />
-      </entry>
-      <entry key="app">
+      <entry key="MainActivity">
         <State />
       </entry>
     </value>
