@@ -7,6 +7,8 @@ import com.example.localmarket.model.SignUpResponse;
 import com.example.localmarket.model.User;
 import com.example.localmarket.network.api.ApiService;
 
+import okhttp3.OkHttpClient;
+import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -16,16 +18,29 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class AuthService {
 
     private ApiService apiService;
-    private String URL = "https://2b3175a6-57df-49f6-ab1a-e1601987dadf.mock.pstmn.io";
     private static AuthService instance;
-    public AuthService() {
+
+    // URL base de tu API
+    private static final String BASE_URL = "https://kikaikum.ddns.net:3000/";
+
+    private AuthService() {
+        // Configuración del cliente HTTP con interceptor para logs
+        OkHttpClient.Builder httpClient = new OkHttpClient.Builder();
+        HttpLoggingInterceptor loggingInterceptor = new HttpLoggingInterceptor();
+        loggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
+        httpClient.addInterceptor(loggingInterceptor);
+
+        // Creación de instancia de Retrofit con la URL base y el cliente HTTP configurado
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl(URL) // URL base de tu API
+                .baseUrl(BASE_URL)
                 .addConverterFactory(GsonConverterFactory.create())
+                .client(httpClient.build())
                 .build();
 
+        // Creación de la interfaz de servicio a partir de Retrofit
         apiService = retrofit.create(ApiService.class);
     }
+
 
     public void loginUser(String email, String password, final AuthCallback<LoginResponse> callback) {
         LoginRequest loginRequest = new LoginRequest(email, password);
@@ -46,8 +61,8 @@ public class AuthService {
         });
     }
 
-    public void signUpUser(String email, String password, String userName, String name, String surname, Boolean isVendor, final AuthCallback<SignUpResponse> callback) {
-        SignUpRequest signUpRequest = new SignUpRequest(email, password, userName, name, surname, isVendor);
+    public void signUpUser(String email, String password, String username, String nombre, String apellidos, String isVendor, final AuthCallback<SignUpResponse> callback) {
+        SignUpRequest signUpRequest = new SignUpRequest(email, password, username, nombre, apellidos, isVendor);
         apiService.createUser(signUpRequest).enqueue(new Callback<SignUpResponse>() {
             @Override
             public void onResponse(Call<SignUpResponse> call, Response<SignUpResponse> response) {

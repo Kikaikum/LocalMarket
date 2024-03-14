@@ -8,7 +8,7 @@ public class SessionManager {
 
 
     public boolean isLoggedIn() {
-        return true;
+        return false;
     }
     public boolean isVendor(){
         return true;

@@ -35,7 +35,7 @@ public class EditProfileActivity extends AppCompatActivity {
         deleteAccountButton=findViewById(R.id.deleteAccountButton);
 
         // Inicializar AuthService y ApiService
-        authService = new AuthService();
+        authService = AuthService.getInstance();
         apiService = authService.getApiService();
 
         // Obtener datos del usuario

@@ -29,7 +29,7 @@ public class SignUpfragment extends Fragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        authService = new AuthService();
+        authService = AuthService.getInstance();
     }
 
     @Nullable
@@ -38,7 +38,7 @@ public class SignUpfragment extends Fragment {
         // Inflar el diseño del fragmento
         View view = inflater.inflate(R.layout.signup_fragment, container, false);
 
-        authService = new AuthService();
+        authService = AuthService.getInstance();
 
         // Buscar referencias de los elementos de la interfaz de usuario
         editTextUsername = view.findViewById(R.id.editTextUsername);
@@ -86,7 +86,7 @@ public class SignUpfragment extends Fragment {
         String password = editTextPassword.getText().toString().trim();
         String name = editTextName.getText().toString().trim();
         String surname = editTextSurname.getText().toString().trim();
-        Boolean isVendor = aSwitchVendor.isChecked();
+        String isVendor = aSwitchVendor.isChecked()+"";
 
         authService.signUpUser(email, password, username, name, surname, isVendor, new AuthService.AuthCallback<SignUpResponse>() {
             @Override

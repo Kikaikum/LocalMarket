@@ -14,10 +14,10 @@ import retrofit2.http.POST;
 
 public interface ApiService {
 
-    @POST("/login")
+    @POST("localmarket/v1/users")
     Call<LoginResponse> loginUser(@Body LoginRequest loginRequest);
 
-    @POST("/signup")
+    @POST("localmarket/v1/users/login")
     Call<SignUpResponse> createUser(@Body SignUpRequest signUpRequest);
 
     @GET("/user/profile")

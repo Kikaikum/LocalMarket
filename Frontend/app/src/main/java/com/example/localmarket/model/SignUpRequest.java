@@ -3,18 +3,18 @@ package com.example.localmarket.model;
 public class SignUpRequest {
     private String email;
     private String password;
-    private String name;
-    private String surname;
-    private String userName;
-    private Boolean isVendor;
+    private String nombre;
+    private String apellidos;
+    private String username;
+    private String agricultor;
 
-    public SignUpRequest(String email, String password, String userName, String name, String surname, Boolean isVendor) {
+    public SignUpRequest(String email, String password, String userName, String name, String surname, String isVendor) {
         this.email = email;
         this.password = password;
-        this.name = name;
-        this.isVendor=isVendor;
-        this.userName= userName;
-        this.surname = surname;
+        this.nombre = name;
+        this.agricultor=isVendor;
+        this.username= userName;
+        this.apellidos = surname;
     }
 
     public String getEmail() {
@@ -34,23 +34,23 @@ public class SignUpRequest {
     }
 
     public String getName() {
-        return name;
+        return nombre;
     }
 
     public void setName(String name) {
-        this.name = name;
+        this.nombre = name;
     }
 
-    public String getSurname() { return surname; }
+    public String getSurname() { return apellidos; }
 
-    public void setSurname(String surname) { this.surname = surname; }
+    public void setSurname(String surname) { this.apellidos = surname; }
 
-    public String getUserName() { return userName; }
+    public String getUserName() { return username; }
 
-    public void setUserName(String userName) { this.userName = userName; }
+    public void setUserName(String userName) { this.username = userName; }
 
-    public Boolean getVendor() { return isVendor; }
+    public String getVendor() { return agricultor; }
 
-    public void setVendor(Boolean vendor) { isVendor = vendor; }
+    public void setVendor(String vendor) { agricultor = vendor; }
 
 }
