@@ -12,7 +12,6 @@ class UserService {
 
   async find() {
     const rta = await models.User.findAll({
-
     });
     return rta;
   }
