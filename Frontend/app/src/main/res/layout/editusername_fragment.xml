@@ -35,7 +35,7 @@
         app:layout_constraintTop_toTopOf="@+id/editTextUsername" />
 
     <TextView
-        android:id="@+id/nombreUsuario"
+        android:id="@+id/tituloNombre"
         android:layout_width="90dp"
         android:layout_height="60dp"
         android:layout_marginStart="56dp"
@@ -73,6 +73,6 @@
         app:layout_constraintEnd_toStartOf="@id/buttonListo"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/nombreUsuario" />
+        app:layout_constraintTop_toBottomOf="@id/tituloNombre" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

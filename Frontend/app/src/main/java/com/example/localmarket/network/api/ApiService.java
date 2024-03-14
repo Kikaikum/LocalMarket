@@ -11,6 +11,7 @@ import retrofit2.http.Body;
 import retrofit2.http.DELETE;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
+import retrofit2.http.PUT;
 
 public interface ApiService {
 
@@ -26,4 +27,6 @@ public interface ApiService {
     @DELETE("/user/delete")
     Call<Void> deleteAccount();
 
+    @PUT("/update-username") // Ruta de la API para actualizar el nombre de usuario
+    Call<Void> updateUsername(@Body String newUsername);
 }

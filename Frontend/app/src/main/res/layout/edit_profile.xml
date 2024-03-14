@@ -9,7 +9,7 @@
     tools:context=".MainActivity">
 
 
-    <!-- Botón para editar el nombre de usuario -->
+
 
     <TextView
         android:id="@+id/dataTitle"
@@ -26,6 +26,8 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+
+    <!-- Botón para editar el nombre de usuario -->
     <Button
         android:id="@+id/editUsernameButton"
         style="@style/Widget.Material3.Button.TextButton"
@@ -41,7 +43,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/dataTitle" />
 
-
+    <!-- Botón para editar el mail de usuario -->
     <Button
         android:id="@+id/editEmailButton"
         style="@style/Widget.Material3.Button.TextButton"
@@ -57,7 +59,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/editUsernameButton" />
 
-    <!-- Botón para la contraseña -->
+    <!-- Botón para editar la contraseña -->
     <Button
         android:id="@+id/editPasswordButton"
         style="@style/Widget.Material3.Button.TextButton"
@@ -74,6 +76,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/editEmailButton" />
 
+    <!-- Botón para eliminar cuenta -->
     <Button
         android:id="@+id/deleteAccountButton"
         style="@style/Widget.Material3.Button.TextButton"
@@ -91,7 +94,7 @@
 
 
 
-
+    <!-- logo-->
 
     <ImageView
         android:id="@+id/logoImageView"

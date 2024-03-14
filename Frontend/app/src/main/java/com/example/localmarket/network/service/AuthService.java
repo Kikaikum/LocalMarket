@@ -120,6 +120,28 @@ public class AuthService {
         });
     }
 
+    public void updateUsername(String newUsername, final AuthCallback<Void> callback) {
+        // Realizar la llamada a la API para actualizar el nombre de usuario
+        apiService.updateUsername(newUsername).enqueue(new Callback<Void>() {
+            @Override
+            public void onResponse(Call<Void> call, Response<Void> response) {
+                if (response.isSuccessful()) {
+                    // Si la respuesta es exitosa, llamar al método onSuccess del callback
+                    callback.onSuccess(null);
+                } else {
+                    // Si hay un error en la respuesta, llamar al método onError del callback
+                    callback.onError(new Exception("Error al actualizar el nombre de usuario"));
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Void> call, Throwable t) {
+                // Si hay un fallo en la llamada, llamar al método onError del callback
+                callback.onError(t);
+            }
+        });
+    }
+
     public interface ProfileCallback {
         void onSuccess(User userProfile);
         void onError(Throwable t);

@@ -7,58 +7,79 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.Toast;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link EditUsernameFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
+import com.example.localmarket.network.service.AuthService;
+
+
 public class EditUsernameFragment extends Fragment {
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
+    private EditText editTextUsername;
+    private ImageView deleteIcon;
+    private Button buttonListo; // Botón "Listo" para guardar los cambios
 
     public EditUsernameFragment() {
         // Required empty public constructor
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment EditProfileFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static EditUsernameFragment newInstance(String param1, String param2) {
+    public static EditUsernameFragment newInstance(String username) {
         EditUsernameFragment fragment = new EditUsernameFragment();
         Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
+        args.putString("username", username);
         fragment.setArguments(args);
         return fragment;
     }
 
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
-    }
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.editusername_fragment, container, false);
+        View rootView = inflater.inflate(R.layout.editusername_fragment, container, false);
+        // Inicializar vistas
+        editTextUsername = rootView.findViewById(R.id.editTextUsername);
+        deleteIcon = rootView.findViewById(R.id.deleteIcon);
+        buttonListo = rootView.findViewById(R.id.buttonListo);
+
+        // Obtener el nombre de usuario pasado desde EditProfileActivity
+        String username = getArguments().getString("username");
+        // Configurar el texto en el EditText
+        editTextUsername.setText(username);
+
+        // Configurar el OnClickListener para el icono de eliminar
+        deleteIcon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Borrar el texto del campo de texto
+                editTextUsername.setText("");
+            }
+        });
+
+        buttonListo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Obtener el nuevo valor del nombre de usuario
+                String newUsername = editTextUsername.getText().toString();
+                // Llamar al método para actualizar el nombre de usuario
+                AuthService.getInstance().updateUsername(newUsername, new AuthService.AuthCallback<Void>() {
+                    @Override
+                    public void onSuccess(Void response) {
+                        // Manejar el éxito, por ejemplo, mostrando un mensaje al usuario
+                        Toast.makeText(getActivity(), "Nombre de usuario actualizado correctamente", Toast.LENGTH_SHORT).show();
+                    }
+
+                    @Override
+                    public void onError(Throwable t) {
+                        // Manejar el error, por ejemplo, mostrando un mensaje al usuario
+                        Toast.makeText(getActivity(), "Error al actualizar el nombre de usuario", Toast.LENGTH_SHORT).show();
+                    }
+                });
+            }
+        });
+
+        return rootView;
     }
 }

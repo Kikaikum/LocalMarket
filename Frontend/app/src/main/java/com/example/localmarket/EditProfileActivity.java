@@ -61,21 +61,21 @@ public class EditProfileActivity extends AppCompatActivity {
         editUsernameButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                openFragment(new EditUsernameFragment());
+                openFragment(new EditUsernameFragment(), user.getUsername());
             }
         });
 
         editEmailButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                openFragment(new EditEmailFragment());
+                openFragment(new EditEmailFragment(), user.getEmail());
             }
         });
 
         editPasswordButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                openFragment(new EditPasswordFragment());
+                openFragment(new EditPasswordFragment(), user.getPassword());
             }
         });
 
@@ -87,8 +87,13 @@ public class EditProfileActivity extends AppCompatActivity {
         });
     }
 
-    // Método para abrir un fragmento en el contenedor
-    private void openFragment(Fragment fragment) {
+    // Método para abrir un fragmento en el contenedor y pasar datos
+    private void openFragment(Fragment fragment, String data) {
+
+        Bundle bundle = new Bundle();
+        bundle.putString("data", data);
+        fragment.setArguments(bundle);
+
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.replace(R.id.fragment_container, fragment);
