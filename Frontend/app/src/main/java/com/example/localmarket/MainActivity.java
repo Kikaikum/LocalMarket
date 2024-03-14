@@ -1,10 +1,13 @@
 package com.example.localmarket;
 
+import android.content.Intent;
 import android.os.Bundle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
+
+import com.example.localmarket.model.SessionManager;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -22,9 +25,14 @@ public class MainActivity extends AppCompatActivity {
         if (!sessionManager.isLoggedIn()) {
             // Si no hay sesión, muestra el LoginFragment
             openFragment(new LoginFragment());
-        } else {
+        } else if (sessionManager.isLoggedIn() && !sessionManager.isVendor()){
             // Si hay una sesión, procede con la actividad principal o muestra otro fragmento
-            // Ejemplo: openFragment(new HomeFragment());
+            Intent intent = new Intent(MainActivity.this, ActivityUserLobby.class);
+            startActivity(intent);
+        } else {
+            //todo: Ainoha aqui tienes el huequito donde podras invocar tu Activity de campesino
+            //Ex: Intent intent = new Intent (MainActivity.this, ActivityVendorLobby.class);
+            //startActuvity(intent);
         }
     }
 

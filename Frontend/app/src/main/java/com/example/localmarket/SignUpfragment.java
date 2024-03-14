@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Switch;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -17,7 +18,8 @@ import com.example.localmarket.network.service.AuthService;
 
 public class SignUpfragment extends Fragment {
 
-    private EditText editTextUsername, editTextEmail, editTextPassword;
+    private EditText editTextUsername, editTextEmail, editTextPassword, editTextName, editTextSurname;
+    private Switch aSwitchVendor;
     private Button buttonSignUp;
     private AuthService authService;
 
@@ -43,6 +45,10 @@ public class SignUpfragment extends Fragment {
         editTextEmail = view.findViewById(R.id.editTextEmail);
         editTextPassword = view.findViewById(R.id.editTextPassword);
         buttonSignUp = view.findViewById(R.id.buttonSignUp);
+        editTextName = view.findViewById(R.id.editTextName);
+        editTextSurname = view.findViewById(R.id.editTextSurname);
+        aSwitchVendor = view.findViewById(R.id.switchUserType);
+
 
         // Configurar el listener del botón de registro
         buttonSignUp.setOnClickListener(new View.OnClickListener() {
@@ -67,8 +73,10 @@ public class SignUpfragment extends Fragment {
         String username = editTextUsername.getText().toString().trim();
         String email = editTextEmail.getText().toString().trim();
         String password = editTextPassword.getText().toString().trim();
+        String name = editTextName.getText().toString().trim();
+        String surname = editTextSurname.getText().toString().trim();
 
-        return !username.isEmpty() && !email.isEmpty() && !password.isEmpty();
+        return !username.isEmpty() && !email.isEmpty() && !password.isEmpty() &&!name.isEmpty() && !surname.isEmpty();
     }
 
     // Método para enviar la información de registro al servidor
@@ -76,8 +84,11 @@ public class SignUpfragment extends Fragment {
         String username = editTextUsername.getText().toString().trim();
         String email = editTextEmail.getText().toString().trim();
         String password = editTextPassword.getText().toString().trim();
+        String name = editTextName.getText().toString().trim();
+        String surname = editTextSurname.getText().toString().trim();
+        Boolean isVendor = aSwitchVendor.isChecked();
 
-        authService.signUpUser(email, password, username, new AuthService.AuthCallback<SignUpResponse>() {
+        authService.signUpUser(email, password, username, name, surname, isVendor, new AuthService.AuthCallback<SignUpResponse>() {
             @Override
             public void onSuccess(SignUpResponse response) {
                 // Manejar la respuesta del servidor para el registro exitoso
