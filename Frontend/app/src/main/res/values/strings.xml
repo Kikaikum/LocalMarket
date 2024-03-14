@@ -1,12 +1,12 @@
 <resources>
     <string name="app_name">Local Market</string>
 
-
-    <string name="switch_vendedor">¿Registrarse como vendedor?</string>
+    <!-- switch -->
+    <string name="switch_vendedor">¿Registrarse como vendedor?     </string>
 
     <!-- buttons -->
     <string name="login">Login</string>
-    <string name="sing_up">Sing up</string>
+    <string name="sing_up">Registrarse</string>
     <string name="password">Contraseña</string>
     <string name="email">Correo electrónico</string>
     <string name="username">Nombre de usuario</string>
@@ -16,15 +16,16 @@
     <string name="listo">Listo</string>
 
     <!-- hints -->
-    <string name="insert_email_hint">Correo electronico...</string>
-    <string name="insert_pwd_hint">Password...</string>
+    <string name="insert_email_hint">Correo electrónico</string>
+    <string name="hint_pwd">Contraseña</string>
     <string name="indroduce_password_actual">Contraseña actual</string>
     <string name="introduce_new_password">Nueva contraseña</string>
+    <string name="hint_name">Nombre</string>
+    <string name="hint_surname">Apellidos</string>
 
     <!-- messages -->
     <string name="message_empty_fields">Por favor, complete todos los campos.</string>
     <string name="vendedor">Vendedor\n</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+
 
 </resources>
