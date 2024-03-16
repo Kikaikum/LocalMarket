@@ -2,48 +2,76 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/soft_green"
     tools:context=".MainActivity">
 
-
-
-
     <TextView
         android:id="@+id/dataTitle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="130dp"
+        android:layout_height="70dp"
         android:layout_marginStart="16dp"
         android:layout_marginTop="50dp"
-        android:layout_marginBottom="50dp"
+        android:gravity="center_vertical"
+
         android:text="Mi perfil"
         android:textSize="24sp"
-        app:layout_constraintBottom_toTopOf="@+id/editUsernameButton"
+        app:layout_constraintBottom_toTopOf="@+id/textName"
         app:layout_constraintEnd_toStartOf="@+id/logoImageView"
-        app:layout_constraintHorizontal_bias="0.144"
+        app:layout_constraintHorizontal_bias="0.175"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <ImageView
+        android:id="@+id/logoImageView"
+        android:layout_width="130dp"
+        android:layout_height="70dp"
+        android:layout_marginTop="50dp"
+        android:layout_marginEnd="16dp"
+        android:src="@drawable/logo"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
-    <!-- Botón para editar el nombre de usuario -->
+    <Button
+        android:id="@+id/textName"
+        style="@style/Widget.Material3.Button.TextButton"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="80dp"
+        android:layout_marginEnd="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/dataTitle" />
+
+    <Button
+        android:id="@+id/textSurname"
+        style="@style/Widget.Material3.Button.TextButton"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textName" />
+
     <Button
         android:id="@+id/editUsernameButton"
         style="@style/Widget.Material3.Button.TextButton"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="70dp"
+        android:layout_marginTop="16dp"
         android:layout_marginEnd="16dp"
-        android:text="@string/username"
         android:textAlignment="viewStart"
         android:textColor="@color/black"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/dataTitle" />
+        app:layout_constraintTop_toBottomOf="@+id/textSurname" />
 
-    <!-- Botón para editar el mail de usuario -->
     <Button
         android:id="@+id/editEmailButton"
         style="@style/Widget.Material3.Button.TextButton"
@@ -52,14 +80,13 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="16dp"
-        android:text="@string/email"
         android:textAlignment="viewStart"
         android:textColor="@color/black"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/editUsernameButton" />
 
-    <!-- Botón para editar la contraseña -->
     <Button
         android:id="@+id/editPasswordButton"
         style="@style/Widget.Material3.Button.TextButton"
@@ -68,42 +95,27 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="16dp"
-        android:inputType="textPassword"
-        android:text="@string/password"
         android:textAlignment="viewStart"
         android:textColor="@color/black"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/editEmailButton" />
 
-    <!-- Botón para eliminar cuenta -->
     <Button
         android:id="@+id/deleteAccountButton"
         style="@style/Widget.Material3.Button.TextButton"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="100dp"
+        android:layout_marginTop="64dp"
         android:layout_marginEnd="16dp"
         android:text="@string/delete"
         android:textAlignment="viewStart"
         android:textColor="@color/black"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/editPasswordButton" />
-
-
-
-    <!-- logo-->
-
-    <ImageView
-        android:id="@+id/logoImageView"
-        android:layout_width="130dp"
-        android:layout_height="70dp"
-        android:layout_marginTop="30dp"
-        android:layout_marginEnd="16dp"
-        android:src="@drawable/logo"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

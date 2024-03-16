@@ -10,6 +10,11 @@
           <theme>@style/NoStyle</theme>
         </config>
       </layout>
+      <layout url="file://$PROJECT_DIR$/Frontend/app/src/main/res/layout/activity_user_lobby.xml">
+        <config>
+          <theme>@style/NoStyle</theme>
+        </config>
+      </layout>
       <layout url="file://$PROJECT_DIR$/Frontend/app/src/main/res/layout/edit_profile.xml">
         <config>
           <theme>@style/NoStyle</theme>
@@ -20,12 +25,37 @@
           <theme>@style/NoStyle</theme>
         </config>
       </layout>
+      <layout url="file://$PROJECT_DIR$/Frontend/app/src/main/res/layout/editpassword_fragment.xml">
+        <config>
+          <theme>@style/NoStyle</theme>
+        </config>
+      </layout>
+      <layout url="file://$PROJECT_DIR$/Frontend/app/src/main/res/layout/editusername_fragment.xml">
+        <config>
+          <theme>@style/NoStyle</theme>
+        </config>
+      </layout>
+      <layout url="file://$PROJECT_DIR$/Frontend/app/src/main/res/layout/fragment_edit_name.xml">
+        <config>
+          <theme>@style/NoStyle</theme>
+        </config>
+      </layout>
+      <layout url="file://$PROJECT_DIR$/Frontend/app/src/main/res/layout/fragment_edit_surname.xml">
+        <config>
+          <theme>@style/NoStyle</theme>
+        </config>
+      </layout>
       <layout url="file://$PROJECT_DIR$/Frontend/app/src/main/res/layout/fragment_login.xml">
         <config>
           <theme>@style/NoStyle</theme>
         </config>
       </layout>
       <layout url="file://$PROJECT_DIR$/Frontend/app/src/main/res/layout/signup_fragment.xml">
+        <config>
+          <theme>@style/NoStyle</theme>
+        </config>
+      </layout>
+      <layout url="file://$PROJECT_DIR$/Frontend/app/src/main/res/menu/bottom_nav_menu.xml">
         <config>
           <theme>@style/NoStyle</theme>
         </config>
@@ -55,7 +85,7 @@
   <component name="ClangdSettings">
     <option name="formatViaClangd" value="false" />
   </component>
-  <component name="ExecutionTargetManager" SELECTED_TARGET="device_and_snapshot_combo_box_target[C:\Users\rasta\.android\avd\Pixel_3a_API_34_extension_level_7_x86_64.avd]" />
+  <component name="ExecutionTargetManager" SELECTED_TARGET="device_and_snapshot_combo_box_target[C:\Users\ainoh\.android\avd\Medium_Phone_API_34.avd]" />
   <component name="ExternalProjectsData">
     <projectState path="$PROJECT_DIR$/Frontend">
       <ProjectState />
@@ -98,17 +128,17 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.cidr.known.project.marker": "true",
-    "cf.first.check.clang-format": "false",
-    "cidr.known.project.marker": "true",
-    "git-widget-placeholder": "main",
-    "last_opened_file_path": "C:/Users/ainoh/Downloads/LocalMarket"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.cidr.known.project.marker&quot;: &quot;true&quot;,
+    &quot;cf.first.check.clang-format&quot;: &quot;false&quot;,
+    &quot;cidr.known.project.marker&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/ainoh/Downloads/LocalMarket&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="android.template.521814679">
       <recent name="com.example.localmarket" />

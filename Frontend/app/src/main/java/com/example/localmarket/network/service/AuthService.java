@@ -142,6 +142,132 @@ public class AuthService {
         });
     }
 
+    public void updateEmail(String newEmail, final AuthCallback<Void> callback) {
+        // Realizar la llamada a la API para actualizar el correo electrónico
+        apiService.updateEmail(newEmail).enqueue(new Callback<Void>() {
+            @Override
+            public void onResponse(Call<Void> call, Response<Void> response) {
+                if (response.isSuccessful()) {
+                    // Si la respuesta es exitosa, llamar al método onSuccess del callback
+                    callback.onSuccess(null);
+                } else {
+                    // Si hay un error en la respuesta, llamar al método onError del callback
+                    callback.onError(new Exception("Error al actualizar el correo electrónico"));
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Void> call, Throwable t) {
+                // Si hay un fallo en la llamada, llamar al método onError del callback
+                callback.onError(t);
+            }
+        });
+    }
+
+    public void updateName(String newName, final AuthCallback<Void> callback) {
+        // Realizar la llamada a la API para actualizar el nombre
+        apiService.updateName(newName).enqueue(new Callback<Void>() {
+            @Override
+            public void onResponse(Call<Void> call, Response<Void> response) {
+                if (response.isSuccessful()) {
+                    // Si la respuesta es exitosa, llamar al método onSuccess del callback
+                    callback.onSuccess(null);
+                } else {
+                    // Si hay un error en la respuesta, llamar al método onError del callback
+                    callback.onError(new Exception("Error al actualizar el nombre"));
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Void> call, Throwable t) {
+                // Si hay un fallo en la llamada, llamar al método onError del callback
+                callback.onError(t);
+            }
+        });
+    }
+
+    public void updateSurname(String newSurname, final AuthCallback<Void> callback) {
+        // Realizar la llamada a la API para actualizar el nombre
+        apiService.updateSurname(newSurname).enqueue(new Callback<Void>() {
+            @Override
+            public void onResponse(Call<Void> call, Response<Void> response) {
+                if (response.isSuccessful()) {
+                    // Si la respuesta es exitosa, llamar al método onSuccess del callback
+                    callback.onSuccess(null);
+                } else {
+                    // Si hay un error en la respuesta, llamar al método onError del callback
+                    callback.onError(new Exception("Error al actualizar el nombre"));
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Void> call, Throwable t) {
+                // Si hay un fallo en la llamada, llamar al método onError del callback
+                callback.onError(t);
+            }
+        });
+    }
+
+    public void updatePassword(String actualPassword, String newPassword, final AuthCallback<Void> callback) {
+        // Verificar la contraseña actual antes de actualizarla
+        verifyPassword(actualPassword, new AuthCallback<Boolean>() {
+            @Override
+            public void onSuccess(Boolean isCorrect) {
+                if (isCorrect) {
+                    // La contraseña actual es correcta, proceder a actualizarla
+                    apiService.updatePassword(newPassword).enqueue(new Callback<Void>() {
+                        @Override
+                        public void onResponse(Call<Void> call, Response<Void> response) {
+                            if (response.isSuccessful()) {
+                                callback.onSuccess(null);
+                            } else {
+                                callback.onError(new Exception("Error al actualizar la contraseña"));
+                            }
+                        }
+
+                        @Override
+                        public void onFailure(Call<Void> call, Throwable t) {
+                            callback.onError(t);
+                        }
+                    });
+                } else {
+                    // La contraseña actual es incorrecta, llamar al método onError del callback
+                    callback.onError(new Exception("La contraseña actual es incorrecta"));
+                }
+            }
+
+            @Override
+            public void onError(Throwable t) {
+                // Si hay un error al verificar la contraseña, llamar al método onError del callback
+                callback.onError(t);
+            }
+        });
+    }
+
+
+    public void verifyPassword(String password, final AuthCallback<Boolean> callback) {
+        // Realizar la llamada a la API para verificar la contraseña
+        apiService.verifyPassword(password).enqueue(new Callback<Boolean>() {
+            @Override
+            public void onResponse(Call<Boolean> call, Response<Boolean> response) {
+                if (response.isSuccessful()) {
+                    // Si la respuesta es exitosa, llamar al método onSuccess del callback con el resultado de la verificación
+                    callback.onSuccess(response.body());
+                } else {
+                    // Si hay un error en la respuesta, llamar al método onError del callback
+                    callback.onError(new Exception("Error al verificar la contraseña"));
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Boolean> call, Throwable t) {
+                // Si hay un fallo en la llamada, llamar al método onError del callback
+                callback.onError(t);
+            }
+        });
+    }
+
+
     public interface ProfileCallback {
         void onSuccess(User userProfile);
         void onError(Throwable t);

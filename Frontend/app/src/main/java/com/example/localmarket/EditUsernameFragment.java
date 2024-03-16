@@ -1,9 +1,7 @@
 package com.example.localmarket;
 
 import android.os.Bundle;
-
 import androidx.fragment.app.Fragment;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,15 +9,15 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
-
 import com.example.localmarket.network.service.AuthService;
-
+import com.example.localmarket.utils.ValidationUtils;
 
 public class EditUsernameFragment extends Fragment {
 
     private EditText editTextUsername;
     private ImageView deleteIcon;
     private Button buttonListo; // Botón "Listo" para guardar los cambios
+    private ValidationUtils.UsernameValidator usernameValidator; // Instancia de UsernameValidator
 
     public EditUsernameFragment() {
         // Required empty public constructor
@@ -33,8 +31,6 @@ public class EditUsernameFragment extends Fragment {
         return fragment;
     }
 
-
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -43,6 +39,9 @@ public class EditUsernameFragment extends Fragment {
         editTextUsername = rootView.findViewById(R.id.editTextUsername);
         deleteIcon = rootView.findViewById(R.id.deleteIcon);
         buttonListo = rootView.findViewById(R.id.buttonListo);
+
+        // Inicializar UsernameValidator
+        usernameValidator = new ValidationUtils.UsernameValidator();
 
         // Obtener el nombre de usuario pasado desde EditProfileActivity
         String username = getArguments().getString("username");
@@ -63,20 +62,26 @@ public class EditUsernameFragment extends Fragment {
             public void onClick(View v) {
                 // Obtener el nuevo valor del nombre de usuario
                 String newUsername = editTextUsername.getText().toString();
-                // Llamar al método para actualizar el nombre de usuario
-                AuthService.getInstance().updateUsername(newUsername, new AuthService.AuthCallback<Void>() {
-                    @Override
-                    public void onSuccess(Void response) {
-                        // Manejar el éxito, por ejemplo, mostrando un mensaje al usuario
-                        Toast.makeText(getActivity(), "Nombre de usuario actualizado correctamente", Toast.LENGTH_SHORT).show();
-                    }
+                // Verificar el nombre de usuario utilizando UsernameValidator
+                if (usernameValidator.isValidUsername(newUsername)) {
+                    // El nombre de usuario es válido, llamar al método para actualizarlo
+                    AuthService.getInstance().updateUsername(newUsername, new AuthService.AuthCallback<Void>() {
+                        @Override
+                        public void onSuccess(Void response) {
+                            // Manejar el éxito, mostrando un mensaje al usuario
+                            Toast.makeText(getActivity(), "Nombre de usuario actualizado correctamente", Toast.LENGTH_SHORT).show();
+                        }
 
-                    @Override
-                    public void onError(Throwable t) {
-                        // Manejar el error, por ejemplo, mostrando un mensaje al usuario
-                        Toast.makeText(getActivity(), "Error al actualizar el nombre de usuario", Toast.LENGTH_SHORT).show();
-                    }
-                });
+                        @Override
+                        public void onError(Throwable t) {
+                            // Manejar el error, mostrando un mensaje al usuario
+                            Toast.makeText(getActivity(), "Error al actualizar el nombre de usuario", Toast.LENGTH_SHORT).show();
+                        }
+                    });
+                } else {
+                    // El nombre de usuario no es válido, mostrar un mensaje de error al usuario
+                    Toast.makeText(getActivity(), "Nombre de usuario no válido", Toast.LENGTH_SHORT).show();
+                }
             }
         });
 
