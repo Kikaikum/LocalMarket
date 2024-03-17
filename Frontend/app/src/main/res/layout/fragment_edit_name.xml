@@ -22,18 +22,18 @@
         android:layout_marginStart="20dp"
         android:layout_marginTop="8dp"
         android:src="@drawable/delete"
-        app:layout_constraintStart_toEndOf="@+id/editTextEmail"
-        app:layout_constraintTop_toTopOf="@+id/editTextEmail" />
+        app:layout_constraintStart_toEndOf="@+id/editTextName"
+        app:layout_constraintTop_toTopOf="@+id/editTextName" />
 
     <TextView
-        android:id="@+id/tituloEmail"
+        android:id="@+id/tituloNombre"
         android:layout_width="120dp"
         android:layout_height="60dp"
         android:layout_marginStart="30dp"
         android:layout_marginTop="28dp"
         android:layout_marginEnd="156dp"
         android:gravity="center"
-        android:text="Email"
+        android:text="Nombre"
         android:textAlignment="center"
         android:textSize="24sp"
         app:layout_constraintEnd_toStartOf="@+id/buttonListo"
@@ -55,7 +55,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
-        android:id="@+id/editTextEmail"
+        android:id="@+id/editTextName"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="30dp"
@@ -66,6 +66,6 @@
         app:layout_constraintEnd_toStartOf="@id/buttonListo"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tituloEmail" />
+        app:layout_constraintTop_toBottomOf="@+id/tituloNombre" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

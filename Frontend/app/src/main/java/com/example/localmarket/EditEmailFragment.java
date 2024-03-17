@@ -1,60 +1,93 @@
 package com.example.localmarket;
 
+
+import android.content.Context;
 import android.os.Bundle;
-
 import androidx.fragment.app.Fragment;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.Toast;
+import com.example.localmarket.network.service.AuthService;
+import com.example.localmarket.utils.ValidationUtils;
 
 public class EditEmailFragment extends Fragment {
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
+    private EditText editTextEmail;
+    private ImageView deleteIcon;
+    private Button buttonListo; // Botón "Listo" para guardar los cambios
+    private ValidationUtils.EmailValidator emailValidator; // Instancia de EmailValidator
+    private Context context;
 
     public EditEmailFragment() {
         // Required empty public constructor
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment EditEmailFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static EditEmailFragment newInstance(String param1, String param2) {
+    public static EditEmailFragment newInstance(String email) {
         EditEmailFragment fragment = new EditEmailFragment();
         Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
+        args.putString("email", email);
         fragment.setArguments(args);
         return fragment;
     }
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
-    }
-
-    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.editemail_fragment, container, false);
+        View rootView = inflater.inflate(R.layout.editemail_fragment, container, false);
+        // Inicializar vistas
+        editTextEmail = rootView.findViewById(R.id.editTextEmail);
+        deleteIcon = rootView.findViewById(R.id.deleteIcon);
+        buttonListo = rootView.findViewById(R.id.buttonListo);
+
+        // Inicializar EmailValidator
+        emailValidator = new ValidationUtils.EmailValidator();
+
+        // Obtener el email de usuario pasado desde EditProfileActivity
+        String email = getArguments().getString("email");
+        // Configurar el texto en el EditText
+        editTextEmail.setText(email);
+
+        // Configurar el OnClickListener para el icono de eliminar
+        deleteIcon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Borrar el texto del campo de texto
+                editTextEmail.setText("");
+            }
+        });
+
+        buttonListo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Obtener el nuevo valor del email de usuario
+                String newEmail = editTextEmail.getText().toString();
+                // Verificar el email de usuario utilizando EmailValidator
+                if (emailValidator.isValidEmail(context,newEmail)) {
+                    // El email es válido, llamar al método para actualizarlo
+                    AuthService.getInstance().updateEmail(newEmail, new AuthService.AuthCallback<Void>() {
+                        @Override
+                        public void onSuccess(Void response) {
+                            // Manejar el éxito, mostrando un mensaje al usuario
+                            Toast.makeText(getActivity(), "Email actualizado correctamente", Toast.LENGTH_SHORT).show();
+                        }
+
+                        @Override
+                        public void onError(Throwable t) {
+                            // Manejar el error, mostrando un mensaje al usuario
+                            Toast.makeText(getActivity(), "Error al actualizar el Email", Toast.LENGTH_SHORT).show();
+                        }
+                    });
+                } else {
+                    // El email de usuario no es válido, mostrar un mensaje de error al usuario
+                    Toast.makeText(getActivity(), "Email de usuario no válido", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+
+        return rootView;
     }
 }

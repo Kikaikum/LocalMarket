@@ -12,7 +12,7 @@
     <string name="username">Nombre de usuario</string>
     <string name="save">Guardar</string>
     <string name="delete">Eliminar cuenta</string>
-    <string name="nombre">Nombre</string>
+    <string name="nombreUsuario">Nombre Usuario</string>
     <string name="listo">Listo</string>
 
     <!-- hints -->
@@ -30,5 +30,15 @@
     <!-- productos -->
     <string name="product_near">Productos cerca de mi</string>
 
+    <!-- Toasts -->
+    <string name="toast_invalid_username">Este campo no puede tener carácteres especiales</string>
+    <string name="toast_invalid_email">El formato es incorrecto, debe ser "xxx@xxx.xxx"</string>
+    <string name="toast_invalid_special_characters">Este campo no puede tener carácteres especiales ni números</string>
+    <string name="toast_invalid_password">Productos cerca de mi</string>
+    <string name="toast_invalid_name">Productos cerca de mi</string>
+    <string name="toast_field_empty">Introduzca el campo</string>
+    <string name="toast_field_not_uppercase">El password debe contener minimo 1 mayuscula</string>
+    <string name="toast_field_not_special_char">El password debe contener minimo 1 caracter especial</string>
+    <string name="toast_field_min_8char">La contraseña debe tener mínimo 8 carácteres.</string>
 
 </resources>

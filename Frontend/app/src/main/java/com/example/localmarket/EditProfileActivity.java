@@ -4,6 +4,7 @@ import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AlertDialog;
@@ -17,7 +18,8 @@ import com.example.localmarket.network.api.ApiService;
 import com.example.localmarket.network.service.AuthService;
 
 public class EditProfileActivity extends AppCompatActivity {
-    private Button editUsernameButton, editEmailButton, editPasswordButton, deleteAccountButton;
+    private Button editUsernameButton, editEmailButton, editPasswordButton, deleteAccountButton, editNameButton , editSurnameButton;
+
     private User user;
 
     private ApiService apiService;
@@ -33,9 +35,11 @@ public class EditProfileActivity extends AppCompatActivity {
         editEmailButton = findViewById(R.id.editEmailButton);
         editPasswordButton = findViewById(R.id.editPasswordButton);
         deleteAccountButton=findViewById(R.id.deleteAccountButton);
+        editNameButton=findViewById(R.id.textName);
+        editNameButton=findViewById(R.id.textSurname);
 
         // Inicializar AuthService y ApiService
-        authService = new AuthService();
+        authService = AuthService.getInstance();
         apiService = authService.getApiService();
 
         // Obtener datos del usuario
@@ -44,6 +48,8 @@ public class EditProfileActivity extends AppCompatActivity {
             public void onSuccess(User userProfile) {
                 user = userProfile;
                 // Establecer los textos de los botones con los datos del usuario
+                editNameButton.setText(userProfile.getName());
+                editSurnameButton.setText(userProfile.getSurname());
                 editUsernameButton.setText(userProfile.getUsername());
                 editEmailButton.setText(userProfile.getEmail());
                 editPasswordButton.setText(userProfile.getPassword());
@@ -58,24 +64,38 @@ public class EditProfileActivity extends AppCompatActivity {
 
 
         // Configurar clics en los botones de edición
+        editNameButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openFragment(new EditNameFragment(), user.getUsername());
+            }
+        });
+
+        editSurnameButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openFragment(new EditSurnameFragment(), user.getUsername());
+            }
+        });
+
         editUsernameButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                openFragment(new EditUsernameFragment());
+                openFragment(new EditUsernameFragment(), user.getUsername());
             }
         });
 
         editEmailButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                openFragment(new EditEmailFragment());
+                openFragment(new EditEmailFragment(), user.getEmail());
             }
         });
 
         editPasswordButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                openFragment(new EditPasswordFragment());
+                openFragment(new EditPasswordFragment(), user.getPassword());
             }
         });
 
@@ -87,8 +107,13 @@ public class EditProfileActivity extends AppCompatActivity {
         });
     }
 
-    // Método para abrir un fragmento en el contenedor
-    private void openFragment(Fragment fragment) {
+    // Método para abrir un fragmento en el contenedor y pasar datos
+    private void openFragment(Fragment fragment, String data) {
+
+        Bundle bundle = new Bundle();
+        bundle.putString("data", data);
+        fragment.setArguments(bundle);
+
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.replace(R.id.fragment_container, fragment);
