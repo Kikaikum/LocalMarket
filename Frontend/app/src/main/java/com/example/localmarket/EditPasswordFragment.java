@@ -1,5 +1,6 @@
 package com.example.localmarket;
 
+import android.content.Context;
 import android.os.Bundle;
 import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
@@ -18,6 +19,7 @@ public class EditPasswordFragment extends Fragment {
     private EditText repeatPassword;
     private Button buttonListo;
     private ValidationUtils.PasswordValidator passwordValidator;
+    private Context context;
 
     public EditPasswordFragment() {
         // Required empty public constructor
@@ -84,7 +86,7 @@ public class EditPasswordFragment extends Fragment {
         String repeatPwd = repeatPassword.getText().toString();
 
         // Validate new password
-        if (passwordValidator.isValidPassword(newPwd) && newPwd.equals(repeatPwd)) {
+        if (passwordValidator.isValidPassword(context,newPwd) && newPwd.equals(repeatPwd)) {
             // Update password
             AuthService.getInstance().updatePassword(actualPwd, newPwd, new AuthService.AuthCallback<Void>() {
                 @Override
@@ -98,7 +100,7 @@ public class EditPasswordFragment extends Fragment {
                 }
             });
         } else {
-            if (!passwordValidator.isValidPassword(newPwd)) {
+            if (!passwordValidator.isValidPassword(context,newPwd)) {
                 Toast.makeText(getActivity(), "La nueva contraseña no es válida", Toast.LENGTH_SHORT).show();
             } else {
                 Toast.makeText(getActivity(), "Las nuevas contraseñas no coinciden", Toast.LENGTH_SHORT).show();

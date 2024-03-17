@@ -1,5 +1,7 @@
 package com.example.localmarket;
 
+import android.content.Context;
+import android.graphics.Color;
 import android.os.Bundle;
 import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
@@ -18,6 +20,7 @@ public class EditSurnameFragment extends Fragment {
     private ImageView deleteIcon;
     private Button buttonListo; // Botón "Listo" para guardar los cambios
     private ValidationUtils.NameValidator surnameValidator; // Instancia de NameValidator
+    private Context context;
 
     public EditSurnameFragment() {
         // Required empty public constructor
@@ -63,7 +66,7 @@ public class EditSurnameFragment extends Fragment {
                 // Obtener el nuevo valor de los apellidos de usuario
                 String newSurname = editTextSurname.getText().toString();
                 // Verificar los apellidos utilizando NameValidator
-                if (surnameValidator.isValidName(newSurname)) {
+                if (surnameValidator.isValidName(context,newSurname)) {
                     // Los apellidos son válidos, llamar al método para actualizarlos
                     AuthService.getInstance().updateSurname(newSurname, new AuthService.AuthCallback<Void>() {
                         @Override

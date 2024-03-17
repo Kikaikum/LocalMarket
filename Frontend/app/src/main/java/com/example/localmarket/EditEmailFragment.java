@@ -1,5 +1,7 @@
 package com.example.localmarket;
 
+
+import android.content.Context;
 import android.os.Bundle;
 import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
@@ -18,6 +20,7 @@ public class EditEmailFragment extends Fragment {
     private ImageView deleteIcon;
     private Button buttonListo; // Botón "Listo" para guardar los cambios
     private ValidationUtils.EmailValidator emailValidator; // Instancia de EmailValidator
+    private Context context;
 
     public EditEmailFragment() {
         // Required empty public constructor
@@ -63,7 +66,7 @@ public class EditEmailFragment extends Fragment {
                 // Obtener el nuevo valor del email de usuario
                 String newEmail = editTextEmail.getText().toString();
                 // Verificar el email de usuario utilizando EmailValidator
-                if (emailValidator.isValidEmail(newEmail)) {
+                if (emailValidator.isValidEmail(context,newEmail)) {
                     // El email es válido, llamar al método para actualizarlo
                     AuthService.getInstance().updateEmail(newEmail, new AuthService.AuthCallback<Void>() {
                         @Override

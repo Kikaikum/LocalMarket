@@ -1,5 +1,8 @@
 package com.example.localmarket;
 
+
+
+import android.content.Context;
 import android.os.Bundle;
 import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
@@ -18,6 +21,7 @@ public class EditUsernameFragment extends Fragment {
     private ImageView deleteIcon;
     private Button buttonListo; // Botón "Listo" para guardar los cambios
     private ValidationUtils.UsernameValidator usernameValidator; // Instancia de UsernameValidator
+    private Context context;
 
     public EditUsernameFragment() {
         // Required empty public constructor
@@ -63,7 +67,7 @@ public class EditUsernameFragment extends Fragment {
                 // Obtener el nuevo valor del nombre de usuario
                 String newUsername = editTextUsername.getText().toString();
                 // Verificar el nombre de usuario utilizando UsernameValidator
-                if (usernameValidator.isValidUsername(newUsername)) {
+                if (usernameValidator.isValidUsername( context, newUsername)) {
                     // El nombre de usuario es válido, llamar al método para actualizarlo
                     AuthService.getInstance().updateUsername(newUsername, new AuthService.AuthCallback<Void>() {
                         @Override

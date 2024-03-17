@@ -1,5 +1,7 @@
 package com.example.localmarket;
 
+import android.content.Context;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,13 +17,15 @@ import androidx.fragment.app.Fragment;
 
 import com.example.localmarket.model.SignUpResponse;
 import com.example.localmarket.network.service.AuthService;
+import com.example.localmarket.utils.ValidationUtils;
 
-public class SignUpfragment extends Fragment {
+public class SignUpfragment extends Fragment implements View.OnFocusChangeListener {
 
     private EditText editTextUsername, editTextEmail, editTextPassword, editTextName, editTextSurname;
     private Switch aSwitchVendor;
     private Button buttonSignUp;
     private AuthService authService;
+    private Context context;
 
     public SignUpfragment() {
         // Constructor vacío requerido por Fragment
@@ -49,34 +53,121 @@ public class SignUpfragment extends Fragment {
         editTextSurname = view.findViewById(R.id.editTextSurname);
         aSwitchVendor = view.findViewById(R.id.switchUserType);
 
+        // Establecer el listener de cambio de foco para cada EditText
+        editTextUsername.setOnFocusChangeListener(this);
+        editTextEmail.setOnFocusChangeListener(this);
+        editTextPassword.setOnFocusChangeListener(this);
+        editTextName.setOnFocusChangeListener(this);
+        editTextSurname.setOnFocusChangeListener(this);
 
-        // Configurar el listener del botón de registro
         buttonSignUp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 // Validar los campos de entrada
-                if (validateFields()) {
-                    // Enviar la información de registro al servidor
+                if (validateFields(getContext())) {
+                    // Si los campos son válidos, realizar el registro
                     signUp();
                 } else {
-                    // Mostrar un mensaje de error si los campos no son válidos
-                    Toast.makeText(getActivity(), R.string.message_empty_fields, Toast.LENGTH_SHORT).show();
+                    // Si los campos no son válidos, mostrar un mensaje de error
+                    showToast("Por favor, completa correctamente todos los campos.");
                 }
             }
         });
-
         return view;
     }
 
+    @Override
+    public void onFocusChange(View v, boolean hasFocus) {
+
+        Context context = getContext();
+
+        int id = v.getId();
+        if (!hasFocus) {
+            if (id == R.id.editTextUsername) {
+                // Realizar acciones específicas cuando el EditText de username pierde el foco
+                // Por ejemplo, validar el nombre de usuario
+                String username = editTextUsername.getText().toString().trim();
+                editTextUsername.setTextColor(Color.BLACK);
+                if (!ValidationUtils.UsernameValidator.isValidUsername(context,username)) {
+                    // Si el nombre de usuario no es válido, mostrar un mensaje de error
+                    // También puedes cambiar el color de fondo para indicar el error
+                    editTextUsername.setTextColor(Color.RED);
+                }
+            } else if (id == R.id.editTextEmail) {
+                // Realizar acciones específicas cuando el EditText de email pierde el foco
+                // Por ejemplo, validar el email
+                String email = editTextEmail.getText().toString().trim();
+                editTextEmail.setTextColor(Color.BLACK);
+                if (!ValidationUtils.EmailValidator.isValidEmail(context,email)) {
+                    // También puedes cambiar el color de fondo para indicar el error
+                    editTextEmail.setTextColor(Color.RED);
+                }
+            } else if (id == R.id.editTextPassword) {
+                // Realizar acciones específicas cuando el EditText de password pierde el foco
+                // Por ejemplo, validar la contraseña
+                String password = editTextPassword.getText().toString().trim();
+                editTextPassword.setTextColor(Color.BLACK);
+                if (!ValidationUtils.PasswordValidator.isValidPassword(context,password)) {
+
+                    // También puedes cambiar el color de fondo para indicar el error
+                    editTextPassword.setTextColor(Color.RED);
+                }
+            } else if (id == R.id.editTextName) {
+                // Realizar acciones específicas cuando el EditText de name pierde el foco
+                // Por ejemplo, validar el nombre
+                String name = editTextName.getText().toString().trim();
+                editTextName.setTextColor(Color.BLACK);
+                if (!ValidationUtils.NameValidator.isValidName(context,name)) {
+
+                    // También puedes cambiar el color de fondo para indicar el error
+                    editTextName.setTextColor(Color.RED);
+                }
+            } else if (id == R.id.editTextSurname) {
+                // Realizar acciones específicas cuando el EditText de surname pierde el foco
+                // Por ejemplo, validar el apellido
+                String surname = editTextSurname.getText().toString().trim();
+                editTextSurname.setTextColor(Color.BLACK);;
+                if (!ValidationUtils.NameValidator.isValidName(context,surname)) {
+
+                    // También puedes cambiar el color de fondo para indicar el error
+                    editTextSurname.setTextColor(Color.RED);
+                }
+            }
+        }
+    }
+
+
     // Método para validar los campos de entrada
-    private boolean validateFields() {
+    private boolean validateFields(Context context) {
         String username = editTextUsername.getText().toString().trim();
         String email = editTextEmail.getText().toString().trim();
         String password = editTextPassword.getText().toString().trim();
         String name = editTextName.getText().toString().trim();
         String surname = editTextSurname.getText().toString().trim();
 
-        return !username.isEmpty() && !email.isEmpty() && !password.isEmpty() &&!name.isEmpty() && !surname.isEmpty();
+        // Verificar la validez de cada campo y retornar false si alguno no es válido
+        if (username.isEmpty() || !ValidationUtils.UsernameValidator.isValidUsername(context, username)) {
+            return false;
+        }
+
+        if (email.isEmpty() || !ValidationUtils.EmailValidator.isValidEmail(context, email)) {
+            return false;
+        }
+
+        if (password.isEmpty() || !ValidationUtils.PasswordValidator.isValidPassword(context, password)) {
+            return false;
+        }
+
+        if (name.isEmpty() || !ValidationUtils.NameValidator.isValidName(context, name)) {
+            return false;
+        }
+
+        if (surname.isEmpty() || !ValidationUtils.NameValidator.isValidName(context, surname)) {
+            return false;
+        }
+
+        // Todos los campos son válidos
+        return true;
     }
 
     // Método para enviar la información de registro al servidor
@@ -103,4 +194,9 @@ public class SignUpfragment extends Fragment {
             }
         });
     }
+    // Method to show a Toast message
+    private void showToast(String message) {
+        Toast.makeText(getActivity(), message, Toast.LENGTH_SHORT).show();
+    }
+
 }
