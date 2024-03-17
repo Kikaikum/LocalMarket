@@ -3,6 +3,7 @@ package com.example.localmarket;
 import android.content.Context;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -190,6 +191,7 @@ public class SignUpfragment extends Fragment implements View.OnFocusChangeListen
             @Override
             public void onError(Throwable t) {
                 // Manejar el error de registro
+                Log.e("SignUpError", "Error en el registro: " + t.getMessage(), t);
                 Toast.makeText(getActivity(), "Error en el registro: " + t.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });

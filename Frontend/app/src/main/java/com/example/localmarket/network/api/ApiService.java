@@ -19,7 +19,7 @@ public interface ApiService {
     @POST("localmarket/v1/users")
     Call<LoginResponse> loginUser(@Body LoginRequest loginRequest);
 
-    @POST("localmarket/v1/users/login")
+    @POST("localmarket/v1/users")
     Call<SignUpResponse> createUser(@Body SignUpRequest signUpRequest);
 
     @GET("/user/profile")
