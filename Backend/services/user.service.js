@@ -17,9 +17,10 @@ class UserService {
   }
 
   async find() {
-    const rta = await models.User.findAll({
+    const users = await models.User.findAll({
     });
-    return rta;
+    delete users.dataValues.password;
+    return users;
   }
 
   async findOne(id) {
@@ -34,6 +35,7 @@ class UserService {
   async update(id, changes) {
     const user = await this.findOne(id);
     const rta = await user.update(changes);
+    delete rta.dataValues.password;
     return rta;
   }
 
