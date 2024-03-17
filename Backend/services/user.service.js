@@ -17,9 +17,10 @@ class UserService {
   }
 
   async find() {
-    const users = await models.User.findAll({
+    const users = await models.User.findAll();
+    users.forEach((usuario) => {
+      delete usuario.dataValues.password;
     });
-    delete users.dataValues.password;
     return users;
   }
 
