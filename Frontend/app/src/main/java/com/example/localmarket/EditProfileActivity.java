@@ -4,7 +4,6 @@ import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AlertDialog;
@@ -16,6 +15,7 @@ import androidx.fragment.app.FragmentTransaction;
 import com.example.localmarket.model.User;
 import com.example.localmarket.network.api.ApiService;
 import com.example.localmarket.network.service.AuthService;
+import com.example.localmarket.network.service.SimulatedAuthService;
 
 public class EditProfileActivity extends AppCompatActivity {
     private Button editUsernameButton, editEmailButton, editPasswordButton, deleteAccountButton, editNameButton , editSurnameButton;
@@ -23,8 +23,9 @@ public class EditProfileActivity extends AppCompatActivity {
     private User user;
 
     private ApiService apiService;
-    private AuthService authService;
+    //private AuthService authService;
 
+    private SimulatedAuthService authService = SimulatedAuthService.getInstance();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -36,14 +37,18 @@ public class EditProfileActivity extends AppCompatActivity {
         editPasswordButton = findViewById(R.id.editPasswordButton);
         deleteAccountButton=findViewById(R.id.deleteAccountButton);
         editNameButton=findViewById(R.id.textName);
-        editNameButton=findViewById(R.id.textSurname);
+        editSurnameButton=findViewById(R.id.textSurname);
 
         // Inicializar AuthService y ApiService
-        authService = AuthService.getInstance();
-        apiService = authService.getApiService();
+        //authService = AuthService.getInstance();
+       // apiService = authService.getApiService();
+
+        authService = SimulatedAuthService.getInstance();
+
 
         // Obtener datos del usuario
         authService.getUserProfile(new AuthService.ProfileCallback() {
+
             @Override
             public void onSuccess(User userProfile) {
                 user = userProfile;
@@ -67,35 +72,41 @@ public class EditProfileActivity extends AppCompatActivity {
         editNameButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                openFragment(new EditNameFragment(), user.getUsername());
+                // Obtener el nombre actual del usuario
+                String currentName = user.getName();
+                // Abrir el fragmento EditNameFragment y pasar el nombre como argumento
+                openFragment(EditNameFragment.newInstance(currentName));
             }
         });
 
         editSurnameButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                openFragment(new EditSurnameFragment(), user.getUsername());
+                String currentSurname=user.getSurname();
+                openFragment(EditSurnameFragment.newInstance(currentSurname));
             }
         });
 
         editUsernameButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                openFragment(new EditUsernameFragment(), user.getUsername());
+                String currentUsername=user.getUsername();
+                openFragment(EditUsernameFragment.newInstance(currentUsername));
             }
         });
 
         editEmailButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                openFragment(new EditEmailFragment(), user.getEmail());
+                String currentEmail=user.getEmail();
+                openFragment(EditSurnameFragment.newInstance(currentEmail));
             }
         });
 
         editPasswordButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                openFragment(new EditPasswordFragment(), user.getPassword());
+                openFragment(new EditPasswordFragment());
             }
         });
 
@@ -108,12 +119,7 @@ public class EditProfileActivity extends AppCompatActivity {
     }
 
     // Método para abrir un fragmento en el contenedor y pasar datos
-    private void openFragment(Fragment fragment, String data) {
-
-        Bundle bundle = new Bundle();
-        bundle.putString("data", data);
-        fragment.setArguments(bundle);
-
+    private void openFragment(Fragment fragment) {
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.replace(R.id.fragment_container, fragment);

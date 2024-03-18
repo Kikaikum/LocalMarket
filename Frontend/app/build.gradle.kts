@@ -44,4 +44,12 @@ dependencies {
     testImplementation(libs.junit)
     androidTestImplementation(libs.ext.junit)
     androidTestImplementation(libs.espresso.core)
+
+    implementation("androidx.test:rules:1.4.0")
+    implementation ("androidx.test.ext:junit:1.1.3")
+    implementation ("androidx.test.espresso:espresso-core:3.4.0")
+    implementation("androidx.test.espresso:espresso-core")
+
+
+
 }

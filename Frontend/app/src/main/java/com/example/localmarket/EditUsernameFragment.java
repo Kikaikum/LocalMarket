@@ -12,6 +12,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
+
+import com.example.localmarket.model.SessionManager;
 import com.example.localmarket.network.service.AuthService;
 import com.example.localmarket.utils.ValidationUtils;
 
@@ -22,6 +24,8 @@ public class EditUsernameFragment extends Fragment {
     private Button buttonListo; // Botón "Listo" para guardar los cambios
     private ValidationUtils.UsernameValidator usernameValidator; // Instancia de UsernameValidator
     private Context context;
+
+    private SessionManager sessionManager;
 
     public EditUsernameFragment() {
         // Required empty public constructor
@@ -43,6 +47,7 @@ public class EditUsernameFragment extends Fragment {
         editTextUsername = rootView.findViewById(R.id.editTextUsername);
         deleteIcon = rootView.findViewById(R.id.deleteIcon);
         buttonListo = rootView.findViewById(R.id.buttonListo);
+
 
         // Inicializar UsernameValidator
         usernameValidator = new ValidationUtils.UsernameValidator();
