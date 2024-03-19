@@ -1,5 +1,6 @@
 package com.example.localmarket;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.Nullable;
@@ -83,6 +84,20 @@ public class LoginFragment extends Fragment {
                 // Login exitoso, manejar según sea necesario
                 Toast.makeText(getActivity(), "Login exitoso", Toast.LENGTH_SHORT).show();
                 // Aquí puedes cambiar al fragmento o actividad del home o dashboard
+                // Obtener el token de la respuesta
+                String token = response.getToken();
+
+                // Determinar qué actividad abrir según el tipo de usuario
+                Class<?> activityClass = response.isVendor() ? ActivitySellerLobby.class : ActivityUserLobby.class;
+
+                // Crear un Intent para abrir la actividad correspondiente
+                Intent intent = new Intent(getActivity(), activityClass);
+
+                // Pasar el token como extra al Intent
+                intent.putExtra("TOKEN", token);
+
+                // Iniciar la actividad
+                startActivity(intent);
             }
 
             @Override

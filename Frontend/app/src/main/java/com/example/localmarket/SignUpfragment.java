@@ -15,6 +15,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 
 import com.example.localmarket.model.SignUpResponse;
 import com.example.localmarket.network.service.AuthService;
@@ -24,7 +25,7 @@ public class SignUpfragment extends Fragment implements View.OnFocusChangeListen
 
     private EditText editTextUsername, editTextEmail, editTextPassword, editTextName, editTextSurname;
     private Switch aSwitchVendor;
-    private Button buttonSignUp;
+    private Button buttonSignUp, buttonCancel;
     private AuthService authService;
     private Context context;
 
@@ -50,6 +51,7 @@ public class SignUpfragment extends Fragment implements View.OnFocusChangeListen
         editTextEmail = view.findViewById(R.id.editTextEmail);
         editTextPassword = view.findViewById(R.id.editTextPassword);
         buttonSignUp = view.findViewById(R.id.buttonSignUp);
+        buttonCancel = view.findViewById(R.id.buttonCancel);
         editTextName = view.findViewById(R.id.editTextName);
         editTextSurname = view.findViewById(R.id.editTextSurname);
         aSwitchVendor = view.findViewById(R.id.switchUserType);
@@ -72,6 +74,12 @@ public class SignUpfragment extends Fragment implements View.OnFocusChangeListen
                     // Si los campos no son válidos, mostrar un mensaje de error
                     showToast("Por favor, completa correctamente todos los campos.");
                 }
+            }
+        });
+        buttonCancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                backLogin();
             }
         });
         return view;
@@ -186,8 +194,8 @@ public class SignUpfragment extends Fragment implements View.OnFocusChangeListen
                 // Manejar la respuesta del servidor para el registro exitoso
                 Toast.makeText(getActivity(), "Registro exitoso", Toast.LENGTH_SHORT).show();
                 // Aquí puedes manejar la navegación post-registro, como abrir el fragmento de inicio
+                backLogin();
             }
-
             @Override
             public void onError(Throwable t) {
                 // Manejar el error de registro
@@ -199,6 +207,14 @@ public class SignUpfragment extends Fragment implements View.OnFocusChangeListen
     // Method to show a Toast message
     private void showToast(String message) {
         Toast.makeText(getActivity(), message, Toast.LENGTH_SHORT).show();
+    }
+    private void backLogin() {
+        FragmentManager fragmentManager = getParentFragmentManager(); // Si estás en un fragmento
+        // FragmentManager fragmentManager = requireActivity().getSupportFragmentManager(); // Si estás en una actividad
+        fragmentManager.beginTransaction()
+                .replace(R.id.fragment_container, new LoginFragment())
+                .addToBackStack(null) // Opcional: para agregar transacciones a la pila de retroceso
+                .commit();
     }
 
 }

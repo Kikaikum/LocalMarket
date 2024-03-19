@@ -26,7 +26,7 @@ public class AuthService {
     private SessionManager sessionManager;
 
     // URL base de tu API
-    private static final String BASE_URL = "https://kikaikum.ddns.net:3000/";
+    private static final String BASE_URL = "https://kikaikum.ddns.net:3000/localmarket/v1/";
 
     private AuthService() {
         // Configuración del cliente HTTP con interceptor para logs
