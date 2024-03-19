@@ -17,12 +17,14 @@ import android.widget.Toast;
 
 import com.example.localmarket.model.LoginResponse;
 import com.example.localmarket.network.service.AuthService;
+import com.example.localmarket.utils.TokenManager;
 
 public class LoginFragment extends Fragment {
 
     private EditText emailEditText, passwordEditText;
     private Button loginButton, signUpButton;
     private AuthService authService;
+    private TokenManager tokenManager;
 
     public LoginFragment() {
         // Constructor público vacío requerido
@@ -31,6 +33,7 @@ public class LoginFragment extends Fragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         authService = AuthService.getInstance();
+        tokenManager = new TokenManager(requireContext());
     }
 
     @Override
@@ -81,30 +84,25 @@ public class LoginFragment extends Fragment {
         authService.loginUser(email, password, new AuthService.AuthCallback<LoginResponse>() {
             @Override
             public void onSuccess(LoginResponse response) {
-                // Login exitoso, manejar según sea necesario
                 Toast.makeText(getActivity(), "Login exitoso", Toast.LENGTH_SHORT).show();
-                // Aquí puedes cambiar al fragmento o actividad del home o dashboard
-                // Obtener el token de la respuesta
                 String token = response.getToken();
-
-                // Determinar qué actividad abrir según el tipo de usuario
-                Class<?> activityClass = response.isVendor() ? ActivitySellerLobby.class : ActivityUserLobby.class;
-
-                // Crear un Intent para abrir la actividad correspondiente
-                Intent intent = new Intent(getActivity(), activityClass);
-
-                // Pasar el token como extra al Intent
-                intent.putExtra("TOKEN", token);
-
-                // Iniciar la actividad
-                startActivity(intent);
+                tokenManager.saveToken(token); // Guardar el token en SharedPreferences
+                openMainScreen(response.isVendor());
             }
+
+
 
             @Override
             public void onError(Throwable t) {
-                // Manejar el error
                 Toast.makeText(getActivity(), "Error en login: " + t.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
+    }
+    private void openMainScreen(boolean vendor) {
+
+        Class<?> activityClass = vendor ? ActivitySellerLobby.class : ActivityUserLobby.class;
+        Intent intent = new Intent(getActivity(), activityClass);
+        startActivity(intent);
+        requireActivity().finish();
     }
 }
