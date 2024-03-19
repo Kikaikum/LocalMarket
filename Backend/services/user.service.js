@@ -1,7 +1,9 @@
 const boom = require('@hapi/boom');
 const bcrypt = require('bcrypt');
+const jwt = require('jsonwebtoken');
 
 const { models } = require('./../libs/sequelize');
+const { config } = require('./../config/config');
 
 class UserService {
   constructor() {}
@@ -33,6 +35,15 @@ class UserService {
     return user;
   }
 
+  async findByUsername(username) {
+    const user = await models.User.findOne({
+      where: { username }
+    });
+    //delete rta.dataValues.password;
+    //delete rta.dataValues.token;
+    return user;
+  }
+
   async update(id, changes) {
     const user = await this.findOne(id);
     const rta = await user.update(changes);
@@ -44,6 +55,31 @@ class UserService {
     const user = await this.findOne(id);
     await user.destroy();
     return { id };
+  }
+
+  async getUser(username, password) {
+    const user = await this.findByUsername(username);
+    if (!user) {
+      throw boom.unauthorized();
+    }
+    const isMatch = await bcrypt.compare(password, user.password);
+    if (!isMatch) {
+      throw boom.unauthorized();;
+    }
+    delete user.dataValues.password;
+    return user;
+  }
+
+  signToken(user) {
+    const payload = {
+      sub: user.id,
+      role: user.username
+    }
+    const token = jwt.sign(payload, config.jwtSecret);
+    return {
+      user,
+      token
+    };
   }
 }
 
