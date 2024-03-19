@@ -16,5 +16,7 @@
         <!-- No se define ningún atributo -->
     </style>
 
+
+
     <style name="Theme.LocalMarket" parent="Base.Theme.LocalMarket" />
 </resources>

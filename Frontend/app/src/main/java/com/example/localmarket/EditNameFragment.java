@@ -72,6 +72,7 @@ public class EditNameFragment extends Fragment {
                         public void onSuccess(Void response) {
                             // Manejar el éxito, mostrando un mensaje al usuario
                             Toast.makeText(getActivity(), "El Nombre ha sido  actualizado correctamente", Toast.LENGTH_SHORT).show();
+                            getActivity().finish();
                         }
 
                         @Override

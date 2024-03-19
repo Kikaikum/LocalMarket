@@ -14,6 +14,7 @@
     <string name="delete">Eliminar cuenta</string>
     <string name="nombreUsuario">Nombre Usuario</string>
     <string name="listo">Listo</string>
+    <string name="cancel">Cancelar</string>
 
     <!-- hints -->
     <string name="insert_email_hint">Correo electrónico</string>

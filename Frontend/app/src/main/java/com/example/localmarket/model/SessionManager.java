@@ -13,4 +13,8 @@ public class SessionManager {
     public boolean isVendor(){
         return true;
     }
+
+    public String getAuthToken() {
+        return "";
+    }
 }

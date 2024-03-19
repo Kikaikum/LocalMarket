@@ -30,9 +30,8 @@ public class MainActivity extends AppCompatActivity {
             Intent intent = new Intent(MainActivity.this, ActivityUserLobby.class);
             startActivity(intent);
         } else {
-            //todo: Ainoha aqui tienes el huequito donde podras invocar tu Activity de campesino
-            //Ex: Intent intent = new Intent (MainActivity.this, ActivityVendorLobby.class);
-            //startActuvity(intent);
+            Intent intent = new Intent(MainActivity.this, ActivitySellerLobby.class);
+            startActivity(intent);
         }
     }
 

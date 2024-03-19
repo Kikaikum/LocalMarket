@@ -4,6 +4,7 @@ public class LoginResponse {
     private boolean success;
     private String token;
     private String errorMessage;
+    private boolean vendor;
 
     // Getters y Setters
     public boolean isSuccess() {
@@ -29,5 +30,8 @@ public class LoginResponse {
     public void setErrorMessage(String errorMessage) {
         this.errorMessage = errorMessage;
     }
+    public boolean isVendor() { return vendor; }
+
+    public void setVendor(boolean vendor) { this.vendor = vendor; }
 }
 

@@ -2,6 +2,7 @@ package com.example.localmarket.network.service;
 
 import com.example.localmarket.model.LoginRequest;
 import com.example.localmarket.model.LoginResponse;
+import com.example.localmarket.model.SessionManager;
 import com.example.localmarket.model.SignUpRequest;
 import com.example.localmarket.model.SignUpResponse;
 import com.example.localmarket.model.User;
@@ -15,13 +16,17 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
+
+
 public class AuthService {
 
     private ApiService apiService;
     private static AuthService instance;
 
+    private SessionManager sessionManager;
+
     // URL base de tu API
-    private static final String BASE_URL = "https://kikaikum.ddns.net:3000/";
+    private static final String BASE_URL = "https://kikaikum.ddns.net:3000/localmarket/v1/";
 
     private AuthService() {
         // Configuración del cliente HTTP con interceptor para logs

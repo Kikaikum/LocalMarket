@@ -16,10 +16,10 @@ import retrofit2.http.Query;
 
 public interface ApiService {
 
-    @POST("localmarket/v1/users")
+    @POST("users/login")
     Call<LoginResponse> loginUser(@Body LoginRequest loginRequest);
 
-    @POST("localmarket/v1/users")
+    @POST("users")
     Call<SignUpResponse> createUser(@Body SignUpRequest signUpRequest);
 
     @GET("/user/profile")
