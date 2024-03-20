@@ -76,7 +76,16 @@ Inicia sesión de usuario. Se requiere un cuerpo de solicitud JSON con el nombre
 ## Ejemplo de respuesta de inicio de sesión exitosa
 ```json
 {
-  "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjE3LCJyb2xlIjoiS0lLRVJ0YWdyaSIsImlhdCI6MTcxMDk1ODMyMH0.ulEwsC-l9oXHMmDVJgfjIDX7RiUcax31tJGm1xm5mzc"
+	"user": {
+		"id": 17,
+		"username": "test",
+		"email": "test@mail.com",
+		"nombre": "test",
+		"apellidos": "test",
+		"agricultor": true,
+		"createdAt": "2024-03-19T21:49:03.697Z"
+	},
+	"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjE3LCJyb2xlIjoiS0lLRVJ0YWdyaSIsImlhdCI6MTcxMDk1ODMyMH0.ulEwsC-l9oXHMmDVJgfjIDX7RiUcax31tJGm1xm5mzc"
 }
 ```
 ## Dependencias
