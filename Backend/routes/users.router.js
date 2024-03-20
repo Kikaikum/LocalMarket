@@ -1,4 +1,5 @@
 const express = require('express');
+const passport = require('passport');
 
 const UserService = require('./../services/user.service');
 const validatorHandler = require('./../middlewares/validator.handler');
@@ -15,6 +16,19 @@ router.get('/', async (req, res, next) => {
     next(error);
   }
 });
+
+router.get('/username/:username',
+  
+  async (req, res, next) => {
+    try {
+      const { username } = req.params;
+      const user = await service.findByUsername(username);
+      res.json(user);
+    } catch (error) {
+      next(error);
+    }
+  }
+);
 
 router.get('/:id',
   validatorHandler(getUserSchema, 'params'),
@@ -51,6 +65,18 @@ router.patch('/:id',
       const body = req.body;
       const user = await service.update(id, body);
       res.json(user);
+    } catch (error) {
+      next(error);
+    }
+  }
+);
+
+router.post('/login',
+  passport.authenticate('local', {session: false}),
+  async (req, res, next) => {
+    try {
+      const user = req.user;
+      res.json(service.signToken(user));
     } catch (error) {
       next(error);
     }
