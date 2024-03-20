@@ -9,7 +9,7 @@ API para administrar usuarios.
 3. Inicia el servidor con `npm start`.
 
 ## Rutas
-
+url : https://kikaikum.ddns.net:3000/localmarket/v1/
 ### Obtener todos los usuarios
 
 GET /users
