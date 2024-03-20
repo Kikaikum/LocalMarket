@@ -67,15 +67,18 @@ Inicia sesión de usuario. Se requiere un cuerpo de solicitud JSON con el nombre
 }
 ```
 ## Ejemplo de solicitud de inicio de sesión
+```json
 {
   "username": "nombredeusuario",
   "password": "contraseña"
 }
+```
 ## Ejemplo de respuesta de inicio de sesión exitosa
+```json
 {
   "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjE3LCJyb2xlIjoiS0lLRVJ0YWdyaSIsImlhdCI6MTcxMDk1ODMyMH0.ulEwsC-l9oXHMmDVJgfjIDX7RiUcax31tJGm1xm5mzc"
 }
-
+```
 ## Dependencias
 Express
 Passport
