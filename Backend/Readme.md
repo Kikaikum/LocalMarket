@@ -91,3 +91,8 @@ Inicia sesión de usuario. Se requiere un cuerpo de solicitud JSON con el nombre
 ## Dependencias
 Express
 Passport
+Joi
+JWT
+Sequelize
+PostgreSQL
+Docker
