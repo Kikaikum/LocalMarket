@@ -66,7 +66,7 @@ public class AuthService {
         });
     }
 
-    public void signUpUser(String email, String password, String username, String nombre, String apellidos, String isVendor, final AuthCallback<SignUpResponse> callback) {
+    public void signUpUser(String email, String password, String username, String nombre, String apellidos, Boolean isVendor, final AuthCallback<SignUpResponse> callback) {
         SignUpRequest signUpRequest = new SignUpRequest(email, password, username, nombre, apellidos, isVendor);
         apiService.createUser(signUpRequest).enqueue(new Callback<SignUpResponse>() {
             @Override
@@ -297,5 +297,9 @@ public class AuthService {
     // Método para obtener una instancia de ApiService
     public ApiService getApiService() {
         return apiService;
+    }
+
+    public User getUser() {
+        return sessionManager.getUser(); // O cualquier otra forma de obtener el usuario de la sesión actual
     }
 }

@@ -6,9 +6,9 @@ public class SignUpRequest {
     private String nombre;
     private String apellidos;
     private String username;
-    private String agricultor;
+    private Boolean agricultor;
 
-    public SignUpRequest(String email, String password, String userName, String name, String surname, String isVendor) {
+    public SignUpRequest(String email, String password, String userName, String name, String surname, Boolean isVendor) {
         this.email = email;
         this.password = password;
         this.nombre = name;
@@ -49,8 +49,8 @@ public class SignUpRequest {
 
     public void setUserName(String userName) { this.username = userName; }
 
-    public String getVendor() { return agricultor; }
+    public Boolean getVendor() { return agricultor; }
 
-    public void setVendor(String vendor) { agricultor = vendor; }
+    public void setVendor(Boolean vendor) { agricultor = vendor; }
 
 }

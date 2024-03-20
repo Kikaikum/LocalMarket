@@ -17,7 +17,7 @@ public class SimulatedAuthService {
     private SimulatedAuthService() {
             userData = new HashMap<>();
         // Generar datos de usuario simulados
-        simulatedUser = new User("John", "John Doe", "johndoe123", "John@gmail.com", "Doe1-ttttt");
+        simulatedUser = new User("John", "John Doe", "johndoe123", "John@gmail.com", "Doe1-ttttt",13, false);
         userData.put(simulatedUser.getUsername(), simulatedUser);
     }
 

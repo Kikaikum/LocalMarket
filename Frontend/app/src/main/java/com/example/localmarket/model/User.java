@@ -7,14 +7,18 @@ public class User {
     private String username;
     private String email;
     private String password;
+    private int id;
+    private Boolean vendor;
 
     // Constructor
-    public User(String name, String surname, String username, String email, String password) {
+    public User(String name, String surname, String username, String email, String password, int id, Boolean vendor) {
         this.name=name;
         this.surname=surname;
         this.username = username;
         this.email = email;
         this.password = password;
+        this.id = id;
+        this.vendor= vendor;
     }
 
     // Getters y setters
@@ -37,8 +41,6 @@ public class User {
         return username;
     }
 
-
-
     public void setUsername(String username) {
         this.username = username;
     }
@@ -57,5 +59,19 @@ public class User {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public int getId() { return id; };
+
+    public boolean getVendor() {
+        if (vendor != null) {
+            return vendor;
+        } else {
+            return false; // Otra acción por defecto en caso de que vendor sea nulo
+        }
+    }
+
+    public void setVendor(boolean vendor) {
+        this.vendor = vendor;
     }
 }

@@ -186,7 +186,7 @@ public class SignUpfragment extends Fragment implements View.OnFocusChangeListen
         String password = editTextPassword.getText().toString().trim();
         String name = editTextName.getText().toString().trim();
         String surname = editTextSurname.getText().toString().trim();
-        String isVendor = aSwitchVendor.isChecked()+"";
+        Boolean isVendor = aSwitchVendor.isChecked();
 
         authService.signUpUser(email, password, username, name, surname, isVendor, new AuthService.AuthCallback<SignUpResponse>() {
             @Override

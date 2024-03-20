@@ -7,6 +7,8 @@ public class TokenManager {
 
     private static final String PREF_NAME = "MyPrefs";
     private static final String KEY_TOKEN = "token";
+    private static final String KEY_USER_ID = "id";
+
 
     private SharedPreferences sharedPreferences;
     private static TokenManager instance;
@@ -27,6 +29,15 @@ public class TokenManager {
         editor.putString(KEY_TOKEN, token);
         editor.apply();
     }
+    public void saveUserId(int userId) {
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putInt(KEY_USER_ID, userId);
+        editor.apply();
+    }
+
+    public int getUserId() {
+        return sharedPreferences.getInt(KEY_USER_ID, 123);
+    }
 
     public String getToken() {
         return sharedPreferences.getString(KEY_TOKEN, null);
@@ -35,6 +46,7 @@ public class TokenManager {
     public void clearToken() {
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.remove(KEY_TOKEN);
+        editor.remove(KEY_USER_ID);
         editor.apply();
     }
 }
