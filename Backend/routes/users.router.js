@@ -17,6 +17,19 @@ router.get('/', async (req, res, next) => {
   }
 });
 
+router.get('/username/:username',
+  
+  async (req, res, next) => {
+    try {
+      const { username } = req.params;
+      const user = await service.findByUsername(username);
+      res.json(user);
+    } catch (error) {
+      next(error);
+    }
+  }
+);
+
 router.get('/:id',
   validatorHandler(getUserSchema, 'params'),
   async (req, res, next) => {
