@@ -19,7 +19,7 @@ except requests.exceptions.RequestException as e:
 
 
 print("PROVA 2: GET USER ID")
-user_id = 13
+user_id = 6
 url = f'https://kikaikum.ddns.net:3000/localmarket/v1/users/{user_id}'
 try:
     response = requests.get(url)
@@ -40,8 +40,8 @@ print("PROVA 3: CREAR NUEVO USUARIO")
 # Datos del usuario a crear
 new_user_data = {
     "password": "12345678",
-    "username": "KIKERggtagri",
-    "email": "agrggi@mail.com",
+    "username": "testproves21",
+    "email": "testitreo21@mail.com",
     "nombre": "Kike",
     "apellidos": "Cabrera",
     "agricultor": True
@@ -67,7 +67,7 @@ print("PROVA 4: NO SE PUEDE CREAR USUARIO YA REGISTRADO CON MISMO EMAIL O USERNA
 # Datos del usuario a crear
 new_user_data = {
     "password": "12345678",
-    "username": "KIKERggtagri",
+    "username": "testproves21",
     "email": "agrggi@mail.com",
     "nombre": "Kike",
     "apellidos": "Cabrera",
@@ -112,5 +112,22 @@ try:
         #print(response.json())  # Convertir la respuesta JSON a un diccionario
     else:
         print("PROVA OK")
+except requests.exceptions.RequestException as e:
+    print(f"Error al realizar la solicitud: {e}")
+
+
+
+print("PROVA 6: DELETE USER BY ID")
+user_id = 6
+url = f'https://kikaikum.ddns.net:3000/localmarket/v1/users/{user_id}'
+try:
+    response = requests.delete(url)
+    # Verificar si la respuesta es exitosa (código 200)
+    if response.status_code == 201:
+        print("PROVA OK")
+        #print("Contenido de la respuesta:")
+        #print(response.text)
+    else:
+        print(f"Error: Código de estado {response.status_code}")
 except requests.exceptions.RequestException as e:
     print(f"Error al realizar la solicitud: {e}")

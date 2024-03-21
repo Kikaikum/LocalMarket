@@ -3,7 +3,7 @@
     |
     V
 [API /users]
-    |-> POST /create (Crea un nuevo usuario)
+    |-> POST / (Crea un nuevo usuario)
     |
     |-> POST /login (Autentica al usuario)
     |
@@ -13,7 +13,7 @@
     |
     |-> GET /username/{username} (Obtiene un usuario por su nombre de usuario)
     |
-    |-> PATCH /edit/{id} (Edita un usuario existente por su ID)
+    |-> PATCH /{id} (Edita un usuario existente por su ID)
     |    |-> Editar nombre
     |    |-> Editar apellido
     |    |-> Editar nombre de usuario
