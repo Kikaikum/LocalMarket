@@ -5,8 +5,14 @@ import com.example.localmarket.model.LoginResponse;
 import com.example.localmarket.model.SessionManager;
 import com.example.localmarket.model.SignUpRequest;
 import com.example.localmarket.model.SignUpResponse;
+import com.example.localmarket.model.UpdateEmailRequest;
+import com.example.localmarket.model.UpdateNameRequest;
+import com.example.localmarket.model.UpdatePasswordRequest;
+import com.example.localmarket.model.UpdateSurnameRequest;
+import com.example.localmarket.model.UpdateUsernameRequest;
 import com.example.localmarket.model.User;
 import com.example.localmarket.network.api.ApiService;
+import com.example.localmarket.utils.TokenManager;
 
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
@@ -27,8 +33,9 @@ public class AuthService {
 
     // URL base de tu API
     private static final String BASE_URL = "https://kikaikum.ddns.net:3000/localmarket/v1/";
+    private TokenManager tokenManager;
 
-    private AuthService() {
+    public AuthService() {
         // Configuración del cliente HTTP con interceptor para logs
         OkHttpClient.Builder httpClient = new OkHttpClient.Builder();
         HttpLoggingInterceptor loggingInterceptor = new HttpLoggingInterceptor();
@@ -54,6 +61,8 @@ public class AuthService {
             public void onResponse(Call<LoginResponse> call, Response<LoginResponse> response) {
                 if (response.isSuccessful()) {
                     callback.onSuccess(response.body());
+
+
                 } else {
                     callback.onError(new Exception("Error en el login"));
                 }
@@ -66,7 +75,7 @@ public class AuthService {
         });
     }
 
-    public void signUpUser(String email, String password, String username, String nombre, String apellidos, String isVendor, final AuthCallback<SignUpResponse> callback) {
+    public void signUpUser(String email, String password, String username, String nombre, String apellidos, Boolean isVendor, final AuthCallback<SignUpResponse> callback) {
         SignUpRequest signUpRequest = new SignUpRequest(email, password, username, nombre, apellidos, isVendor);
         apiService.createUser(signUpRequest).enqueue(new Callback<SignUpResponse>() {
             @Override
@@ -85,14 +94,19 @@ public class AuthService {
         });
     }
 
-    public void getUserProfile(final ProfileCallback callback) {
-        apiService.getUserProfile().enqueue(new Callback<User>() {
+    public void getUserProfile(int id, AuthService.ProfileCallback callback) {
+        apiService.getUserProfile(id).enqueue(new Callback<User>() {
             @Override
             public void onResponse(Call<User> call, Response<User> response) {
                 if (response.isSuccessful()) {
-                    callback.onSuccess(response.body());
+                    User user = response.body();
+                    if (user != null) {
+                        callback.onSuccess(user);
+                    } else {
+                        callback.onError(new Throwable("El usuario devuelto por el servidor es nulo"));
+                    }
                 } else {
-                    callback.onError(new Exception("Error al obtener el perfil del usuario"));
+                    callback.onError(new Throwable("Error en la respuesta del servidor: " + response.message()));
                 }
             }
 
@@ -125,9 +139,9 @@ public class AuthService {
         });
     }
 
-    public void updateUsername(String newUsername, final AuthCallback<Void> callback) {
+    public void updateUsername(int id, UpdateUsernameRequest updateUsernameRequest, final AuthCallback<Void> callback) {
         // Realizar la llamada a la API para actualizar el nombre de usuario
-        apiService.updateUsername(newUsername).enqueue(new Callback<Void>() {
+        apiService.updateUsername(id, updateUsernameRequest).enqueue(new Callback<Void>() {
             @Override
             public void onResponse(Call<Void> call, Response<Void> response) {
                 if (response.isSuccessful()) {
@@ -147,9 +161,10 @@ public class AuthService {
         });
     }
 
-    public void updateEmail(String newEmail, final AuthCallback<Void> callback) {
+
+    public void updateEmail(int id, UpdateEmailRequest updateEmailRequest, final AuthCallback<Void> callback) {
         // Realizar la llamada a la API para actualizar el correo electrónico
-        apiService.updateEmail(newEmail).enqueue(new Callback<Void>() {
+        apiService.updateEmail(id, updateEmailRequest).enqueue(new Callback<Void>() {
             @Override
             public void onResponse(Call<Void> call, Response<Void> response) {
                 if (response.isSuccessful()) {
@@ -169,9 +184,9 @@ public class AuthService {
         });
     }
 
-    public void updateName(String newName, final AuthCallback<Void> callback) {
+    public void updateName(int id, UpdateNameRequest updateNameRequest, final AuthCallback<Void> callback) {
         // Realizar la llamada a la API para actualizar el nombre
-        apiService.updateName(newName).enqueue(new Callback<Void>() {
+        apiService.updateName(id, updateNameRequest).enqueue(new Callback<Void>() {
             @Override
             public void onResponse(Call<Void> call, Response<Void> response) {
                 if (response.isSuccessful()) {
@@ -191,9 +206,9 @@ public class AuthService {
         });
     }
 
-    public void updateSurname(String newSurname, final AuthCallback<Void> callback) {
+    public void updateSurname(int id, UpdateSurnameRequest editSurnameRequest, final AuthCallback<Void> callback) {
         // Realizar la llamada a la API para actualizar el nombre
-        apiService.updateSurname(newSurname).enqueue(new Callback<Void>() {
+        apiService.updateSurname(id, editSurnameRequest).enqueue(new Callback<Void>() {
             @Override
             public void onResponse(Call<Void> call, Response<Void> response) {
                 if (response.isSuccessful()) {
@@ -213,37 +228,24 @@ public class AuthService {
         });
     }
 
-    public void updatePassword(String actualPassword, String newPassword, final AuthCallback<Void> callback) {
-        // Verificar la contraseña actual antes de actualizarla
-        verifyPassword(actualPassword, new AuthCallback<Boolean>() {
-            @Override
-            public void onSuccess(Boolean isCorrect) {
-                if (isCorrect) {
-                    // La contraseña actual es correcta, proceder a actualizarla
-                    apiService.updatePassword(newPassword).enqueue(new Callback<Void>() {
-                        @Override
-                        public void onResponse(Call<Void> call, Response<Void> response) {
-                            if (response.isSuccessful()) {
-                                callback.onSuccess(null);
-                            } else {
-                                callback.onError(new Exception("Error al actualizar la contraseña"));
-                            }
-                        }
+    public void updatePassword(String username, UpdatePasswordRequest updatePasswordRequest, final AuthCallback<Void> callback) {
 
-                        @Override
-                        public void onFailure(Call<Void> call, Throwable t) {
-                            callback.onError(t);
-                        }
-                    });
+        // Realizar la llamada a la API para actualizar password
+        apiService.updatePassword(username, updatePasswordRequest).enqueue(new Callback<Void>() {
+            @Override
+            public void onResponse(Call<Void> call, Response<Void> response) {
+                if (response.isSuccessful()) {
+                    // Si la respuesta es exitosa, llamar al método onSuccess del callback
+                    callback.onSuccess(null);
                 } else {
-                    // La contraseña actual es incorrecta, llamar al método onError del callback
-                    callback.onError(new Exception("La contraseña actual es incorrecta"));
+                    // Si hay un error en la respuesta, llamar al método onError del callback
+                    callback.onError(new Exception("Error al actualizar el nombre"));
                 }
             }
 
             @Override
-            public void onError(Throwable t) {
-                // Si hay un error al verificar la contraseña, llamar al método onError del callback
+            public void onFailure(Call<Void> call, Throwable t) {
+                // Si hay un fallo en la llamada, llamar al método onError del callback
                 callback.onError(t);
             }
         });
@@ -272,6 +274,15 @@ public class AuthService {
         });
     }
 
+    public void logoutUser(AuthCallback<Void> authCallback) {
+        if (tokenManager != null) {
+            tokenManager.clearToken();
+        }
+        authCallback.onSuccess(null);
+    }
+
+
+
 
     public interface ProfileCallback {
         void onSuccess(User userProfile);
@@ -294,8 +305,39 @@ public class AuthService {
         return instance;
     }
 
+
+    // Método para obtener los datos del usuario, incluido el password, desde el servidor
+    public void getUserData(String username, final ProfileCallback callback) {
+        // Realizar una solicitud GET al servidor para obtener los datos del usuario por su nombre de usuario
+        Call<User> call = apiService.getUserData(username);
+        call.enqueue(new Callback<User>() {
+            @Override
+            public void onResponse(Call<User> call, Response<User> response) {
+                if (response.isSuccessful()) {
+                    // Si la respuesta es exitosa, llamar al método onSuccess del callback con los datos del usuario
+                    callback.onSuccess(response.body());
+                } else {
+                    // Si la respuesta no es exitosa, llamar al método onError del callback con el error
+                    callback.onError(new Exception("Error al obtener los datos del usuario"));
+                }
+            }
+
+            @Override
+            public void onFailure(Call<User> call, Throwable t) {
+                // Si hay un fallo en la llamada, llamar al método onError del callback con el error
+                callback.onError(t);
+            }
+        });
+    }
+
+
+
     // Método para obtener una instancia de ApiService
     public ApiService getApiService() {
         return apiService;
+    }
+
+    public User getUser() {
+        return sessionManager.getUser(); // O cualquier otra forma de obtener el usuario de la sesión actual
     }
 }

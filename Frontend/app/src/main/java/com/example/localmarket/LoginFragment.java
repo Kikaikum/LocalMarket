@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,6 +17,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.example.localmarket.model.LoginResponse;
+import com.example.localmarket.model.User;
 import com.example.localmarket.network.service.AuthService;
 import com.example.localmarket.utils.TokenManager;
 
@@ -84,10 +86,39 @@ public class LoginFragment extends Fragment {
         authService.loginUser(email, password, new AuthService.AuthCallback<LoginResponse>() {
             @Override
             public void onSuccess(LoginResponse response) {
-                Toast.makeText(getActivity(), "Login exitoso", Toast.LENGTH_SHORT).show();
                 String token = response.getToken();
-                tokenManager.saveToken(token); // Guardar el token en SharedPreferences
-                openMainScreen(response.isVendor());
+                User user = response.getUser();
+
+
+                if (user != null) {
+                    int userId = user.getId();
+
+                    boolean isVendor = user.getAgricultor();
+
+                    String username= user.getUsername();
+                    boolean isAgricultor = user.getAgricultor();
+
+
+                    // Guardar el token y el ID de usuario en SharedPreferences
+                    tokenManager.saveToken(token);
+                    tokenManager.saveUserId(userId);
+                    tokenManager.saveUsername(username);
+
+                    // Mostrar un mensaje de tostada para indicar el inicio de sesión exitoso
+                    Toast.makeText(getActivity(), "Login exitoso", Toast.LENGTH_SHORT).show();
+
+                    // Mostrar el ID de usuario y el token guardados en SharedPreferences
+                    //Toast.makeText(getActivity(), "User id: " + tokenManager.getUserId(), Toast.LENGTH_SHORT).show();
+                    //Toast.makeText(getActivity(), "User token: " + tokenManager.getToken(), Toast.LENGTH_SHORT).show();
+                    //Toast.makeText(getActivity(), "User agricultor: " + user.getAgricultor(), Toast.LENGTH_SHORT).show();
+
+                    // Abrir la pantalla principal
+                    openMainScreen(isVendor);
+                } else {
+                    // El objeto User está nulo, manejar el caso de error aquí
+                    Toast.makeText(getActivity(), "Error: Usuario nulo en la respuesta del servidor", Toast.LENGTH_SHORT).show();
+                }
+
             }
 
 

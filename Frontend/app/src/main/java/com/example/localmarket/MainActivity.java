@@ -25,7 +25,7 @@ public class MainActivity extends AppCompatActivity {
         if (!sessionManager.isLoggedIn()) {
             // Si no hay sesión, muestra el LoginFragment
             openFragment(new LoginFragment());
-        } else if (sessionManager.isLoggedIn() && !sessionManager.isVendor()){
+        } else if (sessionManager.isLoggedIn() && !sessionManager.isAgricultor()){
             // Si hay una sesión, procede con la actividad principal o muestra otro fragmento
             Intent intent = new Intent(MainActivity.this, ActivityUserLobby.class);
             startActivity(intent);

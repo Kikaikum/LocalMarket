@@ -12,10 +12,14 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
-
+import com.example.localmarket.model.UpdateUsernameRequest;
 import com.example.localmarket.model.SessionManager;
 import com.example.localmarket.network.service.AuthService;
+import com.example.localmarket.utils.TokenManager;
 import com.example.localmarket.utils.ValidationUtils;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 public class EditUsernameFragment extends Fragment {
 
@@ -24,7 +28,7 @@ public class EditUsernameFragment extends Fragment {
     private Button buttonListo; // Botón "Listo" para guardar los cambios
     private ValidationUtils.UsernameValidator usernameValidator; // Instancia de UsernameValidator
     private Context context;
-
+    private TokenManager tokenManager;
     private SessionManager sessionManager;
 
     public EditUsernameFragment() {
@@ -51,6 +55,9 @@ public class EditUsernameFragment extends Fragment {
 
         // Inicializar UsernameValidator
         usernameValidator = new ValidationUtils.UsernameValidator();
+        // Aquí inicializa el TokenManager
+        tokenManager = new TokenManager(getActivity());
+
 
         // Obtener el nombre de usuario pasado desde EditProfileActivity
         String username = getArguments().getString("username");
@@ -65,20 +72,29 @@ public class EditUsernameFragment extends Fragment {
                 editTextUsername.setText("");
             }
         });
-
         buttonListo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 // Obtener el nuevo valor del nombre de usuario
                 String newUsername = editTextUsername.getText().toString();
+                int id = tokenManager.getUserId();
+
                 // Verificar el nombre de usuario utilizando UsernameValidator
-                if (usernameValidator.isValidUsername( context, newUsername)) {
+                if (usernameValidator.isValidUsername(context, newUsername)) {
+                    // Crear un objeto UpdateUsernameRequest con el ID del usuario y el nuevo nombre de usuario
+                    UpdateUsernameRequest updateUsernameRequest = new UpdateUsernameRequest(id, newUsername);
+
                     // El nombre de usuario es válido, llamar al método para actualizarlo
-                    AuthService.getInstance().updateUsername(newUsername, new AuthService.AuthCallback<Void>() {
+                    AuthService.getInstance().updateUsername(id, updateUsernameRequest, new AuthService.AuthCallback<Void>() {
                         @Override
                         public void onSuccess(Void response) {
                             // Manejar el éxito, mostrando un mensaje al usuario
                             Toast.makeText(getActivity(), "Nombre de usuario actualizado correctamente", Toast.LENGTH_SHORT).show();
+
+                            // Después de actualizar los datos, recarga la actividad
+                            getActivity().recreate();
+                            // Volver a la actividad EditProfile
+                            requireActivity().getSupportFragmentManager().popBackStack();
                         }
 
                         @Override
@@ -93,6 +109,7 @@ public class EditUsernameFragment extends Fragment {
                 }
             }
         });
+
 
         return rootView;
     }
