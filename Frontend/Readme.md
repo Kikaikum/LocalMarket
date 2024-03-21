@@ -16,9 +16,9 @@ La aplicación LocalMarket permite a los usuarios acceder a un mercado local don
 
 ## Capturas de Pantalla
 
-![Inicio de Sesión](/screenshots/login.png)
+![Inicio de Sesión](./screenshots/login.png)
 *Pantalla de inicio de sesión*
-![Inicio de Sesión](/screenshots/signup.png)
+![Inicio de Sesión](./screenshots/signup.png)
 *Pantalla de registro de usuario*
 
 ## Tecnologías Utilizadas
