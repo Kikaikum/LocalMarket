@@ -11,7 +11,11 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
+
+import com.example.localmarket.model.UpdateEmailRequest;
+import com.example.localmarket.model.UpdateUsernameRequest;
 import com.example.localmarket.network.service.AuthService;
+import com.example.localmarket.utils.TokenManager;
 import com.example.localmarket.utils.ValidationUtils;
 
 public class EditEmailFragment extends Fragment {
@@ -21,6 +25,8 @@ public class EditEmailFragment extends Fragment {
     private Button buttonListo; // Botón "Listo" para guardar los cambios
     private ValidationUtils.EmailValidator emailValidator; // Instancia de EmailValidator
     private Context context;
+
+    private TokenManager tokenManager;
 
     public EditEmailFragment() {
         // Required empty public constructor
@@ -34,6 +40,8 @@ public class EditEmailFragment extends Fragment {
         return fragment;
     }
 
+
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -43,8 +51,11 @@ public class EditEmailFragment extends Fragment {
         deleteIcon = rootView.findViewById(R.id.deleteIcon);
         buttonListo = rootView.findViewById(R.id.buttonListo);
 
+        // Obtener el contexto del fragmento
+        context = getContext();
         // Inicializar EmailValidator
         emailValidator = new ValidationUtils.EmailValidator();
+        tokenManager = new TokenManager(getActivity());
 
         // Obtener el email de usuario pasado desde EditProfileActivity
         String email = getArguments().getString("email");
@@ -65,14 +76,24 @@ public class EditEmailFragment extends Fragment {
             public void onClick(View v) {
                 // Obtener el nuevo valor del email de usuario
                 String newEmail = editTextEmail.getText().toString();
+
+                int id = tokenManager.getUserId();
                 // Verificar el email de usuario utilizando EmailValidator
                 if (emailValidator.isValidEmail(context,newEmail)) {
+
+                    // Crear un objeto UpdateEmailRequest con el ID del usuario y el nuevo email de usuario
+                    UpdateEmailRequest updateEmailRequest = new UpdateEmailRequest(id, newEmail);
                     // El email es válido, llamar al método para actualizarlo
-                    AuthService.getInstance().updateEmail(newEmail, new AuthService.AuthCallback<Void>() {
+                    AuthService.getInstance().updateEmail(id, updateEmailRequest, new AuthService.AuthCallback<Void>() {
                         @Override
                         public void onSuccess(Void response) {
                             // Manejar el éxito, mostrando un mensaje al usuario
                             Toast.makeText(getActivity(), "Email actualizado correctamente", Toast.LENGTH_SHORT).show();
+
+                            // Después de actualizar los datos, recarga la actividad
+                            getActivity().recreate();
+                            // Volver a la actividad EditProfile
+                            requireActivity().getSupportFragmentManager().popBackStack();
                         }
 
                         @Override

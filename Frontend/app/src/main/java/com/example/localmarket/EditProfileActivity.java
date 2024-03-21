@@ -16,6 +16,7 @@ import com.example.localmarket.model.User;
 import com.example.localmarket.network.api.ApiService;
 import com.example.localmarket.network.service.AuthService;
 import com.example.localmarket.network.service.SimulatedAuthService;
+import com.example.localmarket.utils.TokenManager;
 
 public class EditProfileActivity extends AppCompatActivity {
     private Button editUsernameButton, editEmailButton, editPasswordButton, deleteAccountButton, editNameButton , editSurnameButton;
@@ -23,9 +24,10 @@ public class EditProfileActivity extends AppCompatActivity {
     private User user;
 
     private ApiService apiService;
-    //private AuthService authService;
+    private AuthService authService;
+    private TokenManager tokenManager;
 
-    private SimulatedAuthService authService = SimulatedAuthService.getInstance();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -40,14 +42,17 @@ public class EditProfileActivity extends AppCompatActivity {
         editSurnameButton=findViewById(R.id.textSurname);
 
         // Inicializar AuthService y ApiService
-        //authService = AuthService.getInstance();
-       // apiService = authService.getApiService();
+        authService = AuthService.getInstance();
+        apiService = authService.getApiService();
+        // Inicialización de tokenManager
+        tokenManager = TokenManager.getInstance(getApplicationContext());
 
-        authService = SimulatedAuthService.getInstance();
+
 
 
         // Obtener datos del usuario
-        authService.getUserProfile(new AuthService.ProfileCallback() {
+        int userId = tokenManager.getUserId();
+        authService.getUserProfile(userId, new AuthService.ProfileCallback() {
 
             @Override
             public void onSuccess(User userProfile) {
@@ -57,6 +62,22 @@ public class EditProfileActivity extends AppCompatActivity {
                 editSurnameButton.setText(userProfile.getSurname());
                 editUsernameButton.setText(userProfile.getUsername());
                 editEmailButton.setText(userProfile.getEmail());
+                editPasswordButton.setText(userProfile.getPassword());
+            }
+
+            @Override
+            public void onError(Throwable t) {
+                // Manejar errores al obtener el perfil del usuario
+            }
+        });
+        String username= tokenManager.getUserUsername();
+        authService.getUserData(username, new AuthService.ProfileCallback() {
+
+            @Override
+            public void onSuccess(User userProfile) {
+                user = userProfile;
+                // Establecer los textos de los botones con los datos del usuario
+
                 editPasswordButton.setText(userProfile.getPassword());
             }
 
@@ -99,13 +120,15 @@ public class EditProfileActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 String currentEmail=user.getEmail();
-                openFragment(EditSurnameFragment.newInstance(currentEmail));
+                openFragment(EditEmailFragment.newInstance(currentEmail));
             }
         });
 
         editPasswordButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                // Obtener la contraseña actual del usuario del perfil
+                String currentPassword = user.getPassword();
                 openFragment(new EditPasswordFragment());
             }
         });

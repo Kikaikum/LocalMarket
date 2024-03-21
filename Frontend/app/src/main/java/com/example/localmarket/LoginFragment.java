@@ -92,11 +92,13 @@ public class LoginFragment extends Fragment {
 
                 if (user != null) {
                     int userId = user.getId();
+                    String username= user.getUsername();
                     Boolean isVendor = user.getVendor();
 
                     // Guardar el token y el ID de usuario en SharedPreferences
                     tokenManager.saveToken(token);
                     tokenManager.saveUserId(userId);
+                    tokenManager.saveUsername(username);
 
                     // Mostrar un mensaje de tostada para indicar el inicio de sesión exitoso
                     Toast.makeText(getActivity(), "Login exitoso", Toast.LENGTH_SHORT).show();

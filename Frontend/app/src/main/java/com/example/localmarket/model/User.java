@@ -2,8 +2,8 @@ package com.example.localmarket.model;
 
 public class User {
 
-    private String name;
-    private String surname;
+    private String nombre;
+    private String apellidos;
     private String username;
     private String email;
     private String password;
@@ -11,9 +11,9 @@ public class User {
     private Boolean vendor;
 
     // Constructor
-    public User(String name, String surname, String username, String email, String password, int id, Boolean vendor) {
-        this.name=name;
-        this.surname=surname;
+    public User(String nombre, String apellidos, String username, String email, String password, int id, Boolean vendor) {
+        this.nombre=nombre;
+        this.apellidos=apellidos;
         this.username = username;
         this.email = email;
         this.password = password;
@@ -24,17 +24,17 @@ public class User {
     // Getters y setters
 
     public String getName(){
-        return name;
+        return nombre;
     }
-    public void setName(String name) {
-        this.name = name;
+    public void setName(String nombre) {
+        this.nombre = nombre;
     }
 
     public String getSurname(){
-        return surname;
+        return apellidos;
     }
-    public void setSurname(String surname) {
-        this.surname = surname;
+    public void setSurname(String apellidos) {
+        this.apellidos  = apellidos;
     }
 
     public String getUsername() {

@@ -10,7 +10,10 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
+
+import com.example.localmarket.model.UpdateNameRequest;
 import com.example.localmarket.network.service.AuthService;
+import com.example.localmarket.utils.TokenManager;
 import com.example.localmarket.utils.ValidationUtils;
 
 public class EditNameFragment extends Fragment {
@@ -20,6 +23,7 @@ public class EditNameFragment extends Fragment {
     private Button buttonListo; // Botón "Listo" para guardar los cambios
     private ValidationUtils.NameValidator nameValidator; // Instancia de NameValidator
     private Context context;
+    private TokenManager tokenManager;
 
     public EditNameFragment() {
         // Required empty public constructor
@@ -44,6 +48,8 @@ public class EditNameFragment extends Fragment {
 
         // Inicializar NameValidator
         nameValidator = new ValidationUtils.NameValidator();
+        tokenManager = new TokenManager(getActivity());
+
 
         // Obtener el nombre  pasado desde EditProfileActivity
         String name = getArguments().getString("name");
@@ -64,15 +70,21 @@ public class EditNameFragment extends Fragment {
             public void onClick(View v) {
                 // Obtener el nuevo valor del nombre
                 String newName = editTextName.getText().toString();
+                int id = tokenManager.getUserId();
                 // Verificar el nombre de usuario utilizando UsernameValidator
                 if (nameValidator.isValidName(context,newName)) {
+                    UpdateNameRequest updateNameRequest = new UpdateNameRequest(id, newName);
                     // El nombre de usuario es válido, llamar al método para actualizarlo
-                    AuthService.getInstance().updateName(newName, new AuthService.AuthCallback<Void>() {
+                    AuthService.getInstance().updateName(id, updateNameRequest,new AuthService.AuthCallback<Void>() {
                         @Override
                         public void onSuccess(Void response) {
                             // Manejar el éxito, mostrando un mensaje al usuario
                             Toast.makeText(getActivity(), "El Nombre ha sido  actualizado correctamente", Toast.LENGTH_SHORT).show();
-                            getActivity().finish();
+
+                            // Después de actualizar los datos, recarga la actividad
+                            getActivity().recreate();
+                            // Volver a la actividad EditProfile
+                            requireActivity().getSupportFragmentManager().popBackStack();
                         }
 
                         @Override
