@@ -11,7 +11,11 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
+
+import com.example.localmarket.model.UpdateSurnameRequest;
+import com.example.localmarket.model.UpdateUsernameRequest;
 import com.example.localmarket.network.service.AuthService;
+import com.example.localmarket.utils.TokenManager;
 import com.example.localmarket.utils.ValidationUtils;
 
 public class EditSurnameFragment extends Fragment {
@@ -21,6 +25,8 @@ public class EditSurnameFragment extends Fragment {
     private Button buttonListo; // Botón "Listo" para guardar los cambios
     private ValidationUtils.NameValidator surnameValidator; // Instancia de NameValidator
     private Context context;
+
+    private TokenManager tokenManager;
 
     public EditSurnameFragment() {
         // Required empty public constructor
@@ -43,8 +49,13 @@ public class EditSurnameFragment extends Fragment {
         deleteIcon = rootView.findViewById(R.id.deleteIcon);
         buttonListo = rootView.findViewById(R.id.buttonListo);
 
+        // Obtener el contexto del fragmento
+        context = getContext();
+
         // Inicializar NameValidator
         surnameValidator = new ValidationUtils.NameValidator();
+        // Aquí inicializa el TokenManager
+        tokenManager = new TokenManager(getActivity());
 
         // Obtener apellidos pasados desde EditProfileActivity
         String surname = getArguments().getString("surname");
@@ -65,14 +76,23 @@ public class EditSurnameFragment extends Fragment {
             public void onClick(View v) {
                 // Obtener el nuevo valor de los apellidos de usuario
                 String newSurname = editTextSurname.getText().toString();
+                int id = tokenManager.getUserId();
                 // Verificar los apellidos utilizando NameValidator
                 if (surnameValidator.isValidName(context,newSurname)) {
+
+                    // Crear un objeto UpdateSurnameRequest con el ID del usuario y nuevos apellidos de usuario
+                    UpdateSurnameRequest updateSurnameRequest = new UpdateSurnameRequest(id, newSurname);
                     // Los apellidos son válidos, llamar al método para actualizarlos
-                    AuthService.getInstance().updateSurname(newSurname, new AuthService.AuthCallback<Void>() {
+                    AuthService.getInstance().updateSurname(id, updateSurnameRequest, new AuthService.AuthCallback<Void>() {
                         @Override
                         public void onSuccess(Void response) {
                             // Manejar el éxito, mostrando un mensaje al usuario
                             Toast.makeText(getActivity(), "Apellidos de usuario actualizados correctamente", Toast.LENGTH_SHORT).show();
+
+                            // Después de actualizar los datos, recarga la actividad
+                            getActivity().recreate();
+                            // Volver a la actividad EditProfile
+                            requireActivity().getSupportFragmentManager().popBackStack();
                         }
 
                         @Override

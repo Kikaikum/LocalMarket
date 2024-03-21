@@ -57,6 +57,8 @@ public class ActivityUserLobby extends AppCompatActivity {
         // Manejar eventos de clic para cada elemento del menú
         if (id == R.id.nav_profile) {
             // Lógica para manejar el clic en el elemento "Perfil"
+            Intent intent = new Intent(this, EditProfileActivity.class);
+            startActivity(intent);
             return true;
         } else if (id == R.id.nav_logout) {
             // Lógica para manejar el clic en el elemento "Cerrar sesión"
