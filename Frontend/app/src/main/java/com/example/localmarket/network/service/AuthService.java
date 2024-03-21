@@ -35,7 +35,7 @@ public class AuthService {
     private static final String BASE_URL = "https://kikaikum.ddns.net:3000/localmarket/v1/";
     private TokenManager tokenManager;
 
-    private AuthService() {
+    public AuthService() {
         // Configuración del cliente HTTP con interceptor para logs
         OkHttpClient.Builder httpClient = new OkHttpClient.Builder();
         HttpLoggingInterceptor loggingInterceptor = new HttpLoggingInterceptor();
