@@ -8,17 +8,17 @@ public class User {
     private String email;
     private String password;
     private int id;
-    private Boolean vendor;
+    private boolean agricultor;
 
     // Constructor
-    public User(String name, String surname, String username, String email, String password, int id, Boolean vendor) {
+    public User(String name, String surname, String username, String email, String password, int id, boolean agricultor) {
         this.name=name;
         this.surname=surname;
         this.username = username;
         this.email = email;
         this.password = password;
         this.id = id;
-        this.vendor= vendor;
+        this.agricultor= agricultor;
     }
 
     // Getters y setters
@@ -63,15 +63,9 @@ public class User {
 
     public int getId() { return id; };
 
-    public boolean getVendor() {
-        if (vendor != null) {
-            return vendor;
-        } else {
-            return false; // Otra acción por defecto en caso de que vendor sea nulo
-        }
-    }
+    public boolean getAgricultor() { return agricultor; }
 
-    public void setVendor(boolean vendor) {
-        this.vendor = vendor;
+    public void setAgricultor(boolean agricultor) {
+        this.agricultor = agricultor;
     }
 }

@@ -92,7 +92,7 @@ public class LoginFragment extends Fragment {
 
                 if (user != null) {
                     int userId = user.getId();
-                    Boolean isVendor = user.getVendor();
+                    boolean isVendor = user.getAgricultor();
 
                     // Guardar el token y el ID de usuario en SharedPreferences
                     tokenManager.saveToken(token);
@@ -102,8 +102,9 @@ public class LoginFragment extends Fragment {
                     Toast.makeText(getActivity(), "Login exitoso", Toast.LENGTH_SHORT).show();
 
                     // Mostrar el ID de usuario y el token guardados en SharedPreferences
-                    Toast.makeText(getActivity(), "User id: " + tokenManager.getUserId(), Toast.LENGTH_SHORT).show();
-                    Toast.makeText(getActivity(), "User token: " + tokenManager.getToken(), Toast.LENGTH_SHORT).show();
+                    //Toast.makeText(getActivity(), "User id: " + tokenManager.getUserId(), Toast.LENGTH_SHORT).show();
+                    //Toast.makeText(getActivity(), "User token: " + tokenManager.getToken(), Toast.LENGTH_SHORT).show();
+                    //Toast.makeText(getActivity(), "User agricultor: " + user.getAgricultor(), Toast.LENGTH_SHORT).show();
 
                     // Abrir la pantalla principal
                     openMainScreen(isVendor);

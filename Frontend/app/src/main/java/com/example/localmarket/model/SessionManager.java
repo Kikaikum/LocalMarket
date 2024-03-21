@@ -16,10 +16,10 @@ public class SessionManager {
         return currentUser != null;
     }
 
-    public boolean isVendor() {
+    public boolean isAgricultor() {
         // Verifica si el usuario actual es un vendedor
         // Puedes implementar la lógica según tus necesidades
-        return currentUser != null && currentUser.getVendor();
+        return currentUser != null && currentUser.getAgricultor();
     }
 
     public String getAuthToken() {

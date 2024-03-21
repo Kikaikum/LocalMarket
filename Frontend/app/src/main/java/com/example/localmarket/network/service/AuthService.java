@@ -7,6 +7,7 @@ import com.example.localmarket.model.SignUpRequest;
 import com.example.localmarket.model.SignUpResponse;
 import com.example.localmarket.model.User;
 import com.example.localmarket.network.api.ApiService;
+import com.example.localmarket.utils.TokenManager;
 
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
@@ -27,6 +28,7 @@ public class AuthService {
 
     // URL base de tu API
     private static final String BASE_URL = "https://kikaikum.ddns.net:3000/localmarket/v1/";
+    private TokenManager tokenManager;
 
     private AuthService() {
         // Configuración del cliente HTTP con interceptor para logs
@@ -54,6 +56,8 @@ public class AuthService {
             public void onResponse(Call<LoginResponse> call, Response<LoginResponse> response) {
                 if (response.isSuccessful()) {
                     callback.onSuccess(response.body());
+
+
                 } else {
                     callback.onError(new Exception("Error en el login"));
                 }
@@ -270,6 +274,13 @@ public class AuthService {
                 callback.onError(t);
             }
         });
+    }
+
+    public void logoutUser(AuthCallback<Void> authCallback) {
+        if (tokenManager != null) {
+            tokenManager.clearToken();
+        }
+        authCallback.onSuccess(null);
     }
 
 
