@@ -1,0 +1,24 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/menu_icon_basket"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:padding="8dp">
+
+    <ImageView
+        android:id="@+id/iconoMenu"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:src="@drawable/shopping_basket_18" />
+
+    <TextView
+        android:id="@+id/contadorPedidos"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:layout_gravity="bottom|end"
+        android:background="@drawable/round_notify"
+        android:gravity="center"
+        android:padding="4dp"
+        android:text="99+"
+        android:textColor="#FFFFFF"
+        android:textSize="9sp" />
+</FrameLayout>

@@ -16,6 +16,11 @@
         <!-- No se define ningún atributo -->
     </style>
 
+    <style name="SpinnerTheme" parent="Widget.AppCompat.Spinner.Underlined">
+
+        <item name="colorControlNormal">@color/black</item> <!-- Color de la flecha -->
+    </style>
+
 
 
     <style name="Theme.LocalMarket" parent="Base.Theme.LocalMarket" />

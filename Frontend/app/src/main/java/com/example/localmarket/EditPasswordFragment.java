@@ -1,6 +1,5 @@
 package com.example.localmarket;
 
-import static androidx.test.core.app.ApplicationProvider.getApplicationContext;
 
 import android.content.Context;
 import android.os.Bundle;
