@@ -1,9 +1,10 @@
 package com.example.localmarket.network.api;
 
-import android.text.style.UpdateAppearance;
-
+import com.example.localmarket.model.Product;
 import com.example.localmarket.model.LoginRequest;
 import com.example.localmarket.model.LoginResponse;
+import com.example.localmarket.model.ProductRequest;
+import com.example.localmarket.model.ProductResponse;
 import com.example.localmarket.model.SignUpRequest;
 import com.example.localmarket.model.SignUpResponse;
 import com.example.localmarket.model.UpdateEmailRequest;
@@ -13,13 +14,14 @@ import com.example.localmarket.model.UpdateSurnameRequest;
 import com.example.localmarket.model.UpdateUsernameRequest;
 import com.example.localmarket.model.User;
 
+import java.util.List;
+
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.DELETE;
 import retrofit2.http.GET;
 import retrofit2.http.PATCH;
 import retrofit2.http.POST;
-import retrofit2.http.PUT;
 import retrofit2.http.Path;
 import retrofit2.http.Query;
 
@@ -56,4 +58,13 @@ public interface ApiService {
 
     @GET("users/username/{username}/password")
     Call<Boolean> verifyPassword(@Query("password") String password);
+
+    @GET("productos/{id}")
+    Call<Product> getProductById(@Path("id") int productId);
+
+    @POST("productos/add")
+    Call<ProductResponse> addProduct(@Body ProductRequest product);
+
+    @GET("productos")
+    Call<List<Product>> getAllProducts();
 }

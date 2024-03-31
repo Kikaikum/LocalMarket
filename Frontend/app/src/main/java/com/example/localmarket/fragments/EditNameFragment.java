@@ -1,7 +1,6 @@
-package com.example.localmarket;
+package com.example.localmarket.fragments;
 
 import android.content.Context;
-import android.graphics.Color;
 import android.os.Bundle;
 import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
@@ -12,30 +11,29 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
-import com.example.localmarket.model.UpdateSurnameRequest;
-import com.example.localmarket.model.UpdateUsernameRequest;
+import com.example.localmarket.R;
+import com.example.localmarket.model.UpdateNameRequest;
 import com.example.localmarket.network.service.AuthService;
 import com.example.localmarket.utils.TokenManager;
 import com.example.localmarket.utils.ValidationUtils;
 
-public class EditSurnameFragment extends Fragment {
+public class EditNameFragment extends Fragment {
 
-    private EditText editTextSurname;
+    private EditText editTextName;
     private ImageView deleteIcon;
     private Button buttonListo; // Botón "Listo" para guardar los cambios
-    private ValidationUtils.NameValidator surnameValidator; // Instancia de NameValidator
+    private ValidationUtils.NameValidator nameValidator; // Instancia de NameValidator
     private Context context;
-
     private TokenManager tokenManager;
 
-    public EditSurnameFragment() {
+    public EditNameFragment() {
         // Required empty public constructor
     }
 
-    public static EditSurnameFragment newInstance(String surname) {
-        EditSurnameFragment fragment = new EditSurnameFragment();
+    public static EditNameFragment newInstance(String name) {
+        EditNameFragment fragment = new EditNameFragment();
         Bundle args = new Bundle();
-        args.putString("surname", surname);
+        args.putString("name", name);
         fragment.setArguments(args);
         return fragment;
     }
@@ -43,51 +41,46 @@ public class EditSurnameFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.fragment_edit_surname, container, false);
+        View rootView = inflater.inflate(R.layout.fragment_edit_name, container, false);
         // Inicializar vistas
-        editTextSurname = rootView.findViewById(R.id.editTextSurname);
+        editTextName = rootView.findViewById(R.id.editTextName);
         deleteIcon = rootView.findViewById(R.id.deleteIcon);
         buttonListo = rootView.findViewById(R.id.buttonListo);
 
-        // Obtener el contexto del fragmento
-        context = getContext();
-
         // Inicializar NameValidator
-        surnameValidator = new ValidationUtils.NameValidator();
-        // Aquí inicializa el TokenManager
+        nameValidator = new ValidationUtils.NameValidator();
         tokenManager = new TokenManager(getActivity());
 
-        // Obtener apellidos pasados desde EditProfileActivity
-        String surname = getArguments().getString("surname");
+
+        // Obtener el nombre  pasado desde EditProfileActivity
+        String name = getArguments().getString("name");
         // Configurar el texto en el EditText
-        editTextSurname.setText(surname);
+        editTextName.setText(name);
 
         // Configurar el OnClickListener para el icono de eliminar
         deleteIcon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 // Borrar el texto del campo de texto
-                editTextSurname.setText("");
+                editTextName.setText("");
             }
         });
 
         buttonListo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Obtener el nuevo valor de los apellidos de usuario
-                String newSurname = editTextSurname.getText().toString();
+                // Obtener el nuevo valor del nombre
+                String newName = editTextName.getText().toString();
                 int id = tokenManager.getUserId();
-                // Verificar los apellidos utilizando NameValidator
-                if (surnameValidator.isValidName(context,newSurname)) {
-
-                    // Crear un objeto UpdateSurnameRequest con el ID del usuario y nuevos apellidos de usuario
-                    UpdateSurnameRequest updateSurnameRequest = new UpdateSurnameRequest(id, newSurname);
-                    // Los apellidos son válidos, llamar al método para actualizarlos
-                    AuthService.getInstance().updateSurname(id, updateSurnameRequest, new AuthService.AuthCallback<Void>() {
+                // Verificar el nombre de usuario utilizando UsernameValidator
+                if (nameValidator.isValidName(context,newName)) {
+                    UpdateNameRequest updateNameRequest = new UpdateNameRequest(id, newName);
+                    // El nombre de usuario es válido, llamar al método para actualizarlo
+                    AuthService.getInstance().updateName(id, updateNameRequest,new AuthService.AuthCallback<Void>() {
                         @Override
                         public void onSuccess(Void response) {
                             // Manejar el éxito, mostrando un mensaje al usuario
-                            Toast.makeText(getActivity(), "Apellidos de usuario actualizados correctamente", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getActivity(), "El Nombre ha sido  actualizado correctamente", Toast.LENGTH_SHORT).show();
 
                             // Después de actualizar los datos, recarga la actividad
                             getActivity().recreate();
@@ -98,12 +91,12 @@ public class EditSurnameFragment extends Fragment {
                         @Override
                         public void onError(Throwable t) {
                             // Manejar el error, mostrando un mensaje al usuario
-                            Toast.makeText(getActivity(), "Error al actualizar los apellidos de usuario", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getActivity(), "Error al actualizar el nombre ", Toast.LENGTH_SHORT).show();
                         }
                     });
                 } else {
-                    // Los apellidos no son válidos, mostrar un mensaje de error al usuario
-                    Toast.makeText(getActivity(), "Apellidos no válidos", Toast.LENGTH_SHORT).show();
+                    // El nombre de usuario no es válido, mostrar un mensaje de error al usuario
+                    Toast.makeText(getActivity(), "Nombre  no válido", Toast.LENGTH_SHORT).show();
                 }
             }
         });

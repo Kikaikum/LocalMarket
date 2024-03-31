@@ -1,7 +1,10 @@
 package com.example.localmarket.network.service;
 
+import com.example.localmarket.model.Product;
 import com.example.localmarket.model.LoginRequest;
 import com.example.localmarket.model.LoginResponse;
+import com.example.localmarket.model.ProductRequest;
+import com.example.localmarket.model.ProductResponse;
 import com.example.localmarket.model.SessionManager;
 import com.example.localmarket.model.SignUpRequest;
 import com.example.localmarket.model.SignUpResponse;
@@ -13,6 +16,8 @@ import com.example.localmarket.model.UpdateUsernameRequest;
 import com.example.localmarket.model.User;
 import com.example.localmarket.network.api.ApiService;
 import com.example.localmarket.utils.TokenManager;
+
+import java.util.List;
 
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
@@ -329,7 +334,48 @@ public class AuthService {
             }
         });
     }
+    public void addProduct(ProductRequest product, final AuthCallback<ProductResponse> callback) {
+        Call<ProductResponse> call = apiService.addProduct(product);
+        call.enqueue(new Callback<ProductResponse>() {
+            @Override
+            public void onResponse(Call<ProductResponse> call, Response<ProductResponse> response) {
+                if (response.isSuccessful()) {
+                    // Si la solicitud fue exitosa, invoca el callback con la respuesta
+                    callback.onSuccess(response.body());
+                } else {
+                    // Si la respuesta no fue exitosa, maneja el error
+                    callback.onError(new Exception("Error al añadir producto: " + response.message()));
+                }
+            }
 
+            @Override
+            public void onFailure(Call<ProductResponse> call, Throwable t) {
+                // Maneja fallos totales de la solicitud (por ejemplo, no hay conexión a internet)
+                callback.onError(t);
+            }
+        });
+    }
+    public void getAllProducts(final AuthCallback<List<Product>> callback) {
+        Call<List<Product>> call = apiService.getAllProducts();
+        call.enqueue(new Callback<List<Product>>() {
+            @Override
+            public void onResponse(Call<List<Product>> call, Response<List<Product>> response) {
+                if (response.isSuccessful()) {
+                    // La solicitud fue exitosa. Usa callback para enviar la lista de productos a la UI
+                    callback.onSuccess(response.body());
+                } else {
+                    // Maneja el caso donde la respuesta no es exitosa
+                    callback.onError(new Exception("Error al obtener productos: " + response.message()));
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<Product>> call, Throwable t) {
+                // Maneja completamente el fallo de la solicitud (por ejemplo, problema de red)
+                callback.onError(t);
+            }
+        });
+    }
 
 
     // Método para obtener una instancia de ApiService

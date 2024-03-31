@@ -1,4 +1,4 @@
-package com.example.localmarket;
+package com.example.localmarket.activities;
 
 import android.content.DialogInterface;
 import android.os.Bundle;
@@ -12,10 +12,15 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
+import com.example.localmarket.R;
+import com.example.localmarket.fragments.EditEmailFragment;
+import com.example.localmarket.fragments.EditNameFragment;
+import com.example.localmarket.fragments.EditPasswordFragment;
+import com.example.localmarket.fragments.EditSurnameFragment;
+import com.example.localmarket.fragments.EditUsernameFragment;
 import com.example.localmarket.model.User;
 import com.example.localmarket.network.api.ApiService;
 import com.example.localmarket.network.service.AuthService;
-import com.example.localmarket.network.service.SimulatedAuthService;
 import com.example.localmarket.utils.TokenManager;
 
 public class EditProfileActivity extends AppCompatActivity {

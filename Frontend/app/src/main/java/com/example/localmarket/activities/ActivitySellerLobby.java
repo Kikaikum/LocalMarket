@@ -1,4 +1,4 @@
-package com.example.localmarket;
+package com.example.localmarket.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -11,6 +11,8 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
+import com.example.localmarket.R;
+import com.example.localmarket.fragments.AddProductFragment;
 import com.example.localmarket.network.service.AuthService;
 
 public class ActivitySellerLobby extends AppCompatActivity {

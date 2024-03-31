@@ -1,4 +1,4 @@
-package com.example.localmarket;
+package com.example.localmarket.fragments;
 
 
 import android.content.Context;
@@ -12,8 +12,8 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.example.localmarket.R;
 import com.example.localmarket.model.UpdateEmailRequest;
-import com.example.localmarket.model.UpdateUsernameRequest;
 import com.example.localmarket.network.service.AuthService;
 import com.example.localmarket.utils.TokenManager;
 import com.example.localmarket.utils.ValidationUtils;

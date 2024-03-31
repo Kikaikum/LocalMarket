@@ -1,4 +1,6 @@
-package com.example.localmarket;
+package com.example.localmarket.fragments;
+
+
 
 import android.content.Context;
 import android.os.Bundle;
@@ -11,28 +13,31 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
-import com.example.localmarket.model.UpdateNameRequest;
+import com.example.localmarket.R;
+import com.example.localmarket.model.UpdateUsernameRequest;
+import com.example.localmarket.model.SessionManager;
 import com.example.localmarket.network.service.AuthService;
 import com.example.localmarket.utils.TokenManager;
 import com.example.localmarket.utils.ValidationUtils;
 
-public class EditNameFragment extends Fragment {
+public class EditUsernameFragment extends Fragment {
 
-    private EditText editTextName;
+    private EditText editTextUsername;
     private ImageView deleteIcon;
     private Button buttonListo; // Botón "Listo" para guardar los cambios
-    private ValidationUtils.NameValidator nameValidator; // Instancia de NameValidator
+    private ValidationUtils.UsernameValidator usernameValidator; // Instancia de UsernameValidator
     private Context context;
     private TokenManager tokenManager;
+    private SessionManager sessionManager;
 
-    public EditNameFragment() {
+    public EditUsernameFragment() {
         // Required empty public constructor
     }
 
-    public static EditNameFragment newInstance(String name) {
-        EditNameFragment fragment = new EditNameFragment();
+    public static EditUsernameFragment newInstance(String username) {
+        EditUsernameFragment fragment = new EditUsernameFragment();
         Bundle args = new Bundle();
-        args.putString("name", name);
+        args.putString("username", username);
         fragment.setArguments(args);
         return fragment;
     }
@@ -40,46 +45,50 @@ public class EditNameFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.fragment_edit_name, container, false);
+        View rootView = inflater.inflate(R.layout.editusername_fragment, container, false);
         // Inicializar vistas
-        editTextName = rootView.findViewById(R.id.editTextName);
+        editTextUsername = rootView.findViewById(R.id.editTextUsername);
         deleteIcon = rootView.findViewById(R.id.deleteIcon);
         buttonListo = rootView.findViewById(R.id.buttonListo);
 
-        // Inicializar NameValidator
-        nameValidator = new ValidationUtils.NameValidator();
+
+        // Inicializar UsernameValidator
+        usernameValidator = new ValidationUtils.UsernameValidator();
+        // Aquí inicializa el TokenManager
         tokenManager = new TokenManager(getActivity());
 
 
-        // Obtener el nombre  pasado desde EditProfileActivity
-        String name = getArguments().getString("name");
+        // Obtener el nombre de usuario pasado desde EditProfileActivity
+        String username = getArguments().getString("username");
         // Configurar el texto en el EditText
-        editTextName.setText(name);
+        editTextUsername.setText(username);
 
         // Configurar el OnClickListener para el icono de eliminar
         deleteIcon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 // Borrar el texto del campo de texto
-                editTextName.setText("");
+                editTextUsername.setText("");
             }
         });
-
         buttonListo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Obtener el nuevo valor del nombre
-                String newName = editTextName.getText().toString();
+                // Obtener el nuevo valor del nombre de usuario
+                String newUsername = editTextUsername.getText().toString();
                 int id = tokenManager.getUserId();
+
                 // Verificar el nombre de usuario utilizando UsernameValidator
-                if (nameValidator.isValidName(context,newName)) {
-                    UpdateNameRequest updateNameRequest = new UpdateNameRequest(id, newName);
+                if (usernameValidator.isValidUsername(context, newUsername)) {
+                    // Crear un objeto UpdateUsernameRequest con el ID del usuario y el nuevo nombre de usuario
+                    UpdateUsernameRequest updateUsernameRequest = new UpdateUsernameRequest(id, newUsername);
+
                     // El nombre de usuario es válido, llamar al método para actualizarlo
-                    AuthService.getInstance().updateName(id, updateNameRequest,new AuthService.AuthCallback<Void>() {
+                    AuthService.getInstance().updateUsername(id, updateUsernameRequest, new AuthService.AuthCallback<Void>() {
                         @Override
                         public void onSuccess(Void response) {
                             // Manejar el éxito, mostrando un mensaje al usuario
-                            Toast.makeText(getActivity(), "El Nombre ha sido  actualizado correctamente", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getActivity(), "Nombre de usuario actualizado correctamente", Toast.LENGTH_SHORT).show();
 
                             // Después de actualizar los datos, recarga la actividad
                             getActivity().recreate();
@@ -90,15 +99,16 @@ public class EditNameFragment extends Fragment {
                         @Override
                         public void onError(Throwable t) {
                             // Manejar el error, mostrando un mensaje al usuario
-                            Toast.makeText(getActivity(), "Error al actualizar el nombre ", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getActivity(), "Error al actualizar el nombre de usuario", Toast.LENGTH_SHORT).show();
                         }
                     });
                 } else {
                     // El nombre de usuario no es válido, mostrar un mensaje de error al usuario
-                    Toast.makeText(getActivity(), "Nombre  no válido", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getActivity(), "Nombre de usuario no válido", Toast.LENGTH_SHORT).show();
                 }
             }
         });
+
 
         return rootView;
     }

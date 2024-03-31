@@ -1,4 +1,4 @@
-package com.example.localmarket;
+package com.example.localmarket.fragments;
 
 
 import android.content.Context;
@@ -11,29 +11,12 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.example.localmarket.model.UpdateNameRequest;
+import com.example.localmarket.R;
 import com.example.localmarket.model.UpdatePasswordRequest;
-import com.example.localmarket.model.User;
-import com.example.localmarket.network.api.ApiService;
 import com.example.localmarket.network.service.AuthService;
 import com.example.localmarket.utils.TokenManager;
 import com.example.localmarket.utils.ValidationUtils;
 
-
-
-import android.content.Context;
-import android.os.Bundle;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.Toast;
-
-import androidx.fragment.app.Fragment;
-
-import com.example.localmarket.network.service.AuthService;
-import com.example.localmarket.utils.ValidationUtils;
 public class EditPasswordFragment extends Fragment {
 
     private EditText newPassword;

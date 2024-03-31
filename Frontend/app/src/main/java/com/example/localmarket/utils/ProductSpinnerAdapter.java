@@ -11,7 +11,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
-import com.example.localmarket.Product;
+import com.example.localmarket.model.Product;
 import com.example.localmarket.R;
 
 import java.util.List;

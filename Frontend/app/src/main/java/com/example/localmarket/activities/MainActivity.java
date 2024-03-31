@@ -1,4 +1,4 @@
-package com.example.localmarket;
+package com.example.localmarket.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -7,6 +7,8 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
+import com.example.localmarket.R;
+import com.example.localmarket.fragments.LoginFragment;
 import com.example.localmarket.model.SessionManager;
 
 public class MainActivity extends AppCompatActivity {

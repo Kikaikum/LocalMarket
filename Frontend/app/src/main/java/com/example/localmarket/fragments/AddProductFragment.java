@@ -1,4 +1,4 @@
-package com.example.localmarket;
+package com.example.localmarket.fragments;
 
 import android.os.Bundle;
 
@@ -15,6 +15,11 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Switch;
 
+import com.example.localmarket.model.Product;
+import com.example.localmarket.R;
+import com.example.localmarket.model.ProductRequest;
+import com.example.localmarket.model.ProductResponse;
+import com.example.localmarket.network.service.AuthService;
 import com.example.localmarket.utils.ProductSpinnerAdapter;
 
 import java.util.ArrayList;
@@ -90,17 +95,40 @@ public class AddProductFragment extends Fragment {
         btnAccept.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String price = editTextPrice.getText().toString();
+                // Suponiendo que tienes un EditText para el nombre y otro para el precio
+                String name = ((Product) spinnerImages.getSelectedItem()).getName();
+                int imageId = ((Product) spinnerImages.getSelectedItem()).getImageId();
                 String description = editTextDescription.getText().toString();
-                Product selectedProduct = (Product) spinnerImages.getSelectedItem();
-                String switchText = switchMeasurement.getText().toString();
+                String weightType = switchMeasurement.isChecked() ? "Peso" : "Unidades";
+                double price = 0;
+                try {
+                    price = Double.parseDouble(editTextPrice.getText().toString());
+                } catch (NumberFormatException e) {
+                    Log.e("AddProductFragment", "Error al parsear el precio", e);
+                    // Manejar error, por ejemplo, mostrando un mensaje al usuario
+                }
+
+                // Crear ProductRequest y enviarlo
+                ProductRequest productRequest = new ProductRequest(name, imageId, description, weightType, price);
+
+                AuthService.getInstance().addProduct(productRequest, new AuthService.AuthCallback<ProductResponse>() {
+                    @Override
+                    public void onSuccess(ProductResponse response) {
+                        Log.i("ProductAdd", "Producto añadido con éxito. ID: " + response.getId());
+                    }
+
+                    @Override
+                    public void onError(Throwable t) {
+                        Log.e("ProductAdd", "Error al añadir producto: " + t.getMessage());
+                    }
+                });
 
                 //simulamos el envio al servidor
-                Log.i("SendData", "Enviando datos al servidor...");
-                Log.i("ProductInfo", "Producto: " + selectedProduct.getName());
-                Log.i("ProductInfo", "Medición: " + switchText);
-                Log.i("ProductInfo", "Precio: " + price);
-                Log.i("ProductInfo", "Descripción: " + description);
+                //Log.i("SendData", "Enviando datos al servidor...");
+                //Log.i("ProductInfo", "Producto: " + selectedProduct.getName());
+                //Log.i("ProductInfo", "Medición: " + switchText);
+                //Log.i("ProductInfo", "Precio: " + price);
+                //Log.i("ProductInfo", "Descripción: " + description);
 
             }
         });

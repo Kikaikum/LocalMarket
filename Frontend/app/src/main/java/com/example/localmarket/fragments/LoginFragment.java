@@ -1,4 +1,4 @@
-package com.example.localmarket;
+package com.example.localmarket.fragments;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -8,7 +8,6 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,6 +15,9 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.example.localmarket.activities.ActivitySellerLobby;
+import com.example.localmarket.activities.ActivityUserLobby;
+import com.example.localmarket.R;
 import com.example.localmarket.model.LoginResponse;
 import com.example.localmarket.model.User;
 import com.example.localmarket.network.service.AuthService;

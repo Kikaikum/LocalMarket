@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".AddProductFragment"
+    tools:context=".fragments.AddProductFragment"
     android:background="@color/soft_green">
 
 
@@ -70,7 +70,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.049"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/itPrice" />
+        app:layout_constraintTop_toBottomOf="@+id/itPrice"
+        android:switchPadding="40dp"/>
 
     <Button
         android:id="@+id/btnCancel"

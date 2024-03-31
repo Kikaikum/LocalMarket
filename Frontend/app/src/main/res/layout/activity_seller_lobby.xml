@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/soft_green"
-    tools:context=".ActivitySellerLobby"
+    tools:context=".activities.ActivitySellerLobby"
     android:theme="@style/Base.Theme.LocalMarket">
 
     <androidx.appcompat.widget.Toolbar
