@@ -46,8 +46,18 @@ class UserService {
 
   async update(id, changes) {
     const user = await this.findOne(id);
-    const rta = await user.update(changes);
-    delete rta.dataValues.password;
+    if (chenges.password){
+      const hash = await bcrypt.hash(changes.password, 10);
+      const rta = await user.update({
+        ...changes,
+        password: hash});
+      delete rta.dataValues.password;
+    }
+    else{
+      const rta = await user.update(changes);
+      delete rta.dataValues.password;
+    }
+    
     return rta;
   }
 

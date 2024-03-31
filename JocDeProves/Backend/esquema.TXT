@@ -1,0 +1,26 @@
+
+[Inicio]
+    |
+    V
+[API /users]
+    |-> POST / (Crea un nuevo usuario)
+    |
+    |-> POST /login (Autentica al usuario)
+    |
+    |-> GET /{id} (Obtiene un usuario por su ID)
+    |
+    |-> GET / (Obtiene todos los usuarios)
+    |
+    |-> GET /username/{username} (Obtiene un usuario por su nombre de usuario)
+    |
+    |-> PATCH /{id} (Edita un usuario existente por su ID)
+    |    |-> Editar nombre
+    |    |-> Editar apellido
+    |    |-> Editar nombre de usuario
+    |    |-> Editar email
+    |    |-> Editar contraseña
+    |
+    |-> DELETE /{id} (Borra un usuario por su ID)
+    |
+    V
+[Fin]
