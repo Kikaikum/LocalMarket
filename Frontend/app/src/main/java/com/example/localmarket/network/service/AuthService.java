@@ -233,10 +233,10 @@ public class AuthService {
         });
     }
 
-    public void updatePassword(String username, UpdatePasswordRequest updatePasswordRequest, final AuthCallback<Void> callback) {
+    public void updatePassword(int id, UpdatePasswordRequest updatePasswordRequest, final AuthCallback<Void> callback) {
 
         // Realizar la llamada a la API para actualizar password
-        apiService.updatePassword(username, updatePasswordRequest).enqueue(new Callback<Void>() {
+        apiService.updatePassword(id, updatePasswordRequest).enqueue(new Callback<Void>() {
             @Override
             public void onResponse(Call<Void> call, Response<Void> response) {
                 if (response.isSuccessful()) {
@@ -250,29 +250,6 @@ public class AuthService {
 
             @Override
             public void onFailure(Call<Void> call, Throwable t) {
-                // Si hay un fallo en la llamada, llamar al método onError del callback
-                callback.onError(t);
-            }
-        });
-    }
-
-
-    public void verifyPassword(String password, final AuthCallback<Boolean> callback) {
-        // Realizar la llamada a la API para verificar la contraseña
-        apiService.verifyPassword(password).enqueue(new Callback<Boolean>() {
-            @Override
-            public void onResponse(Call<Boolean> call, Response<Boolean> response) {
-                if (response.isSuccessful()) {
-                    // Si la respuesta es exitosa, llamar al método onSuccess del callback con el resultado de la verificación
-                    callback.onSuccess(response.body());
-                } else {
-                    // Si hay un error en la respuesta, llamar al método onError del callback
-                    callback.onError(new Exception("Error al verificar la contraseña"));
-                }
-            }
-
-            @Override
-            public void onFailure(Call<Boolean> call, Throwable t) {
                 // Si hay un fallo en la llamada, llamar al método onError del callback
                 callback.onError(t);
             }

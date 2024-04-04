@@ -1,21 +1,39 @@
 package com.example.localmarket.model;
 
-import com.google.gson.annotations.SerializedName;
+/**
+ * Esta clase representa una solicitud para actualizar el nombre de usuario.
+ * Autor: Ainhoa
+ */
 public class UpdateUsernameRequest {
-    private String username;
-    private int userId;
+    private String username; // El nuevo nombre de usuario
 
-    // Constructor que acepta el nuevo nombre de usuario
-    public UpdateUsernameRequest(int userId, String username) {
-        this.userId = userId;
+    private int id; // El identificador único del usuario
+
+    /**
+     * Constructor para crear una instancia de UpdateUsernameRequest.
+     *
+     * @param id   El identificador único del usuario.
+     * @param username El nuevo nombre de usuario.
+     */
+    public UpdateUsernameRequest(int id, String username) {
+        this.id = id;
         this.username = username;
     }
 
-    // Getter y setter para el nuevo nombre de usuario
+    /**
+     * Obtiene el nuevo nombre de usuario.
+     *
+     * @return El nuevo nombre de usuario.
+     */
     public String getNewUsername() {
         return username;
     }
 
+    /**
+     * Establece el nuevo nombre de usuario.
+     *
+     * @param username El nuevo nombre de usuario.
+     */
     public void setNewUsername(String username) {
         this.username = username;
     }

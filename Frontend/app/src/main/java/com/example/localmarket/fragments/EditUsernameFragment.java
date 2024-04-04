@@ -19,7 +19,10 @@ import com.example.localmarket.model.SessionManager;
 import com.example.localmarket.network.service.AuthService;
 import com.example.localmarket.utils.TokenManager;
 import com.example.localmarket.utils.ValidationUtils;
-
+/**
+ * Fragmento para editar el nombre de usuario.
+ * @author Ainoha
+ */
 public class EditUsernameFragment extends Fragment {
 
     private EditText editTextUsername;
@@ -29,11 +32,18 @@ public class EditUsernameFragment extends Fragment {
     private Context context;
     private TokenManager tokenManager;
     private SessionManager sessionManager;
-
+    /**
+     * Constructor por defecto de la clase EditUsernameFragment.
+     */
     public EditUsernameFragment() {
         // Required empty public constructor
     }
-
+    /**
+     * Método estático para crear una nueva instancia del fragmento EditUsernameFragment con un nombre de usuario específico.
+     *
+     * @param username El nombre de usuario actual.
+     * @return Una nueva instancia de EditUsernameFragment.
+     */
     public static EditUsernameFragment newInstance(String username) {
         EditUsernameFragment fragment = new EditUsernameFragment();
         Bundle args = new Bundle();
@@ -74,6 +84,7 @@ public class EditUsernameFragment extends Fragment {
         buttonListo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                context=getContext();
                 // Obtener el nuevo valor del nombre de usuario
                 String newUsername = editTextUsername.getText().toString();
                 int id = tokenManager.getUserId();

@@ -53,8 +53,9 @@ public interface ApiService {
     @PATCH("users/{id}") //Ruta de la API para actualizar apellidos
     Call<Void> updateSurname(@Path("id") int userId, @Body UpdateSurnameRequest updateSurnameRequest);
 
-    @PATCH("users/username/{username}")//Ruta de la API para actualizar contraseña
-    Call<Void> updatePassword(@Path("username") String username, @Body UpdatePasswordRequest updatePasswordRequest);
+    @PATCH("users/{id}")//Ruta de la API para actualizar contraseña
+    Call<Void> updatePassword(@Path("id") int userId, @Body UpdatePasswordRequest updatePasswordRequest);
+
 
     @GET("users/username/{username}/password")
     Call<Boolean> verifyPassword(@Query("password") String password);

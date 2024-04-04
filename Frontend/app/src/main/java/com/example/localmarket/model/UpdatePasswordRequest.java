@@ -1,12 +1,21 @@
 package com.example.localmarket.model;
 
+/**
+ * Esta clase representa una solicitud para actualizar la contraseña de un usuario.
+ * Autor: Ainhoa
+ */
 public class UpdatePasswordRequest {
-    private String password;
-    private String username;
+    private String password; // La nueva contraseña del usuario
+    private int id; // El identificador único del usuario
 
-    // Constructor que acepta nueva contraseña
-    public UpdatePasswordRequest(String username, String password) {
-        this.username = username;
+    /**
+     * Constructor para crear una instancia de UpdatePasswordRequest.
+     *
+     * @param id       El identificador único del usuario.
+     * @param password La nueva contraseña del usuario.
+     */
+    public UpdatePasswordRequest(int id, String password) {
+        this.id = id;
         this.password = password;
     }
 }

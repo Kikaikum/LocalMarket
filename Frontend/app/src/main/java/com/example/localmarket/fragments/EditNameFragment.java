@@ -16,7 +16,10 @@ import com.example.localmarket.model.UpdateNameRequest;
 import com.example.localmarket.network.service.AuthService;
 import com.example.localmarket.utils.TokenManager;
 import com.example.localmarket.utils.ValidationUtils;
-
+/**
+ * Fragmento para editar el nombre del usuario.
+ * @author Ainoha
+ */
 public class EditNameFragment extends Fragment {
 
     private EditText editTextName;
@@ -25,11 +28,18 @@ public class EditNameFragment extends Fragment {
     private ValidationUtils.NameValidator nameValidator; // Instancia de NameValidator
     private Context context;
     private TokenManager tokenManager;
-
+    /**
+     * Constructor por defecto de la clase EditNameFragment.
+     */
     public EditNameFragment() {
         // Required empty public constructor
     }
-
+    /**
+     * Metodo estatico para crear una nueva instancia del fragmento EditNameFragment con un nombre específico.
+     *
+     * @param name El nombre actual del usuario.
+     * @return Una nueva instancia de EditNameFragment.
+     */
     public static EditNameFragment newInstance(String name) {
         EditNameFragment fragment = new EditNameFragment();
         Bundle args = new Bundle();

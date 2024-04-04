@@ -17,6 +17,10 @@ import com.example.localmarket.model.UpdateEmailRequest;
 import com.example.localmarket.network.service.AuthService;
 import com.example.localmarket.utils.TokenManager;
 import com.example.localmarket.utils.ValidationUtils;
+/**
+ * Fragmento para editar el email del usuario.
+ * @author Ainoha
+ */
 
 public class EditEmailFragment extends Fragment {
 
@@ -28,10 +32,19 @@ public class EditEmailFragment extends Fragment {
 
     private TokenManager tokenManager;
 
+    /**
+     * Constructor por defecto de la clase EditEmailFragment.
+     */
     public EditEmailFragment() {
         // Required empty public constructor
     }
 
+    /**
+     *Metodo estatico para crear una nueva instancia del fragmento EditEmailFragment con un email específico.
+     *
+     * @param email El email actual del usuario.
+     * @return Una nueva instancia de EditEmailFragment.
+     */
     public static EditEmailFragment newInstance(String email) {
         EditEmailFragment fragment = new EditEmailFragment();
         Bundle args = new Bundle();
