@@ -18,7 +18,6 @@ router.get('/', async (req, res, next) => {
 });
 
 router.get('/username/:username',
-  
   async (req, res, next) => {
     try {
       const { username } = req.params;
@@ -84,6 +83,7 @@ router.post('/login',
 );
 
 router.delete('/:id',
+  passport.authenticate('jwt', {session: false}),
   validatorHandler(getUserSchema, 'params'),
   async (req, res, next) => {
     try {

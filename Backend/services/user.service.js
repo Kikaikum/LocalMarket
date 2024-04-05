@@ -39,27 +39,31 @@ class UserService {
     const user = await models.User.findOne({
       where: { username }
     });
-    //delete rta.dataValues.password;
-    //delete rta.dataValues.token;
+    delete user.dataValues.password;
+    delete user.dataValues.token;
     return user;
   }
 
   async update(id, changes) {
+    let rta; // Definir rta fuera de los bloques if/else
+
     const user = await this.findOne(id);
-    if (chenges.password){
-      const hash = await bcrypt.hash(changes.password, 10);
-      const rta = await user.update({
-        ...changes,
-        password: hash});
-      delete rta.dataValues.password;
-    }
-    else{
-      const rta = await user.update(changes);
-      delete rta.dataValues.password;
+    if (changes.password) {
+        const hash = await bcrypt.hash(changes.password, 10);
+        rta = await user.update({
+            ...changes,
+            password: hash
+        });
+        delete rta.dataValues.password;
+    } else {
+        rta = await user.update(changes);
+        delete rta.dataValues.password;
     }
     
     return rta;
-  }
+}
+
+
 
   async delete(id) {
     const user = await this.findOne(id);
