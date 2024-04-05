@@ -6,83 +6,66 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/soft_green"
-    tools:context=".ActivitySellerLobby"
+    tools:context=".activities.ActivitySellerLobby"
     android:theme="@style/Base.Theme.LocalMarket">
 
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar2"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="?attr/colorPrimary"
+        android:elevation="4dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+        app:subtitleTextColor="@color/white"
+        app:title="@string/app_name"
+        app:titleTextColor="@color/white"
+        tools:layout_editor_absoluteX="0dp" />
+
     <TextView
-        android:id="@+id/dataTitle"
-        android:layout_width="130dp"
-        android:layout_height="70dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="50dp"
-        android:gravity="center_vertical"
-        android:text="Mi cuenta"
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:text="@string/product_main"
         android:textSize="24sp"
-        app:layout_constraintBottom_toTopOf="@+id/misProductos"
-        app:layout_constraintEnd_toStartOf="@+id/logoImageView"
-        app:layout_constraintHorizontal_bias="0.175"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <ImageView
-        android:id="@+id/logoImageView"
-        android:layout_width="130dp"
-        android:layout_height="70dp"
-        android:layout_marginTop="50dp"
-        android:layout_marginEnd="16dp"
-        android:src="@drawable/logo"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintHorizontal_bias="0.107"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar2" />
 
-    <Button
-        android:id="@+id/misProductos"
-        style="@android:style/Widget.Holo.Button.Toggle"
-        android:layout_width="0dp"
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/addProduct"
+        android:layout_width="49dp"
+        android:layout_height="50dp"
+        android:gravity="center"
+        app:icon="@android:drawable/ic_input_add"
+        app:iconGravity="textStart"
+        app:iconPadding="0dp"
+        app:layout_constraintBottom_toBottomOf="@+id/textView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/textView"
+        app:layout_constraintTop_toTopOf="@+id/textView" />
+
+
+    <androidx.fragment.app.FragmentContainerView
+        android:id="@+id/fragment_container2"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="80dp"
         android:layout_marginEnd="16dp"
-
-        android:backgroundTint="#935C5C"
-        android:text="Mis productos"
-        android:textColor="@color/primary_text"
-        android:textStyle="bold"
-        app:iconTint="@color/black"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/dataTitle" />
+        app:layout_constraintTop_toBottomOf="@+id/toolbar2" />
 
-    <Button
-        android:id="@+id/misPedidos"
-        style="@android:style/Widget.Holo.Button.Toggle"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/reciclerViewProducts"
+        android:layout_width="match_parent"
+        android:layout_height="665dp"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="24dp"
         android:layout_marginEnd="16dp"
-        android:text="Mis pedidos"
-        android:textColor="@color/primary_text"
-        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/misProductos" />
-
-    <Button
-        android:id="@+id/miPerfil"
-        style="@android:style/Widget.Holo.Button.Toggle"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="30dp"
-        android:layout_marginEnd="16dp"
-        android:text="Mis perfil"
-        android:textColor="@color/primary_text"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/misPedidos" />
-
-
-
-
+        app:layout_constraintTop_toBottomOf="@+id/textView" />
 </androidx.constraintlayout.widget.ConstraintLayout>

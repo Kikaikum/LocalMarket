@@ -1,10 +1,13 @@
-package com.example.localmarket;
+package com.example.localmarket.activities;
 
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
+
+import android.content.SharedPreferences;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
@@ -12,11 +15,22 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
+import com.example.localmarket.R;
+import com.example.localmarket.fragments.EditEmailFragment;
+import com.example.localmarket.fragments.EditNameFragment;
+import com.example.localmarket.fragments.EditPasswordFragment;
+import com.example.localmarket.fragments.EditSurnameFragment;
+import com.example.localmarket.fragments.EditUsernameFragment;
 import com.example.localmarket.model.User;
 import com.example.localmarket.network.api.ApiService;
 import com.example.localmarket.network.service.AuthService;
-import com.example.localmarket.network.service.SimulatedAuthService;
 import com.example.localmarket.utils.TokenManager;
+import com.google.gson.Gson;
+
+/**
+ * Esta actividad permite al usuario editar su perfil.
+ *@author Ainoha
+ */
 
 public class EditProfileActivity extends AppCompatActivity {
     private Button editUsernameButton, editEmailButton, editPasswordButton, deleteAccountButton, editNameButton , editSurnameButton;
@@ -32,6 +46,13 @@ public class EditProfileActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.edit_profile);
+
+        // Restaurar el objeto User desde SharedPreferences si está disponible
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+        String userJson = preferences.getString("user", null);
+        if (userJson != null) {
+            user = new Gson().fromJson(userJson, User.class);
+        }
 
         // Inicializar vistas
         editUsernameButton = findViewById(R.id.editUsernameButton);
@@ -70,22 +91,7 @@ public class EditProfileActivity extends AppCompatActivity {
                 // Manejar errores al obtener el perfil del usuario
             }
         });
-        String username= tokenManager.getUserUsername();
-        authService.getUserData(username, new AuthService.ProfileCallback() {
 
-            @Override
-            public void onSuccess(User userProfile) {
-                user = userProfile;
-                // Establecer los textos de los botones con los datos del usuario
-
-                editPasswordButton.setText(userProfile.getPassword());
-            }
-
-            @Override
-            public void onError(Throwable t) {
-                // Manejar errores al obtener el perfil del usuario
-            }
-        });
 
 
 
@@ -141,7 +147,11 @@ public class EditProfileActivity extends AppCompatActivity {
         });
     }
 
-    // Método para abrir un fragmento en el contenedor y pasar datos
+    /**
+     * Método para abrir un fragmento en el contenedor y pasar datos.
+     *
+     * @param fragment El fragmento a abrir.
+     */
     private void openFragment(Fragment fragment) {
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
@@ -150,6 +160,9 @@ public class EditProfileActivity extends AppCompatActivity {
         fragmentTransaction.commit();
     }
 
+    /**
+     * Método para eliminar la cuenta del usuario.
+     */
     private void deleteAccount() {
         authService.deleteAccount(new AuthService.AuthCallback<Void>() {
             @Override
@@ -167,7 +180,9 @@ public class EditProfileActivity extends AppCompatActivity {
             }
         });
     }
-
+    /**
+     * Método para mostrar un diálogo de confirmación para eliminar la cuenta del usuario.
+     */
     private void showDeleteConfirmationDialog() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("Eliminar cuenta");

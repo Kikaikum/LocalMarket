@@ -15,16 +15,22 @@
         android:theme="@style/NoStyle"
         tools:targetApi="31">
         <activity
-            android:name=".ActivitySellerLobby"
+            android:name=".activities.ActivitySellerLobby"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".activities.ActivityUserLobby"
             android:exported="false" />
         <activity
-            android:name=".ActivityUserLobby"
+            android:name=".activities.EditProfileActivity"
             android:exported="false" />
         <activity
-            android:name=".EditProfileActivity"
-            android:exported="false" />
-        <activity
-            android:name=".MainActivity"
+            android:name=".activities.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

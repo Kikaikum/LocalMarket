@@ -1,7 +1,6 @@
-package com.example.localmarket;
+package com.example.localmarket.fragments;
 
 import android.content.Context;
-import android.graphics.Color;
 import android.os.Bundle;
 import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
@@ -12,11 +11,15 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.example.localmarket.R;
 import com.example.localmarket.model.UpdateSurnameRequest;
-import com.example.localmarket.model.UpdateUsernameRequest;
 import com.example.localmarket.network.service.AuthService;
 import com.example.localmarket.utils.TokenManager;
 import com.example.localmarket.utils.ValidationUtils;
+/**
+ * Fragmento para editar los apellidos del usuario.
+ *@author Ainoha
+ */
 
 public class EditSurnameFragment extends Fragment {
 
@@ -27,11 +30,18 @@ public class EditSurnameFragment extends Fragment {
     private Context context;
 
     private TokenManager tokenManager;
-
+    /**
+     * Constructor por defecto de la clase EditSurnameFragment.
+     */
     public EditSurnameFragment() {
         // Required empty public constructor
     }
-
+    /**
+     * Método estático para crear una nueva instancia del fragmento EditSurnameFragment con unos apellidos específicos.
+     *
+     * @param surname Los apellidos actuales del usuario.
+     * @return Una nueva instancia de EditSurnameFragment.
+     */
     public static EditSurnameFragment newInstance(String surname) {
         EditSurnameFragment fragment = new EditSurnameFragment();
         Bundle args = new Bundle();

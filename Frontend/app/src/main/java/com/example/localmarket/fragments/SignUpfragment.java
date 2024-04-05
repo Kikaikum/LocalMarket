@@ -1,4 +1,4 @@
-package com.example.localmarket;
+package com.example.localmarket.fragments;
 
 import android.content.Context;
 import android.graphics.Color;
@@ -17,6 +17,8 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
+import com.example.localmarket.R;
+import com.example.localmarket.fragments.LoginFragment;
 import com.example.localmarket.model.SignUpResponse;
 import com.example.localmarket.network.service.AuthService;
 import com.example.localmarket.utils.ValidationUtils;

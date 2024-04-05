@@ -1,6 +1,6 @@
 package com.example.localmarket.model;
 
-import com.example.localmarket.MainActivity;
+import com.example.localmarket.activities.MainActivity;
 
 public class SessionManager {
     private MainActivity mainActivity;
