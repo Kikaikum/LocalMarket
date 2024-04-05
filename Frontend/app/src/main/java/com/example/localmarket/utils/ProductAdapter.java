@@ -15,6 +15,7 @@ import com.example.localmarket.R;
 public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductViewHolder> {
 
     private List<Product> productList;
+    OnProductClickListener listener;
 
     public ProductAdapter(List<Product> productList) {
         this.productList = productList;
@@ -27,12 +28,34 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
         return new ProductViewHolder(view);
     }
 
+
+    /**
+     * Vincula los datos del producto al ViewHolder dado y agrega un listener de clic al itemView.
+     *
+     * @param holder   El ViewHolder al que se van a vincular los datos del producto.
+     * @param position La posición del elemento dentro del conjunto de datos del adaptador.
+     */
     @Override
     public void onBindViewHolder(@NonNull ProductViewHolder holder, int position) {
         Product product = productList.get(position);
         holder.bind(product);
-    }
 
+        // Agregar un listener de clic al itemView (Ainoha)
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                // Obtener el producto en la posición actual
+                int clickedPosition = holder.getAdapterPosition();
+                if (clickedPosition != RecyclerView.NO_POSITION) {
+                    Product clickedProduct = productList.get(clickedPosition);
+                    // Llamar al método onProductClick del listener
+                    if (listener != null) {
+                        listener.onProductClick(clickedProduct);
+                    }
+                }
+            }
+        });
+    }
     @Override
     public int getItemCount() {
         return productList.size();

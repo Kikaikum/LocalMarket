@@ -6,7 +6,7 @@ public class Product {
     private String descripcion;
     private String tipoDePeso;
     private double precio;
-    private int id;
+    private int productId;
 
 
 
@@ -61,7 +61,7 @@ public class Product {
     public void setPrecio(double precio) {
         this.precio = precio;
     }
-    public int getId() {
-        return id;
+    public int getProductId() {
+        return productId;
     }
 }

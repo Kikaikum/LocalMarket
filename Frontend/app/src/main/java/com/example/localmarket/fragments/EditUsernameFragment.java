@@ -84,18 +84,20 @@ public class EditUsernameFragment extends Fragment {
         buttonListo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                context=getContext();
+                context = getContext();
+
                 // Obtener el nuevo valor del nombre de usuario
                 String newUsername = editTextUsername.getText().toString();
                 int id = tokenManager.getUserId();
+                String token = tokenManager.getToken(); // Obtener el token de autenticación del usuario
 
                 // Verificar el nombre de usuario utilizando UsernameValidator
                 if (usernameValidator.isValidUsername(context, newUsername)) {
                     // Crear un objeto UpdateUsernameRequest con el ID del usuario y el nuevo nombre de usuario
-                    UpdateUsernameRequest updateUsernameRequest = new UpdateUsernameRequest(id, newUsername);
+                    UpdateUsernameRequest updateUsernameRequest = new UpdateUsernameRequest(id, newUsername, token);
 
                     // El nombre de usuario es válido, llamar al método para actualizarlo
-                    AuthService.getInstance().updateUsername(id, updateUsernameRequest, new AuthService.AuthCallback<Void>() {
+                    AuthService.getInstance().updateUsername(id, updateUsernameRequest, token, new AuthService.AuthCallback<Void>() {
                         @Override
                         public void onSuccess(Void response) {
                             // Manejar el éxito, mostrando un mensaje al usuario

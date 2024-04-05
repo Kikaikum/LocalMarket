@@ -13,12 +13,31 @@ import androidx.appcompat.widget.Toolbar;
 
 import com.example.localmarket.R;
 import com.example.localmarket.fragments.AddProductFragment;
+import com.example.localmarket.model.Product;
 import com.example.localmarket.network.service.AuthService;
+import com.example.localmarket.utils.OnProductClickListener;
 
-public class ActivitySellerLobby extends AppCompatActivity {
+public class ActivitySellerLobby extends AppCompatActivity implements OnProductClickListener {
 
     private AuthService authService;
     private Button btnAdd;
+
+    @Override
+    public void onProductClick(Product product) {
+        // Crear un Intent para abrir EditProductActivity
+        Intent intent = new Intent(this, EditProductActivity.class);
+
+        // Pasar los datos del producto seleccionado a EditProductActivity
+        intent.putExtra("name", product.getName());
+        intent.putExtra("imageId", product.getImageId());
+        intent.putExtra("descripcion", product.getDescripcion());
+        intent.putExtra("tipoDePeso", product.getTipoDePeso());
+        intent.putExtra("precio", product.getPrecio());
+
+        // Iniciar la actividad
+        startActivity(intent);
+    }
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

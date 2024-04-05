@@ -91,13 +91,16 @@ public class EditEmailFragment extends Fragment {
                 String newEmail = editTextEmail.getText().toString();
 
                 int id = tokenManager.getUserId();
+                String token = tokenManager.getToken(); // Obtener el token de autenticación del usuario
+
                 // Verificar el email de usuario utilizando EmailValidator
-                if (emailValidator.isValidEmail(context,newEmail)) {
+                if (emailValidator.isValidEmail(context, newEmail)) {
 
                     // Crear un objeto UpdateEmailRequest con el ID del usuario y el nuevo email de usuario
-                    UpdateEmailRequest updateEmailRequest = new UpdateEmailRequest(id, newEmail);
+                    UpdateEmailRequest updateEmailRequest = new UpdateEmailRequest(id, newEmail, token);
+
                     // El email es válido, llamar al método para actualizarlo
-                    AuthService.getInstance().updateEmail(id, updateEmailRequest, new AuthService.AuthCallback<Void>() {
+                    AuthService.getInstance().updateEmail(id, updateEmailRequest, token, new AuthService.AuthCallback<Void>() {
                         @Override
                         public void onSuccess(Void response) {
                             // Manejar el éxito, mostrando un mensaje al usuario
@@ -121,6 +124,7 @@ public class EditEmailFragment extends Fragment {
                 }
             }
         });
+
 
         return rootView;
     }

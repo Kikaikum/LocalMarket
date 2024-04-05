@@ -82,15 +82,17 @@ public class EditNameFragment extends Fragment {
                 // Obtener el nuevo valor del nombre
                 String newName = editTextName.getText().toString();
                 int id = tokenManager.getUserId();
-                // Verificar el nombre de usuario utilizando UsernameValidator
-                if (nameValidator.isValidName(context,newName)) {
-                    UpdateNameRequest updateNameRequest = new UpdateNameRequest(id, newName);
+                String token = tokenManager.getToken(); // Obtener el token de autenticación del usuario
+
+                // Verificar el nombre de usuario utilizando NameValidator
+                if (nameValidator.isValidName(context, newName)) {
+                    UpdateNameRequest updateNameRequest = new UpdateNameRequest(id, newName, token);
                     // El nombre de usuario es válido, llamar al método para actualizarlo
-                    AuthService.getInstance().updateName(id, updateNameRequest,new AuthService.AuthCallback<Void>() {
+                    AuthService.getInstance().updateName(id, updateNameRequest, token, new AuthService.AuthCallback<Void>() {
                         @Override
                         public void onSuccess(Void response) {
                             // Manejar el éxito, mostrando un mensaje al usuario
-                            Toast.makeText(getActivity(), "El Nombre ha sido  actualizado correctamente", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getActivity(), "El Nombre ha sido actualizado correctamente", Toast.LENGTH_SHORT).show();
 
                             // Después de actualizar los datos, recarga la actividad
                             getActivity().recreate();
@@ -101,15 +103,16 @@ public class EditNameFragment extends Fragment {
                         @Override
                         public void onError(Throwable t) {
                             // Manejar el error, mostrando un mensaje al usuario
-                            Toast.makeText(getActivity(), "Error al actualizar el nombre ", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getActivity(), "Error al actualizar el nombre", Toast.LENGTH_SHORT).show();
                         }
                     });
                 } else {
                     // El nombre de usuario no es válido, mostrar un mensaje de error al usuario
-                    Toast.makeText(getActivity(), "Nombre  no válido", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getActivity(), "Nombre no válido", Toast.LENGTH_SHORT).show();
                 }
             }
         });
+
 
         return rootView;
     }

@@ -20,6 +20,7 @@ import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.DELETE;
 import retrofit2.http.GET;
+import retrofit2.http.Header;
 import retrofit2.http.PATCH;
 import retrofit2.http.POST;
 import retrofit2.http.Path;
@@ -40,21 +41,24 @@ public interface ApiService {
     @GET("users/username/{username}")
     Call<User> getUserData(@Path("username") String username);
 
-    @DELETE("/user/delete")
-    Call<Void> deleteAccount();
+    @DELETE("users/{id}")
+    Call<Void> deleteAccount(@Path("id") int userId, @Header("Authorization") String token);
+
     @PATCH("users/{id}") // Ruta de la API para actualizar el nombre de usuario
-    Call<Void> updateUsername(@Path("id") int userId, @Body UpdateUsernameRequest updateUsernameRequest);
-    @PATCH("users/{id}") //Ruta de la API para actualizar el email
-    Call<Void> updateEmail(@Path("id") int userId, @Body UpdateEmailRequest updateEmailRequest);
+    Call<Void> updateUsername(@Path("id") int userId, @Header("Authorization") String token,@Body UpdateUsernameRequest updateUsernameRequest);
+
+    @PATCH("users/{id}") // Ruta de la API para actualizar el email
+    Call<Void> updateEmail(@Path("id") int userId, @Header("Authorization") String token, @Body UpdateEmailRequest updateEmailRequest);
+
 
     @PATCH("users/{id}") //Ruta de la API para actualizar el nombre
-    Call<Void> updateName(@Path("id") int userId, @Body UpdateNameRequest updateNameRequest);
+    Call<Void> updateName(@Path("id") int userId,@Header("Authorization") String token, @Body UpdateNameRequest updateNameRequest);
 
     @PATCH("users/{id}") //Ruta de la API para actualizar apellidos
-    Call<Void> updateSurname(@Path("id") int userId, @Body UpdateSurnameRequest updateSurnameRequest);
+    Call<Void> updateSurname(@Path("id") int userId, @Header("Authorization") String token, @Body UpdateSurnameRequest updateSurnameRequest);
 
     @PATCH("users/{id}")//Ruta de la API para actualizar contraseña
-    Call<Void> updatePassword(@Path("id") int userId, @Body UpdatePasswordRequest updatePasswordRequest);
+    Call<Void> updatePassword(@Path("id") int userId, @Header("Authorization") String token, @Body UpdatePasswordRequest updatePasswordRequest);
 
 
     @GET("users/username/{username}/password")
@@ -68,4 +72,12 @@ public interface ApiService {
 
     @GET("productos")
     Call<List<Product>> getAllProducts();
+
+    @PATCH("products/{productId}")
+    Call<Void> updateProduct(@Path("productId") int productId, @Header("Authorization") String authorization, @Body Product updatedProduct
+    );
+
+    @DELETE("products/{productId}")
+    Call<Void> deleteProduct(@Path("productId") int productId, @Header("Authorization") String token);
+
 }
