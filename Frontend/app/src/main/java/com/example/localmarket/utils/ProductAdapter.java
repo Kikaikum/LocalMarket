@@ -15,10 +15,12 @@ import com.example.localmarket.R;
 public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductViewHolder> {
 
     private List<Product> productList;
-    OnProductClickListener listener;
+    private OnProductClickListener listener;
 
-    public ProductAdapter(List<Product> productList) {
+    // Constructor que acepta la lista de productos y el listener
+    public ProductAdapter(List<Product> productList, OnProductClickListener listener) {
         this.productList = productList;
+        this.listener = listener; // Asignar el listener
     }
 
     @NonNull
@@ -38,23 +40,10 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
     @Override
     public void onBindViewHolder(@NonNull ProductViewHolder holder, int position) {
         Product product = productList.get(position);
-        holder.bind(product);
+        holder.bind(product, listener);
 
-        // Agregar un listener de clic al itemView (Ainoha)
-        holder.itemView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                // Obtener el producto en la posición actual
-                int clickedPosition = holder.getAdapterPosition();
-                if (clickedPosition != RecyclerView.NO_POSITION) {
-                    Product clickedProduct = productList.get(clickedPosition);
-                    // Llamar al método onProductClick del listener
-                    if (listener != null) {
-                        listener.onProductClick(clickedProduct);
-                    }
-                }
-            }
-        });
+
+
     }
     @Override
     public int getItemCount() {
@@ -72,10 +61,23 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
             imageViewProduct = itemView.findViewById(R.id.imageProduct);
         }
 
-        public void bind(Product product) {
+        public void bind(Product product, final OnProductClickListener listener) {
             textProductName.setText(product.getName());
             // Asignar la imagen al ImageView
             imageViewProduct.setImageResource(product.getImageId());
+
+
+            // Manejar clics en el elemento
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    listener.onProductClick(product);
+                }
+            });
         }
+    }
+    // Interfaz para manejar clics en los productos
+    public interface OnProductClickListener {
+        void onProductClick(Product product);
     }
 }

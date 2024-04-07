@@ -15,7 +15,8 @@ public class Product {
         this.name = name;
     }
 
-    public Product(int imageId, String name, String descripcion, String tipoDePeso, double precio) {
+    public Product(int productId,int imageId, String name, String descripcion, String tipoDePeso, double precio) {
+        this.productId=productId;
         this.imageId = imageId;
         this.name = name;
         this.descripcion = descripcion;
@@ -63,5 +64,9 @@ public class Product {
     }
     public int getProductId() {
         return productId;
+    }
+
+    public void setProductId(int productId) {
+        this.productId = productId;
     }
 }

@@ -37,12 +37,7 @@ public class ActivityUserLobby extends AppCompatActivity {
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        // Obtener la lista de productos
-        productList = getProductList();
-        recyclerView = findViewById(R.id.recyclerViewProducts);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        adapter = new ProductAdapter(productList);
-        recyclerView.setAdapter(adapter);
+
     }
 
     @Override

@@ -9,6 +9,7 @@ public class TokenManager {
     private static final String KEY_TOKEN = "token";
     private static final String KEY_USER_ID = "id";
     private static final String KEY_USERNAME="username";
+    private static final String KEY_PRODUCT_ID="productId";
 
 
     private SharedPreferences sharedPreferences;
@@ -41,6 +42,11 @@ public class TokenManager {
         editor.putString(KEY_USERNAME, username);
         editor.apply();
     }
+    public void saveProductId(int productId) {
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putInt(KEY_PRODUCT_ID, productId);
+        editor.apply();
+    }
 
     public int getUserId() {
         return sharedPreferences.getInt(KEY_USER_ID, 123);
@@ -51,7 +57,7 @@ public class TokenManager {
     public String getToken() {
         return sharedPreferences.getString(KEY_TOKEN, null);
     }
-
+    public int getProductId(){return sharedPreferences.getInt(KEY_PRODUCT_ID,123);}
     public void clearToken() {
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.remove(KEY_TOKEN);

@@ -268,6 +268,8 @@ public class EditProfileActivity extends AppCompatActivity {
         });
     }
 
+
+
     /**
      * Método para mostrar un diálogo de confirmación para eliminar la cuenta del usuario.
      */
