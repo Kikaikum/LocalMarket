@@ -1,16 +1,21 @@
 package com.example.localmarket.activities;
 
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
+
+import android.util.Log;
+import android.view.MenuItem;
+import android.view.Menu;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
-import android.content.SharedPreferences;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
@@ -21,11 +26,14 @@ import com.example.localmarket.fragments.EditNameFragment;
 import com.example.localmarket.fragments.EditPasswordFragment;
 import com.example.localmarket.fragments.EditSurnameFragment;
 import com.example.localmarket.fragments.EditUsernameFragment;
+
 import com.example.localmarket.model.User;
 import com.example.localmarket.network.api.ApiService;
 import com.example.localmarket.network.service.AuthService;
 import com.example.localmarket.utils.TokenManager;
-import com.google.gson.Gson;
+
+
+
 
 /**
  * Esta actividad permite al usuario editar su perfil.
@@ -33,6 +41,7 @@ import com.google.gson.Gson;
  */
 
 public class EditProfileActivity extends AppCompatActivity {
+    private Toolbar toolbar;
     private Button editUsernameButton, editEmailButton, editPasswordButton, deleteAccountButton, editNameButton , editSurnameButton;
 
     private User user;
@@ -47,12 +56,8 @@ public class EditProfileActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.edit_profile);
 
-        // Restaurar el objeto User desde SharedPreferences si está disponible
-        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-        String userJson = preferences.getString("user", null);
-        if (userJson != null) {
-            user = new Gson().fromJson(userJson, User.class);
-        }
+        toolbar = findViewById(R.id.toolbar2);
+        setSupportActionBar(toolbar);
 
         // Inicializar vistas
         editUsernameButton = findViewById(R.id.editUsernameButton);
@@ -69,8 +74,6 @@ public class EditProfileActivity extends AppCompatActivity {
         tokenManager = TokenManager.getInstance(getApplicationContext());
 
 
-
-
         // Obtener datos del usuario
         int userId = tokenManager.getUserId();
         authService.getUserProfile(userId, new AuthService.ProfileCallback() {
@@ -83,12 +86,15 @@ public class EditProfileActivity extends AppCompatActivity {
                 editSurnameButton.setText(userProfile.getSurname());
                 editUsernameButton.setText(userProfile.getUsername());
                 editEmailButton.setText(userProfile.getEmail());
-                editPasswordButton.setText(userProfile.getPassword());
+                editPasswordButton.setText("**********");
             }
 
             @Override
             public void onError(Throwable t) {
                 // Manejar errores al obtener el perfil del usuario
+                //  mostrar un mensaje de error al usuario o realizar acciones de recuperación
+                Log.e("EditProfileActivity", "Error al obtener el perfil del usuario: " + t.getMessage());
+                Toast.makeText(EditProfileActivity.this, "Error al obtener el perfil del usuario", Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -147,6 +153,78 @@ public class EditProfileActivity extends AppCompatActivity {
         });
     }
 
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_nav_perfil, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        int id = item.getItemId();
+        if (id == R.id.action_home) {
+            // Handle "Inicio" option
+            // Redirect to home activity (ActivitySellerLobby or ActivityUserLobby based on user role)
+            redirectToHome();
+            return true;
+        } else if (id == R.id.action_logout) {
+            // Handle "Cerrar sesión" option
+            showLogoutConfirmationDialog();
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    private void showLogoutConfirmationDialog() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("Cerrar sesión");
+        builder.setMessage("¿Estás seguro de que deseas cerrar sesión?");
+        builder.setPositiveButton("Sí", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                logout();
+            }
+        });
+        builder.setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+            }
+        });
+        AlertDialog dialog = builder.create();
+        dialog.show();
+    }
+
+    private void logout() {
+        // Perform logout operation
+        authService.logoutUser(new AuthService.AuthCallback<Void>() {
+            @Override
+            public void onSuccess(Void response) {
+                // Logout successful, redirect to login screen
+                Intent intent = new Intent(EditProfileActivity.this, MainActivity.class);
+                startActivity(intent);
+                finish();
+            }
+
+            @Override
+            public void onError(Throwable t) {
+                // Handle logout error
+                Toast.makeText(EditProfileActivity.this, "Error al cerrar sesión", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    private void redirectToHome() {
+        Intent intent;
+        if (user != null && user.getAgricultor()) {
+            intent = new Intent(EditProfileActivity.this, ActivitySellerLobby.class);
+        } else {
+            intent = new Intent(EditProfileActivity.this, ActivityUserLobby.class);
+        }
+        startActivity(intent);
+        finish();
+    }
     /**
      * Método para abrir un fragmento en el contenedor y pasar datos.
      *
@@ -164,22 +242,34 @@ public class EditProfileActivity extends AppCompatActivity {
      * Método para eliminar la cuenta del usuario.
      */
     private void deleteAccount() {
-        authService.deleteAccount(new AuthService.AuthCallback<Void>() {
+        // Obtener el id de usuario y el token de autenticación
+        int userId = tokenManager.getUserId();
+        String authToken = tokenManager.getToken();
+
+        authService.deleteAccount(userId, authToken, new AuthService.AuthCallback<Void>() {
             @Override
             public void onSuccess(Void response) {
-                Toast.makeText(EditProfileActivity.this, "La cuenta se ha eliminado correctamente.", Toast.LENGTH_SHORT).show();
                 // La cuenta se eliminó exitosamente
+                Toast.makeText(EditProfileActivity.this, "La cuenta se ha eliminado correctamente.", Toast.LENGTH_SHORT).show();
+
                 // Redirigir al usuario a la pantalla de inicio de sesión u otra pantalla relevante
-                //redirectToLogin();
+               redirectToLogin();
             }
 
             @Override
             public void onError(Throwable t) {
                 // Error al eliminar la cuenta, manejar según sea necesario
-                Toast.makeText(EditProfileActivity.this, "Error al eliminar la cuenta", Toast.LENGTH_SHORT).show();
+                String errorMessage = "Error al eliminar la cuenta";
+                if (t != null && t.getMessage() != null) {
+                    errorMessage += ": " + t.getMessage();
+                }
+                Toast.makeText(EditProfileActivity.this, errorMessage, Toast.LENGTH_SHORT).show();
             }
         });
     }
+
+
+
     /**
      * Método para mostrar un diálogo de confirmación para eliminar la cuenta del usuario.
      */
@@ -204,4 +294,16 @@ public class EditProfileActivity extends AppCompatActivity {
         AlertDialog dialog = builder.create();
         dialog.show();
     }
+    /**
+     * Redirige al usuario a la pantalla de inicio de sesión.
+     */
+    private void redirectToLogin() {
+        // Crea un Intent para iniciar la actividad de inicio de sesión
+        Intent intent = new Intent(EditProfileActivity.this, MainActivity.class);
+        startActivity(intent); // Inicia la actividad de inicio de sesión
+        finish(); // Finaliza la actividad actual para evitar que el usuario vuelva atrás
+    }
+
+
+
 }

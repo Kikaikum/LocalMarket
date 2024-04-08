@@ -6,18 +6,20 @@ package com.example.localmarket.model;
  */
 public class UpdateUsernameRequest {
     private String username; // El nuevo nombre de usuario
-
     private int id; // El identificador único del usuario
+    private String token; // El token de autenticación del usuario
 
     /**
      * Constructor para crear una instancia de UpdateUsernameRequest.
      *
-     * @param id   El identificador único del usuario.
+     * @param id       El identificador único del usuario.
      * @param username El nuevo nombre de usuario.
+     * @param token    El token de autenticación del usuario.
      */
-    public UpdateUsernameRequest(int id, String username) {
+    public UpdateUsernameRequest(int id, String username, String token) {
         this.id = id;
         this.username = username;
+        this.token = token;
     }
 
     /**
@@ -25,7 +27,7 @@ public class UpdateUsernameRequest {
      *
      * @return El nuevo nombre de usuario.
      */
-    public String getNewUsername() {
+    public String getUsername() {
         return username;
     }
 
@@ -34,7 +36,43 @@ public class UpdateUsernameRequest {
      *
      * @param username El nuevo nombre de usuario.
      */
-    public void setNewUsername(String username) {
+    public void setUsername(String username) {
         this.username = username;
+    }
+
+    /**
+     * Obtiene el identificador único del usuario.
+     *
+     * @return El identificador único del usuario.
+     */
+    public int getId() {
+        return id;
+    }
+
+    /**
+     * Establece el identificador único del usuario.
+     *
+     * @param id El identificador único del usuario.
+     */
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    /**
+     * Obtiene el token de autenticación del usuario.
+     *
+     * @return El token de autenticación del usuario.
+     */
+    public String getToken() {
+        return token;
+    }
+
+    /**
+     * Establece el token de autenticación del usuario.
+     *
+     * @param token El token de autenticación del usuario.
+     */
+    public void setToken(String token) {
+        this.token = token;
     }
 }

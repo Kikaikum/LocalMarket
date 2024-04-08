@@ -110,13 +110,14 @@ public class EditPasswordFragment extends Fragment {
      */
     private void updatePassword(String newPassword) {
         // Obtener el id de usuario del usuario actual
-        int id= tokenManager.getUserId();
+        int id = tokenManager.getUserId();
+        String token = tokenManager.getToken(); // Obtener el token de autenticación del usuario
 
-        // Crear una instancia de UpdatePasswordRequest con la nueva contraseña
-        UpdatePasswordRequest updatePasswordRequest = new UpdatePasswordRequest(id,newPassword);
+        // Crear una instancia de UpdatePasswordRequest con la nueva contraseña y el token de autenticación
+        UpdatePasswordRequest updatePasswordRequest = new UpdatePasswordRequest(id, newPassword, token);
 
         // Llamar al método updatePassword en AuthService para actualizar la contraseña
-        AuthService.getInstance().updatePassword(id, updatePasswordRequest, new AuthService.AuthCallback<Void>() {
+        AuthService.getInstance().updatePassword(id, updatePasswordRequest, token, new AuthService.AuthCallback<Void>() {
             @Override
             public void onSuccess(Void response) {
                 // Después de actualizar los datos, recarga la actividad
@@ -135,4 +136,5 @@ public class EditPasswordFragment extends Fragment {
             }
         });
     }
+
 }

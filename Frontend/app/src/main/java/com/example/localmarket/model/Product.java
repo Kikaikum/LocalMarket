@@ -1,34 +1,35 @@
 package com.example.localmarket.model;
 
 public class Product {
-    private int imageId;
+    private int categoriaId;
     private String name;
     private String descripcion;
     private String tipoDePeso;
     private double precio;
-    private int id;
+    private int productId;
 
 
 
     public Product(int imageId, String name) {
-        this.imageId = imageId;
+        this.categoriaId = imageId;
         this.name = name;
     }
 
-    public Product(int imageId, String name, String descripcion, String tipoDePeso, double precio) {
-        this.imageId = imageId;
+    public Product(int productId,int imageId, String name, String descripcion, String tipoDePeso, double precio) {
+        this.productId=productId;
+        this.categoriaId = imageId;
         this.name = name;
         this.descripcion = descripcion;
         this.tipoDePeso = tipoDePeso;
         this.precio = precio;
     }
 
-    public int getImageId() {
-        return imageId;
+    public int getCategoriaId() {
+        return categoriaId;
     }
 
-    public void setImageId(int imageId) {
-        this.imageId = imageId;
+    public void setCategoriaId(int categoriaId) {
+        this.categoriaId = categoriaId;
     }
 
     public String getName() {
@@ -61,7 +62,11 @@ public class Product {
     public void setPrecio(double precio) {
         this.precio = precio;
     }
-    public int getId() {
-        return id;
+    public int getProductId() {
+        return productId;
+    }
+
+    public void setProductId(int productId) {
+        this.productId = productId;
     }
 }

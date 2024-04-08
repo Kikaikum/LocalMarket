@@ -15,6 +15,7 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Switch;
 
+import com.example.localmarket.activities.ActivitySellerLobby;
 import com.example.localmarket.model.Product;
 import com.example.localmarket.R;
 import com.example.localmarket.model.ProductRequest;
@@ -85,6 +86,11 @@ public class AddProductFragment extends Fragment {
                 // Manejar clic en botón Cancelar
                 // Por ejemplo, podrías cerrar el fragmento o limpiar los campos de texto
                 getActivity().getSupportFragmentManager().popBackStack();
+
+                // Notificar a la actividad que el fragmento se ha cerrado
+                if (getActivity() instanceof ActivitySellerLobby) {
+                    ((ActivitySellerLobby) getActivity()).showRecyclerView();
+                }
             }
         });
         EditText editTextPrice = view.findViewById(R.id.itPrice);
@@ -97,7 +103,7 @@ public class AddProductFragment extends Fragment {
             public void onClick(View v) {
                 // Suponiendo que tienes un EditText para el nombre y otro para el precio
                 String name = ((Product) spinnerImages.getSelectedItem()).getName();
-                int imageId = ((Product) spinnerImages.getSelectedItem()).getImageId();
+                int imageId = ((Product) spinnerImages.getSelectedItem()).getCategoriaId();
                 String description = editTextDescription.getText().toString();
                 String weightType = switchMeasurement.isChecked() ? "Peso" : "Unidades";
                 double price = 0;
@@ -115,11 +121,13 @@ public class AddProductFragment extends Fragment {
                     @Override
                     public void onSuccess(ProductResponse response) {
                         Log.i("ProductAdd", "Producto añadido con éxito. ID: " + response.getId());
+
                     }
 
                     @Override
                     public void onError(Throwable t) {
                         Log.e("ProductAdd", "Error al añadir producto: " + t.getMessage());
+                        
                     }
                 });
 

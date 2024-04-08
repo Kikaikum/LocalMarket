@@ -8,7 +8,6 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.localmarket.R;
@@ -37,12 +36,7 @@ public class ActivityUserLobby extends AppCompatActivity {
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        // Obtener la lista de productos
-        productList = getProductList();
-        recyclerView = findViewById(R.id.recyclerViewProducts);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        adapter = new ProductAdapter(productList);
-        recyclerView.setAdapter(adapter);
+
     }
 
     @Override

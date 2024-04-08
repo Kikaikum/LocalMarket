@@ -39,7 +39,7 @@ public class ProductSpinnerAdapter extends ArrayAdapter<Product> {
         Product product = getItem(position);
         if (product != null) {
             textProductName.setText(product.getName());
-            imageViewProduct.setImageResource(product.getImageId());
+            imageViewProduct.setImageResource(product.getCategoriaId());
         }
 
         return convertView;

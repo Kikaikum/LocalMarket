@@ -122,9 +122,12 @@ public class AuthService {
         });
     }
 
-    public void deleteAccount(final AuthCallback<Void> callback) {
+    public void deleteAccount(int userId, String authToken, final AuthCallback<Void> callback) {
+        // Construir el encabezado de autorización con el token como Bearer
+        String authorizationHeader = "Bearer " + authToken;
+
         // Realizar la llamada a la API para eliminar la cuenta
-        apiService.deleteAccount().enqueue(new Callback<Void>() {
+        apiService.deleteAccount(userId, authorizationHeader).enqueue(new Callback<Void>() {
             @Override
             public void onResponse(Call<Void> call, Response<Void> response) {
                 if (response.isSuccessful()) {
@@ -144,9 +147,11 @@ public class AuthService {
         });
     }
 
-    public void updateUsername(int id, UpdateUsernameRequest updateUsernameRequest, final AuthCallback<Void> callback) {
+
+
+    public void updateUsername(int id, UpdateUsernameRequest updateUsernameRequest,String token, final AuthCallback<Void> callback) {
         // Realizar la llamada a la API para actualizar el nombre de usuario
-        apiService.updateUsername(id, updateUsernameRequest).enqueue(new Callback<Void>() {
+        apiService.updateUsername(id, "Bearer " + token, updateUsernameRequest).enqueue(new Callback<Void>() {
             @Override
             public void onResponse(Call<Void> call, Response<Void> response) {
                 if (response.isSuccessful()) {
@@ -167,9 +172,9 @@ public class AuthService {
     }
 
 
-    public void updateEmail(int id, UpdateEmailRequest updateEmailRequest, final AuthCallback<Void> callback) {
+    public void updateEmail(int id, UpdateEmailRequest updateEmailRequest, String token, final AuthCallback<Void> callback) {
         // Realizar la llamada a la API para actualizar el correo electrónico
-        apiService.updateEmail(id, updateEmailRequest).enqueue(new Callback<Void>() {
+        apiService.updateEmail(id, "Bearer " + token, updateEmailRequest).enqueue(new Callback<Void>() {
             @Override
             public void onResponse(Call<Void> call, Response<Void> response) {
                 if (response.isSuccessful()) {
@@ -189,9 +194,9 @@ public class AuthService {
         });
     }
 
-    public void updateName(int id, UpdateNameRequest updateNameRequest, final AuthCallback<Void> callback) {
+    public void updateName(int id, UpdateNameRequest updateNameRequest, String token,final AuthCallback<Void> callback) {
         // Realizar la llamada a la API para actualizar el nombre
-        apiService.updateName(id, updateNameRequest).enqueue(new Callback<Void>() {
+        apiService.updateName(id,"Bearer " + token, updateNameRequest).enqueue(new Callback<Void>() {
             @Override
             public void onResponse(Call<Void> call, Response<Void> response) {
                 if (response.isSuccessful()) {
@@ -211,9 +216,9 @@ public class AuthService {
         });
     }
 
-    public void updateSurname(int id, UpdateSurnameRequest editSurnameRequest, final AuthCallback<Void> callback) {
+    public void updateSurname(int id, UpdateSurnameRequest editSurnameRequest,String token, final AuthCallback<Void> callback) {
         // Realizar la llamada a la API para actualizar el nombre
-        apiService.updateSurname(id, editSurnameRequest).enqueue(new Callback<Void>() {
+        apiService.updateSurname(id,"Bearer " + token, editSurnameRequest).enqueue(new Callback<Void>() {
             @Override
             public void onResponse(Call<Void> call, Response<Void> response) {
                 if (response.isSuccessful()) {
@@ -233,10 +238,10 @@ public class AuthService {
         });
     }
 
-    public void updatePassword(int id, UpdatePasswordRequest updatePasswordRequest, final AuthCallback<Void> callback) {
+    public void updatePassword(int id, UpdatePasswordRequest updatePasswordRequest,String token, final AuthCallback<Void> callback) {
 
         // Realizar la llamada a la API para actualizar password
-        apiService.updatePassword(id, updatePasswordRequest).enqueue(new Callback<Void>() {
+        apiService.updatePassword(id, "Bearer " + token,updatePasswordRequest).enqueue(new Callback<Void>() {
             @Override
             public void onResponse(Call<Void> call, Response<Void> response) {
                 if (response.isSuccessful()) {
@@ -353,6 +358,49 @@ public class AuthService {
             }
         });
     }
+    public void updateProduct(int productId, Product updatedProduct, String token, final AuthCallback<Void> callback) {
+        // Realizar la llamada a la API para actualizar el producto
+        apiService.updateProduct(productId, "Bearer " + token, updatedProduct).enqueue(new Callback<Void>() {
+            @Override
+            public void onResponse(Call<Void> call, Response<Void> response) {
+                if (response.isSuccessful()) {
+                    // Si la respuesta es exitosa, llamar al método onSuccess del callback
+                    callback.onSuccess(null);
+                } else {
+                    // Si hay un error en la respuesta, llamar al método onError del callback
+                    callback.onError(new Exception("Error al actualizar el producto"));
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Void> call, Throwable t) {
+                // Si hay un fallo en la llamada, llamar al método onError del callback
+                callback.onError(t);
+            }
+        });
+    }
+    public void deleteProduct(int productId, String token, final AuthCallback<Void> callback) {
+        // Realizar la llamada a la API para eliminar el producto
+        apiService.deleteProduct(productId, "Bearer " + token).enqueue(new Callback<Void>() {
+            @Override
+            public void onResponse(Call<Void> call, Response<Void> response) {
+                if (response.isSuccessful()) {
+                    // Si la respuesta es exitosa, llamar al método onSuccess del callback
+                    callback.onSuccess(null);
+                } else {
+                    // Si hay un error en la respuesta, llamar al método onError del callback
+                    callback.onError(new Exception("Error al eliminar el producto"));
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Void> call, Throwable t) {
+                // Si hay un fallo en la llamada, llamar al método onError del callback
+                callback.onError(t);
+            }
+        });
+    }
+
 
 
     // Método para obtener una instancia de ApiService

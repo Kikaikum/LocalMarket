@@ -87,13 +87,16 @@ public class EditSurnameFragment extends Fragment {
                 // Obtener el nuevo valor de los apellidos de usuario
                 String newSurname = editTextSurname.getText().toString();
                 int id = tokenManager.getUserId();
-                // Verificar los apellidos utilizando NameValidator
-                if (surnameValidator.isValidName(context,newSurname)) {
+                String token = tokenManager.getToken(); // Obtener el token de autenticación del usuario
+
+                // Verificar los apellidos utilizando SurnameValidator
+                if (surnameValidator.isValidName(context, newSurname)) {
 
                     // Crear un objeto UpdateSurnameRequest con el ID del usuario y nuevos apellidos de usuario
-                    UpdateSurnameRequest updateSurnameRequest = new UpdateSurnameRequest(id, newSurname);
+                    UpdateSurnameRequest updateSurnameRequest = new UpdateSurnameRequest(id, newSurname, token);
+
                     // Los apellidos son válidos, llamar al método para actualizarlos
-                    AuthService.getInstance().updateSurname(id, updateSurnameRequest, new AuthService.AuthCallback<Void>() {
+                    AuthService.getInstance().updateSurname(id, updateSurnameRequest, token, new AuthService.AuthCallback<Void>() {
                         @Override
                         public void onSuccess(Void response) {
                             // Manejar el éxito, mostrando un mensaje al usuario
