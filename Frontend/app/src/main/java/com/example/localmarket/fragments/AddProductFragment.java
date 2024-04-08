@@ -103,7 +103,7 @@ public class AddProductFragment extends Fragment {
             public void onClick(View v) {
                 // Suponiendo que tienes un EditText para el nombre y otro para el precio
                 String name = ((Product) spinnerImages.getSelectedItem()).getName();
-                int imageId = ((Product) spinnerImages.getSelectedItem()).getImageId();
+                int imageId = ((Product) spinnerImages.getSelectedItem()).getCategoriaId();
                 String description = editTextDescription.getText().toString();
                 String weightType = switchMeasurement.isChecked() ? "Peso" : "Unidades";
                 double price = 0;

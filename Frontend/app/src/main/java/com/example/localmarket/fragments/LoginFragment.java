@@ -22,13 +22,16 @@ import com.example.localmarket.model.LoginResponse;
 import com.example.localmarket.model.User;
 import com.example.localmarket.network.service.AuthService;
 import com.example.localmarket.utils.TokenManager;
+import com.google.android.material.textfield.TextInputEditText;
 
 public class LoginFragment extends Fragment {
 
-    private EditText emailEditText, passwordEditText;
+
     private Button loginButton, signUpButton;
     private AuthService authService;
     private TokenManager tokenManager;
+
+    private TextInputEditText emailEditText, passwordEditText;
 
     public LoginFragment() {
         // Constructor público vacío requerido

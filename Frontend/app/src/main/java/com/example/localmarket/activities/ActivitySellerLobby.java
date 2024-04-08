@@ -111,7 +111,7 @@ public class ActivitySellerLobby extends AppCompatActivity  implements ProductAd
 
         // Pasa los datos del producto seleccionado a EditProductActivity
         intent.putExtra("name", product.getName());
-        intent.putExtra("imageId", product.getImageId());
+        intent.putExtra("imageId", product.getCategoriaId());
         intent.putExtra("descripcion", product.getDescripcion());
         intent.putExtra("tipoDePeso", product.getTipoDePeso());
         intent.putExtra("precio", product.getPrecio());
