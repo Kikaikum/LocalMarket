@@ -10,12 +10,16 @@ const idAgricultor = Joi.number()
 const stock = Joi.number()
 
 const createProductSchema = Joi.object({
-  
+  nombre: nombre.required(),
+  categoriaId: categoriaId.required(),
+  precio: precio.required(),
+  unidadMedida: unidadMedida.required(),
+  descripcion: descripcion.required(),
+  idAgricultor: idAgricultor.required(),
+  stock: stock.required()  
 }).options({ stripUnknown: true });
-
-const updateProductSchema = Joi.object({
   
-  
+const updateProductSchema = Joi.object({  
 }).options({ stripUnknown: true });
 
 

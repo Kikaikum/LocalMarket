@@ -35,7 +35,7 @@ class UserService {
     return user;
   }
 
-  async findByUsername(username) {
+  async findByUsernamePublic(username) {
     const user = await models.User.findOne({
       where: { username }
     });
@@ -44,6 +44,13 @@ class UserService {
     return user;
   }
 
+  async findByUsername(username) {
+    const user = await models.User.findOne({
+      where: { username }
+    });
+    
+    return user;
+  }
   async update(id, changes) {
     let rta; // Definir rta fuera de los bloques if/else
 
@@ -86,8 +93,7 @@ class UserService {
 
   signToken(user) {
     const payload = {
-      sub: user.id,
-      role: user.username
+      sub: user.id     
     }
     const token = jwt.sign(payload, config.jwtSecret);
     return {

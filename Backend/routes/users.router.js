@@ -21,7 +21,7 @@ router.get('/username/:username',
   async (req, res, next) => {
     try {
       const { username } = req.params;
-      const user = await service.findByUsername(username);
+      const user = await service.findByUsernamePublic(username);
       res.json(user);
     } catch (error) {
       next(error);
@@ -75,6 +75,7 @@ router.post('/login',
   passport.authenticate('local', {session: false}),
   async (req, res, next) => {
     try {
+      console.log(req)
       const user = req.user;
       res.json(service.signToken(user));
     } catch (error) {
