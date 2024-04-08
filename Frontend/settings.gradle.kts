@@ -19,5 +19,6 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "Local Market"
+rootProject.name = "myapp"
 include(":app")
+ 
