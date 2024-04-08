@@ -8,16 +8,13 @@ const { config } = require('./../config/config');
 class ProductService {
   constructor() {}
 
-  async create(data) {
-    
-    const newProduct = await models.Product.create(data);
-    
+  async create(data) {    
+    const newProduct = await models.Product.create(data);    
     return newProduct;
   }
 
   async find() {
-    const products = await models.Product.findAll();
-    
+    const products = await models.Product.findAll();    
     return products;
   }
 

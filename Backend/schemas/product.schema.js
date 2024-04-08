@@ -11,16 +11,16 @@ const stock = Joi.number()
 
 const createProductSchema = Joi.object({
   
-}).options({ stripUnknown: true });;
+}).options({ stripUnknown: true });
 
 const updateProductSchema = Joi.object({
   
   
-});
+}).options({ stripUnknown: true });
 
 
 const getProductSchema = Joi.object({
   id: id.required(),
-});
+}).options({ stripUnknown: true });
 
 module.exports = { createProductSchema, updateProductSchema, getProductSchema }

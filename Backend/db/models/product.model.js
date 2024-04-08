@@ -31,6 +31,7 @@ const ProductSchema = {
     type: DataTypes.STRING
   },  
   idAgricultor: {
+    field: 'idAgricultor',
     allowNull: false,
     type: DataTypes.INTEGER,
     references: {
@@ -57,7 +58,8 @@ class Product extends Model {
     static associate(models) {
 
       models.Product.belongsTo(models.User, {
-        as: 'user' 
+        as: 'user',
+        foreignKey: 'id'
       });
     }
 
