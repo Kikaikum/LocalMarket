@@ -51,6 +51,7 @@ class UserService {
     
     return user;
   }
+  
   async update(id, changes) {
     let rta; // Definir rta fuera de los bloques if/else
 

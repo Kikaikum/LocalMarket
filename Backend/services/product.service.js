@@ -26,12 +26,14 @@ class ProductService {
     return product;
   }
 
-  async findByProductname(productname) {
-    const product = await models.Product.findOne({
-      where: { productname }
+  async findByAgricultor(agricultor) {
+    const products = await models.Product.findAll({
+      where: { agricultor }
     });
-    return product;
+    
+    return products;
   }
+
 
   async update(id, changes) {
     let rta; // Definir rta fuera de los bloques if/else
