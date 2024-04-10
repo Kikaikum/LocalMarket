@@ -176,7 +176,7 @@ public class EditProfileActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    private void showLogoutConfirmationDialog() {
+    void showLogoutConfirmationDialog() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("Cerrar sesión");
         builder.setMessage("¿Estás seguro de que deseas cerrar sesión?");
@@ -230,7 +230,7 @@ public class EditProfileActivity extends AppCompatActivity {
      *
      * @param fragment El fragmento a abrir.
      */
-    private void openFragment(Fragment fragment) {
+    void openFragment(Fragment fragment) {
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.replace(R.id.fragment_container, fragment);
@@ -241,7 +241,7 @@ public class EditProfileActivity extends AppCompatActivity {
     /**
      * Método para eliminar la cuenta del usuario.
      */
-    private void deleteAccount() {
+    void deleteAccount() {
         // Obtener el id de usuario y el token de autenticación
         int userId = tokenManager.getUserId();
         String authToken = tokenManager.getToken();
@@ -273,7 +273,7 @@ public class EditProfileActivity extends AppCompatActivity {
     /**
      * Método para mostrar un diálogo de confirmación para eliminar la cuenta del usuario.
      */
-    private void showDeleteConfirmationDialog() {
+    void showDeleteConfirmationDialog() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("Eliminar cuenta");
         builder.setMessage("¿Está seguro de que desea eliminar su cuenta? Esta acción no se puede deshacer.");

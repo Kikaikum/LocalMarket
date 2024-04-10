@@ -2,16 +2,22 @@
 <project version="4">
   <component name="deploymentTargetDropDown">
     <value>
-      <entry key="ExampleInstrumentedTest">
-        <State />
-      </entry>
-      <entry key="MainActivity">
-        <State />
-      </entry>
-      <entry key="MainActivityTest">
+      <entry key="EditProfileActivityTest">
         <State />
       </entry>
       <entry key="app">
+        <State />
+      </entry>
+      <entry key="testDeleteAccountAndConfirmationDialog()">
+        <State />
+      </entry>
+      <entry key="testOpenFragment()">
+        <State />
+      </entry>
+      <entry key="testOpenFragmentWithNullArgument()">
+        <State />
+      </entry>
+      <entry key="testShowLogoutConfirmationDialog()">
         <State />
       </entry>
     </value>
