@@ -33,13 +33,14 @@ import com.example.localmarket.network.service.AuthService;
 import com.example.localmarket.utils.TokenManager;
 
 
-
-
 /**
- * Esta actividad permite al usuario editar su perfil.
- *@author Ainoha
+ * Esta actividad permite al usuario ver y editar su perfil, eliminar su cuenta y cerrar sesión.
+ *
+ * Además, permite al usuario acceder a fragmentos para editar su nombre, apellido, nombre de usuario,
+ * dirección de correo electrónico y contraseña.
+ *
+ * @author Ainoha
  */
-
 public class EditProfileActivity extends AppCompatActivity {
     private Toolbar toolbar;
     private Button editUsernameButton, editEmailButton, editPasswordButton, deleteAccountButton, editNameButton , editSurnameButton;
@@ -165,7 +166,7 @@ public class EditProfileActivity extends AppCompatActivity {
         int id = item.getItemId();
         if (id == R.id.action_home) {
             // Handle "Inicio" option
-            // Redirect to home activity (ActivitySellerLobby or ActivityUserLobby based on user role)
+            // Redirect to home activity (ActivitySellerLobby or ActivityUserLobby segun el tipo de usuario)
             redirectToHome();
             return true;
         } else if (id == R.id.action_logout) {
@@ -176,6 +177,9 @@ public class EditProfileActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    /**
+     * Muestra un diálogo de confirmación para cerrar sesión.
+     */
     void showLogoutConfirmationDialog() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("Cerrar sesión");
@@ -196,6 +200,11 @@ public class EditProfileActivity extends AppCompatActivity {
         dialog.show();
     }
 
+    /**
+     * Realiza la operación de cierre de sesión.
+     * Si tiene éxito, redirige a la pantalla de inicio de sesión.
+     * En caso de error, muestra un mensaje de error.
+     */
     private void logout() {
         // Perform logout operation
         authService.logoutUser(new AuthService.AuthCallback<Void>() {
@@ -215,6 +224,9 @@ public class EditProfileActivity extends AppCompatActivity {
         });
     }
 
+    /**
+     * Redirige al usuario a la pantalla de inicio correspondiente según su rol.
+     */
     private void redirectToHome() {
         Intent intent;
         if (user != null && user.getAgricultor()) {
@@ -225,6 +237,7 @@ public class EditProfileActivity extends AppCompatActivity {
         startActivity(intent);
         finish();
     }
+
     /**
      * Método para abrir un fragmento en el contenedor y pasar datos.
      *
@@ -253,7 +266,7 @@ public class EditProfileActivity extends AppCompatActivity {
                 Toast.makeText(EditProfileActivity.this, "La cuenta se ha eliminado correctamente.", Toast.LENGTH_SHORT).show();
 
                 // Redirigir al usuario a la pantalla de inicio de sesión u otra pantalla relevante
-               redirectToLogin();
+                redirectToLogin();
             }
 
             @Override
@@ -267,8 +280,6 @@ public class EditProfileActivity extends AppCompatActivity {
             }
         });
     }
-
-
 
     /**
      * Método para mostrar un diálogo de confirmación para eliminar la cuenta del usuario.
@@ -294,6 +305,7 @@ public class EditProfileActivity extends AppCompatActivity {
         AlertDialog dialog = builder.create();
         dialog.show();
     }
+
     /**
      * Redirige al usuario a la pantalla de inicio de sesión.
      */
@@ -303,7 +315,5 @@ public class EditProfileActivity extends AppCompatActivity {
         startActivity(intent); // Inicia la actividad de inicio de sesión
         finish(); // Finaliza la actividad actual para evitar que el usuario vuelva atrás
     }
-
-
 
 }

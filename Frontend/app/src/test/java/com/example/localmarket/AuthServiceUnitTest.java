@@ -14,7 +14,9 @@ import com.google.firebase.firestore.auth.User;
 import org.junit.Test;
 
 public class AuthServiceUnitTest {
-
+    /**@author Oriol
+     *
+     */
     @Test
     public void testLoginUser_Success() {
         // Arrange
@@ -109,7 +111,7 @@ public class AuthServiceUnitTest {
     }
 
     // Clase de prueba para el callback de autenticación
-    private static class TestAuthCallback<T> implements AuthService.AuthCallback<T> {
+    static class TestAuthCallback<T> implements AuthService.AuthCallback<T> {
         private boolean successful;
         private T response;
 

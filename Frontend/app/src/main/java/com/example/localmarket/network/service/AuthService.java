@@ -27,7 +27,10 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-
+/**
+ * Clase que gestiona la autenticación y las operaciones relacionadas con el usuario en la aplicación.
+ * @author Oriol +Ainoha
+ */
 
 public class AuthService {
 
@@ -37,7 +40,7 @@ public class AuthService {
     private SessionManager sessionManager;
 
     // URL base de tu API
-    private static final String BASE_URL = "https://kikaikum.ddns.net:3000/localmarket/v1/";
+    private static final String BASE_URL = "";
     private TokenManager tokenManager;
 
     public AuthService() {
@@ -98,7 +101,12 @@ public class AuthService {
             }
         });
     }
-
+    /**
+     * Obtiene el perfil del usuario desde el servidor utilizando su ID.
+     * @param id ID del usuario cuyo perfil se desea obtener.
+     * @param callback Callback que maneja las respuestas de la operación.
+     * @author Ainoha
+     */
     public void getUserProfile(int id, AuthService.ProfileCallback callback) {
         apiService.getUserProfile(id).enqueue(new Callback<User>() {
             @Override
@@ -122,6 +130,13 @@ public class AuthService {
         });
     }
 
+    /**
+     * Elimina la cuenta del usuario.
+     * @param userId ID del usuario cuya cuenta se va a eliminar.
+     * @param authToken Token de autenticación del usuario.
+     * @param callback Callback que maneja las respuestas de la operación.
+     * @author Ainoha
+     */
     public void deleteAccount(int userId, String authToken, final AuthCallback<Void> callback) {
         // Construir el encabezado de autorización con el token como Bearer
         String authorizationHeader = "Bearer " + authToken;
@@ -147,8 +162,14 @@ public class AuthService {
         });
     }
 
-
-
+    /**
+     * Actualiza el nombre de usuario del usuario.
+     * @param id ID del usuario cuyo nombre de usuario se va a actualizar.
+     * @param updateUsernameRequest Objeto UpdateUsernameRequest que contiene el nuevo nombre de usuario.
+     * @param token Token de autenticación del usuario.
+     * @param callback Callback que maneja las respuestas de la operación.
+     * @author Ainoha
+     */
     public void updateUsername(int id, UpdateUsernameRequest updateUsernameRequest,String token, final AuthCallback<Void> callback) {
         // Realizar la llamada a la API para actualizar el nombre de usuario
         apiService.updateUsername(id, "Bearer " + token, updateUsernameRequest).enqueue(new Callback<Void>() {
@@ -171,7 +192,14 @@ public class AuthService {
         });
     }
 
-
+    /**
+     * Actualiza el correo electrónico del usuario.
+     * @param id ID del usuario cuyo correo electrónico se va a actualizar.
+     * @param updateEmailRequest Objeto UpdateEmailRequest que contiene el nuevo correo electrónico.
+     * @param token Token de autenticación del usuario.
+     * @param callback Callback que maneja las respuestas de la operación.
+     * @author Ainoha
+     */
     public void updateEmail(int id, UpdateEmailRequest updateEmailRequest, String token, final AuthCallback<Void> callback) {
         // Realizar la llamada a la API para actualizar el correo electrónico
         apiService.updateEmail(id, "Bearer " + token, updateEmailRequest).enqueue(new Callback<Void>() {
@@ -194,6 +222,14 @@ public class AuthService {
         });
     }
 
+    /**
+     * Actualiza el nombre del usuario.
+     * @param id ID del usuario cuyo nombre se va a actualizar.
+     * @param updateNameRequest Objeto UpdateNameRequest que contiene el nuevo nombre.
+     * @param token Token de autenticación del usuario.
+     * @param callback Callback que maneja las respuestas de la operación.
+     * @author Ainoha
+     */
     public void updateName(int id, UpdateNameRequest updateNameRequest, String token,final AuthCallback<Void> callback) {
         // Realizar la llamada a la API para actualizar el nombre
         apiService.updateName(id,"Bearer " + token, updateNameRequest).enqueue(new Callback<Void>() {
@@ -216,8 +252,16 @@ public class AuthService {
         });
     }
 
+    /**
+     * Actualiza los apellidos del usuario.
+     * @param id ID del usuario cuyos apellidos se van a actualizar.
+     * @param editSurnameRequest Objeto UpdateSurnameRequest que contiene los nuevos apellidos.
+     * @param token Token de autenticación del usuario.
+     * @param callback Callback que maneja las respuestas de la operación.
+     * @author Ainoha
+     */
     public void updateSurname(int id, UpdateSurnameRequest editSurnameRequest,String token, final AuthCallback<Void> callback) {
-        // Realizar la llamada a la API para actualizar el nombre
+        // Realizar la llamada a la API para actualizar los apellidos
         apiService.updateSurname(id,"Bearer " + token, editSurnameRequest).enqueue(new Callback<Void>() {
             @Override
             public void onResponse(Call<Void> call, Response<Void> response) {
@@ -226,7 +270,7 @@ public class AuthService {
                     callback.onSuccess(null);
                 } else {
                     // Si hay un error en la respuesta, llamar al método onError del callback
-                    callback.onError(new Exception("Error al actualizar el nombre"));
+                    callback.onError(new Exception("Error al actualizar los apellidos"));
                 }
             }
 
@@ -238,9 +282,16 @@ public class AuthService {
         });
     }
 
+    /**
+     * Actualiza la contraseña del usuario.
+     * @param id ID del usuario cuya contraseña se va a actualizar.
+     * @param updatePasswordRequest Objeto UpdatePasswordRequest que contiene la nueva contraseña.
+     * @param token Token de autenticación del usuario.
+     * @param callback Callback que maneja las respuestas de la operación.
+     * @author Ainoha
+     */
     public void updatePassword(int id, UpdatePasswordRequest updatePasswordRequest,String token, final AuthCallback<Void> callback) {
-
-        // Realizar la llamada a la API para actualizar password
+        // Realizar la llamada a la API para actualizar la contraseña
         apiService.updatePassword(id, "Bearer " + token,updatePasswordRequest).enqueue(new Callback<Void>() {
             @Override
             public void onResponse(Call<Void> call, Response<Void> response) {
@@ -249,7 +300,7 @@ public class AuthService {
                     callback.onSuccess(null);
                 } else {
                     // Si hay un error en la respuesta, llamar al método onError del callback
-                    callback.onError(new Exception("Error al actualizar el nombre"));
+                    callback.onError(new Exception("Error al actualizar la contraseña"));
                 }
             }
 
@@ -260,6 +311,7 @@ public class AuthService {
             }
         });
     }
+
 
     public void logoutUser(AuthCallback<Void> authCallback) {
         if (tokenManager != null) {
@@ -292,8 +344,11 @@ public class AuthService {
         return instance;
     }
 
-
-    // Método para obtener los datos del usuario, incluido el password, desde el servidor
+    /**
+     * Obtiene los datos del usuario, incluyendo la contraseña, desde el servidor utilizando su nombre de usuario.
+     * @param username Nombre de usuario del usuario del que se desean obtener los datos.
+     * @param callback Callback que maneja las respuestas de la operación.
+     */
     public void getUserData(String username, final ProfileCallback callback) {
         // Realizar una solicitud GET al servidor para obtener los datos del usuario por su nombre de usuario
         Call<User> call = apiService.getUserData(username);
@@ -316,6 +371,7 @@ public class AuthService {
             }
         });
     }
+
     public void addProduct(ProductRequest product, final AuthCallback<ProductResponse> callback) {
         Call<ProductResponse> call = apiService.addProduct(product);
         call.enqueue(new Callback<ProductResponse>() {
@@ -358,6 +414,14 @@ public class AuthService {
             }
         });
     }
+    /**
+     * Actualiza un producto en el servidor utilizando su ID y los datos actualizados del producto.
+     * @param productId ID del producto que se desea actualizar.
+     * @param updatedProduct Datos actualizados del producto.
+     * @param token Token de autenticación necesario para realizar la operación.
+     * @param callback Callback que maneja las respuestas de la operación.
+     * @author Ainoha
+     */
     public void updateProduct(int productId, Product updatedProduct, String token, final AuthCallback<Void> callback) {
         // Realizar la llamada a la API para actualizar el producto
         apiService.updateProduct(productId, "Bearer " + token, updatedProduct).enqueue(new Callback<Void>() {
@@ -379,6 +443,14 @@ public class AuthService {
             }
         });
     }
+
+    /**
+     * Elimina un producto del servidor utilizando su ID.
+     * @param productId ID del producto que se desea eliminar.
+     * @param token Token de autenticación necesario para realizar la operación.
+     * @param callback Callback que maneja las respuestas de la operación.
+     * @author Ainoha
+     */
     public void deleteProduct(int productId, String token, final AuthCallback<Void> callback) {
         // Realizar la llamada a la API para eliminar el producto
         apiService.deleteProduct(productId, "Bearer " + token).enqueue(new Callback<Void>() {
@@ -400,6 +472,7 @@ public class AuthService {
             }
         });
     }
+
 
 
 

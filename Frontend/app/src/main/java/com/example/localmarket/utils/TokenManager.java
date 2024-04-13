@@ -15,6 +15,10 @@ public class TokenManager {
     private SharedPreferences sharedPreferences;
     private static TokenManager instance;
 
+    public  TokenManager() {
+
+    }
+
     public TokenManager(Context context) {
         sharedPreferences = context.getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE);
     }
