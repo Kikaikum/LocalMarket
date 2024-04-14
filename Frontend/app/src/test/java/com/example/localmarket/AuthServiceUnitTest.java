@@ -37,6 +37,7 @@ public class AuthServiceUnitTest {
 
     @Mock
     private ApiService apiService;
+    private AuthService authService;
 
     @Before
     public void setUp() {
