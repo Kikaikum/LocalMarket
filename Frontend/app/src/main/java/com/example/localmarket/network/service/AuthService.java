@@ -60,10 +60,13 @@ public class AuthService {
         // Creación de la interfaz de servicio a partir de Retrofit
         apiService = retrofit.create(ApiService.class);
     }
+    public AuthService(ApiService apiService) {
+        this.apiService = apiService;
+    }
 
 
-    public void loginUser(String email, String password, final AuthCallback<LoginResponse> callback) {
-        LoginRequest loginRequest = new LoginRequest(email, password);
+    public void loginUser(String userName, String password, final AuthCallback<LoginResponse> callback) {
+        LoginRequest loginRequest = new LoginRequest(userName, password);
         apiService.loginUser(loginRequest).enqueue(new Callback<LoginResponse>() {
             @Override
             public void onResponse(Call<LoginResponse> call, Response<LoginResponse> response) {
