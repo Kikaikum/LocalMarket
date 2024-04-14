@@ -40,7 +40,7 @@ public class AuthService {
     private SessionManager sessionManager;
 
     // URL base de tu API
-    private static final String BASE_URL = "";
+    private static final String BASE_URL = "https://kikaikum.ddns.net:3000/localmarket/v1/";
     private TokenManager tokenManager;
 
     public AuthService() {
