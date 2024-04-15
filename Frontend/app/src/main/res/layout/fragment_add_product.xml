@@ -84,14 +84,15 @@
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/itPriceLayout"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-        android:layout_width="match_parent"
+        android:layout_width="248dp"
 
-        android:layout_height="wrap_content"
+        android:layout_height="84dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="24dp"
         android:layout_marginEnd="8dp"
         android:padding="10dp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/spinnerProduct">
 
@@ -100,15 +101,15 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/price"
-            android:inputType="number" />
+            android:inputType="numberDecimal" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/itStockLayout"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-        android:layout_width="245dp"
+        android:layout_width="251dp"
 
-        android:layout_height="83dp"
+        android:layout_height="80dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
@@ -162,5 +163,18 @@
         app:layout_constraintStart_toEndOf="@+id/itStockLayout"
         app:layout_constraintTop_toTopOf="@+id/itStockLayout"
         app:layout_constraintVertical_bias="0.527" />
+
+    <TextView
+        android:id="@+id/tvPriceCurrency"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="28dp"
+        android:gravity="left"
+        android:text="TextView"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="@+id/itPriceLayout"
+        app:layout_constraintStart_toEndOf="@+id/itPriceLayout"
+        app:layout_constraintTop_toTopOf="@+id/itPriceLayout"
+        app:layout_constraintVertical_bias="0.488" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

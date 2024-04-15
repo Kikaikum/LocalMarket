@@ -36,7 +36,7 @@ public class AddProductFragment extends Fragment {
     private Switch switchMeasurement;
 
     private TextInputEditText itPrice, itDescription, itStock;
-    private TextView etSwitch, etStock;
+    private TextView etSwitch, etStock, etPriceCurrency;
 
 
     @Override
@@ -69,8 +69,11 @@ public class AddProductFragment extends Fragment {
         switchMeasurement = view.findViewById(R.id.switchPesoUnidad);
         etStock= view.findViewById(R.id.tvUnidadMedida2);
         etSwitch = view.findViewById(R.id.tvUnidadMedida);
+        etPriceCurrency = view.findViewById(R.id.tvPriceCurrency);
+
         etSwitch.setText("<-- Selecione unidad de\n\t\t\t medida");
         etStock.setText("");
+        etPriceCurrency.setText("€");
 
         // Listener para el cambio de estado del Switch
         switchMeasurement.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
