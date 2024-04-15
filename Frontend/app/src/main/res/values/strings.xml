@@ -24,6 +24,7 @@
     <string name="hint_name">Nombre</string>
     <string name="hint_surname">Apellidos</string>
     <string name="hint_description">Describe tu producto</string>
+    <string name="hint_stock">Determina la cantidad</string>
 
     <!-- messages -->
     <string name="message_empty_fields">Por favor, complete todos los campos.</string>
@@ -35,7 +36,9 @@
     <string name="new_product">Nuevo producto</string>
     <string name="price">Precio</string>
 
-
+    <!-- textview -->
+    <string name="tv_unidad_medida">Peso/unidad</string>
+    <string name="tv_kg_unidad">kg/unidad</string>
 
     <!-- Toasts -->
     <string name="toast_invalid_username">Este campo no puede tener carácteres especiales</string>
@@ -47,7 +50,6 @@
     <string name="toast_field_not_uppercase">El password debe contener minimo 1 mayuscula</string>
     <string name="toast_field_not_special_char">El password debe contener minimo 1 caracter especial</string>
     <string name="toast_field_min_8char">La contraseña debe tener mínimo 8 carácteres.</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+
 
 </resources>

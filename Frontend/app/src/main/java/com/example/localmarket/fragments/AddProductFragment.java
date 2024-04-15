@@ -14,6 +14,7 @@ import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Switch;
+import android.widget.TextView;
 
 import com.example.localmarket.activities.ActivitySellerLobby;
 import com.example.localmarket.model.Product;
@@ -22,6 +23,7 @@ import com.example.localmarket.model.ProductRequest;
 import com.example.localmarket.model.ProductResponse;
 import com.example.localmarket.network.service.AuthService;
 import com.example.localmarket.utils.ProductSpinnerAdapter;
+import com.google.android.material.textfield.TextInputEditText;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -32,6 +34,9 @@ public class AddProductFragment extends Fragment {
     private Spinner spinnerImages;
     private List<Product> productList;
     private Switch switchMeasurement;
+
+    private TextInputEditText itPrice, itDescription, itStock;
+    private TextView etSwitch, etStock;
 
 
     @Override
@@ -62,17 +67,22 @@ public class AddProductFragment extends Fragment {
             }
         });
         switchMeasurement = view.findViewById(R.id.switchPesoUnidad);
-        switchMeasurement.setText("Peso/unidades -> "); // Texto por defecto
+        etStock= view.findViewById(R.id.tvUnidadMedida2);
+        etSwitch = view.findViewById(R.id.tvUnidadMedida);
+        etSwitch.setText("<-- Selecione unidad de\n\t\t\t medida");
+        etStock.setText("");
 
         // Listener para el cambio de estado del Switch
         switchMeasurement.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (isChecked) {
                     // El switch está "encendido" - mostrar "Peso"
-                    switchMeasurement.setText("Peso");
+                    etSwitch.setText("Peso");
+                    etStock.setText("Kg");
                 } else {
                     // El switch está "apagado" - mostrar "Unidades"
-                    switchMeasurement.setText("Unidades");
+                    etSwitch.setText("Unidades");
+                    etStock.setText("Unidad/es");
                 }
             }
         });
