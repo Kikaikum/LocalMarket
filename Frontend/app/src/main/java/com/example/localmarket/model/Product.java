@@ -8,38 +8,38 @@ package com.example.localmarket.model;
  */
 public class Product {
     private int categoriaId;
-    private String name;
+    private String nombre;
     private String descripcion;
     private String unidadMedida;
     private double precio;
-    private int productId;
+    private int id;
     private double stock;
 
     /**
      * Constructor de la clase Product para un producto sin ID.
      *
      * @param imageId ID de la categoría del producto.
-     * @param name     Nombre del producto.
+     * @param nombre   Nombre del producto.
      */
-    public Product(int imageId, String name) {
+    public Product(int imageId, String nombre) {
         this.categoriaId = imageId;
-        this.name = name;
+        this.nombre=nombre;
     }
 
     /**
      * Constructor de la clase Product para un producto con todos los detalles.
      *
      * @param categoriaId     ID de la categoría del producto.
-     * @param name         Nombre del producto.
+     * @param nombre         Nombre del producto.
      * @param descripcion  Descripción del producto.
      * @param unidadMedida   Tipo de peso del producto.
      * @param precio       Precio del producto.
      * @param stock        Cantidad de producto
      */
-    public Product(String name, int categoriaId, double precio, String descripcion, String unidadMedida, double stock ) {
-        this.productId = productId;
+    public Product(String nombre, int categoriaId, double precio, String descripcion, String unidadMedida, double stock) {
+
         this.categoriaId = categoriaId;
-        this.name = name;
+        this.nombre=nombre;
         this.descripcion = descripcion;
         this.unidadMedida = unidadMedida;
         this.precio = precio;
@@ -70,16 +70,16 @@ public class Product {
      * @return El nombre del producto.
      */
     public String getName() {
-        return name;
+        return nombre;
     }
 
     /**
      * Establece el nombre del producto.
      *
-     * @param name El nombre del producto a establecer.
+     * @param nombre El nombre del producto a establecer.
      */
-    public void setName(String name) {
-        this.name = name;
+    public void setName(String nombre) {
+        this.nombre = nombre;
     }
 
     /**
@@ -124,16 +124,16 @@ public class Product {
      * @return El ID del producto.
      */
     public int getProductId() {
-        return productId;
+        return id;
     }
 
     /**
      * Establece el ID del producto.
      *
-     * @param productId El ID del producto a establecer.
+     * @param id El ID del producto a establecer.
      */
-    public void setProductId(int productId) {
-        this.productId = productId;
+    public void setProductId(int id) {
+        this.id = id;
     }
 
     public String getUnidadMedida() {

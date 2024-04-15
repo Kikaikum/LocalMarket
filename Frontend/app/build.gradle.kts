@@ -45,10 +45,7 @@ dependencies {
     implementation ("com.google.android.material:material:1.5.0")
     implementation(libs.firebase.firestore)
     implementation(libs.fragment.testing)
-    implementation(fileTree(mapOf(
-            "dir" to "C:\\Users\\ainoh\\AppData\\Local\\Android\\Sdk\\platforms\\android-34",
-            "include" to listOf("*.jar", "*.aar")
-    )))
+
     implementation(fileTree(mapOf(
         "dir" to "C:\\Users\\rasta\\AppData\\Local\\Android\\Sdk\\platforms\\android-34",
         "include" to listOf("*.aar", "*.jar"),
@@ -67,6 +64,9 @@ dependencies {
     androidTestImplementation ("androidx.test:rules:1.4.0")
     androidTestImplementation("androidx.test:runner:1.4.0")
     androidTestImplementation("androidx.test.espresso:espresso-intents:3.4.0")
+    implementation("io.jsonwebtoken:jjwt-api:0.11.2")
+    runtimeOnly("io.jsonwebtoken:jjwt-impl:0.11.2")
+    runtimeOnly("io.jsonwebtoken:jjwt-jackson:0.11.2")
 
 
 

@@ -152,8 +152,8 @@ public interface ApiService {
      * @author Oriol Estero Sanchez
      *
      */
-    @GET("productos/{id}")
-    Call<Product> getProductById(@Path("id") int productId);
+   // @GET("productos/{id}")
+    //Call<Product> getProductById(@Path("id") int productId);
 
     /**
      * Método para agregar un nuevo producto a la base de datos del servidor.
@@ -163,15 +163,15 @@ public interface ApiService {
      * @author Oriol Estero Sanchez
      */
     @POST("products")
-    Call<ProductResponse> addProduct(@Body ProductRequest product);
+    Call<ProductResponse> addProduct(@Header("id") int userId,@Header("Authorization") String token,@Body ProductRequest product);
 
     /**
      * Método para obtener todos los productos de la base de datos del servidor.
      *
      * @return Objeto Call que envuelve la respuesta del servidor.
      */
-    @GET("productos")
-    Call<List<Product>> getAllProducts();
+    @GET("products/agricultor/{id}")
+    Call<List<Product>> getAllProducts(@Path("id") int userId, @Header("Authorization") String token);
 
     /**
      * Método para actualizar un producto existente en la base de datos del servidor.

@@ -3,6 +3,7 @@ package com.example.localmarket.activities;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -27,6 +28,7 @@ public class EditProductActivity extends AppCompatActivity {
     private AuthService authService;
 
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -41,15 +43,20 @@ public class EditProductActivity extends AppCompatActivity {
 
         // Declarar imageId como final para que sea accesible en el contexto del onClick
         final int categoriaId;
+        final int productId;
 
         // Recuperar los datos del producto seleccionado
         Intent intent = getIntent();
         if (intent != null) {
-            String name = intent.getStringExtra("nombre");
-            categoriaId = intent.getIntExtra("categoriaId", 0); // Obtener el imageId del intent
+            String nombre = intent.getStringExtra("nombre");
+            categoriaId = intent.getIntExtra("categoriaId", 0);
             String descripcion = intent.getStringExtra("descripcion");
             String tipoDePeso = intent.getStringExtra("tipoDePeso");
             double precio = intent.getDoubleExtra("precio", 0.0);
+            double stock=intent.getDoubleExtra("stock", 0);
+
+
+
 
             // Inicializar vistas y asignar los datos del producto seleccionado
             ImageView imageProduct = findViewById(R.id.imageProduct);
@@ -57,15 +64,18 @@ public class EditProductActivity extends AppCompatActivity {
             EditText editTextDescription = findViewById(R.id.editTextDescription);
             EditText editTextWeight = findViewById(R.id.editTextWeight);
             EditText editTextPrice = findViewById(R.id.editTextPrice);
+            EditText editTextStock=findViewById(R.id.editTextStock);
 
             imageProduct.setImageResource(categoriaId);
-            editTextName.setText(name);
+            editTextName.setText(nombre);
             editTextDescription.setText(descripcion);
             editTextWeight.setText(tipoDePeso);
             editTextPrice.setText(String.valueOf(precio));
+            editTextStock.setText(String.valueOf(stock));
         } else {
             // Asignar un valor predeterminado en caso de que la Intent sea nula
             categoriaId = 0; // O cualquier otro valor predeterminado que desees
+            productId=0;
         }
 
         //Configurar clic en el botón "Cancelar"
@@ -97,16 +107,19 @@ public class EditProductActivity extends AppCompatActivity {
                 EditText editTextDescription = findViewById(R.id.editTextDescription);
                 EditText editTextWeight = findViewById(R.id.editTextWeight);
                 EditText editTextPrice = findViewById(R.id.editTextPrice);
+                EditText editTextStock=findViewById(R.id.editTextStock);
 
-                String nombre = editTextName.getText().toString();
+                String name = editTextName.getText().toString();
                 String description = editTextDescription.getText().toString();
                 String unidadMedida = editTextWeight.getText().toString();
                 double precio = Double.parseDouble(editTextPrice.getText().toString());
-                int productId=tokenManager.getProductId();
-                double stock = 0;
+                int productId = tokenManager.getProductId();
+
+
+                double stock = Double.parseDouble(editTextStock.getText().toString());
 
                 // Crear un objeto Product con los datos actualizados
-                Product updatedProduct = new Product(nombre,categoriaId, precio, description, unidadMedida, stock);
+                Product updatedProduct = new Product(name,categoriaId, precio, description, unidadMedida, stock);
 
 
 

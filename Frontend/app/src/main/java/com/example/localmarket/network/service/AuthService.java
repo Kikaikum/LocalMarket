@@ -438,8 +438,8 @@ public class AuthService {
         });
     }
 
-    public void addProduct(ProductRequest product, final AuthCallback<ProductResponse> callback) {
-        Call<ProductResponse> call = apiService.addProduct(product);
+    public void addProduct(int id, ProductRequest product, String token, final AuthCallback<ProductResponse> callback) {
+        Call<ProductResponse> call = apiService.addProduct(id, "Bearer " + token, product);
         call.enqueue(new Callback<ProductResponse>() {
             @Override
             public void onResponse(Call<ProductResponse> call, Response<ProductResponse> response) {
@@ -459,8 +459,9 @@ public class AuthService {
             }
         });
     }
-    public void getAllProducts(final AuthCallback<List<Product>> callback) {
-        Call<List<Product>> call = apiService.getAllProducts();
+
+    public void getAllProducts(int userId, String token, final AuthCallback<List<Product>> callback) {
+        Call<List<Product>> call = apiService.getAllProducts(userId, "Bearer " + token);
         call.enqueue(new Callback<List<Product>>() {
             @Override
             public void onResponse(Call<List<Product>> call, Response<List<Product>> response) {
@@ -475,7 +476,7 @@ public class AuthService {
 
             @Override
             public void onFailure(Call<List<Product>> call, Throwable t) {
-                // Maneja completamente el fallo de la solicitud (por ejemplo, problema de red)
+                // Maneja el caso donde la solicitud falla
                 callback.onError(t);
             }
         });

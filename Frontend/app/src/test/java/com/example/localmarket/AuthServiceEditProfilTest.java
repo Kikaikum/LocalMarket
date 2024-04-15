@@ -126,17 +126,18 @@ public class AuthServiceEditProfilTest {
                 return null;
             }
 
-            @Override
-            public Call<ProductResponse> addProduct(ProductRequest product) {
-                return null;
-            }
+        @Override
+        public Call<ProductResponse> addProduct(int userId, String token, ProductRequest product) {
+            return null;
+        }
 
-            @Override
-            public Call<List<Product>> getAllProducts() {
-                return null;
-            }
+        @Override
+        public Call<List<Product>> getAllProducts(int userId, String token) {
+            return null;
+        }
 
-            @Override
+
+        @Override
             public Call<Void> updateProduct(int productId, String authorization, Product updatedProduct) {
                 return null;
             }

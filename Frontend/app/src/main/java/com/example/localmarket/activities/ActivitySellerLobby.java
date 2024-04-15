@@ -10,9 +10,11 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.localmarket.R;
+import com.example.localmarket.fragments.AddProductFragment;
 import com.example.localmarket.fragments.SellerProductFragment;
 import com.example.localmarket.model.Product;
 import com.example.localmarket.network.service.AuthService;
@@ -27,13 +29,23 @@ import java.util.List;
  *
  * @author Oriol Estero Sanchez
  */
-public class ActivitySellerLobby extends AppCompatActivity implements ProductAdapter.OnProductClickListener {
+public class ActivitySellerLobby extends AppCompatActivity implements ProductAdapter.OnProductClickListener, AddProductFragment.OnProductAddedListener{
 
     private AuthService authService;
     private Button btnAdd;
     private List<Product> productList;
     private ProductAdapter adapter;
     private RecyclerView recyclerView;
+
+    @Override
+    public void onProductAdded(Product product) {
+        // Verifica si el fragmento actual es una instancia de SellerProductFragment
+        Fragment currentFragment = getSupportFragmentManager().findFragmentById(R.id.fragment_container2);
+        if (currentFragment instanceof SellerProductFragment) {
+            SellerProductFragment sellerProductFragment = (SellerProductFragment) currentFragment;
+            sellerProductFragment.addProductToList(product);
+        }
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -93,7 +105,7 @@ public class ActivitySellerLobby extends AppCompatActivity implements ProductAda
 
         // Pasa los datos del producto seleccionado a EditProductActivity
         intent.putExtra("name", product.getName());
-        intent.putExtra("imageId", product.getCategoriaId());
+        intent.putExtra("categoriaId", product.getCategoriaId());
         intent.putExtra("descripcion", product.getDescripcion());
         intent.putExtra("unidadMedida", product.getUnidadMedida());
         intent.putExtra("precio", product.getPrecio());

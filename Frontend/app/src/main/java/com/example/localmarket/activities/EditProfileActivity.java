@@ -43,17 +43,22 @@ import com.example.localmarket.utils.TokenManager;
  */
 public class EditProfileActivity extends AppCompatActivity {
     private Toolbar toolbar;
-    private Button editUsernameButton, editEmailButton, editPasswordButton, deleteAccountButton, editNameButton , editSurnameButton;
+    public Button editUsernameButton;
+    public Button editEmailButton;
+    private Button editPasswordButton;
+    private Button deleteAccountButton;
+    public Button editNameButton;
+    public Button editSurnameButton;
 
     private User user;
 
-    private ApiService apiService;
-    private AuthService authService;
-    private TokenManager tokenManager;
+    public ApiService apiService;
+    public AuthService authService;
+    public TokenManager tokenManager;
 
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.edit_profile);
 

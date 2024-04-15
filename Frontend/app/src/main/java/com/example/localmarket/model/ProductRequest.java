@@ -8,9 +8,12 @@ public class ProductRequest {
     private double precio;
     private double stock;
     private int idAgricultor;
+    String token;
+
+
 
     // Constructor
-    public ProductRequest(String nombre,int categoriaId,double precio,String unidadMedida, String descripcion, int idAgricultor, double stock ) {
+    public ProductRequest(String nombre,int categoriaId,double precio,String unidadMedida, String descripcion, int idAgricultor, double stock,String token ) {
         this.nombre = nombre;
         this.categoriaId = categoriaId;
         this.descripcion = descripcion;
@@ -18,6 +21,7 @@ public class ProductRequest {
         this.precio = precio;
         this.stock = stock;
         this.idAgricultor = idAgricultor;
+        this.token=token;
     }
 
     // Getters y Setters
@@ -59,5 +63,12 @@ public class ProductRequest {
 
     public void setPrecio(double precio) {
         this.precio = precio;
+    }
+    public String getToken() {
+        return token;
+    }
+
+    public void setToken(String token) {
+        this.token = token;
     }
 }
