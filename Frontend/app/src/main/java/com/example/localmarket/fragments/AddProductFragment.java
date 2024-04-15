@@ -106,8 +106,9 @@ public class AddProductFragment extends Fragment {
                 }
             }
         });
-        EditText editTextPrice = view.findViewById(R.id.itPrice);
-        EditText editTextDescription = view.findViewById(R.id.etDescription);
+        TextInputEditText editTextPrice = view.findViewById(R.id.itPrice);
+        TextInputEditText editTextDescription = view.findViewById(R.id.etDescription);
+        TextInputEditText editTextStock = view.findViewById(R.id.itStock);
 
 
         // Configura el listener para el botón Aceptar
@@ -116,24 +117,33 @@ public class AddProductFragment extends Fragment {
             public void onClick(View v) {
                 // Suponiendo que tienes un EditText para el nombre y otro para el precio
                 String name = ((Product) spinnerImages.getSelectedItem()).getName();
-                int imageId = ((Product) spinnerImages.getSelectedItem()).getCategoriaId();
+                int categoriaId = ((Product) spinnerImages.getSelectedItem()).getCategoriaId();
                 String description = editTextDescription.getText().toString();
-                String weightType = switchMeasurement.isChecked() ? "Peso" : "Unidades";
+                String unidadMedida = etSwitch.getText().toString().trim().isEmpty() ? "Peso" : "Unidades";
                 double price = 0;
+                double stock = 0;
                 try {
                     price = Double.parseDouble(editTextPrice.getText().toString());
+                    stock = Double.parseDouble(editTextStock.getText().toString());
+
                 } catch (NumberFormatException e) {
                     Log.e("AddProductFragment", "Error al parsear el precio", e);
                     // Manejar error, por ejemplo, mostrando un mensaje al usuario
                 }
 
                 // Crear ProductRequest y enviarlo
-                ProductRequest productRequest = new ProductRequest(name, imageId, description, weightType, price);
+                ProductRequest productRequest = new ProductRequest(name, categoriaId, price, unidadMedida,description, stock);
 
                 AuthService.getInstance().addProduct(productRequest, new AuthService.AuthCallback<ProductResponse>() {
                     @Override
                     public void onSuccess(ProductResponse response) {
                         Log.i("ProductAdd", "Producto añadido con éxito. ID: " + response.getId());
+                        Log.i("ProductAdd", "Nombre: " + response.getNombre());
+                        Log.i("ProductAdd", "Categoría ID: " + response.getCategoriaId());
+                        Log.i("ProductAdd", "Descripción: " + response.getDescripcion());
+                        Log.i("ProductAdd", "Unidad de medida: " + response.getUnidadMedida());
+                        Log.i("ProductAdd", "Precio: " + response.getPrecio());
+                        Log.i("ProductAdd", "Stock: " + response.getStock());
 
                     }
 

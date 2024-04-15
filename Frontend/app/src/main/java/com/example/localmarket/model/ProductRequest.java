@@ -1,28 +1,30 @@
 package com.example.localmarket.model;
 
 public class ProductRequest {
-    private String name;
-    private int imageId;
+    private String nombre;
+    private int categoriaId;
     private String descripcion;
-    private String tipoDePeso;
+    private String unidadMedida;
     private double precio;
+    private double stock;
 
     // Constructor
-    public ProductRequest(String name,int imageId, String descripcion, String tipoDePeso, double precio) {
-        this.name = name;
-        this.imageId = imageId;
+    public ProductRequest(String nombre,int categoriaId,double precio,String unidadMedida, String descripcion, double stock ) {
+        this.nombre = nombre;
+        this.categoriaId = categoriaId;
         this.descripcion = descripcion;
-        this.tipoDePeso = tipoDePeso;
+        this.unidadMedida = unidadMedida;
         this.precio = precio;
+        this.stock = stock;
     }
 
     // Getters y Setters
     public String getName() {
-        return name;
+        return nombre;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setName(String nombre) {
+        this.nombre = nombre;
     }
 
     public String getDescripcion() {
@@ -33,12 +35,20 @@ public class ProductRequest {
         this.descripcion = descripcion;
     }
 
-    public String getTipoDePeso() {
-        return tipoDePeso;
+    public String getUnidadMedida() {
+        return unidadMedida;
     }
 
-    public void setTipoDePeso(String tipoDePeso) {
-        this.tipoDePeso = tipoDePeso;
+    public int getCategoriaId() { return categoriaId; }
+
+    public void setCategoriaId(int categoriaId) { this.categoriaId = categoriaId; }
+
+    public double getStock() { return stock; }
+
+    public void setStock(double stock) { this.stock = stock; }
+
+    public void setUnidadMedida(String tipoDePeso) {
+        this.unidadMedida = tipoDePeso;
     }
 
     public double getPrecio() {

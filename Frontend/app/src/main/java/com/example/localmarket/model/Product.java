@@ -10,9 +10,10 @@ public class Product {
     private int categoriaId;
     private String name;
     private String descripcion;
-    private String tipoDePeso;
+    private String unidadMedida;
     private double precio;
     private int productId;
+    private double stock;
 
     /**
      * Constructor de la clase Product para un producto sin ID.
@@ -28,20 +29,21 @@ public class Product {
     /**
      * Constructor de la clase Product para un producto con todos los detalles.
      *
-     * @param productId    ID del producto.
-     * @param imageId      ID de la categoría del producto.
+     * @param categoriaId     ID de la categoría del producto.
      * @param name         Nombre del producto.
      * @param descripcion  Descripción del producto.
-     * @param tipoDePeso   Tipo de peso del producto.
+     * @param unidadMedida   Tipo de peso del producto.
      * @param precio       Precio del producto.
+     * @param stock        Cantidad de producto
      */
-    public Product(int productId, int imageId, String name, String descripcion, String tipoDePeso, double precio) {
+    public Product(String name, int categoriaId, double precio, String descripcion, String unidadMedida, double stock ) {
         this.productId = productId;
-        this.categoriaId = imageId;
+        this.categoriaId = categoriaId;
         this.name = name;
         this.descripcion = descripcion;
-        this.tipoDePeso = tipoDePeso;
+        this.unidadMedida = unidadMedida;
         this.precio = precio;
+        this.stock = stock;
     }
 
     /**
@@ -99,24 +101,6 @@ public class Product {
     }
 
     /**
-     * Obtiene el tipo de peso del producto.
-     *
-     * @return El tipo de peso del producto.
-     */
-    public String getTipoDePeso() {
-        return tipoDePeso;
-    }
-
-    /**
-     * Establece el tipo de peso del producto.
-     *
-     * @param tipoDePeso El tipo de peso del producto a establecer.
-     */
-    public void setTipoDePeso(String tipoDePeso) {
-        this.tipoDePeso = tipoDePeso;
-    }
-
-    /**
      * Obtiene el precio del producto.
      *
      * @return El precio del producto.
@@ -150,5 +134,21 @@ public class Product {
      */
     public void setProductId(int productId) {
         this.productId = productId;
+    }
+
+    public String getUnidadMedida() {
+        return unidadMedida;
+    }
+
+    public void setUnidadMedida(String unidadMedida) {
+        this.unidadMedida = unidadMedida;
+    }
+
+    public double getStock() {
+        return stock;
+    }
+
+    public void setStock(double stock) {
+        this.stock = stock;
     }
 }

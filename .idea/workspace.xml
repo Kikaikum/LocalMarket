@@ -95,10 +95,15 @@
     <option name="autoReloadType" value="NONE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="72ff1c52-651c-4388-8d0f-812589155228" name="Changes" comment="+ Remodelada la apariencia de fragment_add_product.xml i aplicada funcionalidades de ui.">
+    <list default="true" id="72ff1c52-651c-4388-8d0f-812589155228" name="Changes" comment="+ Remodelada la apariencia de fragment_add_product.xml i aplicada funcionalidades de ui. (actualizada)">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Frontend/app/src/main/java/com/example/localmarket/activities/ActivitySellerLobby.java" beforeDir="false" afterPath="$PROJECT_DIR$/Frontend/app/src/main/java/com/example/localmarket/activities/ActivitySellerLobby.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Frontend/app/src/main/java/com/example/localmarket/activities/EditProductActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/Frontend/app/src/main/java/com/example/localmarket/activities/EditProductActivity.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Frontend/app/src/main/java/com/example/localmarket/fragments/AddProductFragment.java" beforeDir="false" afterPath="$PROJECT_DIR$/Frontend/app/src/main/java/com/example/localmarket/fragments/AddProductFragment.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Frontend/app/src/main/res/layout/fragment_add_product.xml" beforeDir="false" afterPath="$PROJECT_DIR$/Frontend/app/src/main/res/layout/fragment_add_product.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Frontend/app/src/main/java/com/example/localmarket/model/Product.java" beforeDir="false" afterPath="$PROJECT_DIR$/Frontend/app/src/main/java/com/example/localmarket/model/Product.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Frontend/app/src/main/java/com/example/localmarket/model/ProductRequest.java" beforeDir="false" afterPath="$PROJECT_DIR$/Frontend/app/src/main/java/com/example/localmarket/model/ProductRequest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Frontend/app/src/main/java/com/example/localmarket/model/ProductResponse.java" beforeDir="false" afterPath="$PROJECT_DIR$/Frontend/app/src/main/java/com/example/localmarket/model/ProductResponse.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Frontend/app/src/main/java/com/example/localmarket/utils/ProductList.java" beforeDir="false" afterPath="$PROJECT_DIR$/Frontend/app/src/main/java/com/example/localmarket/utils/ProductList.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -585,7 +590,15 @@
       <option name="project" value="LOCAL" />
       <updated>1713157716565</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="+ Remodelada la apariencia de fragment_add_product.xml i aplicada funcionalidades de ui. (actualizada)">
+      <option name="closed" value="true" />
+      <created>1713158340997</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1713158340997</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -607,7 +620,8 @@
     <MESSAGE value="tests unitarios con severON" />
     <MESSAGE value="Anotaciones classes TEA2" />
     <MESSAGE value="+ Remodelada la apariencia de fragment_add_product.xml i aplicada funcionalidades de ui." />
-    <option name="LAST_COMMIT_MESSAGE" value="+ Remodelada la apariencia de fragment_add_product.xml i aplicada funcionalidades de ui." />
+    <MESSAGE value="+ Remodelada la apariencia de fragment_add_product.xml i aplicada funcionalidades de ui. (actualizada)" />
+    <option name="LAST_COMMIT_MESSAGE" value="+ Remodelada la apariencia de fragment_add_product.xml i aplicada funcionalidades de ui. (actualizada)" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/Local_Market$AuthServiceUnitTest_testSignUpUser_Failure.ic" NAME="AuthServiceUnitTest.testSignUpUser_Failure Coverage Results" MODIFIED="1711036953776" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />

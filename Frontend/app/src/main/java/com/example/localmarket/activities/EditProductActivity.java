@@ -40,13 +40,13 @@ public class EditProductActivity extends AppCompatActivity {
         tokenManager = TokenManager.getInstance(this);
 
         // Declarar imageId como final para que sea accesible en el contexto del onClick
-        final int imageId;
+        final int categoriaId;
 
         // Recuperar los datos del producto seleccionado
         Intent intent = getIntent();
         if (intent != null) {
-            String name = intent.getStringExtra("name");
-            imageId = intent.getIntExtra("imageId", 0); // Obtener el imageId del intent
+            String name = intent.getStringExtra("nombre");
+            categoriaId = intent.getIntExtra("categoriaId", 0); // Obtener el imageId del intent
             String descripcion = intent.getStringExtra("descripcion");
             String tipoDePeso = intent.getStringExtra("tipoDePeso");
             double precio = intent.getDoubleExtra("precio", 0.0);
@@ -58,14 +58,14 @@ public class EditProductActivity extends AppCompatActivity {
             EditText editTextWeight = findViewById(R.id.editTextWeight);
             EditText editTextPrice = findViewById(R.id.editTextPrice);
 
-            imageProduct.setImageResource(imageId);
+            imageProduct.setImageResource(categoriaId);
             editTextName.setText(name);
             editTextDescription.setText(descripcion);
             editTextWeight.setText(tipoDePeso);
             editTextPrice.setText(String.valueOf(precio));
         } else {
             // Asignar un valor predeterminado en caso de que la Intent sea nula
-            imageId = 0; // O cualquier otro valor predeterminado que desees
+            categoriaId = 0; // O cualquier otro valor predeterminado que desees
         }
 
         //Configurar clic en el botón "Cancelar"
@@ -98,14 +98,15 @@ public class EditProductActivity extends AppCompatActivity {
                 EditText editTextWeight = findViewById(R.id.editTextWeight);
                 EditText editTextPrice = findViewById(R.id.editTextPrice);
 
-                String name = editTextName.getText().toString();
+                String nombre = editTextName.getText().toString();
                 String description = editTextDescription.getText().toString();
-                String tipoDePeso = editTextWeight.getText().toString();
-                double price = Double.parseDouble(editTextPrice.getText().toString());
+                String unidadMedida = editTextWeight.getText().toString();
+                double precio = Double.parseDouble(editTextPrice.getText().toString());
                 int productId=tokenManager.getProductId();
+                double stock = 0;
 
                 // Crear un objeto Product con los datos actualizados
-                Product updatedProduct = new Product(productId,imageId, name, description, tipoDePeso, price);
+                Product updatedProduct = new Product(nombre,categoriaId, precio, description, unidadMedida, stock);
 
 
 

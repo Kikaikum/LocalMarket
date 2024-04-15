@@ -113,7 +113,7 @@ public class ActivitySellerLobby extends AppCompatActivity implements ProductAda
         intent.putExtra("name", product.getName());
         intent.putExtra("imageId", product.getCategoriaId());
         intent.putExtra("descripcion", product.getDescripcion());
-        intent.putExtra("tipoDePeso", product.getTipoDePeso());
+        intent.putExtra("unidadMedida", product.getUnidadMedida());
         intent.putExtra("precio", product.getPrecio());
 
         // Inicia la actividad
