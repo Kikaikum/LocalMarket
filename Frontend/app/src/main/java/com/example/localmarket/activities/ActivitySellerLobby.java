@@ -10,15 +10,13 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.localmarket.R;
-import com.example.localmarket.fragments.AddProductFragment;
+import com.example.localmarket.fragments.SellerProductFragment;
 import com.example.localmarket.model.Product;
 import com.example.localmarket.network.service.AuthService;
 import com.example.localmarket.utils.ProductAdapter;
-import com.example.localmarket.utils.ProductList;
 
 import java.util.List;
 
@@ -42,34 +40,18 @@ public class ActivitySellerLobby extends AppCompatActivity implements ProductAda
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_seller_lobby);
 
-        // Configuración del RecyclerView
-        productList = ProductList.getProducts();
-        adapter = new ProductAdapter(productList, this);
-        recyclerView = findViewById(R.id.reciclerViewProducts);
-        recyclerView.setHasFixedSize(true);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        recyclerView.setAdapter(adapter);
-
         // Configuración de la barra de herramientas
         Toolbar toolbar = findViewById(R.id.toolbar2);
         setSupportActionBar(toolbar);
 
         authService = AuthService.getInstance();
 
-        btnAdd = findViewById(R.id.addProduct); // Asegúrate de que este ID exista en tu layout activity_seller_lobby.xml
-        btnAdd.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // Ocultar el RecyclerView
-                recyclerView.setVisibility(View.GONE);
+        if (savedInstanceState == null) {
+            getSupportFragmentManager().beginTransaction()
+                    .replace(R.id.fragment_container2, new SellerProductFragment())
+                    .commit();
+        }
 
-                AddProductFragment fragment = new AddProductFragment();
-                getSupportFragmentManager().beginTransaction()
-                        .replace(R.id.fragment_container2, fragment) // Asegúrate de que este contenedor exista en tu layout
-                        .addToBackStack(null)
-                        .commit();
-            }
-        });
     }
 
     @Override

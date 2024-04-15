@@ -50,6 +50,8 @@
     <string name="toast_field_not_uppercase">El password debe contener minimo 1 mayuscula</string>
     <string name="toast_field_not_special_char">El password debe contener minimo 1 caracter especial</string>
     <string name="toast_field_min_8char">La contraseña debe tener mínimo 8 carácteres.</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 
 
 </resources>
