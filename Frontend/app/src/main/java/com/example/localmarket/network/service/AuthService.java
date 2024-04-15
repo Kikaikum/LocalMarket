@@ -65,7 +65,14 @@ public class AuthService {
         this.apiService = apiService;
     }
 
-
+    /**
+     * Método para iniciar sesión de un usuario en el sistema.
+     *
+     * @param userName Nombre de usuario del usuario.
+     * @param password Contraseña del usuario.
+     * @param callback Callback para manejar la respuesta del inicio de sesión.
+     * @author Oriol Estero Sanchez
+     */
     public void loginUser(String userName, String password, final AuthCallback<LoginResponse> callback) {
         LoginRequest loginRequest = new LoginRequest(userName, password);
         apiService.loginUser(loginRequest).enqueue(new Callback<LoginResponse>() {
@@ -87,6 +94,19 @@ public class AuthService {
         });
     }
 
+    /**
+     * Método para registrar un nuevo usuario en el sistema.
+     *
+     * @param email     Correo electrónico del usuario.
+     * @param password  Contraseña del usuario.
+     * @param username  Nombre de usuario del usuario.
+     * @param nombre    Nombre del usuario.
+     * @param apellidos Apellidos del usuario.
+     * @param isVendor  Indica si el usuario es un vendedor o no.
+     * @param callback  Callback para manejar la respuesta del registro.
+     *
+     * @author Oriol Estero Sanchez
+     */
     public void signUpUser(String email, String password, String username, String nombre, String apellidos, Boolean isVendor, final AuthCallback<SignUpResponse> callback) {
         SignUpRequest signUpRequest = new SignUpRequest(email, password, username, nombre, apellidos, isVendor);
         apiService.createUser(signUpRequest).enqueue(new Callback<SignUpResponse>() {
@@ -317,42 +337,78 @@ public class AuthService {
     }
 
 
+    /**
+     * Método para cerrar la sesión del usuario actual.
+     *
+     * @param authCallback Callback para manejar el resultado del cierre de sesión.
+     * @author Oriol Estero Sanchez
+     */
     public void logoutUser(AuthCallback<Void> authCallback) {
+        // Implementa la lógica para cerrar la sesión del usuario actual, por ejemplo, limpiar el token de autenticación
         if (tokenManager != null) {
             tokenManager.clearToken();
         }
+        // Llama al método onSuccess del callback para indicar que el cierre de sesión fue exitoso
         authCallback.onSuccess(null);
     }
 
+    /**
+     * Método para establecer el usuario actual.
+     *
+     * @param currentUser El usuario actual.
+     * @author Oriol Estero Sanchez
+     */
     public void setCurrentUser(User currentUser) {
+        // Establece el usuario actual
         this.currentUser = currentUser;
     }
 
+    /**
+     * Método para obtener el usuario actual.
+     *
+     * @return El usuario actual o null si no hay usuario actualmente logueado.
+     * @author Oriol Estero Sanchez
+     */
     public Object getCurrentUser() {
+        // Devuelve el usuario actual
         return currentUser;
     }
 
-
+    /**
+     * Callback para manejar el resultado de la obtención del perfil de usuario.
+     *
+     * @author Oriol Estero Sanchez
+     */
     public interface ProfileCallback {
-        void onSuccess(User userProfile);
-        void onError(Throwable t);
+        void onSuccess(User userProfile); // Método llamado cuando se obtiene el perfil de usuario con éxito
+        void onError(Throwable t); // Método llamado cuando ocurre un error al obtener el perfil de usuario
     }
 
-
-
-
+    /**
+     * Callback para manejar el resultado de las operaciones de autenticación.
+     *
+     * @param <T> Tipo de objeto que se espera recibir como respuesta en caso de éxito.
+     * @author Oriol Estero Sanchez
+     */
     public interface AuthCallback<T> {
-        void onSuccess(T response);
-        void onError(Throwable t);
+        void onSuccess(T response); // Método llamado cuando la operación de autenticación tiene éxito
+        void onError(Throwable t); // Método llamado cuando ocurre un error durante la operación de autenticación
     }
 
-    // Método para obtener una instancia única de AuthService
+    /**
+     * Método para obtener una instancia única de AuthService.
+     *
+     * @return Una instancia de AuthService.
+     * @author Oriol Estero Sanchez
+     */
     public static AuthService getInstance() {
+        // Implementa la lógica para obtener una instancia única de AuthService, asegurándote de que solo haya una instancia creada
         if (instance == null) {
             instance = new AuthService();
         }
         return instance;
     }
+
 
     /**
      * Obtiene los datos del usuario, incluyendo la contraseña, desde el servidor utilizando su nombre de usuario.

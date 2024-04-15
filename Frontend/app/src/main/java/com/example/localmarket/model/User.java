@@ -1,6 +1,7 @@
 package com.example.localmarket.model;
 /**
  * Esta clase representa un usuario en el sistema.
+ * @author Oriol Estero Sanchez
  */
 
 

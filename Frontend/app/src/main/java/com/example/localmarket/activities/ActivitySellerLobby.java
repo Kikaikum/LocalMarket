@@ -22,7 +22,14 @@ import com.example.localmarket.utils.ProductList;
 
 import java.util.List;
 
-public class ActivitySellerLobby extends AppCompatActivity  implements ProductAdapter.OnProductClickListener {
+/**
+ * Actividad que representa el lobby del vendedor.
+ * Muestra una lista de productos y permite al vendedor agregar, editar o eliminar productos.
+ * Además, proporciona opciones de perfil y cierre de sesión.
+ *
+ * @author Oriol Estero Sanchez
+ */
+public class ActivitySellerLobby extends AppCompatActivity implements ProductAdapter.OnProductClickListener {
 
     private AuthService authService;
     private Button btnAdd;
@@ -30,23 +37,18 @@ public class ActivitySellerLobby extends AppCompatActivity  implements ProductAd
     private ProductAdapter adapter;
     private RecyclerView recyclerView;
 
-
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_seller_lobby);
 
-        // Configuración del RecyclerView-Ainoha
+        // Configuración del RecyclerView
         productList = ProductList.getProducts();
         adapter = new ProductAdapter(productList, this);
         recyclerView = findViewById(R.id.reciclerViewProducts);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(adapter);
-
-
 
         // Configuración de la barra de herramientas
         Toolbar toolbar = findViewById(R.id.toolbar2);
@@ -58,7 +60,6 @@ public class ActivitySellerLobby extends AppCompatActivity  implements ProductAd
         btnAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 // Ocultar el RecyclerView
                 recyclerView.setVisibility(View.GONE);
 
@@ -97,11 +98,10 @@ public class ActivitySellerLobby extends AppCompatActivity  implements ProductAd
 
     }
 
-    //
     /**
      * Método de devolución de llamada invocado cuando se hace clic en un producto en el RecyclerView.
      * Abre EditProductActivity para editar el producto seleccionado.
-     * @author Ainoha
+     *
      * @param product El producto seleccionado que se va a editar.
      */
     @Override
@@ -135,7 +135,10 @@ public class ActivitySellerLobby extends AppCompatActivity  implements ProductAd
             }
         });
     }
-    // Método para hacer visible el RecyclerView
+
+    /**
+     * Método para hacer visible el RecyclerView.
+     */
     public void showRecyclerView() {
         recyclerView.setVisibility(View.VISIBLE);
     }

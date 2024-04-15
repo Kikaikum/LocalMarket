@@ -1,47 +1,31 @@
 package com.example.localmarket;
 
-import static junit.framework.TestCase.assertEquals;
-import static org.hamcrest.CoreMatchers.any;
+
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
-import static org.mockito.Mockito.doAnswer;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
-
-import android.os.Handler;
-import android.os.Looper;
-
-import com.example.localmarket.model.LoginRequest;
 import com.example.localmarket.model.LoginResponse;
 import com.example.localmarket.model.SignUpResponse;
 import com.example.localmarket.network.service.AuthService;
 import com.example.localmarket.model.User;
 import com.example.localmarket.network.api.ApiService;
-
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
-import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
-import org.mockito.invocation.InvocationOnMock;
-import org.mockito.stubbing.Answer;
-
-import java.io.IOException;
 import java.net.ConnectException;
 import java.util.Random;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
-
-import retrofit2.Call;
-import retrofit2.Callback;
 import retrofit2.HttpException;
-import retrofit2.Response;
+
 
 /**
- * @author Oriol
+ * Pruebas unitarias para AuthService.
+ * Estas pruebas verifican el comportamiento de los métodos en AuthService.
+ *
+ * @author Oriol Estero Sanchez
  */
 
 public class AuthServiceUnitTest {
@@ -57,11 +41,20 @@ public class AuthServiceUnitTest {
     public void setUp() {
         MockitoAnnotations.initMocks(this);
     }
+
+    /**
+     * Prueba el inicio de sesión de un usuario con éxito.
+     *
+     * Este método verifica si el inicio de sesión de un usuario funciona correctamente.
+     * Se espera que el método de autenticación llame al método onSuccess del callback si el inicio de sesión es exitoso.
+     * En caso de error, el método falla y muestra un mensaje de error.
+     */
+
     @Test
     public void testLoginUser_Success() {
 
         // Arrange
-        AuthService authService = new AuthService(); // O puedes inyectar un ApiService real si lo tienes configurado
+        AuthService authService = new AuthService();
         String userName = "testUser";
         String password = "Testuser!!";
 
@@ -71,8 +64,6 @@ public class AuthServiceUnitTest {
             public void onSuccess(LoginResponse response) {
                 // Llama al método onSuccess de la clase padre para capturar la respuesta
                 super.onSuccess(response);
-                // Aquí puedes agregar cualquier otra verificación que necesites
-                // Por ejemplo, puedes verificar los datos específicos de la respuesta
                 System.out.println("Login exitoso. Token recibido: " + response.getToken());
             }
 
@@ -99,6 +90,12 @@ public class AuthServiceUnitTest {
         assertNotNull(callback.getResponse().getToken());
     }
 
+    /**
+     * Prueba el inicio de sesión de un usuario que falla debido a credenciales incorrectas.
+     *
+     * Este método verifica si el inicio de sesión de un usuario falla correctamente cuando se proporcionan credenciales incorrectas.
+     * Se espera que el método de autenticación llame al método onError del callback con un error de "Unauthorized" (401).
+     */
     @Test
     public void testLoginUser_Failure() {
 
@@ -114,7 +111,7 @@ public class AuthServiceUnitTest {
                 if (t instanceof HttpException) {
                     HttpException httpException = (HttpException) t;
                     if (httpException.code() == 401) {
-                        // Manejar el error de "Unauthorized" aquí
+
                         System.out.println("Error: Unauthorized - Las credenciales son incorrectas.");
                         assertTrue(true);
                         latch.countDown();
@@ -141,12 +138,14 @@ public class AuthServiceUnitTest {
         }
 
         assertFalse(connectionFailed[0]);
-
-
     }
 
-
-
+    /**
+     * Prueba el registro de un nuevo usuario con éxito.
+     *
+     * Este método verifica si el registro de un nuevo usuario funciona correctamente.
+     * Se espera que el método de autenticación llame al método onSuccess del callback si el registro es exitoso.
+     */
     @Test
     public void testSignUpUser_Success() {
         // Arrange
@@ -167,10 +166,6 @@ public class AuthServiceUnitTest {
         // Act
         authService.signUpUser(email, password, username, name, surname, isVendor, callback);
 
-        // Simular una respuesta exitosa del servidor
-        //SignUpResponse signUpResponse = new SignUpResponse();
-        //signUpResponse.setUserId(2); // Establecer el userId en 2
-        //callback.onSuccess(signUpResponse); // Llamar al método onSuccess con la respuesta simulada
         try {
             Thread.sleep(2000);
         } catch (InterruptedException e) {
@@ -181,6 +176,12 @@ public class AuthServiceUnitTest {
 
     }
 
+    /**
+     * Prueba el registro de un nuevo usuario que falla debido a un conflicto de datos duplicados.
+     *
+     * Este método verifica si el registro de un nuevo usuario falla correctamente cuando se intenta registrar con datos que ya existen.
+     * Se espera que el método de autenticación llame al método onError del callback con un error de "Conflict" (409).
+     */
     @Test
     public void testSignUpUser_Failure() {
         // Arrange
@@ -200,7 +201,6 @@ public class AuthServiceUnitTest {
                 if (t instanceof HttpException) {
                     HttpException httpException = (HttpException) t;
                     if (httpException.code() == 409) {
-                        // Manejar el error de "Conflict" (409) aquí
                         System.out.println("Error de conflicto: " + t.getMessage());
                         assertTrue(true);
                         latch.countDown();
@@ -208,7 +208,6 @@ public class AuthServiceUnitTest {
                     }
                 }
                 if (t instanceof ConnectException) {
-                    // Manejar el caso en el que no se obtiene respuesta del servidor
                     System.out.println("Error de conexión: " + t);
                     uniqueConstraintErrorOccurred[0] = true; // Establecer que la conexión falló
                     latch.countDown();
@@ -228,6 +227,12 @@ public class AuthServiceUnitTest {
         assertFalse(uniqueConstraintErrorOccurred[0]);
     }
 
+    /**
+     * Prueba el cierre de sesión de un usuario.
+     *
+     * Este método verifica si el cierre de sesión de un usuario funciona correctamente.
+     * Se espera que el método de autenticación llame al método onSuccess del callback para indicar que el usuario se ha desconectado correctamente.
+     */
     @Test
     public void testLogoutUser() {
         // Arrange
@@ -241,7 +246,7 @@ public class AuthServiceUnitTest {
 
         // Assert
         assertTrue(callback.isSuccessful());
-        //assertNull(authService.getCurrentUser());
+
     }
 
 

@@ -2,45 +2,74 @@ package com.example.localmarket.model;
 
 import com.example.localmarket.activities.MainActivity;
 
+/**
+ * Clase que gestiona la sesión del usuario.
+ *
+ * @author Oriol Estero Sanchez
+ */
 public class SessionManager {
     private MainActivity mainActivity;
     private User currentUser;
 
+    /**
+     * Constructor de la clase SessionManager.
+     *
+     * @param mainActivity La actividad principal de la aplicación.
+     */
     public SessionManager(MainActivity mainActivity) {
         this.mainActivity = mainActivity;
     }
 
+    /**
+     * Verifica si el usuario ha iniciado sesión.
+     *
+     * @return true si el usuario ha iniciado sesión, false de lo contrario.
+     */
     public boolean isLoggedIn() {
-        // Verifica si el usuario está actualmente autenticado
-        // Aquí puedes implementar la lógica según tus necesidades
         return currentUser != null;
     }
 
+    /**
+     * Verifica si el usuario actual es un vendedor.
+     *
+     * @return true si el usuario es un vendedor, false de lo contrario.
+     */
     public boolean isAgricultor() {
-        // Verifica si el usuario actual es un vendedor
-        // Puedes implementar la lógica según tus necesidades
         return currentUser != null && currentUser.getAgricultor();
     }
 
+    /**
+     * Obtiene el token de autenticación del usuario.
+     *
+     * @return El token de autenticación del usuario actual.
+     */
     public String getAuthToken() {
-        // Devuelve el token de autenticación del usuario actual
-        // Aquí puedes implementar la lógica para obtener el token de autenticación
-        // Puedes obtenerlo de SharedPreferences u otro lugar donde lo hayas almacenado
         return ""; // Cambia esto para devolver el token real
     }
 
+    /**
+     * Obtiene el usuario de la sesión actual.
+     *
+     * @return El usuario de la sesión actual.
+     */
     public User getUser() {
-        // Devuelve el usuario de la sesión actual
         return currentUser;
     }
 
-    // Otros métodos para establecer y actualizar el usuario actual, si es necesario
+    /**
+     * Establece el usuario actual.
+     *
+     * @param user El usuario a establecer como actual.
+     */
     public void setCurrentUser(User user) {
         this.currentUser = user;
     }
 
+    /**
+     * Limpia la sesión actual.
+     * Se llama, por ejemplo, cuando el usuario cierra sesión.
+     */
     public void clearSession() {
-        // Limpia la sesión actual, por ejemplo, cuando el usuario cierra sesión
         currentUser = null;
         // Aquí puedes agregar más lógica para limpiar otros datos de la sesión si es necesario
     }

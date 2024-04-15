@@ -22,6 +22,14 @@ import com.example.localmarket.model.SignUpResponse;
 import com.example.localmarket.network.service.AuthService;
 import com.example.localmarket.utils.ValidationUtils;
 
+/**
+ * Fragmento para el registro de nuevos usuarios.
+ * Permite a los usuarios completar un formulario para registrarse en la aplicación.
+ * Los usuarios deben proporcionar un nombre de usuario, correo electrónico, contraseña, nombre y apellido.
+ * También pueden elegir si desean registrarse como vendedores o no.
+ *
+ * @author Oriol Estero Sanchez
+ */
 public class SignUpfragment extends Fragment implements View.OnFocusChangeListener {
 
     private EditText editTextUsername, editTextEmail, editTextPassword, editTextName, editTextSurname;
@@ -147,7 +155,13 @@ public class SignUpfragment extends Fragment implements View.OnFocusChangeListen
     }
 
 
-    // Método para validar los campos de entrada
+    /**
+     * Valida los campos del formulario de registro.
+     * Comprueba si los campos de nombre de usuario, correo electrónico, contraseña, nombre y apellido son válidos.
+     *
+     * @param context Contexto de la aplicación.
+     * @return true si todos los campos son válidos, false si alguno de ellos no es válido.
+     */
     private boolean validateFields(Context context) {
         String username = editTextUsername.getText().toString().trim();
         String email = editTextEmail.getText().toString().trim();
@@ -180,7 +194,11 @@ public class SignUpfragment extends Fragment implements View.OnFocusChangeListen
         return true;
     }
 
-    // Método para enviar la información de registro al servidor
+    /**
+     * Envía la información del formulario de registro al servidor.
+     * Realiza una llamada al servicio de autenticación para registrar un nuevo usuario.
+     * Muestra un mensaje de registro exitoso o maneja cualquier error que ocurra durante el proceso de registro.
+     */
     private void signUp() {
         String username = editTextUsername.getText().toString().trim();
         String email = editTextEmail.getText().toString().trim();
@@ -205,16 +223,24 @@ public class SignUpfragment extends Fragment implements View.OnFocusChangeListen
             }
         });
     }
-    // Method to show a Toast message
+    /**
+     * Muestra un mensaje de Toast en la actividad.
+     *
+     * @param message Mensaje que se mostrará en el Toast.
+     */
     private void showToast(String message) {
         Toast.makeText(getActivity(), message, Toast.LENGTH_SHORT).show();
     }
+    /**
+     * Regresa al fragmento de inicio de sesión.
+     * Reemplaza el fragmento actual con el fragmento de inicio de sesión en el contenedor de fragmentos.
+     */
     private void backLogin() {
         FragmentManager fragmentManager = getParentFragmentManager(); // Si estás en un fragmento
         // FragmentManager fragmentManager = requireActivity().getSupportFragmentManager(); // Si estás en una actividad
         fragmentManager.beginTransaction()
                 .replace(R.id.fragment_container, new LoginFragment())
-                .addToBackStack(null) // Opcional: para agregar transacciones a la pila de retroceso
+                .addToBackStack(null)
                 .commit();
     }
 

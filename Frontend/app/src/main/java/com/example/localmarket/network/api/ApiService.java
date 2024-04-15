@@ -41,7 +41,7 @@ public interface ApiService {
      *
      * @param loginRequest Objeto LoginRequest que contiene las credenciales de inicio de sesión.
      * @return Objeto Call que envuelve la respuesta del servidor.
-     * @author Oriol
+     * @author Oriol Estero Sanchez
      */
     @POST("users/login")
     Call<LoginResponse> loginUser(@Body LoginRequest loginRequest);
@@ -51,7 +51,7 @@ public interface ApiService {
      *
      * @param signUpRequest Objeto SignUpRequest que contiene los datos del usuario a registrar.
      * @return Objeto Call que envuelve la respuesta del servidor.
-     * @author Oriol
+     * @author Oriol Estero Sanchez
      */
     @POST("users")
     Call<SignUpResponse> createUser(@Body SignUpRequest signUpRequest);
@@ -149,7 +149,7 @@ public interface ApiService {
      *
      * @param productId ID del producto que se desea obtener.
      * @return Objeto Call que envuelve la respuesta del servidor.
-     * @author Oriol
+     * @author Oriol Estero Sanchez
      *
      */
     @GET("productos/{id}")
@@ -160,7 +160,7 @@ public interface ApiService {
      *
      * @param product Objeto ProductRequest que contiene los detalles del nuevo producto.
      * @return Objeto Call que envuelve la respuesta del servidor.
-     * @author Oriol
+     * @author Oriol Estero Sanchez
      */
     @POST("productos/add")
     Call<ProductResponse> addProduct(@Body ProductRequest product);
