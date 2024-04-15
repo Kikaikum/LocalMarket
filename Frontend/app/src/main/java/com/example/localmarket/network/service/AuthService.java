@@ -42,6 +42,7 @@ public class AuthService {
     // URL base de tu API
     private static final String BASE_URL = "https://kikaikum.ddns.net:3000/localmarket/v1/";
     private TokenManager tokenManager;
+    private User currentUser;
 
     public AuthService() {
         // Configuración del cliente HTTP con interceptor para logs
@@ -323,7 +324,13 @@ public class AuthService {
         authCallback.onSuccess(null);
     }
 
+    public void setCurrentUser(User currentUser) {
+        this.currentUser = currentUser;
+    }
 
+    public Object getCurrentUser() {
+        return currentUser;
+    }
 
 
     public interface ProfileCallback {

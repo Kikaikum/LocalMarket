@@ -41,12 +41,18 @@ dependencies {
     implementation ("com.squareup.okhttp3:logging-interceptor:4.9.2")
     implementation("com.squareup.retrofit2:converter-gson:2.9.0")
 
+
     implementation ("com.google.android.material:material:1.5.0")
     implementation(libs.firebase.firestore)
     implementation(libs.fragment.testing)
     implementation(fileTree(mapOf(
             "dir" to "C:\\Users\\ainoh\\AppData\\Local\\Android\\Sdk\\platforms\\android-34",
             "include" to listOf("*.jar", "*.aar")
+    )))
+    implementation(fileTree(mapOf(
+        "dir" to "C:\\Users\\rasta\\AppData\\Local\\Android\\Sdk\\platforms\\android-34",
+        "include" to listOf("*.aar", "*.jar"),
+        "exclude" to listOf("*.jar", "*.aar")
     )))
 
     //implementation(libs.firebase.firestore)

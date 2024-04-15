@@ -10,7 +10,7 @@ public class LoginRequest {
     }
 
     // Getters
-    public String getEmail() {
+    public String getUsername() {
         return username;
     }
 
@@ -19,8 +19,8 @@ public class LoginRequest {
     }
 
     // Setters
-    public void setEmail(String email) {
-        this.username = email;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     public void setPassword(String password) {

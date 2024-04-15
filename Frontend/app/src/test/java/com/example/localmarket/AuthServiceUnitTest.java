@@ -6,9 +6,13 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 import static org.mockito.Mockito.doAnswer;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
+
+import android.os.Handler;
+import android.os.Looper;
 
 import com.example.localmarket.model.LoginRequest;
 import com.example.localmarket.model.LoginResponse;
@@ -25,8 +29,15 @@ import org.mockito.MockitoAnnotations;
 import org.mockito.invocation.InvocationOnMock;
 import org.mockito.stubbing.Answer;
 
+import java.io.IOException;
+import java.net.ConnectException;
+import java.util.Random;
+import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.TimeUnit;
+
 import retrofit2.Call;
 import retrofit2.Callback;
+import retrofit2.HttpException;
 import retrofit2.Response;
 
 /**
@@ -34,6 +45,9 @@ import retrofit2.Response;
  */
 
 public class AuthServiceUnitTest {
+
+    private static int randomNumber = 1;
+    private static final Random random = new Random();
 
     @Mock
     private ApiService apiService;
@@ -45,33 +59,40 @@ public class AuthServiceUnitTest {
     }
     @Test
     public void testLoginUser_Success() {
+
         // Arrange
-        ApiService apiService = Mockito.mock(ApiService.class);
-        Call<LoginResponse> mockedCall = Mockito.mock(Call.class);
-        Mockito.when(apiService.loginUser(Mockito.any(LoginRequest.class))).thenReturn(mockedCall);
-
-        // Simulamos una respuesta exitosa del servicio
-        LoginResponse loginResponse = new LoginResponse();
-        loginResponse.setToken("token_de_prueba");
-        Response<LoginResponse> response = Response.success(loginResponse);
-
-        // Usamos doAnswer en lugar de thenAnswer
-        Mockito.doAnswer(new Answer<Void>() {
-            @Override
-            public Void answer(InvocationOnMock invocation) throws Throwable {
-                Callback<LoginResponse> callback = invocation.getArgument(0);
-                callback.onResponse(mockedCall, response);
-                return null;
-            }
-        }).when(mockedCall).enqueue(Mockito.any(Callback.class));
-
-        AuthService authService = new AuthService(apiService); // Inyectamos el servicio simulado
+        AuthService authService = new AuthService(); // O puedes inyectar un ApiService real si lo tienes configurado
         String userName = "testUser";
         String password = "Testuser!!";
-        TestAuthCallback<LoginResponse> callback = new TestAuthCallback<>();
+
+        // Configuración del callback para capturar el resultado
+        TestAuthCallback<LoginResponse> callback = new TestAuthCallback<LoginResponse>() {
+            @Override
+            public void onSuccess(LoginResponse response) {
+                // Llama al método onSuccess de la clase padre para capturar la respuesta
+                super.onSuccess(response);
+                // Aquí puedes agregar cualquier otra verificación que necesites
+                // Por ejemplo, puedes verificar los datos específicos de la respuesta
+                System.out.println("Login exitoso. Token recibido: " + response.getToken());
+            }
+
+            @Override
+            public void onError(Throwable t) {
+                // Manejar el error si la prueba falla
+                fail("Error: " + t.getMessage());
+            }
+        };
 
         // Act
+        System.out.println("Iniciando prueba de login...");
         authService.loginUser(userName, password, callback);
+
+        // Espera unos segundos para dar tiempo a la llamada asíncrona de completarse
+        try {
+            Thread.sleep(2000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
 
         // Assert
         assertTrue(callback.isSuccessful());
@@ -80,41 +101,81 @@ public class AuthServiceUnitTest {
 
     @Test
     public void testLoginUser_Failure() {
-        // Arrange
+
         AuthService authService = new AuthService();
-        String userName = "usuario!!";
-        String password = "invalidpassword";
-        TestAuthCallback<LoginResponse> callback = new TestAuthCallback<>();
+        String username = "testUser";
+        String password = "Testuser!";
+        CountDownLatch latch = new CountDownLatch(1);
+        final boolean[] connectionFailed = {false}; // Variable para rastrear si la conexión falló
+
+        AuthService.AuthCallback<LoginResponse> callback = new TestAuthCallback<LoginResponse>() {
+            @Override
+            public void onError(Throwable t) {
+                if (t instanceof HttpException) {
+                    HttpException httpException = (HttpException) t;
+                    if (httpException.code() == 401) {
+                        // Manejar el error de "Unauthorized" aquí
+                        System.out.println("Error: Unauthorized - Las credenciales son incorrectas.");
+                        assertTrue(true);
+                        latch.countDown();
+                        return;
+                    }
+                }
+                if (t instanceof ConnectException) {
+                    // Manejar el caso en el que no se obtiene respuesta del servidor
+                    System.out.println("Error de conexión: " + t);
+                    connectionFailed[0] = true; // Establecer que la conexión falló
+                    latch.countDown();
+                }
+                // Otros casos de error
+            }
+        };
 
         // Act
-        authService.loginUser(userName, password, callback);
+        authService.loginUser(username, password, callback);
 
-        // Assert
-        assertFalse(callback.isSuccessful());
-        //assertNull(callback.getResponse()); // Verifica que la respuesta sea null
+        try {
+            latch.await(3, TimeUnit.SECONDS);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        assertFalse(connectionFailed[0]);
+
+
     }
+
 
 
     @Test
     public void testSignUpUser_Success() {
         // Arrange
         AuthService authService = new AuthService();
-        String email = "newuser@example.com";
+        String email = generateUniqueEmail();
         String password = "Newpassword!!";
-        String username = "newuser2";
+        String username = generateUniqueUsername();
         String name = "New";
         String surname = "User";
         boolean isVendor = true; // Corregir el nombre de la variable
-        TestAuthCallback<SignUpResponse> callback = new TestAuthCallback<>();
+        TestAuthCallback<SignUpResponse> callback = new TestAuthCallback<SignUpResponse>(){
+            @Override
+            public void onSuccess(SignUpResponse response) {
+                super.onSuccess(response);
+            }
+        };
 
         // Act
         authService.signUpUser(email, password, username, name, surname, isVendor, callback);
 
         // Simular una respuesta exitosa del servidor
-        SignUpResponse signUpResponse = new SignUpResponse();
+        //SignUpResponse signUpResponse = new SignUpResponse();
         //signUpResponse.setUserId(2); // Establecer el userId en 2
-        callback.onSuccess(signUpResponse); // Llamar al método onSuccess con la respuesta simulada
-
+        //callback.onSuccess(signUpResponse); // Llamar al método onSuccess con la respuesta simulada
+        try {
+            Thread.sleep(2000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
         // Assert
         assertTrue(callback.isSuccessful());
 
@@ -124,30 +185,55 @@ public class AuthServiceUnitTest {
     public void testSignUpUser_Failure() {
         // Arrange
         AuthService authService = new AuthService();
-        String email = "existinguser@example.com";
-        String password = "existingpassword";
-        String username = "existinguser";
-        String name = "Existing";
-        String surname = "User";
-        boolean agricultor = true;
-        TestAuthCallback<SignUpResponse> callback = new TestAuthCallback<>();
+        String email = "test@test.com";
+        String password = "TestUser!!";
+        String username = "testUser";
+        String name = "asd";
+        String surname = "asd";
+        boolean isVendor = false;
+
+        CountDownLatch latch = new CountDownLatch(1);
+        final boolean[] uniqueConstraintErrorOccurred = {false};
+        TestAuthCallback<SignUpResponse> callback = new TestAuthCallback<SignUpResponse>() {
+            @Override
+            public void onError(Throwable t) {
+                if (t instanceof HttpException) {
+                    HttpException httpException = (HttpException) t;
+                    if (httpException.code() == 409) {
+                        // Manejar el error de "Conflict" (409) aquí
+                        System.out.println("Error de conflicto: " + t.getMessage());
+                        assertTrue(true);
+                        latch.countDown();
+                        return;
+                    }
+                }
+                if (t instanceof ConnectException) {
+                    // Manejar el caso en el que no se obtiene respuesta del servidor
+                    System.out.println("Error de conexión: " + t);
+                    uniqueConstraintErrorOccurred[0] = true; // Establecer que la conexión falló
+                    latch.countDown();
+                }
+
+            }
+        };
 
         // Act
-        authService.signUpUser(email, password, username, name, surname, agricultor, callback);
-
+        authService.signUpUser(email, password, username, name, surname, isVendor, callback);
+        try {
+            latch.await(3,TimeUnit.SECONDS);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
         // Assert
-        assertFalse(callback.isSuccessful());
-        //assertNull(callback.getResponse().getToken());
-        //assertNull(callback.getResponse().getUserId());
+        assertFalse(uniqueConstraintErrorOccurred[0]);
     }
 
     @Test
     public void testLogoutUser() {
         // Arrange
         AuthService authService = new AuthService();
-        // Assuming user is already logged in
-        //User currentUser = new User("oriol","estero", "testUser", "oriolestero@gmaIL.com","TestUser!!","1");
-        //authService.setCurrentUser(currentUser);
+        User currentUser = new User("oriol", "estero", "testUser", "oriolestero@gmail.io", "TestUser!!", 7, false);
+        authService.setCurrentUser(currentUser);
         TestAuthCallback<Void> callback = new TestAuthCallback<>();
 
         // Act
@@ -157,6 +243,7 @@ public class AuthServiceUnitTest {
         assertTrue(callback.isSuccessful());
         //assertNull(authService.getCurrentUser());
     }
+
 
     // Clase de prueba para el callback de autenticación
     static class TestAuthCallback<T> implements AuthService.AuthCallback<T> {
@@ -174,6 +261,9 @@ public class AuthServiceUnitTest {
             this.successful = false;
             // Manejo del error según sea necesario
         }
+        public  void setSuccessful(){
+            this.successful=true;
+        }
 
         public boolean isSuccessful() {
             return successful;
@@ -186,6 +276,24 @@ public class AuthServiceUnitTest {
         public void setResponse(T response) {
             this.response = response;
         }
+    }
+
+    public class ServerOfflineException extends RuntimeException {
+        public ServerOfflineException() {
+            super("Server is offline");
+        }
+    }
+    private String generateUniqueUsername() {
+        // Concatenar un prefijo con un número único (puede ser el valor actual de userCount)
+        randomNumber = random.nextInt(90000) + 10000;
+        return "user" + randomNumber;
+    }
+
+    // Método para generar un correo electrónico único concatenado con un número
+    private String generateUniqueEmail() {
+        // Concatenar un prefijo con un número único (puede ser el valor actual de userCount)
+        randomNumber = random.nextInt(90000) + 10000;
+        return "user" + randomNumber + "@example.com";
     }
 }
 

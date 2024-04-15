@@ -2,16 +2,7 @@
 <project version="4">
   <component name="deploymentTargetDropDown">
     <value>
-      <entry key="EditProfileTest">
-        <State />
-      </entry>
       <entry key="app">
-        <State />
-      </entry>
-      <entry key="testSurnameValidation_InvalidSurname()">
-        <State />
-      </entry>
-      <entry key="testSurnameValidation_ValidSurname()">
         <State />
       </entry>
     </value>
