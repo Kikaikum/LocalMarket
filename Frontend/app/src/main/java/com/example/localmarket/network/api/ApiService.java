@@ -162,7 +162,7 @@ public interface ApiService {
      * @return Objeto Call que envuelve la respuesta del servidor.
      * @author Oriol Estero Sanchez
      */
-    @POST("productos/add")
+    @POST("products")
     Call<ProductResponse> addProduct(@Body ProductRequest product);
 
     /**

@@ -7,15 +7,17 @@ public class ProductRequest {
     private String unidadMedida;
     private double precio;
     private double stock;
+    private int idAgricultor;
 
     // Constructor
-    public ProductRequest(String nombre,int categoriaId,double precio,String unidadMedida, String descripcion, double stock ) {
+    public ProductRequest(String nombre,int categoriaId,double precio,String unidadMedida, String descripcion, int idAgricultor, double stock ) {
         this.nombre = nombre;
         this.categoriaId = categoriaId;
         this.descripcion = descripcion;
         this.unidadMedida = unidadMedida;
         this.precio = precio;
         this.stock = stock;
+        this.idAgricultor = idAgricultor;
     }
 
     // Getters y Setters

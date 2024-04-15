@@ -1,5 +1,7 @@
 package com.example.localmarket.fragments;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -23,6 +25,7 @@ import com.example.localmarket.model.ProductRequest;
 import com.example.localmarket.model.ProductResponse;
 import com.example.localmarket.network.service.AuthService;
 import com.example.localmarket.utils.ProductSpinnerAdapter;
+import com.example.localmarket.utils.TokenManager;
 import com.google.android.material.textfield.TextInputEditText;
 
 import java.util.ArrayList;
@@ -116,12 +119,17 @@ public class AddProductFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 // Suponiendo que tienes un EditText para el nombre y otro para el precio
-                String name = ((Product) spinnerImages.getSelectedItem()).getName();
+                //String name = ((Product) spinnerImages.getSelectedItem()).getName();
+                String name = "bannana@bannana.com";
                 int categoriaId = ((Product) spinnerImages.getSelectedItem()).getCategoriaId();
                 String description = editTextDescription.getText().toString();
-                String unidadMedida = etSwitch.getText().toString().trim().isEmpty() ? "Peso" : "Unidades";
+                String unidadMedida = etSwitch.getText().toString();
                 double price = 0;
                 double stock = 0;
+                Context context = getActivity();
+                TokenManager tokenManager = TokenManager.getInstance(context);
+                int idAgricultor = tokenManager.getUserId();
+
                 try {
                     price = Double.parseDouble(editTextPrice.getText().toString());
                     stock = Double.parseDouble(editTextStock.getText().toString());
@@ -132,7 +140,7 @@ public class AddProductFragment extends Fragment {
                 }
 
                 // Crear ProductRequest y enviarlo
-                ProductRequest productRequest = new ProductRequest(name, categoriaId, price, unidadMedida,description, stock);
+                ProductRequest productRequest = new ProductRequest(name, categoriaId, price, unidadMedida,description, idAgricultor,stock);
 
                 AuthService.getInstance().addProduct(productRequest, new AuthService.AuthCallback<ProductResponse>() {
                     @Override
