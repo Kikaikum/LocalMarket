@@ -32,7 +32,7 @@ import java.util.List;
  * Use the {@link SellerProductFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class SellerProductFragment extends Fragment implements ProductAdapter.OnProductClickListener{
+public class SellerProductFragment extends Fragment implements ProductAdapter.OnProductClickListener, AddProductFragment.OnProductAddedListener{
 
     private AuthService authService;
     private Button btnAdd;
@@ -169,5 +169,10 @@ public class SellerProductFragment extends Fragment implements ProductAdapter.On
         // Agregar el nuevo producto a la lista y notificar al adaptador
         productList.add(product);
         adapter.notifyDataSetChanged();
+    }
+
+    @Override
+    public void onProductAdded(Product product) {
+        addProductToList(product);
     }
 }

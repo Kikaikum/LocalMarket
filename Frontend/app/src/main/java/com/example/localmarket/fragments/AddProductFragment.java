@@ -38,7 +38,6 @@ public class AddProductFragment extends Fragment {
     private List<Product> productList;
     private Switch switchMeasurement;
     private TokenManager tokenManager;
-    private Context context;
 
     private TextInputEditText itPrice, itDescription, itStock;
     private TextView etSwitch, etStock, etPriceCurrency;
@@ -51,9 +50,6 @@ public class AddProductFragment extends Fragment {
 
         // Inicializar la lista de productos con imágenes
         initializeProductList();
-
-        tokenManager = new TokenManager(getActivity());
-        context = getActivity();
 
         // Configurar el Spinner y el adaptador
         spinnerImages = view.findViewById(R.id.spinnerProduct);
@@ -125,7 +121,6 @@ public class AddProductFragment extends Fragment {
             public void onClick(View v) {
                 // Suponiendo que tienes un EditText para el nombre y otro para el precio
                 String name = ((Product) spinnerImages.getSelectedItem()).getName();
-
                 int categoriaId = ((Product) spinnerImages.getSelectedItem()).getCategoriaId();
                 String description = editTextDescription.getText().toString();
                 String unidadMedida = etSwitch.getText().toString();
@@ -133,9 +128,9 @@ public class AddProductFragment extends Fragment {
                 double stock = 0;
                 Context context = getActivity();
                 TokenManager tokenManager = TokenManager.getInstance(context);
-                String token = tokenManager.getToken();
                 int idAgricultor = tokenManager.getUserId();
-
+                String token = tokenManager.getToken();
+                int id = tokenManager.getUserId();
                 try {
                     price = Double.parseDouble(editTextPrice.getText().toString());
                     stock = Double.parseDouble(editTextStock.getText().toString());
@@ -148,17 +143,9 @@ public class AddProductFragment extends Fragment {
                 // Crear ProductRequest y enviarlo
                 ProductRequest productRequest = new ProductRequest(name, categoriaId, price, unidadMedida, description, idAgricultor, stock,token);
 
-                AuthService.getInstance().addProduct(idAgricultor, productRequest,token,  new AuthService.AuthCallback<ProductResponse>() {
+                AuthService.getInstance().addProduct( id,productRequest,token, new AuthService.AuthCallback<ProductResponse>() {
                     @Override
                     public void onSuccess(ProductResponse response) {
-                        Product newProduct = new Product(response.getCategoriaId(), response.getNombre());
-                        productList.add(newProduct);
-                        adapter.notifyDataSetChanged();
-
-                        // Notificar al listener que se ha agregado un producto
-                        if (productAddedListener != null) {
-                            productAddedListener.onProductAdded(newProduct);
-                        }
                         Log.i("ProductAdd", "Producto añadido con éxito. ID: " + response.getId());
                         Log.i("ProductAdd", "Nombre: " + response.getNombre());
                         Log.i("ProductAdd", "Categoría ID: " + response.getCategoriaId());
@@ -169,16 +156,19 @@ public class AddProductFragment extends Fragment {
 
                         Toast.makeText(getContext(), "Producto registrado exitosamente", Toast.LENGTH_SHORT).show();
 
-
+                        FragmentManager fragmentManager = requireActivity().getSupportFragmentManager();
+                        fragmentManager.beginTransaction()
+                                .replace(R.id.fragment_container2, new SellerProductFragment())
+                                .addToBackStack(null)
+                                .commit();
 
                     }
 
                     @Override
                     public void onError(Throwable t) {
                         Log.e("ProductAdd", "Error al añadir producto: " + t.getMessage());
+
                     }
-
-
                 });
             }
         });
@@ -191,6 +181,9 @@ public class AddProductFragment extends Fragment {
         });
 
         return view;
+    }
+    public interface OnProductAddedListener {
+        void onProductAdded(Product product);
     }
 
     private void initializeProductList() {
@@ -234,28 +227,6 @@ public class AddProductFragment extends Fragment {
         productList.add(new Product(R.drawable.tomato_18, "Tomate"));
         productList.add(new Product(R.drawable.watermelon_18, "Sandia"));
 
-    }
-
-    public interface OnProductAddedListener {
-        void onProductAdded(Product product);
-    }
-
-    private OnProductAddedListener productAddedListener;
-
-    @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-        if (context instanceof OnProductAddedListener) {
-            productAddedListener = (OnProductAddedListener) context;
-        } else {
-            throw new RuntimeException(context.toString() + " must implement OnProductAddedListener");
-        }
-    }
-
-    @Override
-    public void onDetach() {
-        super.onDetach();
-        productAddedListener = null;
     }
 }
 
