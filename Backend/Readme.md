@@ -82,8 +82,6 @@ url : https://kikaikum.ddns.net:3000/localmarket/v1/
 
 
 
-Inicia sesión de usuario. Se requiere un cuerpo de solicitud JSON con el nombre de usuario y la contraseña. Devuelve un token JWT si el inicio de sesión es exitoso.
-
 ## Esquema del Usuario
 
 ```json
