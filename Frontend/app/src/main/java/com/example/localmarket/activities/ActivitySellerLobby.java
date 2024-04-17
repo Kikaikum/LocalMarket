@@ -10,41 +10,42 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.localmarket.R;
 import com.example.localmarket.fragments.AddProductFragment;
+import com.example.localmarket.fragments.SellerProductFragment;
 import com.example.localmarket.model.Product;
 import com.example.localmarket.network.service.AuthService;
 import com.example.localmarket.utils.ProductAdapter;
-import com.example.localmarket.utils.ProductList;
+import com.example.localmarket.utils.TokenManager;
 
 import java.util.List;
 
-public class ActivitySellerLobby extends AppCompatActivity  implements ProductAdapter.OnProductClickListener {
+/**
+ * Actividad que representa el lobby del vendedor.
+ * Muestra una lista de productos y permite al vendedor agregar, editar o eliminar productos.
+ * Además, proporciona opciones de perfil y cierre de sesión.
+ *
+ * @author Oriol Estero Sanchez
+ */
+public class ActivitySellerLobby extends AppCompatActivity {
 
-    private AuthService authService;
+        private AuthService authService;
     private Button btnAdd;
     private List<Product> productList;
     private ProductAdapter adapter;
     private RecyclerView recyclerView;
-
-
+    private SellerProductFragment sellerProductFragment;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_seller_lobby);
-
-        // Configuración del RecyclerView-Ainoha
-        productList = ProductList.getProducts();
-        adapter = new ProductAdapter(productList, this);
-        recyclerView = findViewById(R.id.reciclerViewProducts);
-        recyclerView.setHasFixedSize(true);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        recyclerView.setAdapter(adapter);
 
 
 
@@ -54,22 +55,35 @@ public class ActivitySellerLobby extends AppCompatActivity  implements ProductAd
 
         authService = AuthService.getInstance();
 
-        btnAdd = findViewById(R.id.addProduct); // Asegúrate de que este ID exista en tu layout activity_seller_lobby.xml
-        btnAdd.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                // Ocultar el RecyclerView
-                recyclerView.setVisibility(View.GONE);
-
-                AddProductFragment fragment = new AddProductFragment();
-                getSupportFragmentManager().beginTransaction()
-                        .replace(R.id.fragment_container2, fragment) // Asegúrate de que este contenedor exista en tu layout
-                        .addToBackStack(null)
-                        .commit();
-            }
-        });
+        if (savedInstanceState == null) {
+            getSupportFragmentManager().beginTransaction()
+                    .replace(R.id.fragment_container2, new SellerProductFragment())
+                    .commit();
+        }
     }
+        @Override
+        protected void onResume () {
+            super.onResume();
+            // Actualizar los productos cada vez que la actividad se reanude
+            updateProducts();
+        }
+
+        private void updateProducts () {
+            // Obtener una instancia de TokenManager
+            TokenManager tokenManager = TokenManager.getInstance(this);
+            // Obtener el ID de usuario y el token de autenticación
+            int userId = tokenManager.getUserId();
+            String token = tokenManager.getToken();
+            // Obtener el fragmento actual
+            sellerProductFragment = (SellerProductFragment) getSupportFragmentManager().findFragmentById(R.id.fragment_container2);
+            // Verificar si el fragmento actual es SellerProductFragment
+            if (sellerProductFragment != null) {
+                // Obtener los productos del servidor y actualizar la lista en el fragmento
+                sellerProductFragment.getAllProducts(userId, token);
+            }
+        }
+
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -97,28 +111,7 @@ public class ActivitySellerLobby extends AppCompatActivity  implements ProductAd
 
     }
 
-    //
-    /**
-     * Método de devolución de llamada invocado cuando se hace clic en un producto en el RecyclerView.
-     * Abre EditProductActivity para editar el producto seleccionado.
-     * @author Ainoha
-     * @param product El producto seleccionado que se va a editar.
-     */
-    @Override
-    public void onProductClick(Product product) {
-        // Crea un Intent para abrir EditProductActivity
-        Intent intent = new Intent(this, EditProductActivity.class);
 
-        // Pasa los datos del producto seleccionado a EditProductActivity
-        intent.putExtra("name", product.getName());
-        intent.putExtra("imageId", product.getCategoriaId());
-        intent.putExtra("descripcion", product.getDescripcion());
-        intent.putExtra("tipoDePeso", product.getTipoDePeso());
-        intent.putExtra("precio", product.getPrecio());
-
-        // Inicia la actividad
-        startActivity(intent);
-    }
 
     private void logout() {
         authService.logoutUser(new AuthService.AuthCallback<Void>() {
@@ -135,8 +128,14 @@ public class ActivitySellerLobby extends AppCompatActivity  implements ProductAd
             }
         });
     }
-    // Método para hacer visible el RecyclerView
+
+    /**
+     * Método para hacer visible el RecyclerView.
+     */
     public void showRecyclerView() {
         recyclerView.setVisibility(View.VISIBLE);
     }
-}
+
+
+    }
+

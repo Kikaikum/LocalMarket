@@ -7,9 +7,12 @@ import static androidx.test.espresso.action.ViewActions.closeSoftKeyboard;
 import static androidx.test.espresso.action.ViewActions.replaceText;
 import static androidx.test.espresso.action.ViewActions.scrollTo;
 import static androidx.test.espresso.matcher.ViewMatchers.isDisplayed;
+import static androidx.test.espresso.matcher.ViewMatchers.withClassName;
+import static androidx.test.espresso.matcher.ViewMatchers.withContentDescription;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
 import static androidx.test.espresso.matcher.ViewMatchers.withText;
 import static org.hamcrest.Matchers.allOf;
+import static org.hamcrest.Matchers.is;
 
 import android.view.View;
 import android.view.ViewGroup;
@@ -28,19 +31,17 @@ import org.hamcrest.TypeSafeMatcher;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-/**@author Oriol
- *
- */
+
 @LargeTest
 @RunWith(AndroidJUnit4.class)
-public class MainActivityTest {
+public class MainActivityTestVendorLogin {
 
     @Rule
     public ActivityScenarioRule<MainActivity> mActivityScenarioRule =
             new ActivityScenarioRule<>(MainActivity.class);
 
     @Test
-    public void mainActivityTest() {
+    public void mainActivityTestVendorLogin() {
         ViewInteraction textInputEditText = onView(
                 allOf(withId(R.id.editTextTextEmailAddress),
                         childAtPosition(
@@ -49,7 +50,7 @@ public class MainActivityTest {
                                         0),
                                 0),
                         isDisplayed()));
-        textInputEditText.perform(replaceText("testUser"), closeSoftKeyboard());
+        textInputEditText.perform(replaceText("vendorTestq"), closeSoftKeyboard());
 
         ViewInteraction textInputEditText2 = onView(
                 allOf(withId(R.id.editTextTextPassword),
@@ -59,7 +60,27 @@ public class MainActivityTest {
                                         0),
                                 0),
                         isDisplayed()));
-        textInputEditText2.perform(replaceText("Testuser!"), closeSoftKeyboard());
+        textInputEditText2.perform(replaceText("Vendortest!!"), closeSoftKeyboard());
+
+        ViewInteraction checkableImageButton = onView(
+                allOf(withId(com.google.android.material.R.id.text_input_end_icon), withContentDescription("Show password"),
+                        childAtPosition(
+                                childAtPosition(
+                                        withClassName(is("com.google.android.material.textfield.EndCompoundLayout")),
+                                        1),
+                                0),
+                        isDisplayed()));
+        checkableImageButton.perform(click());
+
+        ViewInteraction checkableImageButton2 = onView(
+                allOf(withId(com.google.android.material.R.id.text_input_end_icon), withContentDescription("Show password"),
+                        childAtPosition(
+                                childAtPosition(
+                                        withClassName(is("com.google.android.material.textfield.EndCompoundLayout")),
+                                        1),
+                                0),
+                        isDisplayed()));
+        checkableImageButton2.perform(click());
 
         ViewInteraction materialButton = onView(
                 allOf(withId(R.id.buttonLogin), withText("Login"),

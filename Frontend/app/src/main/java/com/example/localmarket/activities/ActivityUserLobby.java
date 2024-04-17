@@ -18,6 +18,14 @@ import com.example.localmarket.utils.ProductAdapter;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Actividad que representa el lobby del usuario.
+ * Muestra una lista de productos para que el usuario los explore y proporciona opciones de perfil y cierre de sesión.
+ * Esta actividad está diseñada para usuarios normales que están explorando productos.
+ * No tiene funcionalidades avanzadas como agregar, editar o eliminar productos.
+ *
+ * @author Oriol Estero Sanchez
+ */
 public class ActivityUserLobby extends AppCompatActivity {
 
     private RecyclerView recyclerView;
@@ -35,7 +43,6 @@ public class ActivityUserLobby extends AppCompatActivity {
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
 
     }
 
@@ -64,6 +71,12 @@ public class ActivityUserLobby extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    /**
+     * Método para manejar el evento de cierre de sesión.
+     * Hace una llamada al AuthService para cerrar sesión del usuario actual.
+     * Si tiene éxito, redirige al usuario a la pantalla de inicio de sesión.
+     * Si hay un error, muestra un mensaje de error.
+     */
     private void logout() {
         authService.logoutUser(new AuthService.AuthCallback<Void>() {
             @Override
@@ -82,6 +95,13 @@ public class ActivityUserLobby extends AppCompatActivity {
         });
     }
 
+    /**
+     * Método para obtener una lista de productos de ejemplo.
+     * Esta lista es estática y se utiliza para llenar el RecyclerView.
+     * Los productos aquí son solo para propósitos de demostración y deben ser reemplazados por productos reales de una base de datos o servicio.
+     *
+     * @return Una lista de productos de ejemplo.
+     */
     private List<Product> getProductList() {
         List<Product> productList = new ArrayList<>();
         productList.add(new Product(R.drawable.carrot_18, "zanahorias"));

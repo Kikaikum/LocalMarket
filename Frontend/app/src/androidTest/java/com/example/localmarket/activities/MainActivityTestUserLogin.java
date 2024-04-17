@@ -28,19 +28,17 @@ import org.hamcrest.TypeSafeMatcher;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-/**@author Oriol
- *
- */
+
 @LargeTest
 @RunWith(AndroidJUnit4.class)
-public class MainActivityTest {
+public class MainActivityTestUserLogin {
 
     @Rule
     public ActivityScenarioRule<MainActivity> mActivityScenarioRule =
             new ActivityScenarioRule<>(MainActivity.class);
 
     @Test
-    public void mainActivityTest() {
+    public void mainActivityTestUserLogin() {
         ViewInteraction textInputEditText = onView(
                 allOf(withId(R.id.editTextTextEmailAddress),
                         childAtPosition(
@@ -59,7 +57,7 @@ public class MainActivityTest {
                                         0),
                                 0),
                         isDisplayed()));
-        textInputEditText2.perform(replaceText("Testuser!"), closeSoftKeyboard());
+        textInputEditText2.perform(replaceText("Testuser!!"), closeSoftKeyboard());
 
         ViewInteraction materialButton = onView(
                 allOf(withId(R.id.buttonLogin), withText("Login"),

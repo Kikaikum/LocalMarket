@@ -1,5 +1,10 @@
 package com.example.localmarket.model;
 
+/**
+ * Clase que representa la solicitud de registro de un usuario.
+ *
+ * @author Oriol Estero Sanchez
+ */
 public class SignUpRequest {
     private String email;
     private String password;
@@ -8,14 +13,26 @@ public class SignUpRequest {
     private String username;
     private Boolean agricultor;
 
+    /**
+     * Constructor de SignUpRequest.
+     *
+     * @param email El correo electrónico del usuario.
+     * @param password La contraseña del usuario.
+     * @param userName El nombre de usuario del usuario.
+     * @param name El nombre del usuario.
+     * @param surname El apellido del usuario.
+     * @param isVendor Un booleano que indica si el usuario es un vendedor.
+     */
     public SignUpRequest(String email, String password, String userName, String name, String surname, Boolean isVendor) {
         this.email = email;
         this.password = password;
         this.nombre = name;
-        this.agricultor=isVendor;
-        this.username= userName;
+        this.agricultor = isVendor;
+        this.username = userName;
         this.apellidos = surname;
     }
+
+    // Getters y setters
 
     public String getEmail() {
         return email;
@@ -52,5 +69,4 @@ public class SignUpRequest {
     public Boolean getVendor() { return agricultor; }
 
     public void setVendor(Boolean vendor) { agricultor = vendor; }
-
 }

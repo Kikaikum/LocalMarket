@@ -61,6 +61,9 @@ public class EditNameFragment extends Fragment {
         nameValidator = new ValidationUtils.NameValidator();
         tokenManager = new TokenManager(getActivity());
 
+        // Set the context of the fragment
+        context = getActivity();
+
 
         // Obtener el nombre  pasado desde EditProfileActivity
         String name = getArguments().getString("name");

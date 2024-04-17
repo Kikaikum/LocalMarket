@@ -11,6 +11,16 @@ import com.example.localmarket.R;
 import com.example.localmarket.fragments.LoginFragment;
 import com.example.localmarket.model.SessionManager;
 
+/**
+ * Actividad principal de la aplicación.
+ * Es la primera actividad que se inicia cuando se abre la aplicación.
+ * Se encarga de manejar la lógica de inicio de sesión y redirigir a la actividad apropiada según el tipo de usuario.
+ * Si no hay sesión iniciada, muestra el fragmento de inicio de sesión.
+ * Si hay sesión iniciada, redirige a la actividad correspondiente según el tipo de usuario.
+ * Esta actividad actúa como un controlador de navegación inicial.
+ *
+ * @author Oriol Estero Sanchez
+ */
 public class MainActivity extends AppCompatActivity {
 
     // Aquí puedes declarar otras variables si son necesarias
@@ -32,6 +42,7 @@ public class MainActivity extends AppCompatActivity {
             Intent intent = new Intent(MainActivity.this, ActivityUserLobby.class);
             startActivity(intent);
         } else {
+            // Si hay una sesión y el usuario es un agricultor, abre la actividad del lobby del vendedor
             Intent intent = new Intent(MainActivity.this, ActivitySellerLobby.class);
             startActivity(intent);
         }
@@ -48,4 +59,3 @@ public class MainActivity extends AppCompatActivity {
 
     // Si tienes otros métodos, por ejemplo, para manejar back presses o lógica de negocio, irían aquí
 }
-
