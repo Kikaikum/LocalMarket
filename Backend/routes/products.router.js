@@ -17,11 +17,11 @@ router.get('/', async (req, res, next) => {
   }
 });
 
-router.get('/:idAgricultor', 
+router.get('/agricultor/:idAgricultor',   
   async (req, res, next) => {
     try {
-      const {agricultor} = req.params;
-      const products = await service.findByAgricultor(agricultor);
+      const {idAgricultor} = req.params;
+      const products = await service.findByAgricultor(idAgricultor);
       res.json(products);
     } catch (error) {
       next(error);
@@ -43,12 +43,19 @@ router.get('/:id',
 );
 
 router.post('/',
+  passport.authenticate('jwt', {session: false}),
   validatorHandler(createProductSchema, 'body'),
   async (req, res, next) => {
     try {
+      const authenticatedUserId = req.user.sub;
       const body = req.body;
-      const newProduct = await service.create(body);
-      res.status(201).json(newProduct);
+      const idAgricultor = body.idAgricultor;
+      if(authenticatedUserId == idAgricultor) { // Verificar si el usuario autenticado es el mismo que el solicitado
+        const newProduct = await service.create(body);
+        res.status(201).json(newProduct);
+      } else {
+        res.status(403).json({ error: "No puedes crear un producto para este ID de agricultor" }); // Devolver un error de permiso
+      }
     } catch (error) {
       next(error);
     }
@@ -56,17 +63,22 @@ router.post('/',
 );
 
 router.patch('/:id',
-  //passport.authenticate('jwt', {session: false}),
+  passport.authenticate('jwt', {session: false}),
   validatorHandler(getProductSchema, 'params'),
   validatorHandler(updateProductSchema, 'body'),
   async (req, res, next) => {
     try {
+      const authenticatedUserId = req.user.sub;
       const { id } = req.params;
       const body = req.body;
-      const product = await service.update(id, body);
+      const product = await service.update(id, body, authenticatedUserId);
       res.json(product);
     } catch (error) {
-      next(error);
+      if (error.message === "No tienes permiso para actualizar este producto.") {
+        res.status(403).json({ error: error.message });
+      } else {
+        next(error);
+      }
     }
   }
 );
@@ -77,11 +89,16 @@ router.delete('/:id',
   validatorHandler(getProductSchema, 'params'),
   async (req, res, next) => {
     try {
+      const authenticatedUserId = req.user.sub;
       const { id } = req.params;
-      await service.delete(id);
+      await service.delete(id,authenticatedUserId);
       res.status(201).json({id});
     } catch (error) {
-      next(error);
+      if (error.message === "No tienes permiso para eliminar este producto.") {
+        res.status(403).json({ error: error.message });
+      } else {
+        next(error);
+      }
     }
   }
 );

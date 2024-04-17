@@ -50,6 +50,39 @@ Obtiene un usuario específico según su nombre de usuario.
 
 POST /login
 
+### Productos
+
+- **Obtener todos los productos**
+  - **Método:** GET
+  - **Ruta:** /products
+  - **Descripción:** Obtiene una lista de todos los productos.
+
+- **Crear un nuevo producto**
+  - **Método:** POST
+  - **Ruta:** /products
+  - **Descripción:** Crea un nuevo producto. Se requiere un cuerpo de solicitud JSON con los detalles del producto.
+
+- **Obtener un producto por ID**
+  - **Método:** GET
+  - **Ruta:** /products/{id}
+  - **Descripción:** Obtiene un producto específico según su ID.
+
+- **Actualizar un producto por ID**
+  - **Método:** PATCH
+  - **Ruta:** /products/{id}
+  - **Descripción:** Actualiza un producto específico según su ID. Se requiere un cuerpo de solicitud JSON con los detalles actualizados del producto.
+
+- **Eliminar un producto por ID**
+  - **Método:** DELETE
+  - **Ruta:** /products/{id}
+  - **Descripción:** Elimina un producto específico según su ID.
+
+- **Obtener todos los productos de un agricultor**
+  - **Método:** GET
+  - **Ruta:** /products/agricultor/{id}
+  - **Descripción:** Obtiene todos los productos de un agricultor específico según su ID.
+
+
 
 Inicia sesión de usuario. Se requiere un cuerpo de solicitud JSON con el nombre de usuario y la contraseña. Devuelve un token JWT si el inicio de sesión es exitoso.
 

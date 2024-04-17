@@ -61,10 +61,15 @@ router.patch('/:id',
   validatorHandler(updateUserSchema, 'body'),
   async (req, res, next) => {
     try {
-      const { id } = req.params;
+      const id = req.user.sub; // Obtener el ID del usuario autenticado
+      const requestedUserId = req.params.id;
       const body = req.body;
-      const user = await service.update(id, body);
-      res.json(user);
+      if(id == requestedUserId) { // Verificar si el usuario autenticado es el mismo que el solicitado
+        const user = await service.update(id, body);
+        res.json(user);
+      } else {
+        res.status(403).json({ error: "No tienes permiso para modificar este usuario" }); // Devolver un error de permiso
+      }
     } catch (error) {
       next(error);
     }
@@ -75,7 +80,6 @@ router.post('/login',
   passport.authenticate('local', {session: false}),
   async (req, res, next) => {
     try {
-      console.log(req)
       const user = req.user;
       res.json(service.signToken(user));
     } catch (error) {
@@ -89,9 +93,15 @@ router.delete('/:id',
   validatorHandler(getUserSchema, 'params'),
   async (req, res, next) => {
     try {
-      const { id } = req.params;
-      await service.delete(id);
-      res.status(201).json({id});
+      const authenticatedUserId = req.user.sub; // Obtener el ID del usuario autenticado
+      const requestedUserId = req.params.id; // Obtener el ID del usuario solicitado a eliminar   
+      if(authenticatedUserId == requestedUserId) { // Verificar si el usuario autenticado es el mismo que el solicitado
+        await service.delete(requestedUserId); // Eliminar el recurso
+        res.status(201).json({ id: requestedUserId });
+      } else {
+        res.status(403).json({ error: "No tienes permiso para eliminar este recurso." }); // Devolver un error de permiso
+      }
+      
     } catch (error) {
       next(error);
     }

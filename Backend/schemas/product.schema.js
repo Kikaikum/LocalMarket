@@ -1,7 +1,7 @@
 const Joi = require('joi');
 
 const id = Joi.number().integer();
-const nombre = Joi.string().email();
+const nombre = Joi.string();
 const categoriaId = Joi.number();
 const precio = Joi.number();
 const unidadMedida = Joi.string()

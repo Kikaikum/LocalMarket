@@ -28,52 +28,34 @@ class ProductService {
 
   async findByAgricultor(agricultor) {
     const products = await models.Product.findAll({
-      where: { agricultor }
+      where: { idAgricultor: agricultor }
     });
     
     return products;
   }
 
 
-  async update(id, changes) {
-    let rta; // Definir rta fuera de los bloques if/else
+  async update(id, changes, authenticatedUserId) {
+    const product = await this.findOne(id);    
+    if (authenticatedUserId === product.idAgricultor) {
+      const updatedProduct = await product.update(changes);
+      return updatedProduct;
+    } else {
+      throw new Error("No tienes permiso para actualizar este producto.");
+    }
+  }
+
+  async delete(id,authenticatedUserId) {
     const product = await this.findOne(id);
-    rta = await product.update(changes);
-    return rta;
-}
-
-
-
-  async delete(id) {
-    const product = await this.findOne(id);
-    await product.destroy();
-    return { id };
+    if (authenticatedUserId === product.idAgricultor){
+      await product.destroy();
+      return { id };
+    } else {
+      throw new Error("No tienes permiso para eliminar este producto.");
+    }
   }
 
-  async getProduct(productname, password) {
-    const product = await this.findByProductname(productname);
-    if (!product) {
-      throw boom.unauthorized();
-    }
-    const isMatch = await bcrypt.compare(password, product.password);
-    if (!isMatch) {
-      throw boom.unauthorized();;
-    }
-    delete product.dataValues.password;
-    return product;
-  }
-
-  signToken(product) {
-    const payload = {
-      sub: product.id,
-      role: product.productname
-    }
-    const token = jwt.sign(payload, config.jwtSecret);
-    return {
-      product,
-      token
-    };
-  }
+  
 }
 
 module.exports = ProductService;
