@@ -104,7 +104,7 @@ public class SellerProductFragment extends Fragment implements ProductAdapter.On
         return view;
     }
 
-    private void getAllProducts(int userId, String token) {
+    public void getAllProducts(int userId, String token) {
         authService.getAllProducts(userId, token,  new AuthService.AuthCallback<List<Product>>() {
             @Override
             public void onSuccess(List<Product> products) {

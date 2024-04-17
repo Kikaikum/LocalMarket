@@ -139,7 +139,13 @@ public class AddProductFragment extends Fragment {
                     Log.e("AddProductFragment", "Error al parsear el precio", e);
                     // Manejar error, por ejemplo, mostrando un mensaje al usuario
                 }
-
+                // Validar si se ha cambiado la unidad de medida
+                String defaultUnit = "<-- Selecione unidad de\n\t\t\t medida";
+                if (unidadMedida.equals(defaultUnit)) {
+                    // Si el usuario no ha cambiado la unidad de medida, mostrar un Toast
+                    Toast.makeText(getContext(), "Por favor, seleccione una unidad de medida", Toast.LENGTH_SHORT).show();
+                    return; // Salir del método para evitar enviar la solicitud al servidor
+                }
                 // Crear ProductRequest y enviarlo
                 ProductRequest productRequest = new ProductRequest(name, categoriaId, price, unidadMedida, description, idAgricultor, stock,token);
 
@@ -229,4 +235,3 @@ public class AddProductFragment extends Fragment {
 
     }
 }
-

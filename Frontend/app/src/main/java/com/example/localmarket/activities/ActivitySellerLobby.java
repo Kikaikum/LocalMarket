@@ -11,6 +11,8 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.localmarket.R;
@@ -19,6 +21,7 @@ import com.example.localmarket.fragments.SellerProductFragment;
 import com.example.localmarket.model.Product;
 import com.example.localmarket.network.service.AuthService;
 import com.example.localmarket.utils.ProductAdapter;
+import com.example.localmarket.utils.TokenManager;
 
 import java.util.List;
 
@@ -29,28 +32,22 @@ import java.util.List;
  *
  * @author Oriol Estero Sanchez
  */
-public class ActivitySellerLobby extends AppCompatActivity implements ProductAdapter.OnProductClickListener, AddProductFragment.OnProductAddedListener{
+public class ActivitySellerLobby extends AppCompatActivity {
 
-    private AuthService authService;
+        private AuthService authService;
     private Button btnAdd;
     private List<Product> productList;
     private ProductAdapter adapter;
     private RecyclerView recyclerView;
+    private SellerProductFragment sellerProductFragment;
 
-    @Override
-    public void onProductAdded(Product product) {
-        // Verifica si el fragmento actual es una instancia de SellerProductFragment
-        Fragment currentFragment = getSupportFragmentManager().findFragmentById(R.id.fragment_container2);
-        if (currentFragment instanceof SellerProductFragment) {
-            SellerProductFragment sellerProductFragment = (SellerProductFragment) currentFragment;
-            sellerProductFragment.addProductToList(product);
-        }
-    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_seller_lobby);
+
+
 
         // Configuración de la barra de herramientas
         Toolbar toolbar = findViewById(R.id.toolbar2);
@@ -63,8 +60,30 @@ public class ActivitySellerLobby extends AppCompatActivity implements ProductAda
                     .replace(R.id.fragment_container2, new SellerProductFragment())
                     .commit();
         }
-
     }
+        @Override
+        protected void onResume () {
+            super.onResume();
+            // Actualizar los productos cada vez que la actividad se reanude
+            updateProducts();
+        }
+
+        private void updateProducts () {
+            // Obtener una instancia de TokenManager
+            TokenManager tokenManager = TokenManager.getInstance(this);
+            // Obtener el ID de usuario y el token de autenticación
+            int userId = tokenManager.getUserId();
+            String token = tokenManager.getToken();
+            // Obtener el fragmento actual
+            sellerProductFragment = (SellerProductFragment) getSupportFragmentManager().findFragmentById(R.id.fragment_container2);
+            // Verificar si el fragmento actual es SellerProductFragment
+            if (sellerProductFragment != null) {
+                // Obtener los productos del servidor y actualizar la lista en el fragmento
+                sellerProductFragment.getAllProducts(userId, token);
+            }
+        }
+
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -92,27 +111,7 @@ public class ActivitySellerLobby extends AppCompatActivity implements ProductAda
 
     }
 
-    /**
-     * Método de devolución de llamada invocado cuando se hace clic en un producto en el RecyclerView.
-     * Abre EditProductActivity para editar el producto seleccionado.
-     *
-     * @param product El producto seleccionado que se va a editar.
-     */
-    @Override
-    public void onProductClick(Product product) {
-        // Crea un Intent para abrir EditProductActivity
-        Intent intent = new Intent(this, EditProductActivity.class);
 
-        // Pasa los datos del producto seleccionado a EditProductActivity
-        intent.putExtra("name", product.getName());
-        intent.putExtra("categoriaId", product.getCategoriaId());
-        intent.putExtra("descripcion", product.getDescripcion());
-        intent.putExtra("unidadMedida", product.getUnidadMedida());
-        intent.putExtra("precio", product.getPrecio());
-
-        // Inicia la actividad
-        startActivity(intent);
-    }
 
     private void logout() {
         authService.logoutUser(new AuthService.AuthCallback<Void>() {
@@ -136,4 +135,7 @@ public class ActivitySellerLobby extends AppCompatActivity implements ProductAda
     public void showRecyclerView() {
         recyclerView.setVisibility(View.VISIBLE);
     }
-}
+
+
+    }
+

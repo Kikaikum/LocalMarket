@@ -6,8 +6,11 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Switch;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AlertDialog;
@@ -34,37 +37,30 @@ public class EditProductActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.edit_product);
 
-
-
         authService = AuthService.getInstance();
-
-        // Inicializar TokenManager
         tokenManager = TokenManager.getInstance(this);
 
-        // Declarar imageId como final para que sea accesible en el contexto del onClick
         final int categoriaId;
         final int productId;
 
-        // Recuperar los datos del producto seleccionado
         Intent intent = getIntent();
         if (intent != null) {
+            // Obtener los datos del producto seleccionado
             String nombre = intent.getStringExtra("nombre");
             categoriaId = intent.getIntExtra("categoriaId", 0);
             String descripcion = intent.getStringExtra("descripcion");
             String tipoDePeso = intent.getStringExtra("tipoDePeso");
             double precio = intent.getDoubleExtra("precio", 0.0);
-            double stock=intent.getDoubleExtra("stock", 0);
+            double stock = intent.getDoubleExtra("stock", 0);
 
-
-
-
-            // Inicializar vistas y asignar los datos del producto seleccionado
             ImageView imageProduct = findViewById(R.id.imageProduct);
             EditText editTextName = findViewById(R.id.editTextName);
             EditText editTextDescription = findViewById(R.id.editTextDescription);
-            EditText editTextWeight = findViewById(R.id.editTextWeight);
+            EditText editTextWeight = findViewById(R.id.editTextUnidadMedida);
             EditText editTextPrice = findViewById(R.id.editTextPrice);
-            EditText editTextStock=findViewById(R.id.editTextStock);
+            EditText editTextStock = findViewById(R.id.editTextStock);
+            TextView textViewUnidadMedidaStock=findViewById(R.id.textUnidadMedidaStock);
+            TextView textViewUnidadMedidaPrecio=findViewById(R.id.textUnidadMedidaPrecio);
 
             imageProduct.setImageResource(categoriaId);
             editTextName.setText(nombre);
@@ -72,10 +68,40 @@ public class EditProductActivity extends AppCompatActivity {
             editTextWeight.setText(tipoDePeso);
             editTextPrice.setText(String.valueOf(precio));
             editTextStock.setText(String.valueOf(stock));
+
+            // Configurar el estado inicial del Switch
+            Switch switchUnidadMedida = findViewById(R.id.switchUnidadMedida);
+            switchUnidadMedida.setChecked(tipoDePeso.equalsIgnoreCase("peso"));
+            // Inicializar los TextView de acuerdo al estado del Switch
+            if (tipoDePeso.equalsIgnoreCase("peso")) {
+                textViewUnidadMedidaStock.setText("Kg");
+                textViewUnidadMedidaPrecio.setText("/ Kg");
+            } else {
+                textViewUnidadMedidaStock.setText("Unidades");
+                textViewUnidadMedidaPrecio.setText("/ Unidad");
+            }
+            // Agregar listener para manejar cambios en el Switch
+            switchUnidadMedida.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                @Override
+                public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                    EditText editTextUnidadMedida = findViewById(R.id.editTextUnidadMedida);
+                    if (isChecked) {
+                        // Si el Switch está activado (peso), establecer unidad de medida como "peso"
+                        editTextUnidadMedida.setText("peso");
+                        textViewUnidadMedidaStock.setText("Kg");
+                        textViewUnidadMedidaPrecio.setText("/ Kg");
+                    } else {
+                        // Si el Switch está desactivado (unidades), establecer unidad de medida como "unidades"
+                        editTextUnidadMedida.setText("unidades");
+                        textViewUnidadMedidaStock.setText("Unidades");
+                        textViewUnidadMedidaPrecio.setText("/ Unidad");
+                    }
+                }
+            });
         } else {
-            // Asignar un valor predeterminado en caso de que la Intent sea nula
-            categoriaId = 0; // O cualquier otro valor predeterminado que desees
-            productId=0;
+            // Asignar valores predeterminados si la Intent es nula
+            categoriaId = 0;
+            productId = 0;
         }
 
         //Configurar clic en el botón "Cancelar"
@@ -83,7 +109,7 @@ public class EditProductActivity extends AppCompatActivity {
         buttonCancelar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-               redirectToLobby();
+                redirectToLobby();
             }
         });
 
@@ -105,7 +131,7 @@ public class EditProductActivity extends AppCompatActivity {
                 // Obtener los datos modificados del producto
                 EditText editTextName = findViewById(R.id.editTextName);
                 EditText editTextDescription = findViewById(R.id.editTextDescription);
-                EditText editTextWeight = findViewById(R.id.editTextWeight);
+                EditText editTextWeight = findViewById(R.id.editTextUnidadMedida);
                 EditText editTextPrice = findViewById(R.id.editTextPrice);
                 EditText editTextStock=findViewById(R.id.editTextStock);
 
@@ -143,7 +169,7 @@ public class EditProductActivity extends AppCompatActivity {
         });
 
         // Configurar clic en el botón "Eliminar Producto"
-        Button buttonEliminarProducto = findViewById(R.id.buttonEliminarProducto);
+        ImageView buttonEliminarProducto = findViewById(R.id.deleteIcon);
         buttonEliminarProducto.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
