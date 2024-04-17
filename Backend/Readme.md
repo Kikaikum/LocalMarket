@@ -10,45 +10,42 @@ API para administrar usuarios.
 
 ## Rutas
 url : https://kikaikum.ddns.net:3000/localmarket/v1/
-### Obtener todos los usuarios
+### Usuarios
 
-GET /users
+- **Obtener todos los usuarios**
+  - **Método:** GET
+  - **Ruta:** /users
+  - **Descripción:** Obtiene una lista de todos los usuarios registrados.
 
-Obtiene una lista de todos los usuarios registrados.
+- **Crear un nuevo usuario**
+  - **Método:** POST
+  - **Ruta:** /users
+  - **Descripción:** Crea un nuevo usuario. Se requiere un cuerpo de solicitud JSON con los detalles del usuario.
 
-### Crear un nuevo usuario
+- **Obtener un usuario por ID**
+  - **Método:** GET
+  - **Ruta:** /users/{id}
+  - **Descripción:** Obtiene un usuario específico según su ID.
 
-POST /users
+- **Actualizar un usuario por ID**
+  - **Método:** PATCH
+  - **Ruta:** /users/{id}
+  - **Descripción:** Actualiza un usuario específico según su ID. Se requiere un cuerpo de solicitud JSON con los detalles actualizados del usuario.
 
-Crea un nuevo usuario. Se requiere un cuerpo de solicitud JSON con los detalles del usuario.
+- **Eliminar un usuario por ID**
+  - **Método:** DELETE
+  - **Ruta:** /users/{id}
+  - **Descripción:** Elimina un usuario específico según su ID.
 
-### Obtener un usuario por ID
+- **Obtener un usuario por nombre de usuario**
+  - **Método:** GET
+  - **Ruta:** /users/username/{username}
+  - **Descripción:** Obtiene un usuario específico según su nombre de usuario.
 
-GET /users/{id}
-
-Obtiene un usuario específico según su ID.
-
-### Actualizar un usuario por ID
-
-PATCH /users/{id}
-
-Actualiza un usuario específico según su ID. Se requiere un cuerpo de solicitud JSON con los detalles actualizados del usuario.
-
-### Eliminar un usuario por ID
-
-DELETE /users/{id}
-
-Elimina un usuario específico según su ID.
-
-### Obtener un usuario por nombre de usuario
-
-GET /users/username/{username}
-
-Obtiene un usuario específico según su nombre de usuario.
-
-### Iniciar sesión de usuario
-
-POST /login
+- **Iniciar sesión de usuario**
+  - **Método:** POST
+  - **Ruta:** /login
+  - **Descripción:** Inicia sesión de usuario. Se requiere un cuerpo de solicitud JSON con el nombre de usuario y la contraseña. Devuelve un token JWT si el inicio de sesión es exitoso.
 
 ### Productos
 
@@ -81,6 +78,7 @@ POST /login
   - **Método:** GET
   - **Ruta:** /products/agricultor/{id}
   - **Descripción:** Obtiene todos los productos de un agricultor específico según su ID.
+
 
 
 
