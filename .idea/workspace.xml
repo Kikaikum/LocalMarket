@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="AnalysisUIOptions">
-    <option name="SCOPE_TYPE" value="8" />
-    <option name="CUSTOM_SCOPE_NAME" value="Project Test Files" />
+    <option name="ANALYZE_INJECTED_CODE" value="false" />
+    <option name="SCOPE_TYPE" value="3" />
+    <option name="CUSTOM_SCOPE_NAME" value="Selected files" />
   </component>
   <component name="AndroidLayouts">
     <shared>
@@ -106,17 +107,20 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="72ff1c52-651c-4388-8d0f-812589155228" name="Changes" comment="+ v2 del envio del producto">
+      <change afterPath="$PROJECT_DIR$/Frontend/app/src/androidTest/java/com/example/localmarket/activities/AddProductTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Frontend/app/src/main/java/com/example/localmarket/context/AndroidContextProvider.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Frontend/app/src/main/java/com/example/localmarket/context/ContextProvider.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Frontend/app/src/test/java/com/example/localmarket/fragments/AddProductFragmentTest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/androidTestResultsUserPreferences.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/androidTestResultsUserPreferences.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/deploymentTargetDropDown.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/deploymentTargetDropDown.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Frontend/app/build.gradle.kts" beforeDir="false" afterPath="$PROJECT_DIR$/Frontend/app/build.gradle.kts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Frontend/app/src/main/java/com/example/localmarket/network/api/ApiService.java" beforeDir="false" afterPath="$PROJECT_DIR$/Frontend/app/src/main/java/com/example/localmarket/network/api/ApiService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Frontend/app/src/main/AndroidManifest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/Frontend/app/src/main/AndroidManifest.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Frontend/app/src/main/java/com/example/localmarket/fragments/AddProductFragment.java" beforeDir="false" afterPath="$PROJECT_DIR$/Frontend/app/src/main/java/com/example/localmarket/fragments/AddProductFragment.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Frontend/app/src/main/java/com/example/localmarket/model/Product.java" beforeDir="false" afterPath="$PROJECT_DIR$/Frontend/app/src/main/java/com/example/localmarket/model/Product.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Frontend/app/src/main/java/com/example/localmarket/model/ProductRequest.java" beforeDir="false" afterPath="$PROJECT_DIR$/Frontend/app/src/main/java/com/example/localmarket/model/ProductRequest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Frontend/app/src/main/java/com/example/localmarket/network/service/AuthService.java" beforeDir="false" afterPath="$PROJECT_DIR$/Frontend/app/src/main/java/com/example/localmarket/network/service/AuthService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Frontend/app/src/main/java/com/example/localmarket/utils/TokenManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/Frontend/app/src/main/java/com/example/localmarket/utils/TokenManager.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Frontend/app/src/test/java/com/example/localmarket/AuthServiceEditProfilTest.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Frontend/app/src/test/java/com/example/localmarket/AuthServiceUnitTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/Frontend/app/src/test/java/com/example/localmarket/AuthServiceUnitTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Frontend/app/src/test/java/com/example/localmarket/PruebaTest.java" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -126,7 +130,7 @@
   <component name="ClangdSettings">
     <option name="formatViaClangd" value="false" />
   </component>
-  <component name="ExecutionTargetManager" SELECTED_TARGET="device_and_snapshot_combo_box_target[C:\Users\ainoh\.android\avd\Pixel_8_API_34.avd]" />
+  <component name="ExecutionTargetManager" SELECTED_TARGET="device_and_snapshot_combo_box_target[C:\Users\rasta\.android\avd\Pixel_3a_API_34_extension_level_7_x86_64.avd]" />
   <component name="ExternalProjectsData">
     <projectState path="$PROJECT_DIR$/Frontend">
       <ProjectState />
@@ -159,6 +163,7 @@
         <option value="layoutResourceFile" />
         <option value="resourceFile" />
         <option value="Class" />
+        <option value="AnnotationType" />
       </list>
     </option>
   </component>
@@ -181,25 +186,30 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;AndroidTestSuiteView.mySkippedToggleButton&quot;: &quot;false&quot;,
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.cidr.known.project.marker&quot;: &quot;true&quot;,
-    &quot;cf.first.check.clang-format&quot;: &quot;false&quot;,
-    &quot;cidr.known.project.marker&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
-    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/ainoh/Downloads/LocalMarket - copia&quot;,
-    &quot;project.structure.last.edited&quot;: &quot;Dependencies&quot;,
-    &quot;project.structure.proportion&quot;: &quot;0.17&quot;,
-    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
-    &quot;run.code.analysis.last.selected.profile&quot;: &quot;pProject Default&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;AndroidSdkUpdater&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "AndroidTestSuiteView.mySkippedToggleButton": "false",
+    "PROJECT_TRUSTED_KEY": "true",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.cidr.known.project.marker": "true",
+    "cf.first.check.clang-format": "false",
+    "cidr.known.project.marker": "true",
+    "com.google.services.firebase.aqiPopupShown": "true",
+    "git-widget-placeholder": "main",
+    "ignore.virus.scanning.warn.message": "true",
+    "last_opened_file_path": "C:/Users/ainoh/Downloads/LocalMarket - copia",
+    "project.structure.last.edited": "Dependencies",
+    "project.structure.proportion": "0.17",
+    "project.structure.side.proportion": "0.2",
+    "run.code.analysis.last.selected.profile": "pProject Default",
+    "settings.editor.selected.configurable": "AndroidSdkUpdater"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
+    <key name="CreateClassDialog.RecentsKey">
+      <recent name="com.example.localmarket.fragments" />
+    </key>
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\Users\rasta\AndroidStudioProjects\LocalMarket\Frontend\app\src\main\res\drawable" />
       <recent name="C:\Users\rasta\AndroidStudioProjects\LocalMarket\Frontend\app\src\main\res\drawable\products" />
@@ -214,17 +224,14 @@
     <key name="android.template.521814679">
       <recent name="com.example.localmarket" />
     </key>
-    <key name="CopyClassDialog.RECENTS_KEY">
-      <recent name="com.example.localmarket" />
-    </key>
   </component>
   <component name="RunAnythingCache">
     <option name="myCommands">
       <command value="gradle init" />
     </option>
   </component>
-  <component name="RunManager" selected="Android App.MainActivity">
-    <configuration name="MainActivity" type="AndroidRunConfigurationType" factoryName="Android App" temporary="true">
+  <component name="RunManager" selected="Gradle.AddProductFragmentTest.testButtonCancel">
+    <configuration name="ActivitySellerLobby" type="AndroidRunConfigurationType" factoryName="Android App" temporary="true">
       <module name="myapp.app.main" />
       <option name="DEPLOY" value="true" />
       <option name="DEPLOY_APK_FROM_BUNDLE" value="false" />
@@ -241,11 +248,40 @@
       <option name="SHOW_LOGCAT_AUTOMATICALLY" value="false" />
       <option name="INSPECTION_WITHOUT_ACTIVITY_RESTART" value="false" />
       <option name="TARGET_SELECTION_MODE" value="DEVICE_AND_SNAPSHOT_COMBO_BOX" />
-      <option name="DEBUGGER_TYPE" value="Java" />
+      <option name="SELECTED_CLOUD_MATRIX_CONFIGURATION_ID" value="-1" />
+      <option name="SELECTED_CLOUD_MATRIX_PROJECT_ID" value="" />
+      <option name="DEBUGGER_TYPE" value="Auto" />
+      <Auto>
+        <option name="USE_JAVA_AWARE_DEBUGGER" value="false" />
+        <option name="SHOW_STATIC_VARS" value="true" />
+        <option name="WORKING_DIR" value="" />
+        <option name="TARGET_LOGGING_CHANNELS" value="lldb process:gdb-remote packets" />
+        <option name="SHOW_OPTIMIZED_WARNING" value="true" />
+        <option name="ATTACH_ON_WAIT_FOR_DEBUGGER" value="false" />
+        <option name="DEBUG_SANDBOX_SDK" value="false" />
+      </Auto>
+      <Hybrid>
+        <option name="USE_JAVA_AWARE_DEBUGGER" value="false" />
+        <option name="SHOW_STATIC_VARS" value="true" />
+        <option name="WORKING_DIR" value="" />
+        <option name="TARGET_LOGGING_CHANNELS" value="lldb process:gdb-remote packets" />
+        <option name="SHOW_OPTIMIZED_WARNING" value="true" />
+        <option name="ATTACH_ON_WAIT_FOR_DEBUGGER" value="false" />
+        <option name="DEBUG_SANDBOX_SDK" value="false" />
+      </Hybrid>
       <Java>
         <option name="ATTACH_ON_WAIT_FOR_DEBUGGER" value="false" />
         <option name="DEBUG_SANDBOX_SDK" value="false" />
       </Java>
+      <Native>
+        <option name="USE_JAVA_AWARE_DEBUGGER" value="false" />
+        <option name="SHOW_STATIC_VARS" value="true" />
+        <option name="WORKING_DIR" value="" />
+        <option name="TARGET_LOGGING_CHANNELS" value="lldb process:gdb-remote packets" />
+        <option name="SHOW_OPTIMIZED_WARNING" value="true" />
+        <option name="ATTACH_ON_WAIT_FOR_DEBUGGER" value="false" />
+        <option name="DEBUG_SANDBOX_SDK" value="false" />
+      </Native>
       <Profilers>
         <option name="ADVANCED_PROFILING_ENABLED" value="false" />
         <option name="STARTUP_PROFILING_ENABLED" value="false" />
@@ -255,7 +291,7 @@
         <option name="NATIVE_MEMORY_SAMPLE_RATE_BYTES" value="2048" />
       </Profilers>
       <option name="DEEP_LINK" value="" />
-      <option name="ACTIVITY_CLASS" value="com.example.localmarket.activities.MainActivity" />
+      <option name="ACTIVITY_CLASS" value="com.example.localmarket.activities.ActivitySellerLobby" />
       <option name="SEARCH_ACTIVITY_IN_GLOBAL_SCOPE" value="false" />
       <option name="SKIP_ACTIVITY_VALIDATION" value="false" />
       <method v="2">
@@ -279,11 +315,40 @@
       <option name="SHOW_LOGCAT_AUTOMATICALLY" value="false" />
       <option name="INSPECTION_WITHOUT_ACTIVITY_RESTART" value="false" />
       <option name="TARGET_SELECTION_MODE" value="DEVICE_AND_SNAPSHOT_COMBO_BOX" />
+      <option name="SELECTED_CLOUD_MATRIX_CONFIGURATION_ID" value="-1" />
+      <option name="SELECTED_CLOUD_MATRIX_PROJECT_ID" value="" />
       <option name="DEBUGGER_TYPE" value="Java" />
+      <Auto>
+        <option name="USE_JAVA_AWARE_DEBUGGER" value="false" />
+        <option name="SHOW_STATIC_VARS" value="true" />
+        <option name="WORKING_DIR" value="" />
+        <option name="TARGET_LOGGING_CHANNELS" value="lldb process:gdb-remote packets" />
+        <option name="SHOW_OPTIMIZED_WARNING" value="true" />
+        <option name="ATTACH_ON_WAIT_FOR_DEBUGGER" value="false" />
+        <option name="DEBUG_SANDBOX_SDK" value="false" />
+      </Auto>
+      <Hybrid>
+        <option name="USE_JAVA_AWARE_DEBUGGER" value="false" />
+        <option name="SHOW_STATIC_VARS" value="true" />
+        <option name="WORKING_DIR" value="" />
+        <option name="TARGET_LOGGING_CHANNELS" value="lldb process:gdb-remote packets" />
+        <option name="SHOW_OPTIMIZED_WARNING" value="true" />
+        <option name="ATTACH_ON_WAIT_FOR_DEBUGGER" value="false" />
+        <option name="DEBUG_SANDBOX_SDK" value="false" />
+      </Hybrid>
       <Java>
         <option name="ATTACH_ON_WAIT_FOR_DEBUGGER" value="false" />
         <option name="DEBUG_SANDBOX_SDK" value="false" />
       </Java>
+      <Native>
+        <option name="USE_JAVA_AWARE_DEBUGGER" value="false" />
+        <option name="SHOW_STATIC_VARS" value="true" />
+        <option name="WORKING_DIR" value="" />
+        <option name="TARGET_LOGGING_CHANNELS" value="lldb process:gdb-remote packets" />
+        <option name="SHOW_OPTIMIZED_WARNING" value="true" />
+        <option name="ATTACH_ON_WAIT_FOR_DEBUGGER" value="false" />
+        <option name="DEBUG_SANDBOX_SDK" value="false" />
+      </Native>
       <Profilers>
         <option name="ADVANCED_PROFILING_ENABLED" value="false" />
         <option name="STARTUP_PROFILING_ENABLED" value="false" />
@@ -300,7 +365,7 @@
         <option name="Android.Gradle.BeforeRunTask" enabled="true" />
       </method>
     </configuration>
-    <configuration name="AuthServiceEditProfileTest2" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+    <configuration name="AddProductFragmentTest (1)" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
         <option name="executionName" />
         <option name="externalProjectPath" value="$PROJECT_DIR$/Frontend" />
@@ -313,7 +378,7 @@
           <list>
             <option value=":app:testDebugUnitTest" />
             <option value="--tests" />
-            <option value="&quot;com.example.localmarket.AuthServiceEditProfileTest2&quot;" />
+            <option value="&quot;com.example.localmarket.fragments.AddProductFragmentTest&quot;" />
           </list>
         </option>
         <option name="vmOptions" />
@@ -324,7 +389,7 @@
       <RunAsTest>true</RunAsTest>
       <method v="2" />
     </configuration>
-    <configuration name="AuthServiceEditProfileTest2.testUpdateEmail_IntegrationWithServer" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+    <configuration name="AddProductFragmentTest.testButtonCancel" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
         <option name="executionName" />
         <option name="externalProjectPath" value="$PROJECT_DIR$/Frontend" />
@@ -337,7 +402,7 @@
           <list>
             <option value=":app:testDebugUnitTest" />
             <option value="--tests" />
-            <option value="&quot;com.example.localmarket.AuthServiceEditProfileTest2.testUpdateEmail_IntegrationWithServer&quot;" />
+            <option value="&quot;com.example.localmarket.fragments.AddProductFragmentTest.testButtonCancel&quot;" />
           </list>
         </option>
         <option name="vmOptions" />
@@ -348,7 +413,7 @@
       <RunAsTest>true</RunAsTest>
       <method v="2" />
     </configuration>
-    <configuration name="AuthServiceEditProfileTest3" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+    <configuration name="AddProductFragmentTest.testFragmentCreation" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
         <option name="executionName" />
         <option name="externalProjectPath" value="$PROJECT_DIR$/Frontend" />
@@ -361,7 +426,7 @@
           <list>
             <option value=":app:testDebugUnitTest" />
             <option value="--tests" />
-            <option value="&quot;com.example.localmarket.AuthServiceEditProfileTest3&quot;" />
+            <option value="&quot;com.example.localmarket.fragments.AddProductFragmentTest.testFragmentCreation&quot;" />
           </list>
         </option>
         <option name="vmOptions" />
@@ -372,7 +437,7 @@
       <RunAsTest>true</RunAsTest>
       <method v="2" />
     </configuration>
-    <configuration name="AuthServiceEditProfileTest3.testUpdateName_IntegrationWithServer" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+    <configuration name="AddProductFragmentTest.testSendProduct_Success" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
         <option name="executionName" />
         <option name="externalProjectPath" value="$PROJECT_DIR$/Frontend" />
@@ -385,7 +450,7 @@
           <list>
             <option value=":app:testDebugUnitTest" />
             <option value="--tests" />
-            <option value="&quot;com.example.localmarket.AuthServiceEditProfileTest3.testUpdateName_IntegrationWithServer&quot;" />
+            <option value="&quot;com.example.localmarket.fragments.AddProductFragmentTest.testSendProduct_Success&quot;" />
           </list>
         </option>
         <option name="vmOptions" />
@@ -398,11 +463,11 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Android App.MainActivity" />
-        <item itemvalue="Gradle.AuthServiceEditProfileTest2" />
-        <item itemvalue="Gradle.AuthServiceEditProfileTest2.testUpdateEmail_IntegrationWithServer" />
-        <item itemvalue="Gradle.AuthServiceEditProfileTest3.testUpdateName_IntegrationWithServer" />
-        <item itemvalue="Gradle.AuthServiceEditProfileTest3" />
+        <item itemvalue="Gradle.AddProductFragmentTest.testButtonCancel" />
+        <item itemvalue="Gradle.AddProductFragmentTest (1)" />
+        <item itemvalue="Android App.ActivitySellerLobby" />
+        <item itemvalue="Gradle.AddProductFragmentTest.testSendProduct_Success" />
+        <item itemvalue="Gradle.AddProductFragmentTest.testFragmentCreation" />
       </list>
     </recent_temporary>
   </component>

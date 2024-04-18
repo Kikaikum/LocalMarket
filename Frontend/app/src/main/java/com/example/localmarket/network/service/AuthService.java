@@ -1,5 +1,6 @@
 package com.example.localmarket.network.service;
 
+import com.example.localmarket.context.ContextProvider;
 import com.example.localmarket.model.Product;
 import com.example.localmarket.model.LoginRequest;
 import com.example.localmarket.model.LoginResponse;
@@ -36,6 +37,8 @@ public class AuthService {
 
     private ApiService apiService;
     private static AuthService instance;
+    private ProductRequest capturedProductRequest;
+    private ContextProvider contextProvider=null;
 
     private SessionManager sessionManager;
 
@@ -61,8 +64,9 @@ public class AuthService {
         // Creación de la interfaz de servicio a partir de Retrofit
         apiService = retrofit.create(ApiService.class);
     }
-    public AuthService(ApiService apiService) {
+    public AuthService(ApiService apiService, ContextProvider contextProvider) {
         this.apiService = apiService;
+        this.contextProvider = contextProvider;
     }
 
     /**
@@ -375,6 +379,10 @@ public class AuthService {
         return currentUser;
     }
 
+    public ProductRequest getCapturedProductRequest() {
+        return capturedProductRequest;
+    }
+
     /**
      * Callback para manejar el resultado de la obtención del perfil de usuario.
      *
@@ -440,6 +448,7 @@ public class AuthService {
     }
 
     public void addProduct(int id, ProductRequest product, String token, final AuthCallback<ProductResponse> callback) {
+        capturedProductRequest = product;
         Call<ProductResponse> call = apiService.addProduct(id, "Bearer " + token, product);
         call.enqueue(new Callback<ProductResponse>() {
             @Override

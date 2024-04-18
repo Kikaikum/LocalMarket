@@ -42,29 +42,32 @@ dependencies {
     implementation("com.squareup.retrofit2:converter-gson:2.9.0")
 
 
+
     implementation ("com.google.android.material:material:1.5.0")
     implementation(libs.firebase.firestore)
     implementation(libs.fragment.testing)
 
 
 
-    //implementation(libs.firebase.firestore)
+    // Use the central libs for version management if available
     testImplementation(libs.junit)
-    testImplementation ("junit:junit:4.13.2")
-    testImplementation("org.mockito:mockito-core:5.11.0")
+    testImplementation("org.mockito:mockito-core:5.10.0")
+    testImplementation("org.robolectric:robolectric:4.7.3")
     testImplementation("org.junit.jupiter:junit-jupiter:5.8.1")
+    testImplementation("org.powermock:powermock-api-mockito2:2.0.9")
+    testImplementation("org.powermock:powermock-module-junit4:2.0.9")
 
-    androidTestImplementation(libs.ext.junit)
-    androidTestImplementation(libs.espresso.core)
-    androidTestImplementation ("androidx.test.ext:junit:1.1.3")
-    androidTestImplementation ("androidx.test.espresso:espresso-core:3.4.0")
-    androidTestImplementation ("androidx.test:rules:1.4.0")
+    androidTestImplementation(libs.ext.junit) // Assuming this points to 'androidx.test.ext:junit:1.1.3'
+    androidTestImplementation(libs.espresso.core) // Assuming this points to 'androidx.test.espresso:espresso-core:3.4.0'
+    androidTestImplementation("androidx.test:core:1.4.0")
+    androidTestImplementation("androidx.test:rules:1.4.0")
     androidTestImplementation("androidx.test:runner:1.4.0")
     androidTestImplementation("androidx.test.espresso:espresso-intents:3.4.0")
+    androidTestImplementation ("org.mockito:mockito-android:2.24.5")
+
     implementation("io.jsonwebtoken:jjwt-api:0.11.2")
     runtimeOnly("io.jsonwebtoken:jjwt-impl:0.11.2")
     runtimeOnly("io.jsonwebtoken:jjwt-jackson:0.11.2")
-
 
 
 

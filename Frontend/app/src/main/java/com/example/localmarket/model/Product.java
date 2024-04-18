@@ -151,4 +151,6 @@ public class Product {
     public void setStock(double stock) {
         this.stock = stock;
     }
+
+
 }

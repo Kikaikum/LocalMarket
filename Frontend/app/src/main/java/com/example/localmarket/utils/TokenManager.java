@@ -21,12 +21,14 @@ public class TokenManager {
 
     private SharedPreferences sharedPreferences;
     private static TokenManager instance;
+    private Context applicationContext;
 
     public  TokenManager() {
 
     }
 
     public TokenManager(Context context) {
+        applicationContext = context.getApplicationContext();
         sharedPreferences = context.getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE);
     }
 
@@ -41,6 +43,9 @@ public class TokenManager {
             instance = new TokenManager(context.getApplicationContext());
         }
         return instance;
+    }
+    public Context getContext() {
+        return applicationContext;
     }
     /**
      * Método para guardar el token de autenticación en SharedPreferences.
