@@ -193,4 +193,6 @@ public interface ApiService {
      */
     @DELETE("products/{productId}")
     Call<Void> deleteProduct(@Path("productId") int productId, @Header("Authorization") String token);
+
+    void setUserProfile(User userProfile);
 }

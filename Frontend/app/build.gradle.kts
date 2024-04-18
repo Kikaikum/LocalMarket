@@ -46,16 +46,13 @@ dependencies {
     implementation(libs.firebase.firestore)
     implementation(libs.fragment.testing)
 
-    implementation(fileTree(mapOf(
-        "dir" to "C:\\Users\\rasta\\AppData\\Local\\Android\\Sdk\\platforms\\android-34",
-        "include" to listOf("*.aar", "*.jar"),
-        "exclude" to listOf("*.jar", "*.aar")
-    )))
+
 
     //implementation(libs.firebase.firestore)
     testImplementation(libs.junit)
     testImplementation ("junit:junit:4.13.2")
     testImplementation("org.mockito:mockito-core:5.11.0")
+    testImplementation("org.junit.jupiter:junit-jupiter:5.8.1")
 
     androidTestImplementation(libs.ext.junit)
     androidTestImplementation(libs.espresso.core)

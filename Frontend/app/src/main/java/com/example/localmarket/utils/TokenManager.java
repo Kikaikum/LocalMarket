@@ -129,5 +129,11 @@ public class TokenManager {
         editor.remove(KEY_USER_ID);
         editor.apply();
     }
+
+    private int userId;
+
+    public void setUserId(int userId) {
+        this.userId = userId;
+    }
 }
 

@@ -250,55 +250,138 @@ public class AuthServiceUnitTest {
     }
 
 
-    // Clase de prueba para el callback de autenticación
+    /**
+     * Clase de prueba para el callback de autenticación.
+     * @param <T> Tipo de respuesta del callback.
+     * @author Oriol
+     */
     static class TestAuthCallback<T> implements AuthService.AuthCallback<T> {
         private boolean successful;
         private T response;
 
+        /**
+         * Método llamado cuando la operación de autenticación tiene éxito.
+         * @param response La respuesta de la operación.
+         */
         @Override
         public void onSuccess(T response) {
             this.successful = true; // Se marca como exitoso
             this.response = response;
         }
 
+        /**
+         * Método llamado cuando la operación de autenticación falla.
+         * @param t La excepción que indica el error.
+         */
         @Override
         public void onError(Throwable t) {
             this.successful = false;
             // Manejo del error según sea necesario
         }
-        public  void setSuccessful(){
-            this.successful=true;
+
+        /**
+         * Establece el estado de éxito del callback.
+         */
+        public void setSuccessful() {
+            this.successful = true;
         }
 
+        /**
+         * Verifica si la operación de autenticación fue exitosa.
+         * @return true si fue exitoso, false de lo contrario.
+         */
         public boolean isSuccessful() {
             return successful;
         }
 
+        /**
+         * Obtiene la respuesta de la operación.
+         * @return La respuesta de la operación.
+         */
         public T getResponse() {
             return response;
         }
 
+        /**
+         * Establece la respuesta de la operación.
+         * @param response La respuesta de la operación.
+         */
         public void setResponse(T response) {
             this.response = response;
         }
     }
 
+    /**
+     * Excepción que se lanza cuando el servidor está offline.
+     */
     public class ServerOfflineException extends RuntimeException {
         public ServerOfflineException() {
             super("Server is offline");
         }
     }
+
+    /**
+     * Clase utilitaria para generar nombres de usuario y correos electrónicos únicos.
+     */
     private String generateUniqueUsername() {
         // Concatenar un prefijo con un número único (puede ser el valor actual de userCount)
         randomNumber = random.nextInt(90000) + 10000;
         return "user" + randomNumber;
     }
 
-    // Método para generar un correo electrónico único concatenado con un número
+    /**
+     * Método para generar un correo electrónico único concatenado con un número.
+     * @return Un correo electrónico único.
+     */
     private String generateUniqueEmail() {
         // Concatenar un prefijo con un número único (puede ser el valor actual de userCount)
         randomNumber = random.nextInt(90000) + 10000;
         return "user" + randomNumber + "@example.com";
     }
+
+    /**
+     * Clase abstracta para el callback de perfil de usuario.
+     * @author Ainoha
+     */
+    static abstract class TestProfileCallback implements AuthService.ProfileCallback {
+        private boolean successful;
+        private User user;
+
+        /**
+         * Método llamado cuando la obtención del perfil de usuario tiene éxito.
+         * @param user El perfil del usuario obtenido.
+         */
+        @Override
+        public void onSuccess(User user) {
+            this.successful = true; // Marcar como exitoso
+            this.user = user; // Capturar el perfil de usuario
+        }
+
+        /**
+         * Método llamado cuando la obtención del perfil de usuario falla.
+         * @param t La excepción que indica el error.
+         */
+        @Override
+        public void onError(Throwable t) {
+            this.successful = false; // Marcar como fallido
+        }
+
+        /**
+         * Verifica si la obtención del perfil de usuario fue exitosa.
+         * @return true si fue exitoso, false de lo contrario.
+         */
+        public boolean isSuccessful() {
+            return successful;
+        }
+
+        /**
+         * Obtiene el perfil de usuario.
+         * @return El perfil de usuario.
+         */
+        public User getUser() {
+            return user;
+        }
+    }
+
 }
 

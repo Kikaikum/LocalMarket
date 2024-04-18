@@ -75,6 +75,7 @@ public class AuthService {
      */
     public void loginUser(String userName, String password, final AuthCallback<LoginResponse> callback) {
         LoginRequest loginRequest = new LoginRequest(userName, password);
+
         apiService.loginUser(loginRequest).enqueue(new Callback<LoginResponse>() {
             @Override
             public void onResponse(Call<LoginResponse> call, Response<LoginResponse> response) {
@@ -551,4 +552,7 @@ public class AuthService {
     public User getUser() {
         return sessionManager.getUser(); // O cualquier otra forma de obtener el usuario de la sesión actual
     }
+
+
+
 }
