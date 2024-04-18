@@ -106,21 +106,8 @@
     <option name="autoReloadType" value="NONE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="72ff1c52-651c-4388-8d0f-812589155228" name="Changes" comment="+ v2 del envio del producto">
-      <change afterPath="$PROJECT_DIR$/Frontend/app/src/androidTest/java/com/example/localmarket/activities/AddProductTest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Frontend/app/src/main/java/com/example/localmarket/context/AndroidContextProvider.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Frontend/app/src/main/java/com/example/localmarket/context/ContextProvider.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Frontend/app/src/test/java/com/example/localmarket/fragments/AddProductFragmentTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/androidTestResultsUserPreferences.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/androidTestResultsUserPreferences.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/deploymentTargetDropDown.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/deploymentTargetDropDown.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Frontend/app/build.gradle.kts" beforeDir="false" afterPath="$PROJECT_DIR$/Frontend/app/build.gradle.kts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Frontend/app/src/main/AndroidManifest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/Frontend/app/src/main/AndroidManifest.xml" afterDir="false" />
+    <list default="true" id="72ff1c52-651c-4388-8d0f-812589155228" name="Changes" comment="v1 testUnitarios Oriol">
       <change beforePath="$PROJECT_DIR$/Frontend/app/src/main/java/com/example/localmarket/fragments/AddProductFragment.java" beforeDir="false" afterPath="$PROJECT_DIR$/Frontend/app/src/main/java/com/example/localmarket/fragments/AddProductFragment.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Frontend/app/src/main/java/com/example/localmarket/model/Product.java" beforeDir="false" afterPath="$PROJECT_DIR$/Frontend/app/src/main/java/com/example/localmarket/model/Product.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Frontend/app/src/main/java/com/example/localmarket/model/ProductRequest.java" beforeDir="false" afterPath="$PROJECT_DIR$/Frontend/app/src/main/java/com/example/localmarket/model/ProductRequest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Frontend/app/src/main/java/com/example/localmarket/network/service/AuthService.java" beforeDir="false" afterPath="$PROJECT_DIR$/Frontend/app/src/main/java/com/example/localmarket/network/service/AuthService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Frontend/app/src/main/java/com/example/localmarket/utils/TokenManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/Frontend/app/src/main/java/com/example/localmarket/utils/TokenManager.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -413,7 +400,7 @@
       <RunAsTest>true</RunAsTest>
       <method v="2" />
     </configuration>
-    <configuration name="AddProductFragmentTest.testFragmentCreation" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+    <configuration name="AddProductFragmentTest.testSendProduct_Failure_InvalidInput" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
         <option name="executionName" />
         <option name="externalProjectPath" value="$PROJECT_DIR$/Frontend" />
@@ -426,7 +413,7 @@
           <list>
             <option value=":app:testDebugUnitTest" />
             <option value="--tests" />
-            <option value="&quot;com.example.localmarket.fragments.AddProductFragmentTest.testFragmentCreation&quot;" />
+            <option value="&quot;com.example.localmarket.fragments.AddProductFragmentTest.testSendProduct_Failure_InvalidInput&quot;" />
           </list>
         </option>
         <option name="vmOptions" />
@@ -464,10 +451,10 @@
     <recent_temporary>
       <list>
         <item itemvalue="Gradle.AddProductFragmentTest.testButtonCancel" />
+        <item itemvalue="Gradle.AddProductFragmentTest.testSendProduct_Failure_InvalidInput" />
         <item itemvalue="Gradle.AddProductFragmentTest (1)" />
         <item itemvalue="Android App.ActivitySellerLobby" />
         <item itemvalue="Gradle.AddProductFragmentTest.testSendProduct_Success" />
-        <item itemvalue="Gradle.AddProductFragmentTest.testFragmentCreation" />
       </list>
     </recent_temporary>
   </component>
@@ -560,7 +547,15 @@
       <option name="project" value="LOCAL" />
       <updated>1713164428867</updated>
     </task>
-    <option name="localTasksCounter" value="11" />
+    <task id="LOCAL-00011" summary="v1 testUnitarios Oriol">
+      <option name="closed" value="true" />
+      <created>1713432330705</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1713432330705</updated>
+    </task>
+    <option name="localTasksCounter" value="12" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -585,7 +580,8 @@
     <MESSAGE value="+ Remodelada la apariencia de fragment_add_product.xml i aplicada funcionalidades de ui. (actualizada)" />
     <MESSAGE value="+ v1 del envio del producto" />
     <MESSAGE value="+ v2 del envio del producto" />
-    <option name="LAST_COMMIT_MESSAGE" value="+ v2 del envio del producto" />
+    <MESSAGE value="v1 testUnitarios Oriol" />
+    <option name="LAST_COMMIT_MESSAGE" value="v1 testUnitarios Oriol" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/Local_Market$AuthServiceUnitTest_testSignUpUser_Failure.ic" NAME="AuthServiceUnitTest.testSignUpUser_Failure Coverage Results" MODIFIED="1711036953776" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />

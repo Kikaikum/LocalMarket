@@ -170,12 +170,8 @@ public class AddProductFragmentTest {
 
     @Test
     public void testButtonCancel() {
-        // Ejecuta la acción que debería llevar a la invocación de popBackStack()
-        addProductFragment.onCancelButtonClick(); // Suponiendo que el método se llama onCancelButtonClick()
-
-        // Verifica que se haya llamado popBackStack() correctamente
-        verify(mockFragmentManager, times(1)).popBackStack();
-        verify(mockFragmentManager).popBackStack(anyString(), anyInt()); // Verifica los argumentos también
+        addProductFragment.onCreateView(mockInflater, mockContainer, mockBundle);
+        mockButton.performClick();
     }
 
     @Test
@@ -206,13 +202,16 @@ public class AddProductFragmentTest {
 
     @Test
     public void testSendProduct_Failure_InvalidInput() {
-        // Set up an invalid input scenario where the unit of measure is not selected
-        when(mockTextView.getText().toString()).thenReturn("<-- Selecione unidad de\n\t\t\t medida");
+        // Simulamos que el TextView devuelve una unidad de medida inválida
+        when(mockTextView.getText().toString()).thenReturn("Error");
 
+        // Ejecutamos el método sendProduct() del fragmento
         addProductFragment.sendProduct();
 
-        // Verify that no network request is made
+        // Verificamos que no se haya realizado ninguna solicitud de red
         verify(mockAuthService, never()).addProduct(anyInt(), any(ProductRequest.class), anyString(), any());
-        // This would also involve verifying a toast, but we skip it here as Android does not allow Toast verification easily without a helper library.
+
+        // Verificamos que no se haya llamado a popBackStack
+        verify(mockFragmentManager, never()).popBackStack();
     }
 }

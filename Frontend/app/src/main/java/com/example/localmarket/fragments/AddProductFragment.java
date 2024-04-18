@@ -135,7 +135,7 @@ public class AddProductFragment extends Fragment {
         btnCancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                requireActivity().getSupportFragmentManager().popBackStack();
+                onCancelButtonClick();
             }
         });
 
@@ -184,6 +184,10 @@ public class AddProductFragment extends Fragment {
     }
 
     public void setSelectedProduct(Product selectedProduct) {
+    }
+
+    public void onCancelButtonClick() {
+        requireActivity().getSupportFragmentManager().popBackStack();
     }
 
 
