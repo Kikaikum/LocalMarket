@@ -84,7 +84,7 @@ public class AddProductFragment extends Fragment {
         etSwitch = view.findViewById(R.id.tvUnidadMedida);
         etPriceCurrency = view.findViewById(R.id.tvPriceCurrency);
 
-        etSwitch.setText("Peso");
+        etSwitch.setText("<-- Escoja unidad de \n\t\t\t\tmedida");
         etStock.setText("");
         etPriceCurrency.setText("€");
 

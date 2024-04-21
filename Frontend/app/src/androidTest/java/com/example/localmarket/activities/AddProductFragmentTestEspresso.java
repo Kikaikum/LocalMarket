@@ -36,14 +36,14 @@ import org.junit.runner.RunWith;
 
 @LargeTest
 @RunWith(AndroidJUnit4.class)
-public class AddProductTest {
+public class AddProductFragmentTestEspresso {
 
     @Rule
     public ActivityScenarioRule<MainActivity> mActivityScenarioRule =
             new ActivityScenarioRule<>(MainActivity.class);
 
     @Test
-    public void addProductTest() {
+    public void addProductFragmentTestEspresso() {
         ViewInteraction textInputEditText = onView(
                 allOf(withId(R.id.editTextTextEmailAddress),
                         childAtPosition(
@@ -97,7 +97,7 @@ public class AddProductTest {
                 .inAdapterView(childAtPosition(
                         withClassName(is("android.widget.PopupWindow$PopupBackgroundView")),
                         0))
-                .atPosition(1);
+                .atPosition(6);
         cardView.perform(click());
 
         ViewInteraction textInputEditText3 = onView(
@@ -108,7 +108,7 @@ public class AddProductTest {
                                         0),
                                 0),
                         isDisplayed()));
-        textInputEditText3.perform(replaceText("12"), closeSoftKeyboard());
+        textInputEditText3.perform(replaceText("1"), closeSoftKeyboard());
 
         ViewInteraction textInputEditText4 = onView(
                 allOf(withId(R.id.itStock),
@@ -118,7 +118,7 @@ public class AddProductTest {
                                         0),
                                 0),
                         isDisplayed()));
-        textInputEditText4.perform(replaceText("12"), closeSoftKeyboard());
+        textInputEditText4.perform(replaceText("1000"), closeSoftKeyboard());
 
         ViewInteraction switch_ = onView(
                 allOf(withId(R.id.switchPesoUnidad),
@@ -138,7 +138,7 @@ public class AddProductTest {
                                         0),
                                 0),
                         isDisplayed()));
-        textInputEditText5.perform(replaceText("test para espresso"), closeSoftKeyboard());
+        textInputEditText5.perform(replaceText("Pan recien horneado"), closeSoftKeyboard());
 
         ViewInteraction materialButton3 = onView(
                 allOf(withId(R.id.btnAcept), withText("Listo"),

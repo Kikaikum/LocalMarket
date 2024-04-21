@@ -41,12 +41,16 @@ dependencies {
     implementation ("com.squareup.okhttp3:logging-interceptor:4.9.2")
     implementation("com.squareup.retrofit2:converter-gson:2.9.0")
 
-
+    implementation(fileTree(mapOf(
+        "dir" to "C:\\Users\\rasta\\AppData\\Local\\Android\\Sdk\\platforms\\android-34",
+        "include" to listOf(".jar", ".aar")
+    )))
 
     implementation ("com.google.android.material:material:1.5.0")
     implementation(libs.firebase.firestore)
     implementation(libs.fragment.testing)
-
+    implementation(libs.play.services.maps)
+    implementation ("com.google.android.gms:play-services-location:18.0.0")
 
 
     // Use the central libs for version management if available

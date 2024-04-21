@@ -6,8 +6,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/soft_green"
-    tools:context=".activities.ActivityUserLobby"
-    android:theme="@style/Base.Theme.LocalMarket">
+    android:theme="@style/Base.Theme.LocalMarket"
+    tools:context=".activities.ActivityUserLobby">
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
@@ -16,35 +16,25 @@
         android:background="?attr/colorPrimary"
         android:elevation="4dp"
         app:layout_constraintTop_toTopOf="parent"
-        app:title="@string/app_name"
-        app:titleTextColor="@color/white"
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
         app:subtitleTextColor="@color/white"
-        app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
+        app:title="@string/app_name"
+        app:titleTextColor="@color/white" />
 
-    <ScrollView
+    <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
-        android:layout_height="665dp"
-        android:layout_marginTop="4dp"
-        app:layout_constraintTop_toBottomOf="@+id/textview_products_near"
-        tools:layout_editor_absoluteX="-32dp">
+        android:layout_height="0dp"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:fillViewport="true">
 
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recyclerViewProducts"
+        <androidx.fragment.app.FragmentContainerView
+            android:id="@+id/containerUserLobby"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content">
+            <!-- Contenido de tu Fragment -->
+        </androidx.fragment.app.FragmentContainerView>
 
-    </ScrollView>
-
-    <TextView
-        android:id="@+id/textview_products_near"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
-        android:text="@string/product_near"
-        android:textSize="20dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/toolbar" />
+    </androidx.core.widget.NestedScrollView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
