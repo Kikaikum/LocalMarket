@@ -26,7 +26,7 @@ import static org.mockito.Mockito.mock;
  * @author Ainoha
  */
 public class AuthServiceEditProfileTest {
-private String token;
+    private String token;
     private AuthService authService;
 
     /**
@@ -188,7 +188,7 @@ private String token;
 
                 // Datos para la actualización del correo electrónico
                 int userId = 13; // ID del usuario
-                String newName = "ApuuuuBadu";
+                String newName = "ApuTest";
                 UpdateNameRequest updateNameRequest = new UpdateNameRequest(userId, newName, token);
 
                 // Act: Realizar la solicitud de actualización del correo electrónico
@@ -255,7 +255,7 @@ private String token;
 
                 // Datos para la actualización del correo electrónico
                 int userId = 13; // ID del usuario
-                String newSurname = "ApuuuuApellidos";
+                String newSurname = "ApellidosTest";
                 UpdateSurnameRequest updateSurnameRequest = new UpdateSurnameRequest(userId, newSurname, token);
 
                 // Act: Realizar la solicitud de actualización del correo electrónico
@@ -482,6 +482,4 @@ private String token;
 
 
 }
-
-
 

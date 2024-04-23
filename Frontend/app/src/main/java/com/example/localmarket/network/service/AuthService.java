@@ -515,11 +515,14 @@ public class AuthService {
 
             @Override
             public void onFailure(Call<Void> call, Throwable t) {
+                System.out.println("Error en la llamada al servidor al actualizar el producto: " + t.getMessage());
                 // Si hay un fallo en la llamada, llamar al método onError del callback
                 callback.onError(t);
             }
         });
     }
+
+
 
     /**
      * Elimina un producto del servidor utilizando su ID.

@@ -10,7 +10,6 @@ import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -28,9 +27,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * A simple {@link Fragment} subclass.
- * Use the {@link SellerProductFragment#newInstance} factory method to
- * create an instance of this fragment.
+ * Fragmento para mostrar los productos del vendedor y permitir agregar nuevos productos.
+ * @author Ainoha + Oriol
  */
 public class SellerProductFragment extends Fragment implements ProductAdapter.OnProductClickListener, AddProductFragment.OnProductAddedListener{
 
@@ -42,30 +40,22 @@ public class SellerProductFragment extends Fragment implements ProductAdapter.On
     private TokenManager tokenManager;
 
     public SellerProductFragment() {
-        // Required empty public constructor
+        // Constructor público requerido
     }
 
     /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
+     * Crea una nueva instancia de SellerProductFragment.
      *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment SellerProfuctFragment.
+     * @return Una nueva instancia de SellerProductFragment.
      */
-    // TODO: Rename and change types and number of parameters
-    public static SellerProductFragment newInstance(String param1, String param2) {
-        SellerProductFragment fragment = new SellerProductFragment();
-        Bundle args = new Bundle();
-        fragment.setArguments(args);
-        return fragment;
+    public static SellerProductFragment newInstance() {
+        return new SellerProductFragment();
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        // Configuración del RecyclerView
-
+        // Configuración inicial
     }
 
     @Override
@@ -96,7 +86,7 @@ public class SellerProductFragment extends Fragment implements ProductAdapter.On
             }
         });
 
-        // Obtener todos los productos del agricultor
+        // Obtener todos los productos del vendedor
         int userId = tokenManager.getUserId();
         String token = tokenManager.getToken();
         getAllProducts(userId, token);
@@ -104,75 +94,75 @@ public class SellerProductFragment extends Fragment implements ProductAdapter.On
         return view;
     }
 
+    /**
+     * Obtiene todos los productos del vendedor desde el servidor.
+     * @author Ainoha
+     * @param userId El ID del usuario/vendedor.
+     * @param token  El token de autenticación.
+     */
     public void getAllProducts(int userId, String token) {
         authService.getAllProducts(userId, token,  new AuthService.AuthCallback<List<Product>>() {
             @Override
             public void onSuccess(List<Product> products) {
-                // Limpiar la lista actual de productos y agregar los productos obtenidos
+                // Actualizar la lista de productos con los obtenidos del servidor
                 productList.clear();
                 productList.addAll(products);
-                // Notificar al adaptador sobre el cambio en los datos
                 adapter.notifyDataSetChanged();
-                // Obtener el primer producto de la lista y guardar su ID en el TokenManager
+                // Guardar el ID del primer producto en el TokenManager
                 if (!products.isEmpty()) {
-                    int firstProductId = products.get(0).getProductId(); // Asumiendo que el ID del producto está en un atributo llamado "id"
+                    int firstProductId = products.get(0).getProductId();
                     tokenManager.saveProductId(firstProductId);
                 }
             }
 
             @Override
             public void onError(Throwable t) {
-                // Manejar errores, como mostrar un mensaje de error al usuario
+                // Manejar errores, por ejemplo, mostrar un mensaje de error al usuario
                 Toast.makeText(getContext(), "Error al obtener productos: " + t.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
     }
 
+    /**
+     * @author Ainoha
+     * @param product El producto en el que se hizo clic.
+     */
     @Override
     public void onProductClick(Product product) {
-        // Obtiene el contexto del Fragmento
+        // Manejar el clic en un producto para abrir la actividad de edición
         Context context = getContext();
-        // Obtén el ID del producto seleccionado
-        int productId = product.getProductId(); // Asumiendo que hay un método getId() en la clase Product para obtener el ID
+        int productId = product.getProductId();
 
-        // Obtén una instancia de TokenManager
         TokenManager tokenManager = TokenManager.getInstance(getContext());
-
-        // Guarda el ID del producto seleccionado utilizando el método saveProductId()
         tokenManager.saveProductId(productId);
 
-
         if (context != null) {
-
-
-
-            // Crea un Intent para abrir EditProductActivity
             Intent intent = new Intent(context, EditProductActivity.class);
-
-            // Pasa los datos del producto seleccionado a EditProductActivity
             intent.putExtra("nombre", product.getName());
             intent.putExtra("categoriaId", product.getCategoriaId());
             intent.putExtra("descripcion", product.getDescripcion());
             intent.putExtra("tipoDePeso", product.getUnidadMedida());
             intent.putExtra("precio", product.getPrecio());
             intent.putExtra("stock", product.getStock());
-
-            // Inicia la actividad
             startActivity(intent);
         } else {
-            // Maneja el caso donde el contexto es nulo
             Toast.makeText(getContext(), "Error: No se puede abrir la actividad", Toast.LENGTH_SHORT).show();
         }
     }
 
+    /**
+     * Agrega un producto a la lista de productos y notifica al adaptador.
+     * @author Ainoha
+     * @param product El producto a agregar.
+     */
     public void addProductToList(Product product) {
-        // Agregar el nuevo producto a la lista y notificar al adaptador
         productList.add(product);
         adapter.notifyDataSetChanged();
     }
 
     @Override
     public void onProductAdded(Product product) {
+        // Método llamado cuando se agrega un producto
         addProductToList(product);
     }
 }

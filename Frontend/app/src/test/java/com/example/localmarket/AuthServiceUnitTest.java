@@ -343,7 +343,7 @@ public class AuthServiceUnitTest {
      * Clase abstracta para el callback de perfil de usuario.
      * @author Ainoha
      */
-    static abstract class TestProfileCallback implements AuthService.ProfileCallback {
+    static class TestProfileCallback implements AuthService.ProfileCallback {
         private boolean successful;
         private User user;
 

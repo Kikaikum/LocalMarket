@@ -78,8 +78,9 @@ public interface ApiService {
 
     /**
      * Método para eliminar la cuenta de un usuario.
+     *
      * @param userId ID del usuario cuya cuenta se desea eliminar.
-     * @param token Token de autorización del usuario.
+     * @param token  Token de autorización del usuario.
      * @return Objeto Call que envuelve la respuesta del servidor.
      * @author ainoha
      */
@@ -88,13 +89,14 @@ public interface ApiService {
 
     /**
      * Método para actualizar el nombre de usuario en la base de datos del servidor.
-     * @param userId ID del usuario cuyo nombre se actualizará.
-     * @param token Token de autorización del usuario.
+     *
+     * @param userId                ID del usuario cuyo nombre se actualizará.
+     * @param token                 Token de autorización del usuario.
      * @param updateUsernameRequest Objeto UpdateUsernameRequest que contiene el nuevo nombre de usuario.
      * @return Objeto Call que envuelve la respuesta del servidor.
      */
     @PATCH("users/{id}")
-    Call<Void> updateUsername(@Path("id") int userId, @Header("Authorization") String token,@Body UpdateUsernameRequest updateUsernameRequest);
+    Call<Void> updateUsername(@Path("id") int userId, @Header("Authorization") String token, @Body UpdateUsernameRequest updateUsernameRequest);
 
     /**
      * Método para actualizar el email del usuario en la base de datos del servidor.
@@ -122,26 +124,27 @@ public interface ApiService {
 
     /**
      * Método para actualizar los apellidos del usuario en la base de datos del servidor.
-     *@author Ainoha
+     *
      * @param userId               ID del usuario cuyos apellidos se actualizarán.
      * @param token                Token de autorización del usuario.
      * @param updateSurnameRequest Objeto UpdateSurnameRequest que contiene los nuevos apellidos del usuario.
      * @return Objeto Call que envuelve la respuesta del servidor.
+     * @author Ainoha
      */
     @PATCH("users/{id}")
     Call<Void> updateSurname(@Path("id") int userId, @Header("Authorization") String token, @Body UpdateSurnameRequest updateSurnameRequest);
 
     /**
      * Método para actualizar la contraseña del usuario en la base de datos del servidor.
-     *@author Ainoha
+     *
      * @param userId                ID del usuario cuya contraseña se actualizará.
      * @param token                 Token de autorización del usuario.
      * @param updatePasswordRequest Objeto UpdatePasswordRequest que contiene la nueva contraseña del usuario.
      * @return Objeto Call que envuelve la respuesta del servidor.
+     * @author Ainoha
      */
     @PATCH("users/{id}")
     Call<Void> updatePassword(@Path("id") int userId, @Header("Authorization") String token, @Body UpdatePasswordRequest updatePasswordRequest);
-
 
 
     /**
@@ -152,7 +155,7 @@ public interface ApiService {
      * @author Oriol Estero Sanchez
      *
      */
-   // @GET("productos/{id}")
+    // @GET("productos/{id}")
     //Call<Product> getProductById(@Path("id") int productId);
 
     /**
@@ -163,7 +166,7 @@ public interface ApiService {
      * @author Oriol Estero Sanchez
      */
     @POST("products")
-    Call<ProductResponse> addProduct(@Header("id") int userId,@Header("Authorization") String token,@Body ProductRequest product);
+    Call<ProductResponse> addProduct(@Header("id") int userId, @Header("Authorization") String token, @Body ProductRequest product);
 
     /**
      * Método para obtener todos los productos de la base de datos del servidor.
@@ -175,24 +178,25 @@ public interface ApiService {
 
     /**
      * Método para actualizar un producto existente en la base de datos del servidor.
-     *@author Ainoha
+     *
      * @param productId      ID del producto que se actualizará.
-     * @param authorization  Token de autorización del usuario.
+     * @param token          Token de autorización del usuario.
      * @param updatedProduct Objeto Product que contiene los datos actualizados del producto.
      * @return Objeto Call que envuelve la respuesta del servidor.
+     * @author Ainoha
      */
     @PATCH("products/{productId}")
-    Call<Void> updateProduct(@Path("productId") int productId, @Header("Authorization") String authorization, @Body Product updatedProduct);
+    Call<Void> updateProduct(@Path("productId") int productId, @Header("Authorization") String token, @Body Product updatedProduct);
 
     /**
      * Método para eliminar un producto de la base de datos del servidor.
-     *@author Ainoha
+     *
      * @param productId ID del producto que se eliminará.
      * @param token     Token de autorización del usuario.
      * @return Objeto Call que envuelve la respuesta del servidor.
+     * @author Ainoha
      */
     @DELETE("products/{productId}")
     Call<Void> deleteProduct(@Path("productId") int productId, @Header("Authorization") String token);
 
-    void setUserProfile(User userProfile);
 }
