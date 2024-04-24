@@ -24,11 +24,10 @@
         <activity
             android:name=".activities.ActivitySellerLobby"
             android:exported="false">
-
-
         </activity>
 
         <activity android:name=".activities.EditProductActivity" />
+
         <activity
             android:name=".activities.ActivityUserLobby"
             android:exported="true">
@@ -39,15 +38,22 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
         <activity
             android:name=".activities.EditProfileActivity"
             android:exported="false" />
+
         <activity
             android:name=".activities.MainActivity"
-            android:exported="false">
-
-
+            android:exported="true">
         </activity>
-    </application>
+
+
+        <activity android:name=".activities.AddToCartActivity" />
+
+
+
+
+</application>
 
 </manifest>

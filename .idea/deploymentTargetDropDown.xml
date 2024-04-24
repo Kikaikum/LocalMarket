@@ -3,28 +3,12 @@
   <component name="deploymentTargetDropDown">
     <value>
       <entry key="ActivitySellerLobby">
-        <State>
-          <targetSelectedWithDropDown>
-            <Target>
-              <type value="QUICK_BOOT_TARGET" />
-              <deviceKey>
-                <Key>
-                  <type value="VIRTUAL_DEVICE_PATH" />
-                  <value value="C:\Users\rasta\.android\avd\Pixel_8_API_30.avd" />
-                </Key>
-              </deviceKey>
-            </Target>
-          </targetSelectedWithDropDown>
-          <timeTargetWasSelectedWithDropDown value="2024-04-18T16:40:10.720148100Z" />
-        </State>
+        <State />
       </entry>
       <entry key="ActivityUserLobby">
         <State />
       </entry>
-      <entry key="AddProductFragmentTestEspresso">
-        <State />
-      </entry>
-      <entry key="AddProductTest">
+      <entry key="MainActivity">
         <State />
       </entry>
       <entry key="app">

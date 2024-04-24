@@ -135,25 +135,5 @@ public class ActivityUserLobby extends AppCompatActivity {
         });
     }
 
-    /**
-     * Método para obtener una lista de productos de ejemplo.
-     * Esta lista es estática y se utiliza para llenar el RecyclerView.
-     * Los productos aquí son solo para propósitos de demostración y deben ser reemplazados por productos reales de una base de datos o servicio.
-     *
-     * @return Una lista de productos de ejemplo.
-     */
-    private List<Product> getProductList() {
-        List<Product> productList = new ArrayList<>();
-        productList.add(new Product(R.drawable.carrot_18, "zanahorias"));
-        productList.add(new Product(R.drawable.carrot_18, "zanahorias"));
-        productList.add(new Product(R.drawable.carrot_18, "zanahorias"));
-        productList.add(new Product(R.drawable.carrot_18, "zanahorias"));
-        productList.add(new Product(R.drawable.carrot_18, "zanahorias"));
-        productList.add(new Product(R.drawable.carrot_18, "zanahorias"));
-        productList.add(new Product(R.drawable.carrot_18, "zanahorias"));
-        productList.add(new Product(R.drawable.carrot_18, "zanahorias"));
 
-        // Agregar más productos según sea necesario
-        return productList;
-    }
 }

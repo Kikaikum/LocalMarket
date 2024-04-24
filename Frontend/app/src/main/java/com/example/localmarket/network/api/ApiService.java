@@ -177,6 +177,14 @@ public interface ApiService {
     Call<List<Product>> getAllProducts(@Path("id") int userId, @Header("Authorization") String token);
 
     /**
+     * Realiza una solicitud GET para obtener todos los productos del servidor.
+     * @author Ainoha
+     * @return Una llamada que devolverá una lista de productos cuando se realice.
+     */
+    @GET("products")
+    Call<List<Product>> getAllProductsAvailable();
+
+    /**
      * Método para actualizar un producto existente en la base de datos del servidor.
      *
      * @param productId      ID del producto que se actualizará.

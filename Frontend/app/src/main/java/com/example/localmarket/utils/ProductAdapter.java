@@ -86,7 +86,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
         public void bind(Product product, final OnProductClickListener listener) {
             textProductName.setText(product.getName());
             // Asignar la imagen al ImageView
-            imageViewProduct.setImageResource(product.getCategoriaId());
+             imageViewProduct.setImageResource(product.getCategoriaId());
 
             // Manejar clics en el elemento
             itemView.setOnClickListener(new View.OnClickListener() {

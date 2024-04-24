@@ -491,6 +491,41 @@ public class AuthService {
             }
         });
     }
+
+    /**
+     * Método para obtener todos los productos disponibles desde el servidor.
+     *
+     * @param callback El callback que será llamado cuando se complete la solicitud.
+     */
+    public void getAllProductsAvailable(final AuthCallback<List<Product>> callback) {
+        Call<List<Product>> call = apiService.getAllProductsAvailable();
+        call.enqueue(new Callback<List<Product>>() {
+            @Override
+            public void onResponse(Call<List<Product>> call, Response<List<Product>> response) {
+                if (response.isSuccessful()) {
+                    // La solicitud fue exitosa. Usa callback para enviar la lista de productos a la UI
+                    callback.onSuccess(response.body());
+                } else {
+                    // Maneja el caso donde la respuesta no es exitosa
+                    callback.onError(new Exception("Error al obtener productos: " + response.message()));
+                }
+            }
+
+            /**
+             * Maneja errores de conexión o de respuesta.
+             *
+             * @param call La llamada que generó el error.
+             * @param t El objeto Throwable que indica el error.
+             */
+            @Override
+            public void onFailure(Call<List<Product>> call, Throwable t) {
+                // Maneja errores de conexión
+                callback.onError(t);
+            }
+        });
+    }
+
+
     /**
      * Actualiza un producto en el servidor utilizando su ID y los datos actualizados del producto.
      * @param productId ID del producto que se desea actualizar.
