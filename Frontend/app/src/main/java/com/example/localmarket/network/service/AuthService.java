@@ -594,11 +594,13 @@ public class AuthService {
      *
      * @param order Objeto Order que contiene la información del pedido.
      * @param callback Callback para manejar la respuesta del envío del pedido.
-     * @author Oriol Estero Sanchez
+     * @author Ainoha
      */
-    public void sendOrder(int idCliente,Order order, final AuthCallback<Void> callback) {
+    public void sendOrder(Order order, final AuthCallback<Void> callback) {
+        int idCliente = order.getIdCliente();
+        int idAgricultor = order.getIdAgricultor();
 
-        apiService.createOrder(idCliente, order).enqueue(new Callback<Void>() {
+        apiService.createOrder(idCliente, idAgricultor, order).enqueue(new Callback<Void>() {
             @Override
             public void onResponse(Call<Void> call, Response<Void> response) {
                 if (response.isSuccessful()) {
@@ -614,7 +616,6 @@ public class AuthService {
             }
         });
     }
-
 
 
 

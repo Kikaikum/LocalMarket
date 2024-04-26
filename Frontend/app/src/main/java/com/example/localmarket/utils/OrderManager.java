@@ -65,10 +65,12 @@ public class OrderManager {
         return new ArrayList<>(); // Devuelve una lista vacía si no hay datos guardados
     }
 
-    public void clearCart() {
+    public void clearCartItems() {
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.remove(KEY_CART_ITEMS);
         editor.apply();
     }
+
+
 }
 

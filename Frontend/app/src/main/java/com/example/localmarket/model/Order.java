@@ -4,10 +4,9 @@ import java.util.Map;
 
 public class Order {
     private int idCliente;
-    private Map<Integer, ProductInfo> productos;
+    private int idAgricultor;
+    private Map<Integer, Integer> productos; // Mapa de idProducto -> cantidad
     private String estado;
-
-    // Getters y setters
 
     public int getIdCliente() {
         return idCliente;
@@ -17,11 +16,19 @@ public class Order {
         this.idCliente = idCliente;
     }
 
-    public Map<Integer, ProductInfo> getProductos() {
+    public int getIdAgricultor() {
+        return idAgricultor;
+    }
+
+    public void setIdAgricultor(int idAgricultor) {
+        this.idAgricultor = idAgricultor;
+    }
+
+    public Map<Integer, Integer> getProductos() {
         return productos;
     }
 
-    public void setProductos(Map<Integer, ProductInfo> productos) {
+    public void setProductos(Map<Integer, Integer> productos) {
         this.productos = productos;
     }
 

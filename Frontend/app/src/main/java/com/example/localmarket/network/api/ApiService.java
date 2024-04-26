@@ -209,5 +209,5 @@ public interface ApiService {
     Call<Void> deleteProduct(@Path("productId") int productId, @Header("Authorization") String token);
 
     @POST("orders")
-    Call<Void> createOrder(@Header("idCliente") int idCliente, @Body Order order);
+    Call<Void> createOrder(@Header("idCliente") int idCliente, @Header("idAgricultor") int idAgricultor, @Body Order order);
 }

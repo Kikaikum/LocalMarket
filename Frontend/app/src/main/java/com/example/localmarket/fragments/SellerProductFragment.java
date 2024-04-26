@@ -10,6 +10,7 @@ import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -65,6 +66,7 @@ public class SellerProductFragment extends Fragment implements ProductAdapter.On
 
         // Inicializa el RecyclerView y el adaptador
         productList = new ArrayList<>();
+        adapter = new ProductAdapter(productList, this);
 
         recyclerView = view.findViewById(R.id.reciclerViewProductsSeller);
         recyclerView.setHasFixedSize(true);
@@ -107,7 +109,12 @@ public class SellerProductFragment extends Fragment implements ProductAdapter.On
                 // Actualizar la lista de productos con los obtenidos del servidor
                 productList.clear();
                 productList.addAll(products);
-                adapter.notifyDataSetChanged();
+                if (adapter != null) {
+                    adapter.notifyDataSetChanged();
+                } else {
+                    // Manejar el caso en el que el adaptador es null
+                    Log.e("SellerProductFragment", "El adaptador es null, no se puede actualizar la UI");
+                }
                 // Guardar el ID del primer producto en el TokenManager
                 if (!products.isEmpty()) {
                     int firstProductId = products.get(0).getProductId();
