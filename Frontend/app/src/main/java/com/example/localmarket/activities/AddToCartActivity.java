@@ -1,5 +1,7 @@
 package com.example.localmarket.activities;
 
+import static androidx.test.InstrumentationRegistry.getContext;
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -7,16 +9,29 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.localmarket.R;
+import com.example.localmarket.fragments.OrderDetailsFragment;
+import com.example.localmarket.model.CartItem;
+import com.example.localmarket.model.Product;
 import com.example.localmarket.network.service.AuthService;
+import com.example.localmarket.utils.OrderManager;
+import com.example.localmarket.utils.TokenManager;
+
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class AddToCartActivity extends AppCompatActivity {
 
     private AuthService authService;
 
+    ArrayList<CartItem> cartItemList = new ArrayList<>();
+
+    TokenManager tokenManager;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -27,7 +42,7 @@ public class AddToCartActivity extends AppCompatActivity {
 
 
         final int categoriaId;
-        final int productId;
+
 
         Intent intent = getIntent();
         if (intent != null) {
@@ -37,6 +52,7 @@ public class AddToCartActivity extends AppCompatActivity {
             String descripcion = intent.getStringExtra("descripcion");
             double precio = intent.getDoubleExtra("precio", 0.0);
             String tipoDePeso = intent.getStringExtra("tipoDePeso");
+            int productId=intent.getIntExtra("productId",0);
 
 
             ImageView imageProduct = findViewById(R.id.imageProduct);
@@ -96,10 +112,41 @@ public class AddToCartActivity extends AppCompatActivity {
         btnAddToCart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Obtener el token del TokenManager
 
+
+                // Obtener la cantidad del TextView
+                TextView textViewquantity = findViewById(R.id.textViewQuantity);
+                TextView textWeight = findViewById(R.id.textUnidadMedidaPrecio);
+                String quantityText = textViewquantity.getText().toString();
+                int quantity = Integer.parseInt(quantityText);
+
+                String nombre = intent.getStringExtra("nombre");
+                int productId= intent.getIntExtra("productId",0);
+                double precio = intent.getDoubleExtra("precio", 0.0);
+                int categoriaId=intent.getIntExtra("categoriaId",0);
+                String unidadMedida = textWeight.getText().toString();
+                int agricultorId=intent.getIntExtra("agricultorId",0);
+
+                // Crear un nuevo elemento de carrito
+                CartItem cartItem = new CartItem(agricultorId,productId, categoriaId,nombre, precio, quantity,unidadMedida);
+
+                // Obtener la instancia de OrderManager
+                OrderManager orderManager = OrderManager.getInstance(AddToCartActivity.this);
+
+                ArrayList<CartItem> cartItems = orderManager.getCartItems();
+
+                // Agregar el nuevo elemento al carrito
+                cartItems.add(cartItem);
+
+                // Guardar la lista actualizada en las preferencias compartidas
+                orderManager.saveCartItem(cartItems);
+
+                // Notificar al usuario que el producto se ha añadido al carrito
+                Toast.makeText(AddToCartActivity.this, "Producto añadido al carrito", Toast.LENGTH_SHORT).show();
+
+                // Redirigir al usuario a la pantalla de inicio
+                redirectToLobby();
             }
-
 
         });
 

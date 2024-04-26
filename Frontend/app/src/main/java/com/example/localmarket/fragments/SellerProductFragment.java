@@ -65,7 +65,7 @@ public class SellerProductFragment extends Fragment implements ProductAdapter.On
 
         // Inicializa el RecyclerView y el adaptador
         productList = new ArrayList<>();
-        adapter = new ProductAdapter(productList, this);
+
         recyclerView = view.findViewById(R.id.reciclerViewProductsSeller);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));

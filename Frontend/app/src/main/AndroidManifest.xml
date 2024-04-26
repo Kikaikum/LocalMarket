@@ -51,7 +51,7 @@
 
         <activity android:name=".activities.AddToCartActivity" />
 
-
+        <activity android:name=".activities.OrderActivity" />
 
 
 </application>

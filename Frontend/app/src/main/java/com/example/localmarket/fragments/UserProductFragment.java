@@ -129,6 +129,7 @@ public class UserProductFragment extends Fragment implements ProductAdapter.OnPr
             intent.putExtra("descripcion", product.getDescripcion());
             intent.putExtra("precio", product.getPrecio());
             intent.putExtra("tipoDePeso", product.getUnidadMedida());
+            intent.putExtra("productId", productId);
             startActivity(intent);
         } else {
             Toast.makeText(getContext(), "Error: No se puede abrir la actividad", Toast.LENGTH_SHORT).show();

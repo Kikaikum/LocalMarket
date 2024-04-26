@@ -3,7 +3,7 @@
     <stroke android:width="2dp" android:color="@color/black" /> <!-- Ancho y color del borde -->
     <!-- The radius makes the corners rounded -->
     <corners
-        android:radius="50dp"   >
+        android:radius="30dp"   >
     </corners>
 
 </shape>

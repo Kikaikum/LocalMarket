@@ -1,6 +1,7 @@
 package com.example.localmarket.network.service;
 
 import com.example.localmarket.context.ContextProvider;
+import com.example.localmarket.model.Order;
 import com.example.localmarket.model.Product;
 import com.example.localmarket.model.LoginRequest;
 import com.example.localmarket.model.LoginResponse;
@@ -583,6 +584,32 @@ public class AuthService {
             @Override
             public void onFailure(Call<Void> call, Throwable t) {
                 // Si hay un fallo en la llamada, llamar al método onError del callback
+                callback.onError(t);
+            }
+        });
+    }
+
+    /**
+     * Método para enviar un pedido al servidor.
+     *
+     * @param order Objeto Order que contiene la información del pedido.
+     * @param callback Callback para manejar la respuesta del envío del pedido.
+     * @author Oriol Estero Sanchez
+     */
+    public void sendOrder(int idCliente,Order order, final AuthCallback<Void> callback) {
+
+        apiService.createOrder(idCliente, order).enqueue(new Callback<Void>() {
+            @Override
+            public void onResponse(Call<Void> call, Response<Void> response) {
+                if (response.isSuccessful()) {
+                    callback.onSuccess(null);
+                } else {
+                    callback.onError(new Exception("Error al enviar el pedido"));
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Void> call, Throwable t) {
                 callback.onError(t);
             }
         });

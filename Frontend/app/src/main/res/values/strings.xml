@@ -55,6 +55,10 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="productors_near">Productores cerca de mi</string>
     <string name="add_tocart">Añadir al Carrito</string>
+    <string name="mi_cesta">Mi cesta</string>
+    <string name="confirmar_pedido">Enviar Pedido</string>
+    <string name="iva_incluido">IVA incluido</string>
+    <string name="total">TOTAL:</string>
 
 
 </resources>

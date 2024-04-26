@@ -1,5 +1,6 @@
 package com.example.localmarket.network.api;
 
+import com.example.localmarket.model.Order;
 import com.example.localmarket.model.Product;
 import com.example.localmarket.model.LoginRequest;
 import com.example.localmarket.model.LoginResponse;
@@ -207,4 +208,6 @@ public interface ApiService {
     @DELETE("products/{productId}")
     Call<Void> deleteProduct(@Path("productId") int productId, @Header("Authorization") String token);
 
+    @POST("orders")
+    Call<Void> createOrder(@Header("idCliente") int idCliente, @Body Order order);
 }

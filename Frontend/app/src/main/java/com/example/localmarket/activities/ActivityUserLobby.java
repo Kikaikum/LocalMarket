@@ -87,6 +87,9 @@ public class ActivityUserLobby extends AppCompatActivity {
             // Lógica para manejar el clic en el elemento "Cerrar sesión"
             logout();
             return true;
+        }else if  (id==R.id.carrito){
+            Intent intent=new Intent (this, OrderActivity.class);
+            startActivity(intent);
         } else if (id == R.id.gps_options) {
             toggleFragment();
             invalidateOptionsMenu();
