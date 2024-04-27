@@ -16,7 +16,9 @@ import com.example.localmarket.R;
 import com.example.localmarket.fragments.MapFragment;
 import com.example.localmarket.fragments.UserProductFragment;
 import com.example.localmarket.model.Product;
+import com.example.localmarket.model.User;
 import com.example.localmarket.network.service.AuthService;
+import com.example.localmarket.utils.OnAgricultoresInRangeListener;
 import com.example.localmarket.utils.ProductAdapter;
 
 import java.util.ArrayList;
@@ -30,7 +32,7 @@ import java.util.List;
  *
  * @author Oriol Estero Sanchez
  */
-public class ActivityUserLobby extends AppCompatActivity {
+public class ActivityUserLobby extends AppCompatActivity implements OnAgricultoresInRangeListener {
 
     private static final int FRAGMENT_USER_PRODUCTS = 0;
     private static final int FRAGMENT_MAP = 1;
@@ -139,4 +141,8 @@ public class ActivityUserLobby extends AppCompatActivity {
     }
 
 
+    @Override
+    public void onAgricultoresInRange(List<User> agricultoresOnRange) {
+
+    }
 }

@@ -155,7 +155,9 @@ public class AuthServiceUnitTest {
         String username = generateUniqueUsername();
         String name = "New";
         String surname = "User";
-        boolean isVendor = true; // Corregir el nombre de la variable
+        boolean isVendor = true;
+        double latitud = 21.123451;
+        double longitud = 2.123451;
         TestAuthCallback<SignUpResponse> callback = new TestAuthCallback<SignUpResponse>(){
             @Override
             public void onSuccess(SignUpResponse response) {
@@ -164,7 +166,7 @@ public class AuthServiceUnitTest {
         };
 
         // Act
-        authService.signUpUser(email, password, username, name, surname, isVendor, callback);
+        authService.signUpUser(email, password, username, name, surname, isVendor, latitud, longitud,callback);
 
         try {
             Thread.sleep(2000);
@@ -192,6 +194,8 @@ public class AuthServiceUnitTest {
         String name = "asd";
         String surname = "asd";
         boolean isVendor = false;
+        double latitud = 21.123451;
+        double longitud = 2.123451;
 
         CountDownLatch latch = new CountDownLatch(1);
         final boolean[] uniqueConstraintErrorOccurred = {false};
@@ -217,7 +221,7 @@ public class AuthServiceUnitTest {
         };
 
         // Act
-        authService.signUpUser(email, password, username, name, surname, isVendor, callback);
+        authService.signUpUser(email, password, username, name, surname, isVendor, latitud,longitud, callback);
         try {
             latch.await(3,TimeUnit.SECONDS);
         } catch (InterruptedException e) {

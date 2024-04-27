@@ -109,11 +109,13 @@ public class AuthService {
      * @param nombre    Nombre del usuario.
      * @param apellidos Apellidos del usuario.
      * @param isVendor  Indica si el usuario es un vendedor o no.
+     * @param latitud   Indica la latitud del usuario en el mapa.
+     * @param longitud  Indica la longitud del usuario en el mapa.
      * @param callback  Callback para manejar la respuesta del registro.
      *
      * @author Oriol Estero Sanchez
      */
-    public void signUpUser(String email, String password, String username, String nombre, String apellidos, Boolean isVendor, final AuthCallback<SignUpResponse> callback) {
+    public void signUpUser(String email, String password, String username, String nombre, String apellidos, Boolean isVendor, double latitud, double longitud, final AuthCallback<SignUpResponse> callback) {
         SignUpRequest signUpRequest = new SignUpRequest(email, password, username, nombre, apellidos, isVendor);
         apiService.createUser(signUpRequest).enqueue(new Callback<SignUpResponse>() {
             @Override

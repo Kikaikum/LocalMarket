@@ -59,6 +59,7 @@
     <string name="confirmar_pedido">Enviar Pedido</string>
     <string name="iva_incluido">IVA incluido</string>
     <string name="total">TOTAL:</string>
+    <string name="tv_distancia">Rango de busqueda:</string>
 
 
 </resources>

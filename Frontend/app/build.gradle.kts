@@ -40,6 +40,7 @@ dependencies {
     implementation ("com.squareup.okhttp3:okhttp:4.9.2")
     implementation ("com.squareup.okhttp3:logging-interceptor:4.9.2")
     implementation("com.squareup.retrofit2:converter-gson:2.9.0")
+    implementation ("com.google.maps.android:android-maps-utils:2.3.0")
 
     implementation(fileTree(mapOf(
         "dir" to "C:\\Users\\rasta\\AppData\\Local\\Android\\Sdk\\platforms\\android-34",
