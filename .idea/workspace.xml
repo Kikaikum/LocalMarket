@@ -115,19 +115,12 @@
     <option name="autoReloadType" value="NONE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="72ff1c52-651c-4388-8d0f-812589155228" name="Changes" comment="v1 testUnitarios Oriol">
-      <change afterPath="$PROJECT_DIR$/Frontend/app/src/main/java/com/example/localmarket/utils/AgricultorLocation.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Frontend/app/src/main/java/com/example/localmarket/utils/OnAgricultoresInRangeListener.java" afterDir="false" />
+    <list default="true" id="72ff1c52-651c-4388-8d0f-812589155228" name="Changes" comment="+Implementacion del map i el selector de distancia i previa implementacion filtrado por distancia de los productores.&#10;+modificacion de User i AuthService.signUpUser para que acepte latitud i longitud">
+      <change beforePath="$PROJECT_DIR$/.idea/deploymentTargetDropDown.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/deploymentTargetDropDown.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Frontend/app/build.gradle.kts" beforeDir="false" afterPath="$PROJECT_DIR$/Frontend/app/build.gradle.kts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Frontend/app/src/main/java/com/example/localmarket/activities/ActivityUserLobby.java" beforeDir="false" afterPath="$PROJECT_DIR$/Frontend/app/src/main/java/com/example/localmarket/activities/ActivityUserLobby.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Frontend/app/src/main/java/com/example/localmarket/fragments/MapFragment.java" beforeDir="false" afterPath="$PROJECT_DIR$/Frontend/app/src/main/java/com/example/localmarket/fragments/MapFragment.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Frontend/app/src/main/java/com/example/localmarket/fragments/SignUpfragment.java" beforeDir="false" afterPath="$PROJECT_DIR$/Frontend/app/src/main/java/com/example/localmarket/fragments/SignUpfragment.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Frontend/app/src/main/java/com/example/localmarket/model/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/Frontend/app/src/main/java/com/example/localmarket/model/User.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Frontend/app/src/main/java/com/example/localmarket/network/api/ApiService.java" beforeDir="false" afterPath="$PROJECT_DIR$/Frontend/app/src/main/java/com/example/localmarket/network/api/ApiService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Frontend/app/src/main/java/com/example/localmarket/network/service/AuthService.java" beforeDir="false" afterPath="$PROJECT_DIR$/Frontend/app/src/main/java/com/example/localmarket/network/service/AuthService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Frontend/app/src/main/res/layout/fragment_map.xml" beforeDir="false" afterPath="$PROJECT_DIR$/Frontend/app/src/main/res/layout/fragment_map.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Frontend/app/src/main/res/values/strings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/Frontend/app/src/main/res/values/strings.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Frontend/app/src/test/java/com/example/localmarket/AuthServiceUnitTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/Frontend/app/src/test/java/com/example/localmarket/AuthServiceUnitTest.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -553,10 +546,10 @@
     <recent_temporary>
       <list>
         <item itemvalue="Android App.ActivityUserLobby" />
+        <item itemvalue="Android App.ActivitySellerLobby" />
         <item itemvalue="Gradle.AuthServiceUnitTest" />
         <item itemvalue="Gradle.AddProductFragmentTest (1)" />
         <item itemvalue="Android Instrumented Tests.AddProductFragmentTestEspresso" />
-        <item itemvalue="Android App.ActivitySellerLobby" />
       </list>
     </recent_temporary>
   </component>
@@ -657,7 +650,15 @@
       <option name="project" value="LOCAL" />
       <updated>1713432330705</updated>
     </task>
-    <option name="localTasksCounter" value="12" />
+    <task id="LOCAL-00012" summary="+Implementacion del map i el selector de distancia i previa implementacion filtrado por distancia de los productores.&#10;+modificacion de User i AuthService.signUpUser para que acepte latitud i longitud">
+      <option name="closed" value="true" />
+      <created>1714198902906</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1714198902906</updated>
+    </task>
+    <option name="localTasksCounter" value="13" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -683,7 +684,8 @@
     <MESSAGE value="+ v1 del envio del producto" />
     <MESSAGE value="+ v2 del envio del producto" />
     <MESSAGE value="v1 testUnitarios Oriol" />
-    <option name="LAST_COMMIT_MESSAGE" value="v1 testUnitarios Oriol" />
+    <MESSAGE value="+Implementacion del map i el selector de distancia i previa implementacion filtrado por distancia de los productores.&#10;+modificacion de User i AuthService.signUpUser para que acepte latitud i longitud" />
+    <option name="LAST_COMMIT_MESSAGE" value="+Implementacion del map i el selector de distancia i previa implementacion filtrado por distancia de los productores.&#10;+modificacion de User i AuthService.signUpUser para que acepte latitud i longitud" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/Local_Market$AuthServiceUnitTest_testSignUpUser_Failure.ic" NAME="AuthServiceUnitTest.testSignUpUser_Failure Coverage Results" MODIFIED="1711036953776" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />

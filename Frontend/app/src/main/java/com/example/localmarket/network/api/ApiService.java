@@ -210,4 +210,7 @@ public interface ApiService {
 
     @POST("orders")
     Call<Void> createOrder(@Header("idCliente") int idCliente, @Header("idAgricultor") int idAgricultor, @Body Order order);
+
+    @GET("users")
+    Call<List<User>> getAllUsers();
 }

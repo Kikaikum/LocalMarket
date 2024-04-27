@@ -6,14 +6,19 @@ import android.graphics.Color;
 import android.os.Bundle;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
+
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.SeekBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.localmarket.R;
 import com.example.localmarket.model.User;
+import com.example.localmarket.network.api.ApiService;
+import com.example.localmarket.network.service.AuthService;
 import com.example.localmarket.utils.AgricultorLocation;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
@@ -31,11 +36,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MapFragment extends Fragment implements OnMapReadyCallback {
+    private AuthService authService;
 
     private MapView mapView;
     private GoogleMap gMap;
     private Circle mapCircle;
     private TextView distance;
+    private LatLng centerOfCircle;
+    private double currentRadius;
 
     private SeekBar seekBar;
     private static final int MY_LOCATION_REQUEST_CODE = 101; // Código de permiso personalizado
@@ -53,11 +61,12 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
         seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-                int adjustedProgress = progress + 1000;
-                distance.setText(adjustedProgress/1000+" km");
+                currentRadius = progress + 1000;
+                distance.setText(currentRadius/1000+" km");
                 if (mapCircle != null) {
-                    mapCircle.setRadius(adjustedProgress); // Actualiza el radio del círculo
+                    mapCircle.setRadius(currentRadius); // Actualiza el radio del círculo
                 }
+                filtrarAgricultoresEnRango(currentRadius);
             }
 
             @Override
@@ -92,8 +101,10 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
             locationClient.getLastLocation()
                     .addOnSuccessListener(getActivity(), location -> {
                         if (location != null) {
+                            LatLng initialLocation = new LatLng(location.getLatitude(), location.getLongitude());
+                            centerOfCircle = initialLocation;
                             gMap.moveCamera(CameraUpdateFactory.newLatLngZoom(
-                                    new LatLng(location.getLatitude(), location.getLongitude()), 12));
+                                    new LatLng(location.getLatitude(), location.getLongitude()), 10));
                         }
                         LatLng centerPoint = new LatLng(location.getLatitude(),location.getLongitude());
                         CircleOptions circleOptions = new CircleOptions()
@@ -104,11 +115,8 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
                                 .strokeWidth(5); // Grosor del borde
 
                         mapCircle = gMap.addCircle(circleOptions);
-                        AgricultorLocation generator = new AgricultorLocation(centerPoint, 20000);
-                        for (int i = 0; i < 10; i++) { // Generar y agregar 10 marcadores
-                            LatLng randomPoint = generator.getRandomLocation(); // Obtener ubicación aleatoria
-                            gMap.addMarker(new MarkerOptions().position(randomPoint).title("Agricultor " + (i + 1)));
-                        }
+                        //AgricultorLocation generator = new AgricultorLocation(centerPoint, 20000);
+                        //cargarAgricultores();
 
 
                     });
@@ -117,14 +125,38 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
         }
     }
     private void filtrarAgricultoresEnRango(double rango) {
-        if (todosLosAgricultores == null) return;
-        agricultoresEnRango.clear();
-        LatLng center = new LatLng(gMap.getCameraPosition().target.latitude, gMap.getCameraPosition().target.longitude);
+        agricultoresEnRango = new ArrayList<>();
+        for (User user : todosLosAgricultores) {
+            LatLng userLocation = new LatLng(user.getLatitud(), user.getLongitud());
+            if (SphericalUtil.computeDistanceBetween(centerOfCircle, userLocation) <= currentRadius) {
+                agricultoresEnRango.add(user);
+            }
+        }
+    }
+    private void cargarAgricultores() {
+        authService.getAllUsersAvailable(new AuthService.AuthCallback<List<User>>() {
+            @Override
+            public void onSuccess(List<User> users) {
+                // Procesar los usuarios: mostrar en el mapa
+                mostrarUsuariosEnMapa(users);
+            }
 
-        for (User agricultor : todosLosAgricultores) {
-            LatLng posAgricultor = new LatLng(agricultor.getLatitud(), agricultor.getLongitud());
-            if (SphericalUtil.computeDistanceBetween(center, posAgricultor) <= rango) {
-                agricultoresEnRango.add(agricultor);
+            @Override
+            public void onError(Throwable error) {
+                // Manejar errores aquí, por ejemplo, mostrar un mensaje al usuario
+                Log.e("MapFragment", "Error al obtener usuarios: " + error.getMessage());
+                Toast.makeText(getContext(), "Error al cargar usuarios: " + error.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
+
+    }
+    private void mostrarUsuariosEnMapa(List<User> users) {
+        if (gMap != null) {
+            for (User user : users) {
+                if (user.getAgricultor()) {
+                    LatLng position = new LatLng(user.getLatitud(), user.getLongitud());
+                    gMap.addMarker(new MarkerOptions().position(position).title(user.getName()));
+                }
             }
         }
     }
@@ -138,6 +170,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
             }
         }
     }
+
 
     @Override
     public void onResume() {

@@ -527,6 +527,28 @@ public class AuthService {
             }
         });
     }
+    public void getAllUsersAvailable(final AuthCallback<List<User>> callback) {
+        Call<List<User>> call = apiService.getAllUsers();
+        call.enqueue(new Callback<List<User>>() {
+            @Override
+            public void onResponse(Call<List<User>> call, Response<List<User>> response) {
+                if (response.isSuccessful()) {
+                    // La solicitud fue exitosa. Usa callback para enviar la lista de usuarios a la UI
+                    callback.onSuccess(response.body());
+                } else {
+                    // Maneja el caso donde la respuesta no es exitosa
+                    callback.onError(new Exception("Error al obtener usuarios: " + response.message()));
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<User>> call, Throwable t) {
+                // Maneja errores de conexión
+                callback.onError(t);
+            }
+        });
+    }
+
 
 
     /**
