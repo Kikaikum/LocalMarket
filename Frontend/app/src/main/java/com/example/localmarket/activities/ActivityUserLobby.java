@@ -40,6 +40,7 @@ public class ActivityUserLobby extends AppCompatActivity implements OnAgricultor
     private MenuItem gpsMenuItem;
     private AuthService authService;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

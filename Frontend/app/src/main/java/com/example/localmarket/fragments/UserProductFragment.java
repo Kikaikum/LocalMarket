@@ -19,6 +19,7 @@ import com.example.localmarket.R;
 import com.example.localmarket.activities.AddToCartActivity;
 import com.example.localmarket.activities.EditProductActivity;
 import com.example.localmarket.model.Product;
+import com.example.localmarket.model.User;
 import com.example.localmarket.network.service.AuthService;
 import com.example.localmarket.utils.ProductAdapter;
 import com.example.localmarket.utils.TokenManager;
@@ -26,8 +27,12 @@ import com.example.localmarket.utils.TokenManager;
 import java.util.ArrayList;
 import java.util.List;
 
-public class UserProductFragment extends Fragment implements ProductAdapter.OnProductClickListener {
+import android.util.Log;
 
+public class UserProductFragment extends Fragment implements ProductAdapter.OnProductClickListener {
+    private List<Integer> agricultoresIdsEnRango = new ArrayList<>();
+    ;
+    private List<Product> productosEnRango = new ArrayList<>();
     private AuthService authService;
     private List<Product> productList;
     private ProductAdapter adapter;
@@ -48,10 +53,24 @@ public class UserProductFragment extends Fragment implements ProductAdapter.OnPr
         return new UserProductFragment();
     }
 
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        // Configuración inicial
+        tokenManager = TokenManager.getInstance(requireContext());
+        if (getArguments() != null) {
+            ArrayList<Integer> agricultoresIds = getArguments().getIntegerArrayList("agricultoresIds");
+            if (agricultoresIds != null) {
+                Log.d("UserProductFragment", "Recibido Bundle con " + agricultoresIds.size() + " IDs de agricultores");
+                agricultoresIdsEnRango = agricultoresIds;
+                // Cargar los productos de los agricultores en rango
+                cargarProductosDeAgricultores();
+            } else {
+                Log.e("UserProductFragment", "La lista de IDs de agricultores está vacía");
+            }
+        } else {
+            Log.e("UserProductFragment", "No se recibió el Bundle");
+        }
 
     }
 
@@ -72,20 +91,52 @@ public class UserProductFragment extends Fragment implements ProductAdapter.OnPr
         tokenManager = new TokenManager(getActivity());
 
 
-
-
-
-
-        getAllProductsAvailable();
+        //getAllProductsAvailable();
+        cargarProductosDeAgricultores();
 
         return view;
     }
 
+
     /**
      * Obtiene todos los productos del vendedor desde el servidor.
+     *
      * @author Ainoha
-
      */
+    private void cargarProductosDeAgricultores() {
+        String token = tokenManager.getToken();
+        if (agricultoresIdsEnRango!= null) {
+            for (int id : agricultoresIdsEnRango) {
+                authService.getAllProducts(id, token, new AuthService.AuthCallback<List<Product>>() {
+                    @Override
+                    public void onSuccess(List<Product> productos) {
+                        // Procesar los productos y mostrarlos en la interfaz
+                        productosEnRango = productos;
+                        mostrarProductosEnPantalla();
+                    }
+
+                    @Override
+                    public void onError(Throwable error) {
+                        // Manejar errores al cargar los productos
+                        Log.e("UserProductFragment", "Error al obtener productos: " + error.getMessage());
+                        Toast.makeText(getContext(), "Error al cargar productos: " + error.getMessage(), Toast.LENGTH_SHORT).show();
+                    }
+                });
+            }
+        } else {
+            // Manejar el caso en el que la lista de IDs de agricultores esté vacía
+            Log.e("UserProductFragment", "La lista de IDs de agricultores está vacía");
+            Toast.makeText(getContext(), "No hay agricultores en el rango", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    private void mostrarProductosEnPantalla() {
+        // Aquí debes implementar la lógica para mostrar los productos en la interfaz de usuario
+        // por ejemplo, en una lista, en una grilla, etc.
+        adapter = new ProductAdapter(productosEnRango, this);
+        recyclerView.setAdapter(adapter);
+    }
+
     public void getAllProductsAvailable() {
         authService.getAllProductsAvailable(new AuthService.AuthCallback<List<Product>>() {
             @Override

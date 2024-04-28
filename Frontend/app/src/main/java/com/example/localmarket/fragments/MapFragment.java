@@ -2,11 +2,13 @@ package com.example.localmarket.fragments;
 
 import android.Manifest;
 import android.content.pm.PackageManager;
-import android.graphics.Color;
 import android.os.Bundle;
+
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 
+import android.os.Parcelable;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,9 +19,8 @@ import android.widget.Toast;
 
 import com.example.localmarket.R;
 import com.example.localmarket.model.User;
-import com.example.localmarket.network.api.ApiService;
 import com.example.localmarket.network.service.AuthService;
-import com.example.localmarket.utils.AgricultorLocation;
+import com.example.localmarket.utils.TokenManager;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -46,37 +47,50 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
     private double currentRadius;
 
     private SeekBar seekBar;
-    private static final int MY_LOCATION_REQUEST_CODE = 101; // Código de permiso personalizado
-    private List<User> todosLosAgricultores; // Todos los agricultores obtenidos de la base de datos
+    private static final int MY_LOCATION_REQUEST_CODE = 101;
+    private List<User> todosLosAgricultores = new ArrayList<>();
     private List<User> agricultoresEnRango = new ArrayList<>();
 
+    public Bundle bundle = new Bundle();
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+    }
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_map, container, false);
         mapView = view.findViewById(R.id.mapView);
         mapView.onCreate(savedInstanceState);
         mapView.getMapAsync(this);
-        seekBar= view.findViewById(R.id.seekBar);
-        distance= view.findViewById(R.id.tvDistance);
+        seekBar = view.findViewById(R.id.seekBar);
+        distance = view.findViewById(R.id.tvDistance);
+
+        // Agregamos el listener al botón "actualizarBusqueda"
+        view.findViewById(R.id.actualizarBusqueda).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                catchAgricultorOnRange();
+                backToUserProductFragment();
+            }
+        });
+
         seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
                 currentRadius = progress + 1000;
-                distance.setText(currentRadius/1000+" km");
+                distance.setText(currentRadius / 1000 + " km");
                 if (mapCircle != null) {
-                    mapCircle.setRadius(currentRadius); // Actualiza el radio del círculo
+                    mapCircle.setRadius(currentRadius);
                 }
-                filtrarAgricultoresEnRango(currentRadius);
             }
 
             @Override
             public void onStartTrackingTouch(SeekBar seekBar) {
-                // Opcionalmente, aquí puedes añadir código para cuando se empiece a mover la barra
             }
 
             @Override
             public void onStopTrackingTouch(SeekBar seekBar) {
-                // Opcionalmente, aquí puedes añadir código para cuando se deje de mover la barra
             }
         });
         return view;
@@ -91,11 +105,10 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
 
             gMap.setMyLocationEnabled(true);
             gMap.getUiSettings().setMyLocationButtonEnabled(true);
-            gMap.getUiSettings().setZoomControlsEnabled(true); // Mostrar controles de zoom
-            gMap.getUiSettings().setScrollGesturesEnabled(true); // Habilitar el desplazamiento del mapa
-            gMap.getUiSettings().setRotateGesturesEnabled(true); // Habilitar la rotación del mapa
-            gMap.getUiSettings().setTiltGesturesEnabled(true); // Habilitar la inclinación del mapa
-
+            gMap.getUiSettings().setZoomControlsEnabled(true);
+            gMap.getUiSettings().setScrollGesturesEnabled(true);
+            gMap.getUiSettings().setRotateGesturesEnabled(true);
+            gMap.getUiSettings().setTiltGesturesEnabled(true);
 
             FusedLocationProviderClient locationClient = LocationServices.getFusedLocationProviderClient(getActivity());
             locationClient.getLastLocation()
@@ -103,74 +116,100 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
                         if (location != null) {
                             LatLng initialLocation = new LatLng(location.getLatitude(), location.getLongitude());
                             centerOfCircle = initialLocation;
-                            gMap.moveCamera(CameraUpdateFactory.newLatLngZoom(
-                                    new LatLng(location.getLatitude(), location.getLongitude()), 10));
+                            gMap.moveCamera(CameraUpdateFactory.newLatLngZoom(initialLocation, 10));
                         }
-                        LatLng centerPoint = new LatLng(location.getLatitude(),location.getLongitude());
+                        LatLng centerPoint = new LatLng(location.getLatitude(), location.getLongitude());
                         CircleOptions circleOptions = new CircleOptions()
                                 .center(centerPoint)
-                                .radius(seekBar.getProgress()) // Radio inicial en metros
-                                .fillColor(0x55FFC107) // Color azul con transparencia
-                                .strokeColor(R.color.accent) // Color del borde
-                                .strokeWidth(5); // Grosor del borde
+                                .radius(seekBar.getProgress())
+                                .fillColor(0x55FFC107)
+                                .strokeColor(R.color.accent)
+                                .strokeWidth(5);
 
                         mapCircle = gMap.addCircle(circleOptions);
-                        //AgricultorLocation generator = new AgricultorLocation(centerPoint, 20000);
-                        //cargarAgricultores();
+                        // Crear usuarios de prueba
+                        User usuario1 = new User("Juan", "Pérez", "juanperez", "juan@example.com", "password123", 13, true);
+                        usuario1.setLatitud(41.8694016);
+                        usuario1.setLongitud(2.7093832);
 
+                        User usuario2 = new User("María", "García", "mariagarcia", "maria@example.com", "password456", 57, true);
+                        usuario2.setLatitud(41.899401);
+                        usuario2.setLongitud(2.8093832);
 
+                        User usuario3 = new User("Pedro", "Sánchez", "pedrosanchez", "pedro@example.com", "password789", 59, true);
+                        usuario3.setLatitud(41.7694016);
+                        usuario3.setLongitud(2.8093832);
+
+                        User usuario4 = new User("Ana", "Martínez", "anamartinez", "ana@example.com", "password321", 57, true);
+                        usuario4.setLatitud(41.7094016165);
+                        usuario4.setLongitud(2.8393832);
+
+                        todosLosAgricultores.add(usuario1);
+                        todosLosAgricultores.add(usuario2);
+                        todosLosAgricultores.add(usuario3);
+                        todosLosAgricultores.add(usuario4);
+                        for (User user : todosLosAgricultores) {
+                            gMap.addMarker(new MarkerOptions()
+                                    .position(new LatLng(user.getLatitud(), user.getLongitud()))
+                                    .title(user.getName() + " " + user.getSurname()));
+
+                        }
+                        catchAgricultorOnRange();
                     });
+
         } else {
             requestPermissions(new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, MY_LOCATION_REQUEST_CODE);
         }
-    }
-    private void filtrarAgricultoresEnRango(double rango) {
-        agricultoresEnRango = new ArrayList<>();
-        for (User user : todosLosAgricultores) {
-            LatLng userLocation = new LatLng(user.getLatitud(), user.getLongitud());
-            if (SphericalUtil.computeDistanceBetween(centerOfCircle, userLocation) <= currentRadius) {
-                agricultoresEnRango.add(user);
-            }
-        }
-    }
-    private void cargarAgricultores() {
-        authService.getAllUsersAvailable(new AuthService.AuthCallback<List<User>>() {
-            @Override
-            public void onSuccess(List<User> users) {
-                // Procesar los usuarios: mostrar en el mapa
-                mostrarUsuariosEnMapa(users);
-            }
-
-            @Override
-            public void onError(Throwable error) {
-                // Manejar errores aquí, por ejemplo, mostrar un mensaje al usuario
-                Log.e("MapFragment", "Error al obtener usuarios: " + error.getMessage());
-                Toast.makeText(getContext(), "Error al cargar usuarios: " + error.getMessage(), Toast.LENGTH_SHORT).show();
-            }
-        });
 
     }
-    private void mostrarUsuariosEnMapa(List<User> users) {
-        if (gMap != null) {
-            for (User user : users) {
-                if (user.getAgricultor()) {
-                    LatLng position = new LatLng(user.getLatitud(), user.getLongitud());
-                    gMap.addMarker(new MarkerOptions().position(position).title(user.getName()));
+
+    private void catchAgricultorOnRange() {
+        if (centerOfCircle != null) {
+            for (User user : todosLosAgricultores) {
+                double distanceToUser = SphericalUtil.computeDistanceBetween(new LatLng(user.getLatitud(), user.getLongitud()), centerOfCircle);
+                if (distanceToUser <= currentRadius) {
+                    agricultoresEnRango.add(user);
+                    Log.e("Agricultor", "Id: "+user.getId()+"Nombre: " + user.getName() + " " + user.getSurname() + ", Distancia: " + distanceToUser + " metros");
                 }
             }
+            sendAgricultoresToUserProductFragment();
+
         }
     }
+
+    private void sendAgricultoresToUserProductFragment() {
+
+        ArrayList<Integer> agricultoresIds = new ArrayList<>();
+        for (User user : todosLosAgricultores) {
+            agricultoresIds.add(user.getId());
+        }
+        bundle.putIntegerArrayList("agricultoresIds", agricultoresIds);
+
+        UserProductFragment userProductFragment = UserProductFragment.newInstance();
+        userProductFragment.setArguments(bundle);
+
+
+    }
+    private void backToUserProductFragment(){
+
+        UserProductFragment userProductFragment = new UserProductFragment();
+        // Reemplazar o agregar UserProductFragment en la actividad principal
+        FragmentTransaction transaction = getFragmentManager().beginTransaction();
+        transaction.replace(R.id.containerUserLobby, userProductFragment);
+        transaction.commit();
+    }
+
+
 
     @Override
     public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         if (requestCode == MY_LOCATION_REQUEST_CODE) {
             if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                onMapReady(gMap); // Llamar a onMapReady manualmente si el permiso es concedido
+                onMapReady(gMap);
             }
         }
     }
-
 
     @Override
     public void onResume() {
@@ -202,4 +241,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
         mapView.onSaveInstanceState(outState);
     }
 
+    private void createFakeUsers() {
+
+    }
 }
