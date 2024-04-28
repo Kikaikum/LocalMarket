@@ -52,14 +52,14 @@ public class AddToCartActivity extends AppCompatActivity {
             String descripcion = intent.getStringExtra("descripcion");
             double precio = intent.getDoubleExtra("precio", 0.0);
             String tipoDePeso = intent.getStringExtra("tipoDePeso");
-            int productId=intent.getIntExtra("productId",0);
+            int productId = intent.getIntExtra("productId", 0);
 
 
             ImageView imageProduct = findViewById(R.id.imageProduct);
             TextView textProductName = findViewById(R.id.textProductName);
             TextView textDescription = findViewById(R.id.textDescription);
             TextView textPrice = findViewById(R.id.textPrice);
-            TextView textUnidadMedidaPrecio=findViewById(R.id.textUnidadMedidaPrecio);
+            TextView textUnidadMedidaPrecio = findViewById(R.id.textUnidadMedidaPrecio);
 
             // Inicializar los TextView de acuerdo al estado del Switch
             if (tipoDePeso.equalsIgnoreCase("peso")) {
@@ -121,14 +121,14 @@ public class AddToCartActivity extends AppCompatActivity {
                 int quantity = Integer.parseInt(quantityText);
 
                 String nombre = intent.getStringExtra("nombre");
-                int productId= intent.getIntExtra("productId",0);
+                int productId = intent.getIntExtra("productId", 0);
                 double precio = intent.getDoubleExtra("precio", 0.0);
-                int categoriaId=intent.getIntExtra("categoriaId",0);
+                int categoriaId = intent.getIntExtra("categoriaId", 0);
                 String unidadMedida = textWeight.getText().toString();
-                int agricultorId=intent.getIntExtra("agricultorId",0);
+                int agricultorId = intent.getIntExtra("agricultorId", 0);
 
                 // Crear un nuevo elemento de carrito
-                CartItem cartItem = new CartItem(agricultorId,productId, categoriaId,nombre, precio, quantity,unidadMedida);
+                CartItem cartItem = new CartItem(agricultorId, productId, categoriaId, nombre, precio, quantity, unidadMedida);
 
                 // Obtener la instancia de OrderManager
                 OrderManager orderManager = OrderManager.getInstance(AddToCartActivity.this);
@@ -153,17 +153,14 @@ public class AddToCartActivity extends AppCompatActivity {
     }
 
 
+    /**
+     * Redirige al usuario a la pantalla de inicio.
+     */
+    private void redirectToLobby() {
+
+        finish();
+    }
 
 
-            /**
-             * Redirige al usuario a la pantalla de inicio.
-             */
-            private void redirectToLobby() {
-
-                Intent intent = new Intent(this, ActivityUserLobby.class);
-                startActivity(intent);
-            }
-
-
-        }
+}
 
