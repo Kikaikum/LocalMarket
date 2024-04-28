@@ -23,6 +23,7 @@ import com.example.localmarket.model.Product;
 import com.example.localmarket.model.User;
 import com.example.localmarket.network.service.AuthService;
 import com.example.localmarket.utils.ProductAdapter;
+import com.example.localmarket.utils.ProductAdapterUserLobby;
 import com.example.localmarket.utils.TokenManager;
 
 import java.util.ArrayList;
@@ -30,12 +31,12 @@ import java.util.List;
 
 import android.util.Log;
 
-public class UserProductFragment extends Fragment implements ProductAdapter.OnProductClickListener {
+public class UserProductFragment extends Fragment implements ProductAdapterUserLobby.OnProductClickListener {
     private List<Integer> agricultoresIdsEnRango = new ArrayList<>();
     private List<Product> productosEnRango = new ArrayList<>();
     private AuthService authService;
     private List<Product> productList;
-    private ProductAdapter adapter;
+    private ProductAdapterUserLobby adapter;
     private RecyclerView recyclerView;
     private TokenManager tokenManager;
     private View mapButton;
@@ -87,7 +88,7 @@ public class UserProductFragment extends Fragment implements ProductAdapter.OnPr
 
         // Inicializa el RecyclerView y el adaptador
         productList = new ArrayList<>();
-        adapter = new ProductAdapter(productList, this);
+        adapter = new ProductAdapterUserLobby(productList, this);
         recyclerView = view.findViewById(R.id.reciclerViewProductsUser);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
@@ -176,7 +177,7 @@ public class UserProductFragment extends Fragment implements ProductAdapter.OnPr
         }
         // Aquí debes implementar la lógica para mostrar los productos en la interfaz de usuario
         // por ejemplo, en una lista, en una grilla, etc.
-        adapter = new ProductAdapter(productosEnRango, this);
+        adapter = new ProductAdapterUserLobby(productosEnRango, this);
         recyclerView.setAdapter(adapter);
     }
 
