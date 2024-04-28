@@ -40,11 +40,13 @@ public class ActivityUserLobby extends AppCompatActivity implements OnAgricultor
     private MenuItem gpsMenuItem;
     private AuthService authService;
 
+    Bundle bundle;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_lobby);
+        bundle = new Bundle();
 
         // Inicializar AuthService
         authService = AuthService.getInstance();

@@ -18,6 +18,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.localmarket.R;
+import com.example.localmarket.activities.ActivityUserLobby;
 import com.example.localmarket.model.User;
 import com.example.localmarket.network.service.AuthService;
 import com.example.localmarket.utils.TokenManager;
@@ -50,8 +51,10 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
     private static final int MY_LOCATION_REQUEST_CODE = 101;
     private List<User> todosLosAgricultores = new ArrayList<>();
     private List<User> agricultoresEnRango = new ArrayList<>();
+    UserProductFragment userProductFragment ;
 
-    public Bundle bundle = new Bundle();
+
+
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -140,14 +143,12 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
                         usuario3.setLatitud(41.7694016);
                         usuario3.setLongitud(2.8093832);
 
-                        User usuario4 = new User("Ana", "Martínez", "anamartinez", "ana@example.com", "password321", 57, true);
-                        usuario4.setLatitud(41.7094016165);
-                        usuario4.setLongitud(2.8393832);
+
 
                         todosLosAgricultores.add(usuario1);
                         todosLosAgricultores.add(usuario2);
                         todosLosAgricultores.add(usuario3);
-                        todosLosAgricultores.add(usuario4);
+
                         for (User user : todosLosAgricultores) {
                             gMap.addMarker(new MarkerOptions()
                                     .position(new LatLng(user.getLatitud(), user.getLongitud()))
@@ -179,20 +180,21 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
 
     private void sendAgricultoresToUserProductFragment() {
 
+        Bundle bundle = new Bundle();
         ArrayList<Integer> agricultoresIds = new ArrayList<>();
         for (User user : todosLosAgricultores) {
             agricultoresIds.add(user.getId());
         }
         bundle.putIntegerArrayList("agricultoresIds", agricultoresIds);
 
-        UserProductFragment userProductFragment = UserProductFragment.newInstance();
+        userProductFragment = UserProductFragment.newInstance();
         userProductFragment.setArguments(bundle);
+
 
 
     }
     private void backToUserProductFragment(){
 
-        UserProductFragment userProductFragment = new UserProductFragment();
         // Reemplazar o agregar UserProductFragment en la actividad principal
         FragmentTransaction transaction = getFragmentManager().beginTransaction();
         transaction.replace(R.id.containerUserLobby, userProductFragment);
@@ -201,15 +203,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
 
 
 
-    @Override
-    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        if (requestCode == MY_LOCATION_REQUEST_CODE) {
-            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                onMapReady(gMap);
-            }
-        }
-    }
+
 
     @Override
     public void onResume() {

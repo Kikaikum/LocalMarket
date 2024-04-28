@@ -31,13 +31,17 @@ import android.util.Log;
 
 public class UserProductFragment extends Fragment implements ProductAdapter.OnProductClickListener {
     private List<Integer> agricultoresIdsEnRango = new ArrayList<>();
-    ;
     private List<Product> productosEnRango = new ArrayList<>();
     private AuthService authService;
     private List<Product> productList;
     private ProductAdapter adapter;
     private RecyclerView recyclerView;
     private TokenManager tokenManager;
+
+
+
+
+
 
 
     public UserProductFragment() {
@@ -54,11 +58,15 @@ public class UserProductFragment extends Fragment implements ProductAdapter.OnPr
     }
 
 
+
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         tokenManager = TokenManager.getInstance(requireContext());
-        if (getArguments() != null) {
+        authService = AuthService.getInstance();
+        Bundle bundle2 =super.getArguments();
+        if (bundle2 != null) {
             ArrayList<Integer> agricultoresIds = getArguments().getIntegerArrayList("agricultoresIds");
             if (agricultoresIds != null) {
                 Log.d("UserProductFragment", "Recibido Bundle con " + agricultoresIds.size() + " IDs de agricultores");
