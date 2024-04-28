@@ -1,7 +1,6 @@
 package com.example.localmarket.fragments;
 
 import android.content.Intent;
-import android.media.session.MediaSession;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -21,7 +20,6 @@ import com.example.localmarket.activities.ActivityUserLobby;
 import com.example.localmarket.activities.OrderActivity;
 import com.example.localmarket.model.CartItem;
 import com.example.localmarket.model.Order;
-import com.example.localmarket.model.ProductInfo;
 import com.example.localmarket.network.service.AuthService;
 import com.example.localmarket.utils.OrderAdapter;
 import com.example.localmarket.utils.OrderManager;
@@ -41,6 +39,7 @@ public class OrderDetailsFragment extends Fragment {
     private Button buttonEnviarPedido;
     private Button btnVolver;
     private TokenManager tokenManager;
+    private int pedidosEnviados = 0;
 
     public OrderDetailsFragment() {
         // Constructor público requerido
@@ -136,6 +135,8 @@ public class OrderDetailsFragment extends Fragment {
     }
 
 
+
+
     private void enviarPedidoAlServidor(List<CartItem> cartItems) {
         Map<Integer, List<CartItem>> groupedProducts = groupProductsByAgricultor(cartItems);
 
@@ -157,6 +158,26 @@ public class OrderDetailsFragment extends Fragment {
             sendOrderToServer(order);
         }
     }
+
+    private void sendOrderToServer(Order order) {
+        AuthService authService = new AuthService();
+        authService.sendOrder(order, new AuthService.AuthCallback<Void>() {
+            @Override
+            public void onSuccess(Void data) {
+                // Manejar el éxito del envío del pedido
+                pedidosEnviados++;
+                Toast.makeText(getContext(), "Pedido enviado exitosamente. Total de pedidos enviados: " + pedidosEnviados, Toast.LENGTH_SHORT).show();
+                // Vaciar la cesta de compras
+                orderManager.clearCartItems();
+            }
+
+            @Override
+            public void onError(Throwable t) {
+                // Manejar el error al enviar el pedido
+                Toast.makeText(getContext(), "Error al enviar el pedido: " + t.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
     private Order createOrder(int idCliente, int idAgricultor, List<CartItem> products) {
         Order order = new Order();
         order.setIdCliente(idCliente);
@@ -172,24 +193,7 @@ public class OrderDetailsFragment extends Fragment {
         return order;
     }
 
-    private void sendOrderToServer(Order order) {
-        AuthService authService = new AuthService();
-        authService.sendOrder(order, new AuthService.AuthCallback<Void>() {
-            @Override
-            public void onSuccess(Void data) {
-                // Manejar el éxito del envío del pedido
-                Toast.makeText(getContext(), "Pedido enviado exitosamente", Toast.LENGTH_SHORT).show();
-                // Vaciar la cesta de compras
-                orderManager.clearCartItems();
-            }
 
-            @Override
-            public void onError(Throwable t) {
-                // Manejar el error al enviar el pedido
-                Toast.makeText(getContext(), "Error al enviar el pedido: " + t.getMessage(), Toast.LENGTH_SHORT).show();
-            }
-        });
-    }
 
     private void navigateToLobbyUser() {
         Intent intent = new Intent(getContext(), ActivityUserLobby.class);

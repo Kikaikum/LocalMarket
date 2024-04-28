@@ -21,6 +21,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
     private List<Product> productList;
     private OnProductClickListener listener;
 
+
     /**
      * Constructor que acepta la lista de productos y el listener para manejar los clics en los productos.
      * @author Ainoha

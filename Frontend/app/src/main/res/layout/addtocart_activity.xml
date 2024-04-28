@@ -23,7 +23,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="28dp"
-        android:layout_marginTop="64dp"
+        android:layout_marginTop="50dp"
         android:text="Nombre del Producto:"
         android:textColor="@color/black"
         android:textSize="16sp"
@@ -104,6 +104,31 @@
         app:layout_constraintStart_toEndOf="@+id/textPrice"
         app:layout_constraintTop_toBottomOf="@+id/labelPrice" />
 
+    <TextView
+        android:id="@+id/labelFarmerUsername"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="20dp"
+        android:text="Vendedor:"
+        android:textColor="@color/black"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textPrice" />
+
+    <TextView
+        android:id="@+id/textFarmerUsername"
+        android:layout_width="0dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="30dp"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/labelFarmerUsername" />
+
     <Button
         android:id="@+id/btnVolver"
         android:layout_width="wrap_content"
@@ -118,19 +143,18 @@
         android:id="@+id/btnAddUnit"
         android:layout_width="50dp"
         android:layout_height="50dp"
-        android:layout_marginTop="36dp"
-        android:layout_marginEnd="108dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="132dp"
         android:text="+"
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/textPrice" />
+        app:layout_constraintTop_toBottomOf="@+id/textFarmerUsername" />
 
     <TextView
         android:id="@+id/textViewQuantity"
         android:layout_width="100dp"
         android:layout_height="50dp"
-        android:layout_marginStart="60dp"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="20dp"
         android:background="@drawable/border_background"
         android:gravity="center_horizontal|center_vertical"
         android:padding="8dp"
@@ -138,8 +162,9 @@
         android:textSize="16sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toStartOf="@+id/btnAddUnit"
+        app:layout_constraintHorizontal_bias="0.899"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textPrice" />
+        app:layout_constraintTop_toBottomOf="@+id/textFarmerUsername" />
 
     <Button
         android:id="@+id/btnAddToCart"
@@ -150,8 +175,10 @@
         android:text="@string/add_tocart"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textViewQuantity" />
+        app:layout_constraintTop_toBottomOf="@+id/textViewQuantity"
+        app:layout_constraintVertical_bias="0.583" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

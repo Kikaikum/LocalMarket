@@ -19,6 +19,7 @@ public class TokenManager {
     private static final String KEY_USER_ID = "id";
     private static final String KEY_USERNAME="username";
     private static final String KEY_PRODUCT_ID="productId";
+
     private User user;
 
 
@@ -93,6 +94,8 @@ public class TokenManager {
         editor.putInt(KEY_PRODUCT_ID, productId);
         editor.apply();
     }
+
+
 
     /**
      * Método para obtener el ID de usuario guardado en SharedPreferences.

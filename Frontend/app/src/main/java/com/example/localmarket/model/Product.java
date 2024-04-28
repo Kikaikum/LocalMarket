@@ -14,6 +14,9 @@ public class Product {
     private double precio;
     private int id;
     private double stock;
+    private int idAgricultor;
+
+
 
     /**
      * Constructor de la clase Product para un producto sin ID.
@@ -150,6 +153,13 @@ public class Product {
 
     public void setStock(double stock) {
         this.stock = stock;
+    }
+    public int getIdAgricultor() {
+        return idAgricultor;
+    }
+
+    public void setIdAgricultor(int idAgricultor) {
+        this.idAgricultor = idAgricultor;
     }
 
 
