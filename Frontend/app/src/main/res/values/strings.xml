@@ -61,6 +61,7 @@
     <string name="total">TOTAL:</string>
     <string name="tv_distancia">Rango de busqueda:</string>
     <string name="actualizar_busqueda">Actualizar</string>
+    <string name="search_button_productors">Buscar Productos</string>
 
 
 </resources>

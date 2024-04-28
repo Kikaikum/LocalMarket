@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.Toast;
 
 import com.example.localmarket.R;
@@ -37,11 +38,8 @@ public class UserProductFragment extends Fragment implements ProductAdapter.OnPr
     private ProductAdapter adapter;
     private RecyclerView recyclerView;
     private TokenManager tokenManager;
-
-
-
-
-
+    private View mapButton;
+    private boolean isMapButtonVisible= true;
 
 
     public UserProductFragment() {
@@ -94,12 +92,13 @@ public class UserProductFragment extends Fragment implements ProductAdapter.OnPr
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerView.setAdapter(adapter);
+        mapButton= view.findViewById(R.id.buttonMapFragment);
 
         authService = AuthService.getInstance();
         tokenManager = new TokenManager(getActivity());
 
 
-        //getAllProductsAvailable();
+        showMapFragmentButton();
         cargarProductosDeAgricultores();
 
         return view;
@@ -121,6 +120,8 @@ public class UserProductFragment extends Fragment implements ProductAdapter.OnPr
                         // Procesar los productos y mostrarlos en la interfaz
                         productosEnRango = productos;
                         mostrarProductosEnPantalla();
+                        mapButton.setEnabled(false);
+                        mapButton.setVisibility(View.GONE);
                     }
 
                     @Override
@@ -132,13 +133,47 @@ public class UserProductFragment extends Fragment implements ProductAdapter.OnPr
                 });
             }
         } else {
+            showMapFragmentButton();
             // Manejar el caso en el que la lista de IDs de agricultores esté vacía
             Log.e("UserProductFragment", "La lista de IDs de agricultores está vacía");
             Toast.makeText(getContext(), "No hay agricultores en el rango", Toast.LENGTH_SHORT).show();
         }
     }
 
+    private void showMapFragmentButton() {
+        // Código para mostrar el botón que abre el MapFragment
+        
+        
+        mapButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Código para abrir el MapFragment
+                openMapFragment();
+            }
+
+
+        });
+    }
+    private void openMapFragment() {
+        // Código para abrir el MapFragment
+        MapFragment mapFragment = new MapFragment();
+        FragmentTransaction transaction = getFragmentManager().beginTransaction();
+        transaction.replace(R.id.containerUserLobby, mapFragment);
+        transaction.commit();
+    }
+
     private void mostrarProductosEnPantalla() {
+        if (!productList.isEmpty()) {
+            // Hay productos, ocultar y deshabilitar el botón del MapFragment
+            isMapButtonVisible = false;
+            mapButton.setVisibility(View.GONE);
+            mapButton.setEnabled(false);
+        } else {
+            // No hay productos, mostrar y habilitar el botón del MapFragment
+            isMapButtonVisible = true;
+            mapButton.setVisibility(View.VISIBLE);
+            mapButton.setEnabled(true);
+        }
         // Aquí debes implementar la lógica para mostrar los productos en la interfaz de usuario
         // por ejemplo, en una lista, en una grilla, etc.
         adapter = new ProductAdapter(productosEnRango, this);

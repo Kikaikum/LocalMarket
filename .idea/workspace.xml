@@ -115,10 +115,11 @@
     <option name="autoReloadType" value="NONE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="72ff1c52-651c-4388-8d0f-812589155228" name="Changes" comment="v2, comunicacion entre fragments usando Bundle exitosa">
-      <change beforePath="$PROJECT_DIR$/.idea/deploymentTargetDropDown.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/deploymentTargetDropDown.xml" afterDir="false" />
+    <list default="true" id="72ff1c52-651c-4388-8d0f-812589155228" name="Changes" comment="+ Bundle comunication success entre fragments.&#10;+redirect to UserProductFragment desde AddToCartActivity.java para mantener los productos.">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Frontend/app/src/main/java/com/example/localmarket/activities/AddToCartActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/Frontend/app/src/main/java/com/example/localmarket/activities/AddToCartActivity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Frontend/app/src/main/java/com/example/localmarket/fragments/UserProductFragment.java" beforeDir="false" afterPath="$PROJECT_DIR$/Frontend/app/src/main/java/com/example/localmarket/fragments/UserProductFragment.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Frontend/app/src/main/res/layout/fragment_user_product.xml" beforeDir="false" afterPath="$PROJECT_DIR$/Frontend/app/src/main/res/layout/fragment_user_product.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Frontend/app/src/main/res/values/strings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/Frontend/app/src/main/res/values/strings.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -182,6 +183,20 @@
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
     <option name="RESET_MODE" value="MIXED" />
+  </component>
+  <component name="GitHubPullRequestSearchHistory"><![CDATA[{
+  "lastFilter": {
+    "state": "OPEN",
+    "assignee": "Rookieoldman"
+  }
+}]]></component>
+  <component name="GithubPullRequestsUISettings">
+    <option name="selectedUrlAndAccountId">
+      <UrlAndAccount>
+        <option name="accountId" value="02842acc-26e6-409f-9c54-aa0834cd970a" />
+        <option name="url" value="https://github.com/Kikaikum/LocalMarket.git" />
+      </UrlAndAccount>
+    </option>
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
@@ -685,7 +700,15 @@
       <option name="project" value="LOCAL" />
       <updated>1714296026287</updated>
     </task>
-    <option name="localTasksCounter" value="15" />
+    <task id="LOCAL-00015" summary="+ Bundle comunication success entre fragments.&#10;+redirect to UserProductFragment desde AddToCartActivity.java para mantener los productos.">
+      <option name="closed" value="true" />
+      <created>1714304567775</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1714304567775</updated>
+    </task>
+    <option name="localTasksCounter" value="16" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -715,7 +738,8 @@
     <MESSAGE value="+creado el apiservice para obtener todos los usuarios ademas de colocarlos en el mapa cuando este implementado en la parte servidor&#10;+generados los metodos necesarios para la ejecucion del mapa i los marcadores" />
     <MESSAGE value="v1, comunicacion entre fragments usando Bundle" />
     <MESSAGE value="v2, comunicacion entre fragments usando Bundle exitosa" />
-    <option name="LAST_COMMIT_MESSAGE" value="v2, comunicacion entre fragments usando Bundle exitosa" />
+    <MESSAGE value="+ Bundle comunication success entre fragments.&#10;+redirect to UserProductFragment desde AddToCartActivity.java para mantener los productos." />
+    <option name="LAST_COMMIT_MESSAGE" value="+ Bundle comunication success entre fragments.&#10;+redirect to UserProductFragment desde AddToCartActivity.java para mantener los productos." />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/Local_Market$AuthServiceUnitTest_testSignUpUser_Failure.ic" NAME="AuthServiceUnitTest.testSignUpUser_Failure Coverage Results" MODIFIED="1711036953776" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
