@@ -1,9 +1,6 @@
 const boom = require('@hapi/boom');
-const bcrypt = require('bcrypt');
-const jwt = require('jsonwebtoken');
-
 const { models } = require('./../libs/sequelize');
-const { config } = require('./../config/config');
+
 
 class ProductService {
   constructor() {}

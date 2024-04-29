@@ -1,0 +1,57 @@
+const boom = require('@hapi/boom');
+const { models } = require('./../libs/sequelize');
+
+class OrderService {
+  constructor() {}
+
+  async create(data) {    
+    const newOrder = await models.Order.create(data);    
+    return newOrder;
+  }
+
+  async find() {
+    const orders = await models.Order.findAll();    
+    return orders;
+  }
+
+  async findOne(id) {
+    const order = await models.Order.findByPk(id);
+    if (!order) {
+      throw boom.notFound('order not found');
+    }
+    return order;
+  }
+
+  async findByAgricultor(agricultor) {
+    const orders = await models.Order.findAll({
+      where: { idAgricultor: agricultor }
+    });
+    
+    return orders;
+  }
+
+
+  async update(id, changes, authenticatedUserId) {
+    const order = await this.findOne(id);    
+    if (authenticatedUserId === order.idAgricultor) {
+      const updatedOrder = await order.update(changes);
+      return updatedOrder;
+    } else {
+      throw new Error("No tienes permiso para actualizar este ordero.");
+    }
+  }
+
+  async delete(id,authenticatedUserId) {
+    const order = await this.findOne(id);
+    if (authenticatedUserId === order.idAgricultor){
+      await order.destroy();
+      return { id };
+    } else {
+      throw new Error("No tienes permiso para eliminar este ordero.");
+    }
+  }
+
+  
+}
+
+module.exports = OrderService;
