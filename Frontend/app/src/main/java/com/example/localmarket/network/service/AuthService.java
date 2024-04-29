@@ -116,7 +116,7 @@ public class AuthService {
      * @author Oriol Estero Sanchez
      */
     public void signUpUser(String email, String password, String username, String nombre, String apellidos, Boolean isVendor, double latitud, double longitud, final AuthCallback<SignUpResponse> callback) {
-        SignUpRequest signUpRequest = new SignUpRequest(email, password, username, nombre, apellidos, isVendor);
+        SignUpRequest signUpRequest = new SignUpRequest(email, password, username, nombre, apellidos, isVendor,latitud,longitud);
         apiService.createUser(signUpRequest).enqueue(new Callback<SignUpResponse>() {
             @Override
             public void onResponse(Call<SignUpResponse> call, Response<SignUpResponse> response) {
