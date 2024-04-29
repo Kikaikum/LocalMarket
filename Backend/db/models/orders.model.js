@@ -1,8 +1,8 @@
 const { Model, DataTypes, Sequelize } = require('sequelize');
 
-const USER_TABLE = 'users';
+const ORDER_TABLE = 'orders';
 
-const UserSchema = {
+const OrderSchema = {
   id: {
     allowNull: false,
     autoIncrement: true,
@@ -10,14 +10,26 @@ const UserSchema = {
     type: DataTypes.INTEGER
   },
   clientId: {
+    field: 'clientId',
     allowNull: false,
     type: DataTypes.INTEGER,
-    unique: true,
+    references: {
+      model: USER_TABLE,
+      key: 'id'
+    },
+    //onUpdate: 'CASCADE',
+    //onDelete: 'SET NULL' 
   },
   agricultorId : {
+    field: 'agricultorId',
     allowNull: false,
     type: DataTypes.INTEGER,
-    unique: true,
+    references: {
+      model: USER_TABLE,
+      key: 'id'
+    },
+    //onUpdate: 'CASCADE',
+    //onDelete: 'SET NULL' 
   },
   pedido: {
     allowNull: false,
@@ -31,25 +43,33 @@ const UserSchema = {
   }
 }
 
-class User extends Model {
+class Order extends Model {
   
   static associate(models) {
     
-    models.Product.belongsTo(models.User, {
-      as: 'user',
-      foreignKey: 'id'
+    models.Order.belongsTo(models.User, {
+      as: 'client', // alias para la relación
+      foreignKey: 'clientId', // campo en la tabla de Order que referencia al id del usuario
+      //onDelete: 'SET NULL'
+    });
+
+    // Relación muchos a uno: un pedido pertenece a un agricultor
+    models.Order.belongsTo(models.User, {
+      as: 'agricultor', // alias para la relación
+      foreignKey: 'agricultorId', // campo en la tabla de Order que referencia al id del usuario
+      //onDelete: 'SET NULL'
     });
   }
 
   static config(sequelize) {
     return {
       sequelize,
-      tableName: USER_TABLE,
-      modelName: 'User',
+      tableName: ORDER_TABLE,
+      modelName: 'Order',
       timestamps: false
     }
   }
 }
 
 
-module.exports = { USER_TABLE, UserSchema, User }
+module.exports = { ORDER_TABLE, OrderSchema, Order }

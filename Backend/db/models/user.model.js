@@ -50,7 +50,18 @@ class User extends Model {
     
     models.User.hasMany(models.Product, {
       as: 'products',
-      foreignKey: 'idAgricultor'      
+      foreignKey: 'idAgricultor',
+      onDelete: 'CASCADE'      
+    });
+
+     models.User.hasMany(models.Order, {
+      as: 'clientOrders', 
+      foreignKey: 'clientId' 
+    });
+
+    models.User.hasMany(models.Order, {
+      as: 'agricultorOrders', 
+      foreignKey: 'agricultorId' 
     });
   }
 
