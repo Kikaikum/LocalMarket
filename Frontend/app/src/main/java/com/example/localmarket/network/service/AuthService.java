@@ -1,5 +1,7 @@
 package com.example.localmarket.network.service;
 
+import com.example.localmarket.context.ContextProvider;
+import com.example.localmarket.model.Order;
 import com.example.localmarket.model.Product;
 import com.example.localmarket.model.LoginRequest;
 import com.example.localmarket.model.LoginResponse;
@@ -36,6 +38,8 @@ public class AuthService {
 
     private ApiService apiService;
     private static AuthService instance;
+    private ProductRequest capturedProductRequest;
+    private ContextProvider contextProvider=null;
 
     private SessionManager sessionManager;
 
@@ -61,8 +65,9 @@ public class AuthService {
         // Creación de la interfaz de servicio a partir de Retrofit
         apiService = retrofit.create(ApiService.class);
     }
-    public AuthService(ApiService apiService) {
+    public AuthService(ApiService apiService, ContextProvider contextProvider) {
         this.apiService = apiService;
+        this.contextProvider = contextProvider;
     }
 
     /**
@@ -75,6 +80,7 @@ public class AuthService {
      */
     public void loginUser(String userName, String password, final AuthCallback<LoginResponse> callback) {
         LoginRequest loginRequest = new LoginRequest(userName, password);
+
         apiService.loginUser(loginRequest).enqueue(new Callback<LoginResponse>() {
             @Override
             public void onResponse(Call<LoginResponse> call, Response<LoginResponse> response) {
@@ -103,11 +109,13 @@ public class AuthService {
      * @param nombre    Nombre del usuario.
      * @param apellidos Apellidos del usuario.
      * @param isVendor  Indica si el usuario es un vendedor o no.
+     * @param latitud   Indica la latitud del usuario en el mapa.
+     * @param longitud  Indica la longitud del usuario en el mapa.
      * @param callback  Callback para manejar la respuesta del registro.
      *
      * @author Oriol Estero Sanchez
      */
-    public void signUpUser(String email, String password, String username, String nombre, String apellidos, Boolean isVendor, final AuthCallback<SignUpResponse> callback) {
+    public void signUpUser(String email, String password, String username, String nombre, String apellidos, Boolean isVendor, double latitud, double longitud, final AuthCallback<SignUpResponse> callback) {
         SignUpRequest signUpRequest = new SignUpRequest(email, password, username, nombre, apellidos, isVendor);
         apiService.createUser(signUpRequest).enqueue(new Callback<SignUpResponse>() {
             @Override
@@ -374,6 +382,10 @@ public class AuthService {
         return currentUser;
     }
 
+    public ProductRequest getCapturedProductRequest() {
+        return capturedProductRequest;
+    }
+
     /**
      * Callback para manejar el resultado de la obtención del perfil de usuario.
      *
@@ -439,6 +451,7 @@ public class AuthService {
     }
 
     public void addProduct(int id, ProductRequest product, String token, final AuthCallback<ProductResponse> callback) {
+        capturedProductRequest = product;
         Call<ProductResponse> call = apiService.addProduct(id, "Bearer " + token, product);
         call.enqueue(new Callback<ProductResponse>() {
             @Override
@@ -481,6 +494,40 @@ public class AuthService {
             }
         });
     }
+
+    /**
+     * Método para obtener todos los productos disponibles desde el servidor.
+     *
+     * @param callback El callback que será llamado cuando se complete la solicitud.
+     */
+    public void getAllProductsAvailable(final AuthCallback<List<Product>> callback) {
+        Call<List<Product>> call = apiService.getAllProductsAvailable();
+        call.enqueue(new Callback<List<Product>>() {
+            @Override
+            public void onResponse(Call<List<Product>> call, Response<List<Product>> response) {
+                if (response.isSuccessful()) {
+                    // La solicitud fue exitosa. Usa callback para enviar la lista de productos a la UI
+                    callback.onSuccess(response.body());
+                } else {
+                    // Maneja el caso donde la respuesta no es exitosa
+                    callback.onError(new Exception("Error al obtener productos: " + response.message()));
+                }
+            }
+
+            /**
+             * Maneja errores de conexión o de respuesta.
+             *
+             * @param call La llamada que generó el error.
+             * @param t El objeto Throwable que indica el error.
+             */
+            @Override
+            public void onFailure(Call<List<Product>> call, Throwable t) {
+                // Maneja errores de conexión
+                callback.onError(t);
+            }
+        });
+    }
+
     /**
      * Actualiza un producto en el servidor utilizando su ID y los datos actualizados del producto.
      * @param productId ID del producto que se desea actualizar.
@@ -505,11 +552,14 @@ public class AuthService {
 
             @Override
             public void onFailure(Call<Void> call, Throwable t) {
+                System.out.println("Error en la llamada al servidor al actualizar el producto: " + t.getMessage());
                 // Si hay un fallo en la llamada, llamar al método onError del callback
                 callback.onError(t);
             }
         });
     }
+
+
 
     /**
      * Elimina un producto del servidor utilizando su ID.
@@ -540,6 +590,33 @@ public class AuthService {
         });
     }
 
+    /**
+     * Método para enviar un pedido al servidor.
+     *
+     * @param order Objeto Order que contiene la información del pedido.
+     * @param callback Callback para manejar la respuesta del envío del pedido.
+     * @author Ainoha
+     */
+    public void sendOrder(Order order, final AuthCallback<Void> callback) {
+        int idCliente = order.getIdCliente();
+        int idAgricultor = order.getIdAgricultor();
+
+        apiService.createOrder(idCliente, idAgricultor, order).enqueue(new Callback<Void>() {
+            @Override
+            public void onResponse(Call<Void> call, Response<Void> response) {
+                if (response.isSuccessful()) {
+                    callback.onSuccess(null);
+                } else {
+                    callback.onError(new Exception("Error al enviar el pedido"));
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Void> call, Throwable t) {
+                callback.onError(t);
+            }
+        });
+    }
 
 
 
@@ -551,4 +628,7 @@ public class AuthService {
     public User getUser() {
         return sessionManager.getUser(); // O cualquier otra forma de obtener el usuario de la sesión actual
     }
+
+
+
 }

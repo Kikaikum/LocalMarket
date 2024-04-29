@@ -23,17 +23,19 @@ import com.example.localmarket.utils.TokenManager;
 
 /**
  * Actividad para editar un producto.
- * @author ainoha
+ * Esta actividad permite a los usuarios editar los detalles de un producto, como el nombre, la descripción, el precio y el stock.
+ * Los usuarios también pueden eliminar el producto o guardar los cambios realizados.
+  * @author ainoha
  */
 public class EditProductActivity extends AppCompatActivity {
+
 
     private TokenManager tokenManager;
     private AuthService authService;
 
 
-
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.edit_product);
 
@@ -179,6 +181,12 @@ public class EditProductActivity extends AppCompatActivity {
 
 
     }
+
+    /**
+     * Elimina el producto actualmente en edición.
+     * Este método solicita al servicio de autenticación que elimine el producto actualmente en edición.
+     * Después de eliminar el producto, redirige al usuario a la pantalla de inicio.
+     */
     private void deleteProduct() {
         // Obtener el id de producto y el token de autenticación
         int productId = tokenManager.getProductId();
@@ -231,6 +239,9 @@ public class EditProductActivity extends AppCompatActivity {
         dialog.show();
     }
 
+    /**
+     * Redirige al usuario a la pantalla de inicio.
+     */
     private void redirectToLobby() {
 
         Intent intent = new Intent(this, ActivitySellerLobby.class);

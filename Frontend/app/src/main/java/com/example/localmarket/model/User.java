@@ -14,6 +14,9 @@ public class User {
     private String password;
     private int id;
     private boolean agricultor;
+    private double latitud;
+    private double longitud;
+
     /**
      * Constructor para crear una instancia de User.
      * @author Oriol+ Ainoha
@@ -168,5 +171,20 @@ public class User {
      */
     public void setAgricultor(boolean agricultor) {
         this.agricultor = agricultor;
+    }
+
+    public double getLatitud() {
+        return latitud;
+    }
+    public void setLatitud(double latitud) {
+        this.latitud = latitud;
+    }
+
+    public double getLongitud() {
+        return longitud;
+    }
+
+    public void setLongitud(double longitud) {
+        this.longitud = longitud;
     }
 }

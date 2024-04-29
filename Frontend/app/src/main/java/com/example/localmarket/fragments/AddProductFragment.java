@@ -4,6 +4,7 @@ import android.content.Context;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentManager;
 
 import android.util.Log;
@@ -13,6 +14,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.CompoundButton;
+import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Switch;
 import android.widget.TextView;
@@ -34,19 +36,26 @@ import java.util.List;
 
 public class AddProductFragment extends Fragment {
 
-    private Spinner spinnerImages;
-    private List<Product> productList;
-    private Switch switchMeasurement;
-    private TokenManager tokenManager;
 
-    private TextInputEditText itPrice, itDescription, itStock;
-    private TextView etSwitch, etStock, etPriceCurrency;
+    public Spinner spinnerImages;
+    private List<Product> productList;
+    Switch switchMeasurement;
+    private TokenManager tokenManager;
+    private AuthService authService;
+
+    public TextInputEditText itPrice, itDescription, itStock;
+    public TextView etSwitch;
+    public TextView etStock;
+    private TextView etPriceCurrency;
+    private FragmentActivity activity;
+    private Context context;
 
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflar el layout para este fragmento
         View view = inflater.inflate(R.layout.fragment_add_product, container, false);
+
 
         // Inicializar la lista de productos con imágenes
         initializeProductList();
@@ -75,7 +84,7 @@ public class AddProductFragment extends Fragment {
         etSwitch = view.findViewById(R.id.tvUnidadMedida);
         etPriceCurrency = view.findViewById(R.id.tvPriceCurrency);
 
-        etSwitch.setText("<-- Selecione unidad de\n\t\t\t medida");
+        etSwitch.setText("<-- Escoja unidad de \n\t\t\t\tmedida");
         etStock.setText("");
         etPriceCurrency.setText("€");
 
@@ -110,89 +119,175 @@ public class AddProductFragment extends Fragment {
                 }
             }
         });
-        TextInputEditText editTextPrice = view.findViewById(R.id.itPrice);
-        TextInputEditText editTextDescription = view.findViewById(R.id.etDescription);
-        TextInputEditText editTextStock = view.findViewById(R.id.itStock);
+        itPrice = view.findViewById(R.id.itPrice);
+        itDescription = view.findViewById(R.id.etDescription);
+        itStock = view.findViewById(R.id.itStock);
 
 
         // Configura el listener para el botón Aceptar
         btnAccept.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Suponiendo que tienes un EditText para el nombre y otro para el precio
-                String name = ((Product) spinnerImages.getSelectedItem()).getName();
-                int categoriaId = ((Product) spinnerImages.getSelectedItem()).getCategoriaId();
-                String description = editTextDescription.getText().toString();
-                String unidadMedida = etSwitch.getText().toString();
-                double price = 0;
-                double stock = 0;
-                Context context = getActivity();
-                TokenManager tokenManager = TokenManager.getInstance(context);
-                int idAgricultor = tokenManager.getUserId();
-                String token = tokenManager.getToken();
-                int id = tokenManager.getUserId();
-                try {
-                    price = Double.parseDouble(editTextPrice.getText().toString());
-                    stock = Double.parseDouble(editTextStock.getText().toString());
-
-                } catch (NumberFormatException e) {
-                    Log.e("AddProductFragment", "Error al parsear el precio", e);
-                    // Manejar error, por ejemplo, mostrando un mensaje al usuario
-                }
-                // Validar si se ha cambiado la unidad de medida
-                String defaultUnit = "<-- Selecione unidad de\n\t\t\t medida";
-                if (unidadMedida.equals(defaultUnit)) {
-                    // Si el usuario no ha cambiado la unidad de medida, mostrar un Toast
-                    Toast.makeText(getContext(), "Por favor, seleccione una unidad de medida", Toast.LENGTH_SHORT).show();
-                    return; // Salir del método para evitar enviar la solicitud al servidor
-                }
-                // Crear ProductRequest y enviarlo
-                ProductRequest productRequest = new ProductRequest(name, categoriaId, price, unidadMedida, description, idAgricultor, stock,token);
-
-                AuthService.getInstance().addProduct( id,productRequest,token, new AuthService.AuthCallback<ProductResponse>() {
-                    @Override
-                    public void onSuccess(ProductResponse response) {
-                        Log.i("ProductAdd", "Producto añadido con éxito. ID: " + response.getId());
-                        Log.i("ProductAdd", "Nombre: " + response.getNombre());
-                        Log.i("ProductAdd", "Categoría ID: " + response.getCategoriaId());
-                        Log.i("ProductAdd", "Descripción: " + response.getDescripcion());
-                        Log.i("ProductAdd", "Unidad de medida: " + response.getUnidadMedida());
-                        Log.i("ProductAdd", "Precio: " + response.getPrecio());
-                        Log.i("ProductAdd", "Stock: " + response.getStock());
-
-                        Toast.makeText(getContext(), "Producto registrado exitosamente", Toast.LENGTH_SHORT).show();
-
-                        FragmentManager fragmentManager = requireActivity().getSupportFragmentManager();
-                        fragmentManager.beginTransaction()
-                                .replace(R.id.fragment_container2, new SellerProductFragment())
-                                .addToBackStack(null)
-                                .commit();
-
-                    }
-
-                    @Override
-                    public void onError(Throwable t) {
-                        Log.e("ProductAdd", "Error al añadir producto: " + t.getMessage());
-
-                    }
-                });
+                sendProduct();
             }
         });
 
         btnCancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                requireActivity().getSupportFragmentManager().popBackStack();
+                onCancelButtonClick();
             }
         });
 
         return view;
     }
+
+    public void setAuthService(AuthService mockAuthService) {
+        this.authService = mockAuthService;
+    }
+
+    public void setTokenManager(TokenManager tokenManager) {
+        this.tokenManager = tokenManager;
+    }
+
+    public Object getItPrice() {
+        return itPrice;
+    }
+
+    public Object getItDescription() {
+        return itDescription;
+    }
+
+    public Object getItStock() {
+        return itStock;
+    }
+
+    public void setActivity(FragmentActivity activity) {
+        this.activity = activity;
+    }
+
+    // Método setter para establecer el contexto
+    public void setContext(Context context) {
+        this.context = context;
+    }
+
+    public void setSpinnerImages(Spinner spinner) {
+        this.spinnerImages = spinner;
+    }
+
+    public void setDescriptionEditText(TextInputEditText descriptionEditText) {
+        this.itDescription = descriptionEditText;
+    }
+
+    public void setSwitchEditText(EditText switchEditText) {
+        this.etSwitch = switchEditText;
+    }
+
+    public void setSelectedProduct(Product selectedProduct) {
+    }
+
+    public void onCancelButtonClick() {
+        requireActivity().getSupportFragmentManager().popBackStack();
+    }
+
+
     public interface OnProductAddedListener {
         void onProductAdded(Product product);
     }
 
-    private void initializeProductList() {
+    public void sendProduct() {
+        System.out.println("Inicio de sendProduct");
+
+        // Verifica el producto seleccionado en el spinner
+        Product selectedProduct = (Product) spinnerImages.getSelectedItem();
+        if (selectedProduct == null) {
+            System.out.println("No hay producto seleccionado en el spinner");
+            return;
+        }
+        System.out.println("Producto seleccionado: " + selectedProduct.getName());
+
+        // Verificación de itDescription
+        if (itDescription == null || itDescription.getText() == null) {
+            System.out.println("itDescription o itDescription.getText() es null");
+            return;
+        }
+        String description = itDescription.getText().toString();
+        System.out.println("Descripción obtenida: " + description);
+
+        // Verificación de etSwitch
+        if (etSwitch == null || etSwitch.getText() == null) {
+            System.out.println("etSwitch o etSwitch.getText() es null");
+            return;
+        }
+        String unidadMedida = etSwitch.getText().toString();
+        System.out.println("Unidad de medida obtenida: " + unidadMedida);
+
+        // Intenta parsear precio
+        double price = 0;
+        if (itPrice == null || itPrice.getText() == null) {
+            System.out.println("itPrice o itPrice.getText() es null");
+            return;
+        }
+        try {
+            price = Double.parseDouble(itPrice.getText().toString());
+        } catch (NumberFormatException e) {
+            System.out.println("Error al parsear el precio");
+            return;
+        }
+        System.out.println("Precio parseado: " + price);
+
+        // Intenta parsear stock
+        double stock = 0;
+        if (itStock == null || itStock.getText() == null) {
+            System.out.println("itStock o itStock.getText() es null");
+            return;
+        }
+        try {
+            stock = Double.parseDouble(itStock.getText().toString());
+        } catch (NumberFormatException e) {
+            System.out.println("Error al parsear el stock");
+            return;
+        }
+        System.out.println("Stock parseado: " + stock);
+
+        // Contexto y manejo de TokenManager
+        Context context = getActivity();
+        if (context == null) {
+            System.out.println("Context es null");
+            return;
+        }
+        TokenManager tokenManager = TokenManager.getInstance(context);
+        int idAgricultor = tokenManager.getUserId();
+        String token = tokenManager.getToken();
+
+        System.out.println("idAgricultor: " + idAgricultor + ", token: " + token);
+
+        // Crear ProductRequest
+        ProductRequest productRequest = new ProductRequest(selectedProduct.getName(), selectedProduct.getCategoriaId(), price, unidadMedida, description, idAgricultor, stock, token);
+        System.out.println("ProductRequest creado");
+        AuthService.getInstance().addProduct(idAgricultor, productRequest, token, new AuthService.AuthCallback<ProductResponse>() {
+            @Override
+            public void onSuccess(ProductResponse response) {
+                Log.i("ProductAdd", "Producto añadido con éxito. ID: " + response.getId());
+                Toast.makeText(context, "Producto registrado exitosamente", Toast.LENGTH_SHORT).show();
+
+                FragmentManager fragmentManager = ((FragmentActivity) context).getSupportFragmentManager();
+                fragmentManager.beginTransaction()
+                        .replace(R.id.fragment_container2, new SellerProductFragment())
+                        .addToBackStack(null)
+                        .commit();
+            }
+
+            @Override
+            public void onError(Throwable t) {
+                Log.e("ProductAdd", "Error al añadir producto: " + t.getMessage());
+                Toast.makeText(context, "Error al registrar el producto", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+
+    public void initializeProductList() {
         productList = new ArrayList<>();
         // Aquí agregarías cada producto a la lista
         productList.add(new Product(R.drawable.apple_whole_18, "Manzanas"));
@@ -234,4 +329,5 @@ public class AddProductFragment extends Fragment {
         productList.add(new Product(R.drawable.watermelon_18, "Sandia"));
 
     }
+
 }

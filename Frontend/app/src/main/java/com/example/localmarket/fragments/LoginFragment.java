@@ -123,6 +123,7 @@ public class LoginFragment extends Fragment {
                     tokenManager.saveUsername(username);
 
                     // Mostrar un mensaje de tostada para indicar el inicio de sesión exitoso
+
                     Toast.makeText(getActivity(), "Login exitoso", Toast.LENGTH_SHORT).show();
 
                     // Abrir la pantalla principal

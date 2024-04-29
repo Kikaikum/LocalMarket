@@ -12,12 +12,22 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.localmarket.model.Product;
 import com.example.localmarket.R;
 
+/**
+ * Adaptador para mostrar una lista de productos en un RecyclerView.
+ * @author Oriol + Ainoha
+ */
 public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductViewHolder> {
 
     private List<Product> productList;
     private OnProductClickListener listener;
 
-    // Constructor que acepta la lista de productos y el listener
+
+    /**
+     * Constructor que acepta la lista de productos y el listener para manejar los clics en los productos.
+     * @author Ainoha
+     * @param productList La lista de productos a mostrar.
+     * @param listener    El listener para manejar los clics en los productos.
+     */
     public ProductAdapter(List<Product> productList, OnProductClickListener listener) {
         this.productList = productList;
         this.listener = listener; // Asignar el listener
@@ -30,10 +40,9 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
         return new ProductViewHolder(view);
     }
 
-
     /**
      * Vincula los datos del producto al ViewHolder dado y agrega un listener de clic al itemView.
-     *
+     * @author oriol
      * @param holder   El ViewHolder al que se van a vincular los datos del producto.
      * @param position La posición del elemento dentro del conjunto de datos del adaptador.
      */
@@ -41,15 +50,22 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
     public void onBindViewHolder(@NonNull ProductViewHolder holder, int position) {
         Product product = productList.get(position);
         holder.bind(product, listener);
-
-
-
     }
+
+    /**
+     * Obtiene el número total de elementos en el conjunto de datos del adaptador.
+     * @author Oriol
+     * @return El número total de elementos en el conjunto de datos del adaptador.
+     */
     @Override
     public int getItemCount() {
         return productList.size();
     }
 
+    /**
+     * ViewHolder para mostrar un producto en un RecyclerView.
+     * @author Oriol
+     */
     public static class ProductViewHolder extends RecyclerView.ViewHolder {
 
         private TextView textProductName;
@@ -61,11 +77,17 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
             imageViewProduct = itemView.findViewById(R.id.imageProduct);
         }
 
+        /**
+         * Vincula los datos del producto al ViewHolder y agrega un listener de clic al itemView.
+         *
+         * @param product  El producto a mostrar.
+         * @param listener El listener para manejar los clics en los productos.
+         * @author Ainoha
+         */
         public void bind(Product product, final OnProductClickListener listener) {
             textProductName.setText(product.getName());
             // Asignar la imagen al ImageView
-            imageViewProduct.setImageResource(product.getCategoriaId());
-
+             imageViewProduct.setImageResource(product.getCategoriaId());
 
             // Manejar clics en el elemento
             itemView.setOnClickListener(new View.OnClickListener() {
@@ -76,8 +98,17 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
             });
         }
     }
-    // Interfaz para manejar clics en los productos
+
+    /**
+     * Interfaz para manejar los clics en los productos.
+     * @author Ainoha
+     */
     public interface OnProductClickListener {
+        /**
+         * Método llamado cuando se hace clic en un producto.
+         *
+         * @param product El producto en el que se hizo clic.
+         */
         void onProductClick(Product product);
     }
 }

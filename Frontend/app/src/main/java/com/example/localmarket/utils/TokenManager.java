@@ -3,6 +3,8 @@ package com.example.localmarket.utils;
 import android.content.Context;
 import android.content.SharedPreferences;
 
+import com.example.localmarket.model.User;
+
 /**
  * Clase para manejar el token de autenticación y otros datos almacenados en SharedPreferences.
  *
@@ -18,15 +20,19 @@ public class TokenManager {
     private static final String KEY_USERNAME="username";
     private static final String KEY_PRODUCT_ID="productId";
 
+    private User user;
+
 
     private SharedPreferences sharedPreferences;
     private static TokenManager instance;
+    private Context applicationContext;
 
     public  TokenManager() {
 
     }
 
     public TokenManager(Context context) {
+        applicationContext = context.getApplicationContext();
         sharedPreferences = context.getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE);
     }
 
@@ -41,6 +47,9 @@ public class TokenManager {
             instance = new TokenManager(context.getApplicationContext());
         }
         return instance;
+    }
+    public Context getContext() {
+        return applicationContext;
     }
     /**
      * Método para guardar el token de autenticación en SharedPreferences.
@@ -86,6 +95,8 @@ public class TokenManager {
         editor.apply();
     }
 
+
+
     /**
      * Método para obtener el ID de usuario guardado en SharedPreferences.
      *
@@ -129,5 +140,29 @@ public class TokenManager {
         editor.remove(KEY_USER_ID);
         editor.apply();
     }
+
+    private int userId;
+
+    public void setUserId(int userId) {
+        this.userId = userId;
+    }
+    /**
+     * Método para establecer el usuario actual.
+     *
+     * @param user El objeto User que representa al usuario actual.
+     */
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    /**
+     * Método para obtener el usuario actual.
+     *
+     * @return El objeto User que representa al usuario actual.
+     */
+    public User getUser() {
+        return this.user;
+    }
+
 }
 

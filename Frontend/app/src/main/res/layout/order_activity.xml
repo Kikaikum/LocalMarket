@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:background="@color/soft_green"
     android:theme="@style/Base.Theme.LocalMarket"
-    tools:context=".activities.ActivityUserLobby">
+    tools:context=".activities.AddToCartActivity">
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
@@ -29,7 +29,7 @@
         android:fillViewport="true">
 
         <androidx.fragment.app.FragmentContainerView
-            android:id="@+id/containerUserLobby"
+            android:id="@+id/containerOrderActivity"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
             <!-- Contenido de tu Fragment -->

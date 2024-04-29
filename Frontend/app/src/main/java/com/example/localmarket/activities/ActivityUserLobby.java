@@ -8,11 +8,17 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.localmarket.R;
+import com.example.localmarket.fragments.MapFragment;
+import com.example.localmarket.fragments.UserProductFragment;
 import com.example.localmarket.model.Product;
+import com.example.localmarket.model.User;
 import com.example.localmarket.network.service.AuthService;
+import com.example.localmarket.utils.OnAgricultoresInRangeListener;
 import com.example.localmarket.utils.ProductAdapter;
 
 import java.util.ArrayList;
@@ -26,17 +32,21 @@ import java.util.List;
  *
  * @author Oriol Estero Sanchez
  */
-public class ActivityUserLobby extends AppCompatActivity {
+public class ActivityUserLobby extends AppCompatActivity implements OnAgricultoresInRangeListener {
 
-    private RecyclerView recyclerView;
-    private ProductAdapter adapter;
-    private List<Product> productList;
+    private static final int FRAGMENT_USER_PRODUCTS = 0;
+    private static final int FRAGMENT_MAP = 1;
+    private int currentFragment = FRAGMENT_USER_PRODUCTS;
+    private MenuItem gpsMenuItem;
     private AuthService authService;
+
+    Bundle bundle;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_lobby);
+        bundle = new Bundle();
 
         // Inicializar AuthService
         authService = AuthService.getInstance();
@@ -44,12 +54,28 @@ public class ActivityUserLobby extends AppCompatActivity {
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        if (savedInstanceState == null) {
+            getSupportFragmentManager().beginTransaction()
+                    .replace(R.id.containerUserLobby, new UserProductFragment())
+                    .commit();
+        }
+
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.bottom_nav_menu, menu);
+        gpsMenuItem = menu.findItem(R.id.gps_options);
         return true;
+    }
+    public boolean onPrepareOptionsMenu(Menu menu) {
+        // Aquí actualizamos el icono del menú dependiendo del fragmento que se esté mostrando
+        if (currentFragment == FRAGMENT_MAP) {
+            gpsMenuItem.setIcon(R.drawable.turn_back);// icono para el UserProductsFragment
+        } else {
+            gpsMenuItem.setIcon(android.R.drawable.ic_menu_mylocation); // icono para el MapFragment
+        }
+        return super.onPrepareOptionsMenu(menu);
     }
 
     @Override
@@ -66,9 +92,31 @@ public class ActivityUserLobby extends AppCompatActivity {
             // Lógica para manejar el clic en el elemento "Cerrar sesión"
             logout();
             return true;
+        }else if  (id==R.id.carrito){
+            Intent intent=new Intent (this, OrderActivity.class);
+            startActivity(intent);
+        } else if (id == R.id.gps_options) {
+            toggleFragment();
+            invalidateOptionsMenu();
+
         }
 
         return super.onOptionsItemSelected(item);
+    }
+    private void toggleFragment() {
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+
+        if (currentFragment == FRAGMENT_USER_PRODUCTS) {
+            fragmentTransaction.replace(R.id.containerUserLobby, new MapFragment());
+            currentFragment = FRAGMENT_MAP;
+        } else {
+            // Asumiendo que tienes un fragmento llamado UserProductFragment
+            fragmentTransaction.replace(R.id.containerUserLobby, new UserProductFragment());
+            currentFragment = FRAGMENT_USER_PRODUCTS;
+        }
+
+        fragmentTransaction.commit();
     }
 
     /**
@@ -95,25 +143,9 @@ public class ActivityUserLobby extends AppCompatActivity {
         });
     }
 
-    /**
-     * Método para obtener una lista de productos de ejemplo.
-     * Esta lista es estática y se utiliza para llenar el RecyclerView.
-     * Los productos aquí son solo para propósitos de demostración y deben ser reemplazados por productos reales de una base de datos o servicio.
-     *
-     * @return Una lista de productos de ejemplo.
-     */
-    private List<Product> getProductList() {
-        List<Product> productList = new ArrayList<>();
-        productList.add(new Product(R.drawable.carrot_18, "zanahorias"));
-        productList.add(new Product(R.drawable.carrot_18, "zanahorias"));
-        productList.add(new Product(R.drawable.carrot_18, "zanahorias"));
-        productList.add(new Product(R.drawable.carrot_18, "zanahorias"));
-        productList.add(new Product(R.drawable.carrot_18, "zanahorias"));
-        productList.add(new Product(R.drawable.carrot_18, "zanahorias"));
-        productList.add(new Product(R.drawable.carrot_18, "zanahorias"));
-        productList.add(new Product(R.drawable.carrot_18, "zanahorias"));
 
-        // Agregar más productos según sea necesario
-        return productList;
+    @Override
+    public void onAgricultoresInRange(List<User> agricultoresOnRange) {
+
     }
 }

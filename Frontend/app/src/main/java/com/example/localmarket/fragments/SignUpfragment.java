@@ -1,6 +1,8 @@
 package com.example.localmarket.fragments;
 
+import android.Manifest;
 import android.content.Context;
+import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
@@ -14,6 +16,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
@@ -21,6 +24,8 @@ import com.example.localmarket.R;
 import com.example.localmarket.model.SignUpResponse;
 import com.example.localmarket.network.service.AuthService;
 import com.example.localmarket.utils.ValidationUtils;
+import com.google.android.gms.internal.location.zzz;
+import com.google.android.gms.location.FusedLocationProviderClient;
 
 /**
  * Fragmento para el registro de nuevos usuarios.
@@ -31,12 +36,14 @@ import com.example.localmarket.utils.ValidationUtils;
  * @author Oriol Estero Sanchez
  */
 public class SignUpfragment extends Fragment implements View.OnFocusChangeListener {
+    private static final int MY_LOCATION_REQUEST_CODE = 101;
 
     private EditText editTextUsername, editTextEmail, editTextPassword, editTextName, editTextSurname;
     private Switch aSwitchVendor;
     private Button buttonSignUp, buttonCancel;
     private AuthService authService;
     private Context context;
+    private FusedLocationProviderClient locationClient;
 
     public SignUpfragment() {
         // Constructor vacío requerido por Fragment
@@ -200,6 +207,7 @@ public class SignUpfragment extends Fragment implements View.OnFocusChangeListen
      * Muestra un mensaje de registro exitoso o maneja cualquier error que ocurra durante el proceso de registro.
      */
     private void signUp() {
+        Context context = getContext();
         String username = editTextUsername.getText().toString().trim();
         String email = editTextEmail.getText().toString().trim();
         String password = editTextPassword.getText().toString().trim();
@@ -207,27 +215,55 @@ public class SignUpfragment extends Fragment implements View.OnFocusChangeListen
         String surname = editTextSurname.getText().toString().trim();
         Boolean isVendor = aSwitchVendor.isChecked();
 
-        authService.signUpUser(email, password, username, name, surname, isVendor, new AuthService.AuthCallback<SignUpResponse>() {
-            @Override
-            public void onSuccess(SignUpResponse response) {
-                // Manejar la respuesta del servidor para el registro exitoso
-                Toast.makeText(getActivity(), "Registro exitoso", Toast.LENGTH_SHORT).show();
-                // Aquí puedes manejar la navegación post-registro, como abrir el fragmento de inicio
-                backLogin();
-            }
-            @Override
-            public void onError(Throwable t) {
-                // Manejar el error de registro
-                Log.e("SignUpError", "Error en el registro: " + t.getMessage(), t);
-                Toast.makeText(getActivity(), "Error en el registro: " + t.getMessage(), Toast.LENGTH_SHORT).show();
-            }
-        });
+        if (context != null && ContextCompat.checkSelfPermission(context, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
+            locationClient.getLastLocation().addOnSuccessListener(location -> {
+                double latitude;
+                double longitude;
+
+                if (location != null) {
+                    latitude = location.getLatitude();
+                    longitude = location.getLongitude();
+                } else {
+                    // No se pudo obtener la ubicación, podrías usar valores por defecto o manejar el error
+                    latitude = 0; // Valor por defecto o manejar como error
+                    longitude = 0; // Valor por defecto o manejar como error
+                    Toast.makeText(getActivity(), "Ubicación no disponible, usando valores por defecto.", Toast.LENGTH_SHORT).show();
+                }
+
+                // Proceder con el registro usando la ubicación obtenida o por defecto
+                authService.signUpUser(email, password, username, name, surname, isVendor, latitude, longitude, new AuthService.AuthCallback<SignUpResponse>() {
+                    @Override
+                    public void onSuccess(SignUpResponse response) {
+                        // Manejar la respuesta del servidor para el registro exitoso
+                        Toast.makeText(getActivity(), "Registro exitoso", Toast.LENGTH_SHORT).show();
+                        // Aquí puedes manejar la navegación post-registro, como abrir el fragmento de inicio
+                        backLogin();
+                    }
+
+                    @Override
+                    public void onError(Throwable t) {
+                        // Manejar el error de registro
+                        Log.e("SignUpError", "Error en el registro: " + t.getMessage(), t);
+                        Toast.makeText(getActivity(), "Error en el registro: " + t.getMessage(), Toast.LENGTH_SHORT).show();
+                    }
+                });
+            }).addOnFailureListener(e -> {
+                // Falló la obtención de la ubicación
+                Log.e("LocationError", "Error al obtener la ubicación", e);
+                Toast.makeText(getActivity(), "No se pudo obtener la ubicación: " + e.getMessage(), Toast.LENGTH_LONG).show();
+                // Continuar con el registro sin la ubicación o manejar adecuadamente
+            });
+        } else {
+            // Solicitar permisos de ubicación si no están otorgados
+            requestPermissions(new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, MY_LOCATION_REQUEST_CODE);
+        }
     }
-    /**
-     * Muestra un mensaje de Toast en la actividad.
-     *
-     * @param message Mensaje que se mostrará en el Toast.
-     */
+
+                        /**
+                         * Muestra un mensaje de Toast en la actividad.
+                         *
+                         * @param message Mensaje que se mostrará en el Toast.
+                         */
     private void showToast(String message) {
         Toast.makeText(getActivity(), message, Toast.LENGTH_SHORT).show();
     }
