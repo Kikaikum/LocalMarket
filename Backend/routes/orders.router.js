@@ -27,6 +27,16 @@ router.get('/agricultor/:idAgricultor',
       next(error);
     }
 });
+router.get('/client/:idclient',   
+  async (req, res, next) => {
+    try {
+      const {idclient} = req.params;
+      const orders = await service.findByClient(idclient);
+      res.json(orders);
+    } catch (error) {
+      next(error);
+    }
+});
 
 
 router.get('/:id',
@@ -43,19 +53,16 @@ router.get('/:id',
 );
 
 router.post('/',
-  passport.authenticate('jwt', {session: false}),
+  //passport.authenticate('jwt', {session: false}),
   validatorHandler(createOrderSchema, 'body'),
   async (req, res, next) => {
     try {
-      const authenticatedUserId = req.user.sub;
+      //const authenticatedUserId = req.user.sub;
       const body = req.body;
-      const idAgricultor = body.idAgricultor;
-      if(authenticatedUserId == idAgricultor) { // Verificar si el usuario autenticado es el mismo que el solicitado
-        const newOrder = await service.create(body);
-        res.status(201).json(newOrder);
-      } else {
-        res.status(403).json({ error: "No puedes crear un ordero para este ID de agricultor" }); // Devolver un error de permiso
-      }
+      //const idAgricultor = body.idAgricultor;      
+      const newOrder = await service.create(body);
+
+      res.json(newOrder);
     } catch (error) {
       next(error);
     }

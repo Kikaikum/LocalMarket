@@ -36,6 +36,11 @@ const UserSchema = {
     type: DataTypes.BOOLEAN,
     defaultValue: false
   },
+  localizacion: {
+    allowNull: true,
+    type: DataTypes.STRING,
+    defaultValue: false
+  },
   createdAt: {
     allowNull: false,
     type: DataTypes.DATE,
