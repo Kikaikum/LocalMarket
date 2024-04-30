@@ -14,8 +14,8 @@ public class User {
     private String password;
     private int id;
     private boolean agricultor;
-    private double latitud;
-    private double longitud;
+    private double latitude;
+    private double longitude;
 
     /**
      * Constructor para crear una instancia de User.
@@ -33,7 +33,7 @@ public class User {
     /**
      * @author ainoha
      */
-    public User(String nombre, String apellidos, String username, String email, String password, int id, boolean agricultor) {
+    public User(String nombre, String apellidos, String username, String email, String password, int id, boolean agricultor, double latitude,double longitude) {
         this.nombre=nombre;
         this.apellidos=apellidos;
         this.username = username;
@@ -41,6 +41,8 @@ public class User {
         this.password = password;
         this.id = id;
         this.agricultor= agricultor;
+        this.latitude= latitude;
+        this.longitude = longitude;
     }
 
     // Getters y setters
@@ -174,17 +176,17 @@ public class User {
     }
 
     public double getLatitud() {
-        return latitud;
+        return latitude;
     }
     public void setLatitud(double latitud) {
-        this.latitud = latitud;
+        this.latitude = latitud;
     }
 
     public double getLongitud() {
-        return longitud;
+        return longitude;
     }
 
     public void setLongitud(double longitud) {
-        this.longitud = longitud;
+        this.longitude = longitud;
     }
 }

@@ -6,14 +6,16 @@ package com.example.localmarket.model;
  * @author Oriol Estero Sanchez
  */
 public class SignUpRequest {
-    private double latitud;
-    private double longitud;
+    private double latitude;
+    private double longitude;
     private String email;
     private String password;
     private String nombre;
     private String apellidos;
     private String username;
     private Boolean agricultor;
+
+
 
     /**
      * Constructor de SignUpRequest.
@@ -25,15 +27,15 @@ public class SignUpRequest {
      * @param surname  El apellido del usuario.
      * @param isVendor Un booleano que indica si el usuario es un vendedor.
      */
-    public SignUpRequest(String email, String password, String userName, String name, String surname, Boolean isVendor, double latitud, double longitud) {
+    public SignUpRequest(String email, String password, String userName, String name, String surname, Boolean isVendor, double latitude, double longitude) {
         this.email = email;
         this.password = password;
         this.nombre = name;
         this.agricultor = isVendor;
         this.username = userName;
         this.apellidos = surname;
-        this.latitud = latitud;
-        this.longitud = longitud;
+        this.latitude = latitude;
+        this.longitude = longitude;
     }
 
     // Getters y setters
@@ -84,5 +86,20 @@ public class SignUpRequest {
 
     public void setVendor(Boolean vendor) {
         agricultor = vendor;
+    }
+    public double getLatitude() {
+        return latitude;
+    }
+
+    public void setLatitude(double latitude) {
+        this.latitude = latitude;
+    }
+
+    public double getLongitude() {
+        return longitude;
+    }
+
+    public void setLongitude(double longitude) {
+        this.longitude = longitude;
     }
 }

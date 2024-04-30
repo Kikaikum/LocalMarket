@@ -46,6 +46,9 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
     private TextView distance;
     private LatLng centerOfCircle;
     private double currentRadius;
+    private double latitude;
+    private double longitude;
+
 
     private SeekBar seekBar;
     private static final int MY_LOCATION_REQUEST_CODE = 101;
@@ -131,15 +134,15 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
 
                         mapCircle = gMap.addCircle(circleOptions);
                         // Crear usuarios de prueba
-                        User usuario1 = new User("Juan", "Pérez", "juanperez", "juan@example.com", "password123", 13, true);
+                        User usuario1 = new User("Juan", "Pérez", "juanperez", "juan@example.com", "password123", 13, true,latitude,longitude);
                         usuario1.setLatitud(41.8694016);
                         usuario1.setLongitud(2.7093832);
 
-                        User usuario2 = new User("María", "García", "mariagarcia", "maria@example.com", "password456", 57, true);
+                        User usuario2 = new User("María", "García", "mariagarcia", "maria@example.com", "password456", 57, true,latitude,longitude);
                         usuario2.setLatitud(41.899401);
                         usuario2.setLongitud(2.8093832);
 
-                        User usuario3 = new User("Pedro", "Sánchez", "pedrosanchez", "pedro@example.com", "password789", 59, true);
+                        User usuario3 = new User("Pedro", "Sánchez", "pedrosanchez", "pedro@example.com", "password789", 59, true,latitude,longitude);
                         usuario3.setLatitud(41.7694016);
                         usuario3.setLongitud(2.8093832);
 
