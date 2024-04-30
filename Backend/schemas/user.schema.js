@@ -7,7 +7,8 @@ const agricultor = Joi.boolean();
 const username = Joi.string().min(4)
 const nombre = Joi.string().min(2)
 const apellidos = Joi.string().min(2)
-const localizacion = Joi.string().min(2)
+const latitude = Joi.number()
+const longitude = Joi.number()
 
 const createUserSchema = Joi.object({
   email: email.required(),
@@ -16,7 +17,8 @@ const createUserSchema = Joi.object({
   apellidos: apellidos.required(),
   password: password.required(),
   agricultor: agricultor,
-  localizacion: localizacion
+  longitude: longitude,
+  latitude: latitude
 }).options({ stripUnknown: true });
 
 const updateUserSchema = Joi.object({

@@ -79,6 +79,30 @@ class UserService {
     return { id };
   }
 
+  async deleteUser(userId) {
+    try {
+      // Primero, encontrar el usuario
+      const user = await this.findOne(userId);
+  
+      if (!user) {
+        throw new Error('Usuario no encontrado');
+      }
+  
+      // Luego, eliminar todos los productos asociados al usuario
+      await user.destroy({
+        include: 'products' // Esto eliminará automáticamente todos los productos asociados
+      });
+  
+      // Finalmente, eliminar el usuario mismo
+      await user.destroy();
+  
+      return { success: true };
+    } catch (error) {
+      console.error('Error al eliminar usuario:', error);
+      throw error;
+    }
+  }
+
   async getUser(username, password) {
     const user = await this.findByUsername(username);
     if (!user) {

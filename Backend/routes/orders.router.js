@@ -81,7 +81,7 @@ router.patch('/:id',
       const order = await service.update(id, body, authenticatedUserId);
       res.json(order);
     } catch (error) {
-      if (error.message === "No tienes permiso para actualizar este ordero.") {
+      if (error.message === "No tienes permiso para actualizar esta orden.") {
         res.status(403).json({ error: error.message });
       } else {
         next(error);
@@ -101,7 +101,7 @@ router.delete('/:id',
       await service.delete(id,authenticatedUserId);
       res.status(201).json({id});
     } catch (error) {
-      if (error.message === "No tienes permiso para eliminar este ordero.") {
+      if (error.message === "No tienes permiso para eliminar esta orden.") {
         res.status(403).json({ error: error.message });
       } else {
         next(error);

@@ -36,10 +36,15 @@ const UserSchema = {
     type: DataTypes.BOOLEAN,
     defaultValue: false
   },
-  localizacion: {
+  latitude: {
     allowNull: true,
-    type: DataTypes.STRING,
-    defaultValue: false
+    type: DataTypes.DOUBLE,
+    defaultValue: null 
+  },
+  longitude: {
+    allowNull: true,
+    type: DataTypes.DOUBLE,
+    defaultValue: null 
   },
   createdAt: {
     allowNull: false,

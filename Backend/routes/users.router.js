@@ -96,7 +96,7 @@ router.delete('/:id',
       const authenticatedUserId = req.user.sub; // Obtener el ID del usuario autenticado
       const requestedUserId = req.params.id; // Obtener el ID del usuario solicitado a eliminar   
       if(authenticatedUserId == requestedUserId) { // Verificar si el usuario autenticado es el mismo que el solicitado
-        await service.delete(requestedUserId); // Eliminar el recurso
+        await service.deleteUser(requestedUserId); // Eliminar el recurso
         res.status(201).json({ id: requestedUserId });
       } else {
         res.status(403).json({ error: "No tienes permiso para eliminar este recurso." }); // Devolver un error de permiso
