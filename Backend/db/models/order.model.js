@@ -36,6 +36,10 @@ const OrderSchema = {
     allowNull: false,
     type: DataTypes.ARRAY(DataTypes.JSON)
   },  
+  estado: {
+    allowNull: false,
+    type: DataTypes.STRING
+  }, 
   createdAt: {
     allowNull: false,
     type: DataTypes.DATE,

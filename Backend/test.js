@@ -1,14 +1,5 @@
-const boom = require('@hapi/boom');
-const bcrypt = require('bcrypt');
-const jwt = require('jsonwebtoken');
-const { Op } = require('sequelize');
-
-const { models } = require('./../libs/sequelize');
-const { config } = require('./../config/config');
+// Importamos la librería Math para usar la función de coseno
 const { PI, cos } = Math;
-
-
-
 
 // Función para calcular las coordenadas máximas y mínimas dentro de un diámetro de 30 km
 function calcularCoordenadas(latitud, longitud) {
@@ -39,27 +30,9 @@ function calcularCoordenadas(latitud, longitud) {
     };
 }
 
-
-class LocationService {
-  constructor() {}
-
-  async find(location) {
-
-    const coordenadas = calcularCoordenadas(location.latitude,location.longitude);
-
-    const agricultores = await models.User.findAll({
-      where: {
-        latitude: { 
-          [Op.between]: [coordenadas.latitudMinima, coordenadas.latitudMaxima]
-        },
-        longitude: { 
-          [Op.between]: [coordenadas.longitudMinima, coordenadas.longitudMaxima]
-        }
-      }
-    });
-    return agricultores;
-  }
-
-}
-
-module.exports = LocationService;
+// Ejemplo de uso
+const coordenadas = calcularCoordenadas(37.4220936, -122.083922);
+console.log('Latitud máxima:', coordenadas.latitudMaxima);
+console.log('Latitud mínima:', coordenadas.latitudMinima);
+console.log('Longitud máxima:', coordenadas.longitudMaxima);
+console.log('Longitud mínima:', coordenadas.longitudMinima);
