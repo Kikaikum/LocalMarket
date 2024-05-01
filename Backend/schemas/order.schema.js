@@ -1,30 +1,30 @@
 const Joi = require('joi');
 
 const id = Joi.number().integer();
-const idCliente = Joi.number();
-const idAgricultor = Joi.number();
+const clientId = Joi.number();
+const agricultorId = Joi.number();
 
 const itemSchema = Joi.object({
   itemId: Joi.number().integer().required(),
   cantidad: Joi.number().integer().min(0).required() 
 });
 
-const lista = Joi.array().items(itemSchema);
+const pedido = Joi.array().items(itemSchema);
 
 
-const createProductSchema = Joi.object({
-  idCliente: idCliente.required(),
-  idAgricultor: idAgricultor.required(),
-  lista: lista.required()
+const createOrderSchema = Joi.object({
+  clientId: clientId.required(),
+  agricultorId: agricultorId.required(),
+  pedido: pedido.required()
   
 }).options({ stripUnknown: true });
   
-const updateProductSchema = Joi.object({  
+const updateOrderSchema = Joi.object({  
 }).options({ stripUnknown: true });
 
 
-const getProductSchema = Joi.object({
+const getOrderSchema = Joi.object({
   id: id.required(),
 }).options({ stripUnknown: true });
 
-module.exports = { createProductSchema, updateProductSchema, getProductSchema }
+module.exports = { createOrderSchema, updateOrderSchema, getOrderSchema }

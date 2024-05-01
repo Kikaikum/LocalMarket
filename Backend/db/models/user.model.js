@@ -36,6 +36,16 @@ const UserSchema = {
     type: DataTypes.BOOLEAN,
     defaultValue: false
   },
+  latitude: {
+    allowNull: true,
+    type: DataTypes.DOUBLE,
+    defaultValue: null 
+  },
+  longitude: {
+    allowNull: true,
+    type: DataTypes.DOUBLE,
+    defaultValue: null 
+  },
   createdAt: {
     allowNull: false,
     type: DataTypes.DATE,

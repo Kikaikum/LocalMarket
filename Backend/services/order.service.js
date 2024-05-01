@@ -4,7 +4,8 @@ const { models } = require('./../libs/sequelize');
 class OrderService {
   constructor() {}
 
-  async create(data) {    
+  async create(data) {  
+    console.log(data);  
     const newOrder = await models.Order.create(data);    
     return newOrder;
   }
@@ -24,12 +25,18 @@ class OrderService {
 
   async findByAgricultor(agricultor) {
     const orders = await models.Order.findAll({
-      where: { idAgricultor: agricultor }
+      where: { agricultorId: agricultor }
     });
     
     return orders;
   }
-
+  async findByClient(client) {
+    const orders = await models.Order.findAll({
+      where: { clientId: client }
+    });
+    
+    return orders;
+  }
 
   async update(id, changes, authenticatedUserId) {
     const order = await this.findOne(id);    
