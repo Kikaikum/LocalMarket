@@ -4,6 +4,7 @@ import static androidx.test.InstrumentationRegistry.getContext;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -44,18 +45,15 @@ public class AddToCartActivity extends AppCompatActivity {
         final int categoriaId;
 
 
-
-
         Intent intent = getIntent();
         if (intent != null) {
             // Obtener los datos del producto seleccionado
             String nombre = intent.getStringExtra("nombre");
-            categoriaId = intent.getIntExtra("categoriaId",1);
+            categoriaId = intent.getIntExtra("categoriaId", 0);
             String descripcion = intent.getStringExtra("descripcion");
-            double precio = intent.getDoubleExtra("precio",1.1 );
+            double precio = intent.getDoubleExtra("precio", 0.0);
             String tipoDePeso = intent.getStringExtra("tipoDePeso");
-            String vendedor=intent.getStringExtra("vendedor");
-
+            int productId=intent.getIntExtra("productId",0);
 
 
             ImageView imageProduct = findViewById(R.id.imageProduct);
@@ -63,7 +61,6 @@ public class AddToCartActivity extends AppCompatActivity {
             TextView textDescription = findViewById(R.id.textDescription);
             TextView textPrice = findViewById(R.id.textPrice);
             TextView textUnidadMedidaPrecio=findViewById(R.id.textUnidadMedidaPrecio);
-            TextView textVendedor=findViewById(R.id.textFarmerUsername);
 
             // Inicializar los TextView de acuerdo al estado del Switch
             if (tipoDePeso.equalsIgnoreCase("peso")) {
@@ -77,7 +74,6 @@ public class AddToCartActivity extends AppCompatActivity {
             textProductName.setText(nombre);
             textDescription.setText(descripcion);
             textPrice.setText(String.valueOf(precio));
-            textVendedor.setText(vendedor);
 
         }
 
@@ -130,10 +126,10 @@ public class AddToCartActivity extends AppCompatActivity {
                 double precio = intent.getDoubleExtra("precio", 0.0);
                 int categoriaId=intent.getIntExtra("categoriaId",0);
                 String unidadMedida = textWeight.getText().toString();
-                int agricultorId=intent.getIntExtra("agricultorId",0);
-
+                int idAgricultor=intent.getIntExtra("idAgricultor",2);
+                Log.d("OrderDetailsFragment", "ID Agricultor paso1: " + idAgricultor);
                 // Crear un nuevo elemento de carrito
-                CartItem cartItem = new CartItem(agricultorId,productId, categoriaId,nombre, precio, quantity,unidadMedida);
+                CartItem cartItem = new CartItem(idAgricultor,productId, categoriaId,nombre, precio, quantity,unidadMedida);
 
                 // Obtener la instancia de OrderManager
                 OrderManager orderManager = OrderManager.getInstance(AddToCartActivity.this);
@@ -160,15 +156,15 @@ public class AddToCartActivity extends AppCompatActivity {
 
 
 
-            /**
-             * Redirige al usuario a la pantalla de inicio.
-             */
-            private void redirectToLobby() {
+    /**
+     * Redirige al usuario a la pantalla de inicio.
+     */
+    private void redirectToLobby() {
 
-                Intent intent = new Intent(this, ActivityUserLobby.class);
-                startActivity(intent);
-            }
+        Intent intent = new Intent(this, ActivityUserLobby.class);
+        startActivity(intent);
+    }
 
 
-        }
+}
 

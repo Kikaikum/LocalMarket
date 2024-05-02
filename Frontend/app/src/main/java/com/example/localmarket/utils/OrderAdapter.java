@@ -82,7 +82,7 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.OrderViewHol
 
         public void bind(CartItem cartItem) {
             productNameTextView.setText(cartItem.getProductName());
-            quantityTextView.setText(String.valueOf(cartItem.getQuantity()));
+            quantityTextView.setText(String.valueOf(cartItem.getCantidad()));
             precioTextView.setText(String.format("%.2f", cartItem.getPrice()));
             unidadMedidaTextView.setText(cartItem.getUnidadMedida());
             imageViewProduct.setImageResource(cartItem.getCategoriaId());
@@ -93,7 +93,7 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.OrderViewHol
                 currentQuantity++;
                 quantityTextView.setText(String.valueOf(currentQuantity));
                 // Actualiza la cantidad en el objeto CartItem correspondiente
-                cartItem.setQuantity(currentQuantity);
+                cartItem.setCantidad(currentQuantity);
                 notifyCartItemChanged();
             });
 
@@ -104,7 +104,7 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.OrderViewHol
                     currentQuantity--;
                     quantityTextView.setText(String.valueOf(currentQuantity));
                     // Actualiza la cantidad en el objeto CartItem correspondiente
-                    cartItem.setQuantity(currentQuantity);
+                    cartItem.setCantidad(currentQuantity);
                     notifyCartItemChanged();
                 }
             });

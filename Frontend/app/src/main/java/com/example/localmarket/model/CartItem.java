@@ -1,23 +1,23 @@
 package com.example.localmarket.model;
 
 public class CartItem {
-    private int productId;
+    private int itemId;
     private String productName;
     private double price;
-    private int quantity;
+    private int cantidad;
     private String unidadMedida;
     private int categoriaId;
     private int agricultorId;
 
 
 
-    public CartItem(int agricultorId,int productId,int categoriaId, String productName, double price, int quantity, String unidadMedida) {
+    public CartItem(int agricultorId,int itemId,int categoriaId, String productName, double price, int cantidad, String unidadMedida) {
         this.agricultorId= agricultorId;
-        this.productId = productId;
+        this.itemId = itemId;
         this.categoriaId=categoriaId;
         this.productName = productName;
         this.price = price;
-        this.quantity = quantity;
+        this.cantidad = cantidad;
         this.unidadMedida=unidadMedida;
 
     }
@@ -30,12 +30,12 @@ public class CartItem {
         this.agricultorId = agricultorId;
     }
 
-    public int getProductId() {
-        return productId;
+    public int getItemId() {
+        return itemId;
     }
 
-    public void setProductId(int productId) {
-        this.productId = productId;
+    public void setItemId(int productId) {
+        this.itemId = itemId;
     }
 
     public int getCategoriaId() {
@@ -62,12 +62,12 @@ public class CartItem {
         this.price = price;
     }
 
-    public int getQuantity() {
-        return quantity;
+    public int getCantidad() {
+        return cantidad;
     }
 
-    public void setQuantity(int quantity) {
-        this.quantity = quantity;
+    public void setCantidad(int cantidad) {
+        this.cantidad = cantidad;
     }
 
     public String getUnidadMedida() {
