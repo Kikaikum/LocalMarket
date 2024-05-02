@@ -39,7 +39,7 @@ import java.util.List;
 
 public class MapFragment extends Fragment implements OnMapReadyCallback {
     private AuthService authService;
-
+//cambis
     private MapView mapView;
     private GoogleMap gMap;
     private Circle mapCircle;

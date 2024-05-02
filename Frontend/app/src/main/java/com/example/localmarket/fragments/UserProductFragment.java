@@ -41,6 +41,7 @@ public class UserProductFragment extends Fragment implements ProductAdapterUserL
     private TokenManager tokenManager;
     private View mapButton;
     private boolean isMapButtonVisible= true;
+    //cambios
 
 
     public UserProductFragment() {
