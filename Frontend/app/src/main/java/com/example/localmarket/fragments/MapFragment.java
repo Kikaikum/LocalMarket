@@ -195,6 +195,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
     }
     private void sendLocationAndFetchAgricultores(double latitude, double longitude) {
         // Enviar la ubicación al servidor y recibir la lista de usuarios en rango
+
         authService.getUsersInRange(latitude, longitude, new AuthService.AuthCallback<List<User>>() {
             @Override
             public void onSuccess(List<User> usersInRange) {
@@ -207,12 +208,19 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
             @Override
             public void onError(Throwable t) {
                 // Manejar errores al obtener la lista de usuarios en rango
-                Toast.makeText(getActivity(), "Error al obtener usuarios en rango", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getActivity(), "Error al obtener usuarios en rango :"+t.getMessage(), Toast.LENGTH_SHORT).show();
+                Log.e("error", t.getMessage());
             }
         });
     }
 
+    private void showUsersOnMap(List<User> usersInRange) {
+        // Limpiar los marcadores existentes en el mapa
 
+
+        // Agregar marcadores en el mapa para cada usuario en la lista de usuarios en rango
+
+    }
 
     private void backToUserProductFragment() {
 
