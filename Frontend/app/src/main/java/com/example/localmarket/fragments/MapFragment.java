@@ -199,9 +199,11 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
         authService.getUsersInRange(latitude, longitude, new AuthService.AuthCallback<List<User>>() {
             @Override
             public void onSuccess(List<User> usersInRange) {
+                Log.e("log user2", usersInRange.toString().trim());
                 // Procesar la lista de usuarios en rango
                 for (User user : usersInRange) {
                     todosLosAgricultores.add(user);
+                    Log.e("log User", user.getName());
                 }
             }
 

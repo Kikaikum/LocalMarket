@@ -622,7 +622,7 @@ public class AuthService {
     }
     public void getUsersInRange(double latitude, double longitude, AuthCallback<List<User>> authCallback) {
         LatLng location = new LatLng(latitude, longitude);
-        apiService.getNearUsersFromMyLocation(location).enqueue(new Callback<List<User>>() {
+        apiService.getNearUsersFromMyLocation(latitude,longitude).enqueue(new Callback<List<User>>() {
             @Override
             public void onResponse(Call<List<User>> call, Response<List<User>> response) {
                 if (response.isSuccessful()) {

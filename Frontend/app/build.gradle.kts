@@ -65,12 +65,13 @@ dependencies {
     androidTestImplementation(libs.ext.junit) // Assuming this points to 'androidx.test.ext:junit:1.1.3'
     androidTestImplementation(libs.espresso.core) // Assuming this points to 'androidx.test.espresso:espresso-core:3.4.0'
     androidTestImplementation("androidx.test:core:1.4.0")
-    androidTestImplementation("androidx.test:rules:1.4.0")
+    androidTestImplementation("androidx.test:rules:1.6.0-alpha03")
     androidTestImplementation("androidx.test:runner:1.4.0")
     androidTestImplementation("androidx.test.espresso:espresso-intents:3.4.0")
     androidTestImplementation ("org.mockito:mockito-android:2.24.5")
 
     implementation("io.jsonwebtoken:jjwt-api:0.11.2")
+    androidTestImplementation(libs.espresso.contrib)
     runtimeOnly("io.jsonwebtoken:jjwt-impl:0.11.2")
     runtimeOnly("io.jsonwebtoken:jjwt-jackson:0.11.2")
 

@@ -214,6 +214,9 @@ public interface ApiService {
 
     @GET("users")
     Call<List<User>> getAllUsers();
-    @POST("location/")
-    Call<List<User>> getNearUsersFromMyLocation(@Body LatLng location);
+
+    //@GET("location/")
+    //Call<List<User>> getNearUsersFromMyLocation(@Body LatLng location);
+    @GET("location/")
+    Call<List<User>> getNearUsersFromMyLocation(@Query("latitude") double latitude, @Query("longitude") double longitude);
 }
