@@ -1,35 +1,36 @@
 package com.example.localmarket.model;
 
+import java.util.List;
 import java.util.Map;
 
 public class Order {
-    private int idCliente;
-    private int idAgricultor;
-    private Map<Integer, Integer> productos; // Mapa de idProducto -> cantidad
+    private int clientId;
+    private int agricultorId;
+    private List<Map<String, Integer>> pedido; // Lista de objetos con las claves "productId" y "quantity"
     private String estado;
 
     public int getIdCliente() {
-        return idCliente;
+        return clientId;
     }
 
     public void setIdCliente(int idCliente) {
-        this.idCliente = idCliente;
+        this.clientId = idCliente;
     }
 
     public int getIdAgricultor() {
-        return idAgricultor;
+        return agricultorId;
     }
 
-    public void setIdAgricultor(int idAgricultor) {
-        this.idAgricultor = idAgricultor;
+    public void setIdAgricultor(int agricultorId) {
+        this.agricultorId = agricultorId;
     }
 
-    public Map<Integer, Integer> getProductos() {
-        return productos;
+    public List<Map<String, Integer>> getPedido() {
+        return pedido;
     }
 
-    public void setProductos(Map<Integer, Integer> productos) {
-        this.productos = productos;
+    public void setPedido(List<Map<String, Integer>> pedido) {
+        this.pedido = pedido;
     }
 
     public String getEstado() {
