@@ -33,6 +33,10 @@ public class UserProductFragment extends Fragment implements ProductAdapter.OnPr
     private ProductAdapter adapter;
     private RecyclerView recyclerView;
     private TokenManager tokenManager;
+    private View mapButton;
+    private boolean isMapButtonVisible= true;
+    //cambios
+
 
 
     public UserProductFragment() {
