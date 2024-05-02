@@ -41,7 +41,7 @@ public class UserProductFragment extends Fragment implements ProductAdapterUserL
     private TokenManager tokenManager;
     private View mapButton;
     private boolean isMapButtonVisible= true;
-    //cambios
+
 
 
     public UserProductFragment() {
@@ -70,9 +70,9 @@ public class UserProductFragment extends Fragment implements ProductAdapterUserL
             ArrayList<Integer> agricultoresIds = getArguments().getIntegerArrayList("agricultoresIds");
             if (agricultoresIds != null) {
                 Log.d("UserProductFragment", "Recibido Bundle con " + agricultoresIds.size() + " IDs de agricultores");
-                agricultoresIdsEnRango = agricultoresIds;
+                agricultoresIdsEnRango.addAll(agricultoresIds);
                 // Cargar los productos de los agricultores en rango
-                cargarProductosDeAgricultores();
+                //cargarProductosDeAgricultores();
             } else {
                 Log.e("UserProductFragment", "La lista de IDs de agricultores está vacía");
             }
@@ -120,7 +120,7 @@ public class UserProductFragment extends Fragment implements ProductAdapterUserL
                     @Override
                     public void onSuccess(List<Product> productos) {
                         // Procesar los productos y mostrarlos en la interfaz
-                        productosEnRango = productos;
+                        productosEnRango.addAll(productos);
                         mostrarProductosEnPantalla();
                         mapButton.setEnabled(false);
                         mapButton.setVisibility(View.GONE);

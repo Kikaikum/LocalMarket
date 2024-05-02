@@ -138,11 +138,11 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
                         usuario1.setLatitud(41.8694016);
                         usuario1.setLongitud(2.7093832);
 
-                        User usuario2 = new User("María", "García", "mariagarcia", "maria@example.com", "password456", 57, true,latitude,longitude);
+                        User usuario2 = new User("María", "García", "mariagarcia", "maria@example.com", "password456", 15, true,latitude,longitude);
                         usuario2.setLatitud(41.899401);
                         usuario2.setLongitud(2.8093832);
 
-                        User usuario3 = new User("Pedro", "Sánchez", "pedrosanchez", "pedro@example.com", "password789", 59, true,latitude,longitude);
+                        User usuario3 = new User("Pedro", "Sánchez", "pedrosanchez", "pedro@example.com", "password789", 12, true,latitude,longitude);
                         usuario3.setLatitud(41.7694016);
                         usuario3.setLongitud(2.8093832);
 
