@@ -120,11 +120,12 @@
     <option name="autoReloadType" value="NONE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="72ff1c52-651c-4388-8d0f-812589155228" name="Changes" comment="+cambios hechos a UserProductFragment.java">
+    <list default="true" id="72ff1c52-651c-4388-8d0f-812589155228" name="Changes" comment="+cambios hechos a UserProductFragment.java + adquisicion de productores en rango v1">
       <change beforePath="$PROJECT_DIR$/.idea/deploymentTargetDropDown.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/deploymentTargetDropDown.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Frontend/app/src/main/java/com/example/localmarket/fragments/MapFragment.java" beforeDir="false" afterPath="$PROJECT_DIR$/Frontend/app/src/main/java/com/example/localmarket/fragments/MapFragment.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Frontend/app/src/main/java/com/example/localmarket/fragments/UserProductFragment.java" beforeDir="false" afterPath="$PROJECT_DIR$/Frontend/app/src/main/java/com/example/localmarket/fragments/UserProductFragment.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Frontend/app/src/main/java/com/example/localmarket/network/api/ApiService.java" beforeDir="false" afterPath="$PROJECT_DIR$/Frontend/app/src/main/java/com/example/localmarket/network/api/ApiService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Frontend/app/src/main/java/com/example/localmarket/network/service/AuthService.java" beforeDir="false" afterPath="$PROJECT_DIR$/Frontend/app/src/main/java/com/example/localmarket/network/service/AuthService.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -729,7 +730,15 @@
       <option name="project" value="LOCAL" />
       <updated>1714646372544</updated>
     </task>
-    <option name="localTasksCounter" value="18" />
+    <task id="LOCAL-00018" summary="+cambios hechos a UserProductFragment.java + adquisicion de productores en rango v1">
+      <option name="closed" value="true" />
+      <created>1714659807936</created>
+      <option name="number" value="00018" />
+      <option name="presentableId" value="LOCAL-00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1714659807936</updated>
+    </task>
+    <option name="localTasksCounter" value="19" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -762,7 +771,8 @@
     <MESSAGE value="+ Bundle comunication success entre fragments.&#10;+redirect to UserProductFragment desde AddToCartActivity.java para mantener los productos." />
     <MESSAGE value="+ Implementados latitud i longitud en User, SignInRequest i AuthService.java" />
     <MESSAGE value="+cambios hechos a UserProductFragment.java" />
-    <option name="LAST_COMMIT_MESSAGE" value="+cambios hechos a UserProductFragment.java" />
+    <MESSAGE value="+cambios hechos a UserProductFragment.java + adquisicion de productores en rango v1" />
+    <option name="LAST_COMMIT_MESSAGE" value="+cambios hechos a UserProductFragment.java + adquisicion de productores en rango v1" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/Local_Market$AuthServiceUnitTest_testSignUpUser_Failure.ic" NAME="AuthServiceUnitTest.testSignUpUser_Failure Coverage Results" MODIFIED="1711036953776" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />

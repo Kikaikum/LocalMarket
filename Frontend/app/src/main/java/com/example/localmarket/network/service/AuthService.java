@@ -18,6 +18,7 @@ import com.example.localmarket.model.UpdateUsernameRequest;
 import com.example.localmarket.model.User;
 import com.example.localmarket.network.api.ApiService;
 import com.example.localmarket.utils.TokenManager;
+import com.google.android.gms.maps.model.LatLng;
 
 import java.util.List;
 
@@ -386,6 +387,8 @@ public class AuthService {
         return capturedProductRequest;
     }
 
+
+
     /**
      * Callback para manejar el resultado de la obtención del perfil de usuario.
      *
@@ -614,6 +617,25 @@ public class AuthService {
             @Override
             public void onFailure(Call<Void> call, Throwable t) {
                 callback.onError(t);
+            }
+        });
+    }
+    public void getUsersInRange(double latitude, double longitude, AuthCallback<List<User>> authCallback) {
+        LatLng location = new LatLng(latitude, longitude);
+        apiService.getNearUsersFromMyLocation(location).enqueue(new Callback<List<User>>() {
+            @Override
+            public void onResponse(Call<List<User>> call, Response<List<User>> response) {
+                if (response.isSuccessful()) {
+                    List<User> usersInRange = response.body();
+                    authCallback.onSuccess(usersInRange);
+                } else {
+                    authCallback.onError(new Exception("Error fetching users in range: " + response.code()));
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<User>> call, Throwable t) {
+                authCallback.onError(t);
             }
         });
     }

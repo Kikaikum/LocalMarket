@@ -14,6 +14,7 @@ import com.example.localmarket.model.UpdatePasswordRequest;
 import com.example.localmarket.model.UpdateSurnameRequest;
 import com.example.localmarket.model.UpdateUsernameRequest;
 import com.example.localmarket.model.User;
+import com.google.android.gms.maps.model.LatLng;
 
 import java.util.List;
 
@@ -213,4 +214,6 @@ public interface ApiService {
 
     @GET("users")
     Call<List<User>> getAllUsers();
+    @POST("location/")
+    Call<List<User>> getNearUsersFromMyLocation(@Body LatLng location);
 }
