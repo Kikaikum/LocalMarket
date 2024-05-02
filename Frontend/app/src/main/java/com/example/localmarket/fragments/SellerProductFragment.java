@@ -43,6 +43,7 @@ public class SellerProductFragment extends Fragment implements ProductAdapter.On
     public SellerProductFragment() {
         // Constructor público requerido
     }
+    //cambios hechos
 
     /**
      * Crea una nueva instancia de SellerProductFragment.
