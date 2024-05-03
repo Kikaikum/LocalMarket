@@ -11,6 +11,7 @@ import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.activity.OnBackPressedCallback;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
@@ -77,6 +78,13 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
                 backToUserProductFragment();
             }
         });
+        requireActivity().getOnBackPressedDispatcher().addCallback(getViewLifecycleOwner(), new OnBackPressedCallback(true) {
+            @Override
+            public void handleOnBackPressed() {
+                // Volver al fragmento anterior
+                getParentFragmentManager().popBackStack();
+            }
+        });
 
         seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
@@ -130,33 +138,11 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
                                 .strokeWidth(5);
 
                         mapCircle = gMap.addCircle(circleOptions);
-                        // Crear usuarios de prueba
-                        User usuario1 = new User("Juan", "Pérez", "juanperez", "juan@example.com", "password123", 13, true, latitude, longitude);
-                        usuario1.setLatitud(41.8694016);
-                        usuario1.setLongitud(2.7093832);
-
-                        User usuario2 = new User("María", "García", "mariagarcia", "maria@example.com", "password456", 15, true, latitude, longitude);
-                        usuario2.setLatitud(41.899401);
-                        usuario2.setLongitud(2.8093832);
-
-                        User usuario3 = new User("Pedro", "Sánchez", "pedrosanchez", "pedro@example.com", "password789", 12, true, latitude, longitude);
-                        usuario3.setLatitud(41.7694016);
-                        usuario3.setLongitud(2.8093832);
-
-
-                        todosLosAgricultores.add(usuario1);
-                        todosLosAgricultores.add(usuario2);
-                        todosLosAgricultores.add(usuario3);
 
 
                         sendLocationAndFetchAgricultores(location.getLatitude(),location.getLongitude());
-                        catchAgricultorOnRange();
-                        for (User user : todosLosAgricultores) {
-                            gMap.addMarker(new MarkerOptions()
-                                    .position(new LatLng(user.getLatitud(), user.getLongitud()))
-                                    .title(user.getName() + " " + user.getSurname()));
 
-                        }
+
                     });
 
         } else {
@@ -166,6 +152,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
     }
 
     private void catchAgricultorOnRange() {
+        agricultoresEnRango.clear();
         if (centerOfCircle != null) {
             for (User user : todosLosAgricultores) {
                 double distanceToUser = SphericalUtil.computeDistanceBetween(new LatLng(user.getLatitud(), user.getLongitud()), centerOfCircle);
@@ -183,7 +170,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
 
         Bundle bundle = new Bundle();
         ArrayList<Integer> agricultoresIds = new ArrayList<>();
-        for (User user : todosLosAgricultores) {
+        for (User user : agricultoresEnRango) {
             agricultoresIds.add(user.getId());
         }
         bundle.putIntegerArrayList("agricultoresIds", agricultoresIds);
@@ -204,6 +191,8 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
                 for (User user : usersInRange) {
                     todosLosAgricultores.add(user);
                     Log.e("log User", user.getName());
+                    showUsersOnMap(usersInRange);
+                    catchAgricultorOnRange();
                 }
             }
 
@@ -217,10 +206,13 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
     }
 
     private void showUsersOnMap(List<User> usersInRange) {
-        // Limpiar los marcadores existentes en el mapa
 
+        for (User user : usersInRange){
+            gMap.addMarker(new MarkerOptions()
+                    .position(new LatLng(user.getLatitud(), user.getLongitud()))
+                    .title(user.getName() + " " + user.getSurname()));
 
-        // Agregar marcadores en el mapa para cada usuario en la lista de usuarios en rango
+        }
 
     }
 
