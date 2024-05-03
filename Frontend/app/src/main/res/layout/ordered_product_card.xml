@@ -57,6 +57,8 @@
 
             </LinearLayout>
 
+
+
             <Space
                 android:layout_width="match_parent"
                 android:layout_height="8dp" />
@@ -105,11 +107,26 @@
                     android:id="@+id/deleteproduct"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:background="?android:attr/selectableItemBackground"
-                    android:clickable="true"
-                    android:focusable="true"
-                    android:padding="8dp"
-                    android:src="@drawable/delete_icon" />
+                    android:layout_gravity="center_vertical"
+                android:background="?android:attr/selectableItemBackground"
+                android:clickable="true"
+                android:focusable="true"
+                android:padding="8dp"
+                android:src="@drawable/delete_icon" />
+
+                <Space
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_weight="1" />
+
+                <!-- TextView para el nombre del agricultor -->
+                <TextView
+                    android:id="@+id/textViewAgricultorUsername"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:text="Vendedor"
+                    android:textSize="16sp" />
 
             </LinearLayout>
 

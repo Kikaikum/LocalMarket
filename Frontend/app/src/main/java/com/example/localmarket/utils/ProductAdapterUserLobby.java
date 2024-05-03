@@ -1,6 +1,7 @@
 package com.example.localmarket.utils;
 
 import android.graphics.Color;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,18 +13,18 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.localmarket.R;
 import com.example.localmarket.model.Product;
+import com.example.localmarket.model.User;
+import com.example.localmarket.network.service.AuthService;
 
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 public class ProductAdapterUserLobby extends RecyclerView.Adapter<ProductAdapterUserLobby.ProductViewHolder> {
-    private static final int RED_FACTOR = 23;
-    private static final int GREEN_FACTOR = 37;
-    private static final int BLUE_FACTOR = 53;
 
     private final List<Product> productList;
     private final OnProductClickListener listener;
     private static Map<Integer, Integer> agricultorColorMap = null;
+    private static AuthService authService;
 
     public ProductAdapterUserLobby(List<Product> productList, OnProductClickListener listener) {
         this.productList = productList;
@@ -53,12 +54,14 @@ public class ProductAdapterUserLobby extends RecyclerView.Adapter<ProductAdapter
         private final TextView textProductName;
         private final ImageView imageViewProduct;
         private final View viewIndicator;
+        private final TextView textNombreAgricultor;
 
         public ProductViewHolder(@NonNull View itemView) {
             super(itemView);
             textProductName = itemView.findViewById(R.id.textViewProductName);
             imageViewProduct = itemView.findViewById(R.id.imageProduct);
             viewIndicator = itemView.findViewById(R.id.viewIndicator);
+            textNombreAgricultor = itemView.findViewById(R.id.tvNombreAgricultor);
         }
 
         public void bind(Product product, final OnProductClickListener listener) {
@@ -68,6 +71,24 @@ public class ProductAdapterUserLobby extends RecyclerView.Adapter<ProductAdapter
             int indicatorColor = getColorForFarmerId(idAgricultor);
             viewIndicator.setBackgroundColor(indicatorColor);
 
+            authService = AuthService.getInstance();
+
+            // Retrieve the agricultor name using the agricultor ID
+            authService.getUserProfile(idAgricultor, new AuthService.ProfileCallback() {
+                @Override
+                public void onSuccess(User userProfile) {
+                    if (userProfile != null) {
+                        // Set the agricultor name to the TextView
+                        textNombreAgricultor.setText(userProfile.getUsername());
+                    }
+                }
+
+
+                @Override
+                public void onError(Throwable t) {
+                    Log.e("ProductAdapter", "Error retrieving agricultor profile: " + t.getMessage());
+                }
+            });
             itemView.setOnClickListener(v -> listener.onProductClick(product));
         }
     }
@@ -83,9 +104,13 @@ public class ProductAdapterUserLobby extends RecyclerView.Adapter<ProductAdapter
     }
 
     private static int generateUniqueColor(int idAgricultor) {
-        int red = (idAgricultor * RED_FACTOR) % 256;
-        int green = (idAgricultor * GREEN_FACTOR) % 256;
-        int blue = (idAgricultor * BLUE_FACTOR) % 256;
+        int red = (idAgricultor * 73) % 256; // Factor de rojo más grande
+        int green = (idAgricultor * 113) % 256; // Factor de verde más grande
+        int blue = (idAgricultor * 157) % 256; // Factor de azul más grande
+        // Agregar un valor aleatorio pequeño a cada componente de color
+        red = (red + (int) (Math.random() * 32)) % 256;
+        green = (green + (int) (Math.random() * 32)) % 256;
+        blue = (blue + (int) (Math.random() * 32)) % 256;
         return Color.rgb(red, green, blue);
     }
 

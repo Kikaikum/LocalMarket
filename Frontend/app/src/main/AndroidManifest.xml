@@ -50,7 +50,8 @@
         </activity>
 
 
-        <activity android:name=".activities.AddToCartActivity" />
+        <activity android:name=".activities.AddToCartActivity"
+            android:exported="true"/>
 
         <activity android:name=".activities.OrderActivity" />
 
