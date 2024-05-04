@@ -3,6 +3,7 @@ package com.example.localmarket.utils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -10,24 +11,20 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.localmarket.R;
 import com.example.localmarket.model.Order;
-import com.example.localmarket.model.Product;
 import com.example.localmarket.model.User;
 import com.example.localmarket.network.service.AuthService;
 
 import java.util.List;
-import java.util.Map;
 
 public class OrderAdapterSeller extends RecyclerView.Adapter<OrderAdapterSeller.OrderViewHolder> {
-    private List<Map<String, Integer>> orderList;
+    private List<Order> orderList;
     private OnOrderClickListener listener;
-    private TextView userNameOrder;
-    private int clientId;
+    private AuthService authService;
 
-    AuthService authService;
-    public OrderAdapterSeller(List<Map<String, Integer>> orderList, OnOrderClickListener listerner) {
+    public OrderAdapterSeller(List<Order> orderList, OnOrderClickListener listener) {
         this.orderList = orderList;
-        this.listener = listerner;
-        authService= new AuthService();
+        this.listener = listener;
+        this.authService=new AuthService();
     }
 
     @NonNull
@@ -39,9 +36,8 @@ public class OrderAdapterSeller extends RecyclerView.Adapter<OrderAdapterSeller.
 
     @Override
     public void onBindViewHolder(@NonNull OrderViewHolder holder, int position) {
-        Map<String, Integer> order = orderList.get(position);
-        holder.bind(order,listener);
-
+        Order order = orderList.get(position);
+        holder.bind(order, listener);
     }
 
     @Override
@@ -49,45 +45,34 @@ public class OrderAdapterSeller extends RecyclerView.Adapter<OrderAdapterSeller.
         return orderList.size();
     }
 
-    public static class OrderViewHolder extends RecyclerView.ViewHolder {
+    public class OrderViewHolder extends RecyclerView.ViewHolder {
+        private TextView tvClientName;
+        private ImageView imageView;
 
-        private TextView userNameOrder;
-        private TextView userNamOrder;
-        private  int clientId;
-        private  AuthService authService= AuthService.getInstance();
         public OrderViewHolder(@NonNull View itemView) {
             super(itemView);
-            userNameOrder= itemView.findViewById(R.id.tvNameOfUserOrder);
-
+            tvClientName = itemView.findViewById(R.id.tvNameOfUserOrder);
+            imageView = itemView.findViewById(R.id.imageChart);
         }
 
-        public void bind(Map<String, Integer> order, OnOrderClickListener listener) {
-            clientId = (order.get("clientId"));
-            authService.getUserProfile(clientId, new AuthService.ProfileCallback() {
+        public void bind(Order order, OnOrderClickListener listener) {
+            authService.getUserProfile(order.getIdCliente(), new AuthService.ProfileCallback() {
                 @Override
                 public void onSuccess(User userProfile) {
-                    userNameOrder.setText(userProfile.getName()+" "+userProfile.getSurname());
+                    tvClientName.setText(userProfile.getName() + " " + userProfile.getSurname());
+                    imageView.setImageResource(R.drawable.shopping_basket_18);
                 }
 
                 @Override
                 public void onError(Throwable t) {
+                    // Manejar el error al obtener el perfil del usuario
+                }
+            });
 
-                }
-            });
-            itemView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    //listener.onOrderClick();
-                }
-            });
         }
     }
+
     public interface OnOrderClickListener {
-        /**
-         * Método llamado cuando se hace clic en un producto.
-         *
-         * @param order El pedido en el que se hizo clic.
-         */
         void onOrderClick(Order order);
     }
 }

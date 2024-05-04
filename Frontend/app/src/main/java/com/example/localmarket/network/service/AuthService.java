@@ -641,10 +641,10 @@ public class AuthService {
         });
     }
 
-    public void getAllOrdersByFarmer (int agricultorId, AuthCallback<List<Map<String, Integer>>> authCallback){
-        apiService.getOrdersByAgricultor(agricultorId).enqueue(new Callback<List<Map<String, Integer>>>() {
+    public void getAllOrdersByFarmer(int agricultorId, AuthCallback<List<Order>> authCallback) {
+        apiService.getOrdersByAgricultor(agricultorId).enqueue(new Callback<List<Order>>() {
             @Override
-            public void onResponse(Call<List<Map<String, Integer>>> call, Response<List<Map<String, Integer>>> response) {
+            public void onResponse(Call<List<Order>> call, Response<List<Order>> response) {
                 if (response.isSuccessful()) {
                     authCallback.onSuccess(response.body());
                 } else {
@@ -653,13 +653,10 @@ public class AuthService {
             }
 
             @Override
-            public void onFailure(Call<List<Map<String, Integer>>> call, Throwable t) {
-                authCallback.onError(new Exception("Error: "+t.getMessage()));
+            public void onFailure(Call<List<Order>> call, Throwable t) {
+                authCallback.onError(new Exception("Error: " + t.getMessage()));
             }
         });
-
-
-
     }
 
 

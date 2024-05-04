@@ -27,7 +27,7 @@ public class SellerOrderFragment extends Fragment implements OrderAdapterSeller.
     private TokenManager tokenManager;
     private OrderAdapterSeller adapter;
     private RecyclerView recyclerViewOrders;
-    private List<Map<String, Integer>> orderList = new ArrayList<>();
+    private List<Order> orderList = new ArrayList<>();
     private int idAgricultor;
 
     public SellerOrderFragment() {
@@ -40,20 +40,18 @@ public class SellerOrderFragment extends Fragment implements OrderAdapterSeller.
         authService = new AuthService();
         tokenManager = new TokenManager(getActivity());
         idAgricultor = tokenManager.getUserId();
+        adapter = new OrderAdapterSeller(orderList,this);
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_seller_order, container, false);
-        orderList=new ArrayList<>();
-        adapter = new OrderAdapterSeller(orderList,this);
 
         recyclerViewOrders = view.findViewById(R.id.reciclerViewOrders);
         recyclerViewOrders.setHasFixedSize(true);
         recyclerViewOrders.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerViewOrders.setAdapter(adapter);
 
-        authService=AuthService.getInstance();
         tokenManager= new TokenManager(getActivity());
 
         fetchOrdersByFarmer(idAgricultor);
@@ -61,17 +59,18 @@ public class SellerOrderFragment extends Fragment implements OrderAdapterSeller.
     }
 
     private void fetchOrdersByFarmer(int farmerId) {
-        authService.getAllOrdersByFarmer(farmerId, new AuthService.AuthCallback<List<Map<String, Integer>>>() {
+        authService.getAllOrdersByFarmer(farmerId, new AuthService.AuthCallback<List<Order>>() {
             @Override
-            public void onSuccess(List<Map<String, Integer>> orders) {
-                orderList.clear(); // Limpiar la lista antes de agregar las nuevas órdenes
-                orderList.addAll(orders);
-                if (adapter != null) {
-                    adapter.notifyDataSetChanged();
-                } else {
-                    // Manejar el caso en el que el adaptador es null
-                    Log.e("SellerProductFragment", "El adaptador es null, no se puede actualizar la UI");
+            public void onSuccess(List<Order> orders) {
+                List<Order> farmerOrders = new ArrayList<>();
+                for (Order order : orders) {
+                    if (order.getIdAgricultor() == farmerId) {
+                        farmerOrders.add(order);
+                    }
                 }
+                orderList.clear();
+                orderList.addAll(farmerOrders);
+                adapter.notifyDataSetChanged();
             }
 
             @Override

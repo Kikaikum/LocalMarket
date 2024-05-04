@@ -213,9 +213,10 @@ public interface ApiService {
     @POST("orders")
     Call<Void> createOrder(@Header("idCliente") int idCliente, @Header("idAgricultor") int idAgricultor, @Body Order order);
 
-    @GET("orders/agricultor/{id}")
-    Call<List<Map<String, Integer>>> getOrdersByAgricultor(@Path("id") int agricultorId);
 
+
+    @GET("orders/agricultor/{id}")
+    Call<List<Order>> getOrdersByAgricultor(@Path("id") int agricultorId);
 
     //@GET("location/")
     //Call<List<User>> getNearUsersFromMyLocation(@Body LatLng location);
