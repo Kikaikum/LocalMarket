@@ -21,6 +21,7 @@ import com.example.localmarket.utils.TokenManager;
 import com.google.android.gms.maps.model.LatLng;
 
 import java.util.List;
+import java.util.Map;
 
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
@@ -638,6 +639,27 @@ public class AuthService {
                 authCallback.onError(t);
             }
         });
+    }
+
+    public void getAllOrdersByFarmer (int agricultorId, AuthCallback<List<Map<String, Integer>>> authCallback){
+        apiService.getOrdersByAgricultor(agricultorId).enqueue(new Callback<List<Map<String, Integer>>>() {
+            @Override
+            public void onResponse(Call<List<Map<String, Integer>>> call, Response<List<Map<String, Integer>>> response) {
+                if (response.isSuccessful()) {
+                    authCallback.onSuccess(response.body());
+                } else {
+                    authCallback.onError(new Exception("Error fetching orders"));
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<Map<String, Integer>>> call, Throwable t) {
+                authCallback.onError(new Exception("Error: "+t.getMessage()));
+            }
+        });
+
+
+
     }
 
 

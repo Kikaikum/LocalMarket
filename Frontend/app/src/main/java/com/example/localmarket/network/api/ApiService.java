@@ -17,6 +17,7 @@ import com.example.localmarket.model.User;
 import com.google.android.gms.maps.model.LatLng;
 
 import java.util.List;
+import java.util.Map;
 
 import retrofit2.Call;
 import retrofit2.http.Body;
@@ -212,8 +213,9 @@ public interface ApiService {
     @POST("orders")
     Call<Void> createOrder(@Header("idCliente") int idCliente, @Header("idAgricultor") int idAgricultor, @Body Order order);
 
-    @GET("users")
-    Call<List<User>> getAllUsers();
+    @GET("orders/agricultor/{id}")
+    Call<List<Map<String, Integer>>> getOrdersByAgricultor(@Path("id") int agricultorId);
+
 
     //@GET("location/")
     //Call<List<User>> getNearUsersFromMyLocation(@Body LatLng location);

@@ -17,6 +17,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.localmarket.R;
 import com.example.localmarket.fragments.AddProductFragment;
+import com.example.localmarket.fragments.SellerOrderFragment;
 import com.example.localmarket.fragments.SellerProductFragment;
 import com.example.localmarket.model.Product;
 import com.example.localmarket.network.service.AuthService;
@@ -105,6 +106,10 @@ public class ActivitySellerLobby extends AppCompatActivity {
             // Lógica para manejar el clic en el elemento "Cerrar sesión"
             logout();
             return true;
+        } else if (id == R.id.carrito){
+            getSupportFragmentManager().beginTransaction()
+                    .replace(R.id.fragment_container2, new SellerOrderFragment())
+                    .commit();
         }
 
         return super.onOptionsItemSelected(item);

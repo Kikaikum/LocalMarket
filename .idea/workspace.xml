@@ -29,6 +29,11 @@
           <theme>@style/Base.Theme.LocalMarket</theme>
         </config>
       </layout>
+      <layout url="file://$PROJECT_DIR$/Frontend/app/src/main/res/layout/card_order_seller.xml">
+        <config>
+          <theme>@style/Base.Theme.LocalMarket</theme>
+        </config>
+      </layout>
       <layout url="file://$PROJECT_DIR$/Frontend/app/src/main/res/layout/card_product.xml">
         <config>
           <theme>@style/NoStyle</theme>
@@ -89,6 +94,11 @@
           <theme>@style/Base.Theme.LocalMarket</theme>
         </config>
       </layout>
+      <layout url="file://$PROJECT_DIR$/Frontend/app/src/main/res/layout/fragment_seller_order.xml">
+        <config>
+          <theme>@style/Base.Theme.LocalMarket</theme>
+        </config>
+      </layout>
       <layout url="file://$PROJECT_DIR$/Frontend/app/src/main/res/layout/fragment_seller_product.xml">
         <config>
           <theme>@style/Base.Theme.LocalMarket</theme>
@@ -130,16 +140,17 @@
     <option name="autoReloadType" value="NONE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="72ff1c52-651c-4388-8d0f-812589155228" name="Changes" comment="+cambios hechos a UserProductFragment.java + adquisicion de productores en rango v2">
-      <change beforePath="$PROJECT_DIR$/.idea/androidTestResultsUserPreferences.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/androidTestResultsUserPreferences.xml" afterDir="false" />
+    <list default="true" id="72ff1c52-651c-4388-8d0f-812589155228" name="Changes" comment="+Cambios definitivos de la funcionalidad de buscar productores y carga de sus productos por distancia.">
+      <change afterPath="$PROJECT_DIR$/Frontend/app/src/main/java/com/example/localmarket/fragments/SellerOrderFragment.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Frontend/app/src/main/java/com/example/localmarket/utils/OrderAdapterSeller.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Frontend/app/src/main/res/layout/card_order_seller.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Frontend/app/src/main/res/layout/fragment_seller_order.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/deploymentTargetDropDown.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/deploymentTargetDropDown.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Frontend/app/build.gradle.kts" beforeDir="false" afterPath="$PROJECT_DIR$/Frontend/app/build.gradle.kts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Frontend/app/src/main/java/com/example/localmarket/fragments/MapFragment.java" beforeDir="false" afterPath="$PROJECT_DIR$/Frontend/app/src/main/java/com/example/localmarket/fragments/MapFragment.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Frontend/app/src/main/java/com/example/localmarket/activities/ActivitySellerLobby.java" beforeDir="false" afterPath="$PROJECT_DIR$/Frontend/app/src/main/java/com/example/localmarket/activities/ActivitySellerLobby.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Frontend/app/src/main/java/com/example/localmarket/network/api/ApiService.java" beforeDir="false" afterPath="$PROJECT_DIR$/Frontend/app/src/main/java/com/example/localmarket/network/api/ApiService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Frontend/app/src/main/java/com/example/localmarket/network/service/AuthService.java" beforeDir="false" afterPath="$PROJECT_DIR$/Frontend/app/src/main/java/com/example/localmarket/network/service/AuthService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Frontend/app/src/main/res/layout/card_product_userlobby.xml" beforeDir="false" afterPath="$PROJECT_DIR$/Frontend/app/src/main/res/layout/card_product_userlobby.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Frontend/gradle/libs.versions.toml" beforeDir="false" afterPath="$PROJECT_DIR$/Frontend/gradle/libs.versions.toml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Frontend/app/src/main/res/values/strings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/Frontend/app/src/main/res/values/strings.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -184,6 +195,7 @@
         <option value="AnnotationType" />
         <option value="Interface" />
         <option value="Class" />
+        <option value="valueResourceFile" />
       </list>
     </option>
   </component>
@@ -246,7 +258,7 @@
     "com.google.services.firebase.aqiPopupShown": "true",
     "git-widget-placeholder": "main",
     "ignore.virus.scanning.warn.message": "true",
-    "last_opened_file_path": "C:/Users/ainoh/Downloads/LocalMarket - copia",
+    "last_opened_file_path": "C:/Users/rasta/AndroidStudioProjects/LocalMarket/Frontend/app/src/main/res/layout",
     "project.structure.last.edited": "Dependencies",
     "project.structure.proportion": "0.17",
     "project.structure.side.proportion": "0.2",
@@ -259,6 +271,7 @@
       <recent name="com.example.localmarket.fragments" />
     </key>
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\rasta\AndroidStudioProjects\LocalMarket\Frontend\app\src\main\res\layout" />
       <recent name="C:\Users\rasta\AndroidStudioProjects\LocalMarket\Frontend\app\src\main\res\drawable" />
       <recent name="C:\Users\rasta\AndroidStudioProjects\LocalMarket\Frontend\app\src\main\res\drawable\products" />
     </key>
@@ -807,7 +820,23 @@
       <option name="project" value="LOCAL" />
       <updated>1714671521440</updated>
     </task>
-    <option name="localTasksCounter" value="21" />
+    <task id="LOCAL-00021" summary="+cambios hechos a UserProductFragment.java + adquisicion de productores en rango v3">
+      <option name="closed" value="true" />
+      <created>1714678411681</created>
+      <option name="number" value="00021" />
+      <option name="presentableId" value="LOCAL-00021" />
+      <option name="project" value="LOCAL" />
+      <updated>1714678411681</updated>
+    </task>
+    <task id="LOCAL-00022" summary="+Cambios definitivos de la funcionalidad de buscar productores y carga de sus productos por distancia.">
+      <option name="closed" value="true" />
+      <created>1714724001196</created>
+      <option name="number" value="00022" />
+      <option name="presentableId" value="LOCAL-00022" />
+      <option name="project" value="LOCAL" />
+      <updated>1714724001196</updated>
+    </task>
+    <option name="localTasksCounter" value="23" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -842,7 +871,9 @@
     <MESSAGE value="+cambios hechos a UserProductFragment.java" />
     <MESSAGE value="+cambios hechos a UserProductFragment.java + adquisicion de productores en rango v1" />
     <MESSAGE value="+cambios hechos a UserProductFragment.java + adquisicion de productores en rango v2" />
-    <option name="LAST_COMMIT_MESSAGE" value="+cambios hechos a UserProductFragment.java + adquisicion de productores en rango v2" />
+    <MESSAGE value="+cambios hechos a UserProductFragment.java + adquisicion de productores en rango v3" />
+    <MESSAGE value="+Cambios definitivos de la funcionalidad de buscar productores y carga de sus productos por distancia." />
+    <option name="LAST_COMMIT_MESSAGE" value="+Cambios definitivos de la funcionalidad de buscar productores y carga de sus productos por distancia." />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/Local_Market$AuthServiceUnitTest_testSignUpUser_Failure.ic" NAME="AuthServiceUnitTest.testSignUpUser_Failure Coverage Results" MODIFIED="1711036953776" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
