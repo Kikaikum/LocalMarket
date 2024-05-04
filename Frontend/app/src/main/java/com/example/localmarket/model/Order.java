@@ -1,5 +1,8 @@
 package com.example.localmarket.model;
 
+import android.util.Log;
+
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -51,8 +54,21 @@ public class Order {
         this.estado = estado;
     }
     public List<Product> getProductos() {
-        return pedido.stream()
-                .map(orderItem -> new Product(orderItem.getItemId(), orderItem.getCantidad()))
-                .collect(Collectors.toList());
+        List<Product> productos = new ArrayList<>();
+        for (Map<String, Integer> orderItem : pedido) {
+            Integer productIdInteger = orderItem.get("productId");
+            Integer cantidadInteger = orderItem.get("cantidad");
+
+            if (productIdInteger != null && cantidadInteger != null) {
+                int productId = productIdInteger.intValue();
+                String cantidad = String.valueOf(cantidadInteger.intValue());
+                Product product = new Product(productId, cantidad);
+                productos.add(product);
+            } else {
+                // Manejar el caso donde los valores son nulos
+                Log.e("Order", "Valores nulos en el Map");
+            }
+        }
+        return productos;
     }
 }

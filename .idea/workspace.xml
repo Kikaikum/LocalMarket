@@ -94,6 +94,11 @@
           <theme>@style/Base.Theme.LocalMarket</theme>
         </config>
       </layout>
+      <layout url="file://$PROJECT_DIR$/Frontend/app/src/main/res/layout/fragment_pedido_products.xml">
+        <config>
+          <theme>@style/Base.Theme.LocalMarket</theme>
+        </config>
+      </layout>
       <layout url="file://$PROJECT_DIR$/Frontend/app/src/main/res/layout/fragment_seller_order.xml">
         <config>
           <theme>@style/Base.Theme.LocalMarket</theme>
@@ -140,14 +145,15 @@
     <option name="autoReloadType" value="NONE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="72ff1c52-651c-4388-8d0f-812589155228" name="Changes" comment="+ Obtencion de los pedidos v0.1">
-      <change afterPath="$PROJECT_DIR$/Frontend/app/src/main/java/com/example/localmarket/model/OrderItem.java" afterDir="false" />
+    <list default="true" id="72ff1c52-651c-4388-8d0f-812589155228" name="Changes" comment="+ Obtencion de los pedidos v0.5">
+      <change afterPath="$PROJECT_DIR$/Frontend/app/src/main/java/com/example/localmarket/fragments/PedidoProductsFragment.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Frontend/app/src/main/java/com/example/localmarket/utils/ProductsOrderAdapter.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Frontend/app/src/main/res/layout/fragment_pedido_products.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Frontend/app/src/main/java/com/example/localmarket/fragments/SellerOrderFragment.java" beforeDir="false" afterPath="$PROJECT_DIR$/Frontend/app/src/main/java/com/example/localmarket/fragments/SellerOrderFragment.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Frontend/app/src/main/java/com/example/localmarket/model/Order.java" beforeDir="false" afterPath="$PROJECT_DIR$/Frontend/app/src/main/java/com/example/localmarket/model/Order.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Frontend/app/src/main/java/com/example/localmarket/network/api/ApiService.java" beforeDir="false" afterPath="$PROJECT_DIR$/Frontend/app/src/main/java/com/example/localmarket/network/api/ApiService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Frontend/app/src/main/java/com/example/localmarket/network/service/AuthService.java" beforeDir="false" afterPath="$PROJECT_DIR$/Frontend/app/src/main/java/com/example/localmarket/network/service/AuthService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Frontend/app/src/main/java/com/example/localmarket/utils/OrderAdapterSeller.java" beforeDir="false" afterPath="$PROJECT_DIR$/Frontend/app/src/main/java/com/example/localmarket/utils/OrderAdapterSeller.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Frontend/app/src/main/res/values/strings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/Frontend/app/src/main/res/values/strings.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -279,6 +285,9 @@
     </key>
     <key name="android.template.1012283439">
       <recent name="com.example.localmarket" />
+    </key>
+    <key name="ExtractSuperBase.RECENT_KEYS">
+      <recent name="com.example.localmarket.utils" />
     </key>
     <key name="android.template.521814679">
       <recent name="com.example.localmarket" />
@@ -842,7 +851,15 @@
       <option name="project" value="LOCAL" />
       <updated>1714813488955</updated>
     </task>
-    <option name="localTasksCounter" value="24" />
+    <task id="LOCAL-00024" summary="+ Obtencion de los pedidos v0.5">
+      <option name="closed" value="true" />
+      <created>1714843717013</created>
+      <option name="number" value="00024" />
+      <option name="presentableId" value="LOCAL-00024" />
+      <option name="project" value="LOCAL" />
+      <updated>1714843717013</updated>
+    </task>
+    <option name="localTasksCounter" value="25" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -880,7 +897,8 @@
     <MESSAGE value="+cambios hechos a UserProductFragment.java + adquisicion de productores en rango v3" />
     <MESSAGE value="+Cambios definitivos de la funcionalidad de buscar productores y carga de sus productos por distancia." />
     <MESSAGE value="+ Obtencion de los pedidos v0.1" />
-    <option name="LAST_COMMIT_MESSAGE" value="+ Obtencion de los pedidos v0.1" />
+    <MESSAGE value="+ Obtencion de los pedidos v0.5" />
+    <option name="LAST_COMMIT_MESSAGE" value="+ Obtencion de los pedidos v0.5" />
   </component>
   <component name="XDebuggerManager">
     <watches-manager>

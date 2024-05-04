@@ -7,9 +7,11 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.fragment.app.FragmentActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.localmarket.R;
+import com.example.localmarket.fragments.PedidoProductsFragment;
 import com.example.localmarket.model.Order;
 import com.example.localmarket.model.User;
 import com.example.localmarket.network.service.AuthService;
@@ -36,8 +38,8 @@ public class OrderAdapterSeller extends RecyclerView.Adapter<OrderAdapterSeller.
 
     @Override
     public void onBindViewHolder(@NonNull OrderViewHolder holder, int position) {
-        Order order = orderList.get(position);
-        holder.bind(order, listener);
+        final Order order = orderList.get(position);
+        holder.bind(order,listener);
     }
 
     @Override
@@ -53,6 +55,16 @@ public class OrderAdapterSeller extends RecyclerView.Adapter<OrderAdapterSeller.
             super(itemView);
             tvClientName = itemView.findViewById(R.id.tvNameOfUserOrder);
             imageView = itemView.findViewById(R.id.imageChart);
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    int position = getAdapterPosition();
+                    if (position != RecyclerView.NO_POSITION) {
+                        Order order = orderList.get(position);
+                        listener.onOrderClick(order);
+                    }
+                }
+            });
         }
 
         public void bind(Order order, OnOrderClickListener listener) {

@@ -82,6 +82,20 @@ public class SellerOrderFragment extends Fragment implements OrderAdapterSeller.
 
     @Override
     public void onOrderClick(Order order) {
-        //return order;
+        if (order != null && order.getProductos() != null) {
+            List<Product> productos = order.getProductos();
+            PedidoProductsFragment productsFragment = PedidoProductsFragment.newInstance(productos);
+            getParentFragmentManager().beginTransaction()
+                    .replace(R.id.fragment_container2, productsFragment)
+                    .addToBackStack(null)
+                    .commit();
+        } else {
+            // Handle the case where the order object or its productos field is null
+            Log.e("SellerOrderFragment", "Order object or its productos field is null");
+        }
+
+
+
+
     }
 }
