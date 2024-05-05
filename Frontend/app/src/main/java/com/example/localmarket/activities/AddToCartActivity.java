@@ -170,4 +170,3 @@ public class AddToCartActivity extends AppCompatActivity {
 
 
 }
-

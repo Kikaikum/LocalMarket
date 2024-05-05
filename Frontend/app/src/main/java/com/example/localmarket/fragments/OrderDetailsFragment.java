@@ -118,7 +118,7 @@ public class OrderDetailsFragment extends Fragment {
         return view;
     }
 
-    private Map<Integer, List<CartItem>> groupProductsByAgricultor(List<CartItem> cartItems) {
+    Map<Integer, List<CartItem>> groupProductsByAgricultor(List<CartItem> cartItems) {
         Map<Integer, List<CartItem>> groupedProducts = new HashMap<>();
 
         for (CartItem item : cartItems) {
@@ -132,7 +132,7 @@ public class OrderDetailsFragment extends Fragment {
         return groupedProducts;
     }
 
-    private void calculateAndDisplayTotalAmount(List<CartItem> cartItems) {
+    void calculateAndDisplayTotalAmount(List<CartItem> cartItems) {
         double totalAmount = 0.0;
         for (CartItem item : cartItems) {
             totalAmount += item.getPrice() * item.getCantidad();
@@ -167,7 +167,7 @@ public class OrderDetailsFragment extends Fragment {
             sendOrderToServer(order);
         }
     }
-    private Order createOrder(int clientId, int idAgricultor, List<CartItem> products) {
+    Order createOrder(int clientId, int idAgricultor, List<CartItem> products) {
         Order order = new Order();
         order.setIdCliente(clientId);
         order.setIdAgricultor(idAgricultor);

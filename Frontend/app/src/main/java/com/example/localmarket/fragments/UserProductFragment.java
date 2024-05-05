@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -13,16 +12,13 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.Toast;
 
 import com.example.localmarket.R;
 import com.example.localmarket.activities.AddToCartActivity;
-import com.example.localmarket.activities.EditProductActivity;
 import com.example.localmarket.model.Product;
 import com.example.localmarket.model.User;
 import com.example.localmarket.network.service.AuthService;
-import com.example.localmarket.utils.ProductAdapter;
 import com.example.localmarket.utils.ProductAdapterUserLobby;
 import com.example.localmarket.utils.TokenManager;
 

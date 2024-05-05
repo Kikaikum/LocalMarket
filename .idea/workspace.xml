@@ -136,16 +136,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="72ff1c52-651c-4388-8d0f-812589155228" name="Changes" comment="+cambios hechos a UserProductFragment.java + adquisicion de productores en rango v1">
-      <change beforePath="$PROJECT_DIR$/.idea/deploymentTargetDropDown.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/deploymentTargetDropDown.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Frontend/app/src/test/java/com/example/localmarket/fragments/OrderDetailsFragmentTest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Frontend/app/src/main/AndroidManifest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/Frontend/app/src/main/AndroidManifest.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Frontend/app/src/main/java/com/example/localmarket/activities/AddToCartActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/Frontend/app/src/main/java/com/example/localmarket/activities/AddToCartActivity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Frontend/app/src/main/java/com/example/localmarket/activities/AddToCartActivity.java" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/Frontend/app/src/main/java/com/example/localmarket/fragments/OrderDetailsFragment.java" beforeDir="false" afterPath="$PROJECT_DIR$/Frontend/app/src/main/java/com/example/localmarket/fragments/OrderDetailsFragment.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Frontend/app/src/main/java/com/example/localmarket/fragments/UserProductFragment.java" beforeDir="false" afterPath="$PROJECT_DIR$/Frontend/app/src/main/java/com/example/localmarket/fragments/UserProductFragment.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Frontend/app/src/main/java/com/example/localmarket/utils/OrderAdapter.java" beforeDir="false" afterPath="$PROJECT_DIR$/Frontend/app/src/main/java/com/example/localmarket/utils/OrderAdapter.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Frontend/app/src/main/java/com/example/localmarket/utils/ProductAdapterUserLobby.java" beforeDir="false" afterPath="$PROJECT_DIR$/Frontend/app/src/main/java/com/example/localmarket/utils/ProductAdapterUserLobby.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Frontend/app/src/main/res/layout/card_product_userlobby.xml" beforeDir="false" afterPath="$PROJECT_DIR$/Frontend/app/src/main/res/layout/card_product_userlobby.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Frontend/app/src/main/res/layout/ordered_product_card.xml" beforeDir="false" afterPath="$PROJECT_DIR$/Frontend/app/src/main/res/layout/ordered_product_card.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Frontend/app/src/test/java/com/example/localmarket/AuthServiceUnitTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/Frontend/app/src/test/java/com/example/localmarket/AuthServiceUnitTest.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -155,7 +151,7 @@
   <component name="ClangdSettings">
     <option name="formatViaClangd" value="false" />
   </component>
-  <component name="ExecutionTargetManager" SELECTED_TARGET="device_and_snapshot_combo_box_target[C:\Users\ainoh\.android\avd\Pixel_8_Pro_API_34.avd]" />
+  <component name="ExecutionTargetManager" SELECTED_TARGET="device_and_snapshot_combo_box_target[C:\Users\ainoh\.android\avd\Pixel_8_API_34.avd]" />
   <component name="ExternalProjectsData">
     <projectState path="$PROJECT_DIR$/Frontend">
       <ProjectState />
@@ -189,6 +185,7 @@
         <option value="resourceFile" />
         <option value="AnnotationType" />
         <option value="Interface" />
+        <option value="JUnit5 Test Class" />
         <option value="Class" />
       </list>
     </option>
@@ -249,6 +246,8 @@
     &quot;cidr.known.project.marker&quot;: &quot;true&quot;,
     &quot;com.android.tools.idea.streaming.zoom.toolbar.visible&quot;: &quot;false&quot;,
     &quot;com.google.services.firebase.aqiPopupShown&quot;: &quot;true&quot;,
+    &quot;com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary&quot;: &quot;JUnit5&quot;,
+    &quot;com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit5&quot;: &quot;&quot;,
     &quot;git-widget-placeholder&quot;: &quot;main&quot;,
     &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
     &quot;last_opened_file_path&quot;: &quot;C:/Users/ainoh/Downloads/LocalMarket - copia&quot;,
@@ -256,7 +255,7 @@
     &quot;project.structure.proportion&quot;: &quot;0.17&quot;,
     &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
     &quot;run.code.analysis.last.selected.profile&quot;: &quot;pProject Default&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.lookFeel&quot;
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;
   }
 }</component>
   <component name="RecentsManager">
@@ -271,11 +270,17 @@
       <recent name="C:\Users\rasta\AndroidStudioProjects\LocalMarket\Frontend\app\src\main\java\com\example\localmarket" />
       <recent name="C:\Users\rasta\AndroidStudioProjects\LocalMarket\Frontend\app\src\main\res" />
     </key>
+    <key name="CreateTestDialog.Recents.Supers">
+      <recent name="" />
+    </key>
     <key name="android.template.1012283439">
       <recent name="com.example.localmarket" />
     </key>
     <key name="android.template.521814679">
       <recent name="com.example.localmarket" />
+    </key>
+    <key name="CreateTestDialog.RecentsKey">
+      <recent name="com.example.localmarket.activities" />
     </key>
   </component>
   <component name="RunAnythingCache">
@@ -283,7 +288,7 @@
       <command value="gradle init" />
     </option>
   </component>
-  <component name="RunManager" selected="Android App.app">
+  <component name="RunManager" selected="Gradle.AuthServiceOrderTest">
     <configuration name="ActivitySellerLobby" type="AndroidRunConfigurationType" factoryName="Android App" temporary="true">
       <module name="myapp.app.main" />
       <option name="DEPLOY" value="true" />
@@ -436,7 +441,7 @@
         <option name="Android.Gradle.BeforeRunTask" enabled="true" />
       </method>
     </configuration>
-    <configuration name="AddProductFragmentTest (1)" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+    <configuration name="AuthServiceOrderTest" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
         <option name="executionName" />
         <option name="externalProjectPath" value="$PROJECT_DIR$/Frontend" />
@@ -449,7 +454,7 @@
           <list>
             <option value=":app:testDebugUnitTest" />
             <option value="--tests" />
-            <option value="&quot;com.example.localmarket.fragments.AddProductFragmentTest&quot;" />
+            <option value="&quot;com.example.localmarket.AuthServiceOrderTest&quot;" />
           </list>
         </option>
         <option name="vmOptions" />
@@ -460,7 +465,7 @@
       <RunAsTest>true</RunAsTest>
       <method v="2" />
     </configuration>
-    <configuration name="AuthServiceUnitTest" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+    <configuration name="OrderDetailsFragmentTest" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
         <option name="executionName" />
         <option name="externalProjectPath" value="$PROJECT_DIR$/Frontend" />
@@ -473,7 +478,7 @@
           <list>
             <option value=":app:testDebugUnitTest" />
             <option value="--tests" />
-            <option value="&quot;com.example.localmarket.AuthServiceUnitTest&quot;" />
+            <option value="&quot;com.example.localmarket.fragments.OrderDetailsFragmentTest&quot;" />
           </list>
         </option>
         <option name="vmOptions" />
@@ -486,11 +491,11 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Gradle.AuthServiceOrderTest" />
+        <item itemvalue="Gradle.OrderDetailsFragmentTest" />
         <item itemvalue="Android App.AddToCartActivity" />
         <item itemvalue="Android App.ActivityUserLobby" />
         <item itemvalue="Android App.ActivitySellerLobby" />
-        <item itemvalue="Gradle.AuthServiceUnitTest" />
-        <item itemvalue="Gradle.AddProductFragmentTest (1)" />
       </list>
     </recent_temporary>
   </component>
@@ -682,17 +687,6 @@
     <MESSAGE value="+cambios hechos a UserProductFragment.java" />
     <MESSAGE value="+cambios hechos a UserProductFragment.java + adquisicion de productores en rango v1" />
     <option name="LAST_COMMIT_MESSAGE" value="+cambios hechos a UserProductFragment.java + adquisicion de productores en rango v1" />
-  </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/Frontend/app/src/main/java/com/example/localmarket/activities/AddToCartActivity.java</url>
-          <line>67</line>
-          <option name="timeStamp" value="1" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/Local_Market$AuthServiceUnitTest_testSignUpUser_Failure.ic" NAME="AuthServiceUnitTest.testSignUpUser_Failure Coverage Results" MODIFIED="1711036953776" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />

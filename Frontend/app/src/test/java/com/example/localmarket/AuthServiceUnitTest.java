@@ -241,7 +241,7 @@ public class AuthServiceUnitTest {
     public void testLogoutUser() {
         // Arrange
         AuthService authService = new AuthService();
-        User currentUser = new User("oriol", "estero", "testUser", "oriolestero@gmail.io", "TestUser!!", 7, false);
+        User currentUser = new User("oriol", "estero", "testUser", "oriolestero@gmail.io", "TestUser!!", 7, false, 40.7128, -74.0060);
         authService.setCurrentUser(currentUser);
         TestAuthCallback<Void> callback = new TestAuthCallback<>();
 
