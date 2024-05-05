@@ -658,6 +658,27 @@ public class AuthService {
             }
         });
     }
+    public void getProductById(int productId, AuthCallback<Product> authCallback) {
+        apiService.getProductById(productId).enqueue(new Callback<Product>() {
+            @Override
+            public void onResponse(Call<Product> call, Response<Product> response) {
+                if (response.isSuccessful()) {
+                    // Aquí se asume que la respuesta del cuerpo es un 'Product'
+                    authCallback.onSuccess(response.body()); // Correctamente se pasa un Product a onSuccess
+                } else {
+                    // Crea una excepción que describe el problema basado en el cuerpo de error de la respuesta
+                    authCallback.onError(new Exception("Failed to fetch product, status code: " + response.code()));
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Product> call, Throwable t) {
+                // Propaga la excepción con un mensaje de error más detallado
+                authCallback.onError(new Exception("Network error: " + t.getMessage()));
+            }
+        });
+    }
+
 
 
 

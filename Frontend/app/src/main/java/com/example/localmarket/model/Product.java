@@ -153,7 +153,7 @@ public class Product {
         this.stock = stock;
     }
 
-    public int getIdAgricultor(){return idAgricultor;
+    public int getIdAgricultor(){return idAgricultor;}
 
-    }
+
 }

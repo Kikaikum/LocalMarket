@@ -1,6 +1,7 @@
 package com.example.localmarket.fragments;
 
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,6 +18,7 @@ import com.example.localmarket.network.service.AuthService;
 import com.example.localmarket.utils.OrderAdapterSeller;
 import com.example.localmarket.utils.TokenManager;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -29,6 +31,7 @@ public class SellerOrderFragment extends Fragment implements OrderAdapterSeller.
     private RecyclerView recyclerViewOrders;
     private List<Order> orderList = new ArrayList<>();
     private int idAgricultor;
+    Bundle bundle;
 
     public SellerOrderFragment() {
         // Required empty public constructor
@@ -37,6 +40,7 @@ public class SellerOrderFragment extends Fragment implements OrderAdapterSeller.
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        bundle=new Bundle();
         authService = new AuthService();
         tokenManager = new TokenManager(getActivity());
         idAgricultor = tokenManager.getUserId();
@@ -82,20 +86,19 @@ public class SellerOrderFragment extends Fragment implements OrderAdapterSeller.
 
     @Override
     public void onOrderClick(Order order) {
-        if (order != null && order.getProductos() != null) {
-            List<Product> productos = order.getProductos();
-            PedidoProductsFragment productsFragment = PedidoProductsFragment.newInstance(productos);
+        if (order != null && order.getPedido() != null) {
+            List<Map<String, Integer>> pedidoItems = order.getPedido(); // Obtiene los ítems del pedido
+            Bundle bundle = new Bundle();
+            bundle.putSerializable("pedidoItems", (Serializable) pedidoItems); // Asegúrate de que Map<String, Integer> sea serializable
+            Log.e("OrderClick", "Pedido Items: " + pedidoItems.toString());
+
+            PedidoProductsFragment productsFragment = PedidoProductsFragment.newInstance(bundle);
             getParentFragmentManager().beginTransaction()
                     .replace(R.id.fragment_container2, productsFragment)
                     .addToBackStack(null)
                     .commit();
         } else {
-            // Handle the case where the order object or its productos field is null
-            Log.e("SellerOrderFragment", "Order object or its productos field is null");
+            Log.e("SellerOrderFragment", "Order object or pedido list is null");
         }
-
-
-
-
     }
 }

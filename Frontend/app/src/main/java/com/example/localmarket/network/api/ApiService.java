@@ -213,7 +213,8 @@ public interface ApiService {
     @POST("orders")
     Call<Void> createOrder(@Header("idCliente") int idCliente, @Header("idAgricultor") int idAgricultor, @Body Order order);
 
-
+    @GET("products/{productId}")
+    Call<Product> getProductById(@Path("productId") int productId);
 
     @GET("orders/agricultor/{id}")
     Call<List<Order>> getOrdersByAgricultor(@Path("id") int agricultorId);

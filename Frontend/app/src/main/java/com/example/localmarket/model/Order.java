@@ -2,32 +2,39 @@ package com.example.localmarket.model;
 
 import android.util.Log;
 
+import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Collectors;
 
-public class Order {
+public class Order implements Serializable {
+    private int id;
     private int clientId;
     private int agricultorId;
-    private List<Map<String, Integer>> pedido; // Lista de objetos con las claves "productId" y "quantity"
+    private List<Map<String, Integer>> pedido;
     private String estado;
-    private List<OrderItem> comandas;
+    private String createdAt;
+
+    public Order() {
+        pedido = new ArrayList<>();
+    }
+
+    // Getters y setters
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
 
     public int getIdCliente() {
         return clientId;
     }
 
-    public List<OrderItem> getComandas() {
-        return comandas;
-    }
-
-    public void setComandas(List<OrderItem> comandas) {
-        this.comandas = comandas;
-    }
-
-    public void setIdCliente(int idCliente) {
-        this.clientId = idCliente;
+    public void setIdCliente(int clientId) {
+        this.clientId = clientId;
     }
 
     public int getIdAgricultor() {
@@ -53,22 +60,20 @@ public class Order {
     public void setEstado(String estado) {
         this.estado = estado;
     }
-    public List<Product> getProductos() {
-        List<Product> productos = new ArrayList<>();
-        for (Map<String, Integer> orderItem : pedido) {
-            Integer productIdInteger = orderItem.get("productId");
-            Integer cantidadInteger = orderItem.get("cantidad");
 
-            if (productIdInteger != null && cantidadInteger != null) {
-                int productId = productIdInteger.intValue();
-                String cantidad = String.valueOf(cantidadInteger.intValue());
-                Product product = new Product(productId, cantidad);
-                productos.add(product);
-            } else {
-                // Manejar el caso donde los valores son nulos
-                Log.e("Order", "Valores nulos en el Map");
-            }
-        }
-        return productos;
+    public String getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(String createdAt) {
+        this.createdAt = createdAt;
+    }
+
+    // Método para añadir ítems al pedido
+    public void addPedidoItem(int itemId, int cantidad) {
+        Map<String, Integer> newItem = new HashMap<>();
+        newItem.put("itemId", itemId);
+        newItem.put("cantidad", cantidad);
+        this.pedido.add(newItem);
     }
 }
