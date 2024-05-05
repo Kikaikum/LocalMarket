@@ -41,6 +41,7 @@ public class OrderDetailsFragment extends Fragment {
     private Button buttonEnviarPedido;
     private Button btnVolver;
     private TokenManager tokenManager;
+    private int numAgricultores;
 
     public OrderDetailsFragment() {
         // Constructor público requerido
@@ -105,7 +106,8 @@ public class OrderDetailsFragment extends Fragment {
         btnVolver.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                navigateToLobbyUser();
+                requireActivity().finish();
+                ;
             }
         });
 
@@ -116,7 +118,7 @@ public class OrderDetailsFragment extends Fragment {
         return view;
     }
 
-    private Map<Integer, List<CartItem>> groupProductsByAgricultor(List<CartItem> cartItems) {
+    Map<Integer, List<CartItem>> groupProductsByAgricultor(List<CartItem> cartItems) {
         Map<Integer, List<CartItem>> groupedProducts = new HashMap<>();
 
         for (CartItem item : cartItems) {
@@ -130,7 +132,7 @@ public class OrderDetailsFragment extends Fragment {
         return groupedProducts;
     }
 
-    private void calculateAndDisplayTotalAmount(List<CartItem> cartItems) {
+    void calculateAndDisplayTotalAmount(List<CartItem> cartItems) {
         double totalAmount = 0.0;
         for (CartItem item : cartItems) {
             totalAmount += item.getPrice() * item.getCantidad();
@@ -141,6 +143,7 @@ public class OrderDetailsFragment extends Fragment {
 
     private void enviarPedidoAlServidor(List<CartItem> cartItems) {
         Map<Integer, List<CartItem>> groupedProducts = groupProductsByAgricultor(cartItems);
+        numAgricultores = groupedProducts.size(); // Obtener el número de agricultores
 
         for (Map.Entry<Integer, List<CartItem>> entry : groupedProducts.entrySet()) {
             int clientId = tokenManager.getUserId(); // Valor predeterminado en caso de que no se pueda obtener el ID del usuario
@@ -164,7 +167,7 @@ public class OrderDetailsFragment extends Fragment {
             sendOrderToServer(order);
         }
     }
-    private Order createOrder(int clientId, int idAgricultor, List<CartItem> products) {
+    Order createOrder(int clientId, int idAgricultor, List<CartItem> products) {
         Order order = new Order();
         order.setIdCliente(clientId);
         order.setIdAgricultor(idAgricultor);
@@ -188,7 +191,7 @@ public class OrderDetailsFragment extends Fragment {
             @Override
             public void onSuccess(Void data) {
                 // Manejar el éxito del envío del pedido
-                Toast.makeText(getContext(), "Pedido enviado exitosamente", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), "Has realizado "+ numAgricultores +" pedidos exitosamente", Toast.LENGTH_SHORT).show();
                 // Vaciar la cesta de compras
                 orderManager.clearCartItems();
             }

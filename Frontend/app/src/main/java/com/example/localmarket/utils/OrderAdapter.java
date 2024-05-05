@@ -1,5 +1,6 @@
 package com.example.localmarket.utils;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,6 +13,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.localmarket.R;
 import com.example.localmarket.model.CartItem;
 import com.example.localmarket.fragments.OrderDetailsFragment;
+import com.example.localmarket.model.User;
+import com.example.localmarket.network.service.AuthService;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -67,6 +70,9 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.OrderViewHol
         private TextView buttonIncrement;
         private TextView buttonDecrement;
         private ImageView buttonDelete;
+        private TextView agricutlorUsername;
+
+
 
         public OrderViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -78,14 +84,38 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.OrderViewHol
             buttonIncrement = itemView.findViewById(R.id.textViewPlus);
             buttonDecrement = itemView.findViewById(R.id.textViewMinus);
             buttonDelete = itemView.findViewById(R.id.deleteproduct);
+            agricutlorUsername=itemView.findViewById(R.id.textViewAgricultorUsername);
+
         }
 
         public void bind(CartItem cartItem) {
+
             productNameTextView.setText(cartItem.getProductName());
             quantityTextView.setText(String.valueOf(cartItem.getCantidad()));
             precioTextView.setText(String.format("%.2f", cartItem.getPrice()));
             unidadMedidaTextView.setText(cartItem.getUnidadMedida());
             imageViewProduct.setImageResource(cartItem.getCategoriaId());
+             int agricultorId= cartItem.getAgricultorId();
+            // Accede al servicio de autenticación para obtener el perfil del usuario y recuperar el nombre del agricultor
+            AuthService authService = new AuthService();
+            authService.getUserProfile(agricultorId, new AuthService.ProfileCallback() {
+                @Override
+                public void onSuccess(User userProfile) {
+                    if (userProfile != null) {
+                        // Obtiene el nombre del agricultor del perfil del usuario
+                        String agricultorName = userProfile.getUsername();
+
+                        // Establece el nombre del agricultor en el TextView correspondiente
+                        agricutlorUsername.setText(agricultorName);
+                    }
+                }
+
+                @Override
+                public void onError(Throwable t) {
+                    // Maneja el error al obtener el perfil del usuario
+                    Log.e("OrderAdapter", "Error al obtener el perfil del usuario: " + t.getMessage());
+                }
+            });
 
             buttonIncrement.setOnClickListener(v -> {
                 // Lógica para incrementar la cantidad

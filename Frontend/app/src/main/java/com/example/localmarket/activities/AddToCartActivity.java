@@ -54,6 +54,7 @@ public class AddToCartActivity extends AppCompatActivity {
             double precio = intent.getDoubleExtra("precio", 0.0);
             String tipoDePeso = intent.getStringExtra("tipoDePeso");
             int productId=intent.getIntExtra("productId",0);
+            String vendedor=intent.getStringExtra("vendedor");
 
 
             ImageView imageProduct = findViewById(R.id.imageProduct);
@@ -61,6 +62,7 @@ public class AddToCartActivity extends AppCompatActivity {
             TextView textDescription = findViewById(R.id.textDescription);
             TextView textPrice = findViewById(R.id.textPrice);
             TextView textUnidadMedidaPrecio=findViewById(R.id.textUnidadMedidaPrecio);
+            TextView textVendedor=findViewById(R.id.textFarmerUsername);
 
             // Inicializar los TextView de acuerdo al estado del Switch
             if (tipoDePeso.equalsIgnoreCase("peso")) {
@@ -74,6 +76,7 @@ public class AddToCartActivity extends AppCompatActivity {
             textProductName.setText(nombre);
             textDescription.setText(descripcion);
             textPrice.setText(String.valueOf(precio));
+            textVendedor.setText(vendedor);
 
         }
 
@@ -127,6 +130,8 @@ public class AddToCartActivity extends AppCompatActivity {
                 int categoriaId=intent.getIntExtra("categoriaId",0);
                 String unidadMedida = textWeight.getText().toString();
                 int idAgricultor=intent.getIntExtra("idAgricultor",2);
+
+
                 Log.d("OrderDetailsFragment", "ID Agricultor paso1: " + idAgricultor);
                 // Crear un nuevo elemento de carrito
                 CartItem cartItem = new CartItem(idAgricultor,productId, categoriaId,nombre, precio, quantity,unidadMedida);
@@ -160,11 +165,8 @@ public class AddToCartActivity extends AppCompatActivity {
      * Redirige al usuario a la pantalla de inicio.
      */
     private void redirectToLobby() {
-
-        Intent intent = new Intent(this, ActivityUserLobby.class);
-        startActivity(intent);
+        finish();
     }
 
 
 }
-
