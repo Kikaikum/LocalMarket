@@ -1,5 +1,7 @@
 package com.example.localmarket.network.service;
 
+import android.util.Log;
+
 import com.example.localmarket.context.ContextProvider;
 import com.example.localmarket.model.Order;
 import com.example.localmarket.model.Product;
@@ -675,6 +677,26 @@ public class AuthService {
             public void onFailure(Call<Product> call, Throwable t) {
                 // Propaga la excepción con un mensaje de error más detallado
                 authCallback.onError(new Exception("Network error: " + t.getMessage()));
+            }
+        });
+    }
+    public void updateOrderStatus(int orderId,String token, Map<String, String> statusUpdate, AuthCallback<Void> authCallback) {
+        apiService.updateOrder(orderId, "Bearer " + token, statusUpdate).enqueue(new Callback<Void>() {
+            @Override
+            public void onResponse(Call<Void> call, Response<Void> response) {
+                if (response.isSuccessful()) {
+                    Log.d("API", "Estado del pedido actualizado correctamente.");
+                    authCallback.onSuccess(null);  // No hay datos específicos que retornar
+                } else {
+                    Log.e("API", "Falló la actualización del estado, código de respuesta: " + response.code());
+                    authCallback.onError(new Exception("Error al actualizar el pedido, código: " + response.code()));
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Void> call, Throwable t) {
+                Log.e("API", "Error al realizar la solicitud: " + t.getMessage());
+                authCallback.onError(new Exception(t));
             }
         });
     }

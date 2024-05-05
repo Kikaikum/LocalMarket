@@ -160,19 +160,17 @@
     <option name="autoReloadType" value="NONE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="72ff1c52-651c-4388-8d0f-812589155228" name="Changes" comment="+ Obtencion de los pedidos v0.7">
-      <change afterPath="$PROJECT_DIR$/Frontend/app/src/main/res/layout/card_item_product.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Frontend/app/src/main/res/layout/pedido_item_layout.xml" afterDir="false" />
+    <list default="true" id="72ff1c52-651c-4388-8d0f-812589155228" name="Changes" comment="+ Obtencion de los pedidos v0.9">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Frontend/app/src/main/java/com/example/localmarket/fragments/PedidoProductsFragment.java" beforeDir="false" afterPath="$PROJECT_DIR$/Frontend/app/src/main/java/com/example/localmarket/fragments/PedidoProductsFragment.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Frontend/app/src/main/java/com/example/localmarket/fragments/SellerOrderFragment.java" beforeDir="false" afterPath="$PROJECT_DIR$/Frontend/app/src/main/java/com/example/localmarket/fragments/SellerOrderFragment.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Frontend/app/src/main/java/com/example/localmarket/model/Order.java" beforeDir="false" afterPath="$PROJECT_DIR$/Frontend/app/src/main/java/com/example/localmarket/model/Order.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Frontend/app/src/main/java/com/example/localmarket/model/OrderItem.java" beforeDir="false" afterPath="$PROJECT_DIR$/Frontend/app/src/main/java/com/example/localmarket/model/OrderItem.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Frontend/app/src/main/java/com/example/localmarket/model/Product.java" beforeDir="false" afterPath="$PROJECT_DIR$/Frontend/app/src/main/java/com/example/localmarket/model/Product.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Frontend/app/src/main/java/com/example/localmarket/network/api/ApiService.java" beforeDir="false" afterPath="$PROJECT_DIR$/Frontend/app/src/main/java/com/example/localmarket/network/api/ApiService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Frontend/app/src/main/java/com/example/localmarket/network/service/AuthService.java" beforeDir="false" afterPath="$PROJECT_DIR$/Frontend/app/src/main/java/com/example/localmarket/network/service/AuthService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Frontend/app/src/main/java/com/example/localmarket/utils/OrderAdapterSeller.java" beforeDir="false" afterPath="$PROJECT_DIR$/Frontend/app/src/main/java/com/example/localmarket/utils/OrderAdapterSeller.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Frontend/app/src/main/java/com/example/localmarket/utils/ProductsOrderAdapter.java" beforeDir="false" afterPath="$PROJECT_DIR$/Frontend/app/src/main/java/com/example/localmarket/utils/ProductsOrderAdapter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Frontend/app/src/main/res/layout/card_order_seller.xml" beforeDir="false" afterPath="$PROJECT_DIR$/Frontend/app/src/main/res/layout/card_order_seller.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Frontend/app/src/main/res/layout/fragment_pedido_products.xml" beforeDir="false" afterPath="$PROJECT_DIR$/Frontend/app/src/main/res/layout/fragment_pedido_products.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Frontend/app/src/main/res/values/strings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/Frontend/app/src/main/res/values/strings.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -886,7 +884,15 @@
       <option name="project" value="LOCAL" />
       <updated>1714849813571</updated>
     </task>
-    <option name="localTasksCounter" value="26" />
+    <task id="LOCAL-00026" summary="+ Obtencion de los pedidos v0.9">
+      <option name="closed" value="true" />
+      <created>1714939362060</created>
+      <option name="number" value="00026" />
+      <option name="presentableId" value="LOCAL-00026" />
+      <option name="project" value="LOCAL" />
+      <updated>1714939362060</updated>
+    </task>
+    <option name="localTasksCounter" value="27" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -901,7 +907,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Readme.md realizado i modificaciones del login/logout y tests unitarios" />
     <MESSAGE value="+ Cambiado el nombre de las variables de Product.java&#10;+ Modificado los editText de LoginFragment a Material design" />
     <MESSAGE value="+ test ok i etiquetas" />
     <MESSAGE value="+ test unitarios y test ui" />
@@ -926,9 +931,39 @@
     <MESSAGE value="+ Obtencion de los pedidos v0.1" />
     <MESSAGE value="+ Obtencion de los pedidos v0.5" />
     <MESSAGE value="+ Obtencion de los pedidos v0.7" />
-    <option name="LAST_COMMIT_MESSAGE" value="+ Obtencion de los pedidos v0.7" />
+    <MESSAGE value="+ Obtencion de los pedidos v0.9" />
+    <option name="LAST_COMMIT_MESSAGE" value="+ Obtencion de los pedidos v0.9" />
   </component>
   <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/Frontend/app/src/main/java/com/example/localmarket/fragments/PedidoProductsFragment.java</url>
+          <line>74</line>
+          <option name="timeStamp" value="34" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/Frontend/app/src/main/java/com/example/localmarket/fragments/PedidoProductsFragment.java</url>
+          <line>81</line>
+          <option name="timeStamp" value="35" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/Frontend/app/src/main/java/com/example/localmarket/fragments/PedidoProductsFragment.java</url>
+          <line>106</line>
+          <option name="timeStamp" value="36" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/Frontend/app/src/main/java/com/example/localmarket/fragments/PedidoProductsFragment.java</url>
+          <line>82</line>
+          <option name="timeStamp" value="37" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
+    <pin-to-top-manager>
+      <pinned-members>
+        <PinnedItemInfo parentTag="java.lang.String" memberName="shadow$_klass_" />
+      </pinned-members>
+    </pin-to-top-manager>
     <watches-manager>
       <configuration name="AndroidRunConfigurationType">
         <watch expression="pedidoItems" />

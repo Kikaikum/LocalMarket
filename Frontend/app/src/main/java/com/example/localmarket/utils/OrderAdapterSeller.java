@@ -1,5 +1,6 @@
 package com.example.localmarket.utils;
 
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -50,11 +51,13 @@ public class OrderAdapterSeller extends RecyclerView.Adapter<OrderAdapterSeller.
     public class OrderViewHolder extends RecyclerView.ViewHolder {
         private TextView tvClientName;
         private ImageView imageView;
+        private TextView tvStatus;
 
         public OrderViewHolder(@NonNull View itemView) {
             super(itemView);
             tvClientName = itemView.findViewById(R.id.tvNameOfUserOrder);
             imageView = itemView.findViewById(R.id.imageChart);
+            tvStatus = itemView.findViewById(R.id.tvStatus);
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -73,6 +76,7 @@ public class OrderAdapterSeller extends RecyclerView.Adapter<OrderAdapterSeller.
                 public void onSuccess(User userProfile) {
                     tvClientName.setText(userProfile.getName() + " " + userProfile.getSurname());
                     imageView.setImageResource(R.drawable.shopping_basket_18);
+
                 }
 
                 @Override
@@ -80,6 +84,14 @@ public class OrderAdapterSeller extends RecyclerView.Adapter<OrderAdapterSeller.
                     // Manejar el error al obtener el perfil del usuario
                 }
             });
+            if (order.getEstado().equals("creado")){
+                tvStatus.setText("Estado: "+order.getEstado());
+                tvStatus.setTextColor(Color.BLUE);
+            }else{
+                tvStatus.setText("Estado: "+order.getEstado());
+                tvStatus.setTextColor(Color.GREEN);
+            }
+
 
         }
     }

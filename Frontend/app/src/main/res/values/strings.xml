@@ -65,6 +65,7 @@
     <string name="mis_pedidos">Mis pedidos:</string>
     <string name="pedido_realizado_por">Pedido realizado por:</string>
     <string name="productos_pedido">Productos del pedido:</string>
+    <string name="aceptar">Aceptar Pedido</string>
 
 
 </resources>

@@ -89,6 +89,7 @@ public class SellerOrderFragment extends Fragment implements OrderAdapterSeller.
         if (order != null && order.getPedido() != null) {
             List<Map<String, Integer>> pedidoItems = order.getPedido(); // Obtiene los ítems del pedido
             Bundle bundle = new Bundle();
+            bundle.putSerializable("order", (Serializable) order);
             bundle.putSerializable("pedidoItems", (Serializable) pedidoItems); // Asegúrate de que Map<String, Integer> sea serializable
             Log.e("OrderClick", "Pedido Items: " + pedidoItems.toString());
 
