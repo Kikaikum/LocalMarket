@@ -211,7 +211,7 @@ public interface ApiService {
     Call<Void> deleteProduct(@Path("productId") int productId, @Header("Authorization") String token);
 
     @POST("orders")
-    Call<Void> createOrder(@Header("idCliente") int idCliente, @Header("idAgricultor") int idAgricultor, @Body Order order);
+    Call<Void> createOrder(@Header("idCliente") int idCliente, @Header("idAgricultor") int idAgricultor, @Header("Authorization") String token, @Body Order order);
     @PATCH ("orders/{id}")
     Call<Void> updateOrder(@Path("id") int idPedido,@Header("Authorization") String token, @Body Map<String, String> statusUpdate);
 

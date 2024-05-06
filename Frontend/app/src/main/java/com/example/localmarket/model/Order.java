@@ -8,7 +8,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class Order implements Serializable {
+public class Order  {
     private int id;
     private int clientId;
     private int agricultorId;
@@ -16,9 +16,7 @@ public class Order implements Serializable {
     private String estado;
     private String createdAt;
 
-    public Order() {
-        pedido = new ArrayList<>();
-    }
+
 
     // Getters y setters
     public int getId() {

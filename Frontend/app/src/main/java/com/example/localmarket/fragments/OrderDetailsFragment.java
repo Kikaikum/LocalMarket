@@ -187,7 +187,8 @@ public class OrderDetailsFragment extends Fragment {
 
     private void sendOrderToServer(Order order) {
         AuthService authService = new AuthService();
-        authService.sendOrder(order, new AuthService.AuthCallback<Void>() {
+        String token= tokenManager.getToken();
+        authService.sendOrder(order, token, new AuthService.AuthCallback<Void>() {
             @Override
             public void onSuccess(Void data) {
                 // Manejar el éxito del envío del pedido

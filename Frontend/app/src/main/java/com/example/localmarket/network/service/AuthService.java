@@ -603,11 +603,11 @@ public class AuthService {
      * @param callback Callback para manejar la respuesta del envío del pedido.
      * @author Ainoha
      */
-    public void sendOrder(Order order, final AuthCallback<Void> callback) {
+    public void sendOrder(Order order, String token, final AuthCallback<Void> callback) {
         int idCliente = order.getIdCliente();
         int idAgricultor = order.getIdAgricultor();
 
-        apiService.createOrder(idCliente, idAgricultor, order).enqueue(new Callback<Void>() {
+        apiService.createOrder(idCliente, idAgricultor,"Bearer " + token, order).enqueue(new Callback<Void>() {
             @Override
             public void onResponse(Call<Void> call, Response<Void> response) {
                 if (response.isSuccessful()) {
