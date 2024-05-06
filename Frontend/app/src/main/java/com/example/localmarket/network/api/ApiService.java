@@ -219,7 +219,7 @@ public interface ApiService {
     Call<Product> getProductById(@Path("productId") int productId);
 
     @GET("orders/agricultor/{id}")
-    Call<List<Order>> getOrdersByAgricultor(@Path("id") int agricultorId);
+    Call<List<Order>> getOrdersByAgricultor(@Path("id") int agricultorId,@Header("Authorization") String token);
 
     //@GET("location/")
     //Call<List<User>> getNearUsersFromMyLocation(@Body LatLng location);

@@ -63,7 +63,8 @@ public class SellerOrderFragment extends Fragment implements OrderAdapterSeller.
     }
 
     private void fetchOrdersByFarmer(int farmerId) {
-        authService.getAllOrdersByFarmer(farmerId, new AuthService.AuthCallback<List<Order>>() {
+        String token = tokenManager.getToken();
+        authService.getAllOrdersByFarmer(farmerId, token, new AuthService.AuthCallback<List<Order>>() {
             @Override
             public void onSuccess(List<Order> orders) {
                 List<Order> farmerOrders = new ArrayList<>();

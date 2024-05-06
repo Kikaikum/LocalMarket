@@ -20,6 +20,8 @@ public class ProductsOrderAdapter extends RecyclerView.Adapter<ProductsOrderAdap
     private List<Map<String, Integer>> pedidoItems;
     private AuthService authService;
 
+
+
     public ProductsOrderAdapter(List<Map<String, Integer>> pedidoItems) {
         this.pedidoItems = pedidoItems;
         this.authService = new AuthService();
@@ -48,6 +50,7 @@ public class ProductsOrderAdapter extends RecyclerView.Adapter<ProductsOrderAdap
         private TextView tvProductName;
         private TextView tvQuantity;
         private ImageView imageView;
+
 
         public ProductViewHolder(@NonNull View itemView) {
             super(itemView);

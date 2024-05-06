@@ -643,8 +643,8 @@ public class AuthService {
         });
     }
 
-    public void getAllOrdersByFarmer(int agricultorId, AuthCallback<List<Order>> authCallback) {
-        apiService.getOrdersByAgricultor(agricultorId).enqueue(new Callback<List<Order>>() {
+    public void getAllOrdersByFarmer(int agricultorId, String token, AuthCallback<List<Order>> authCallback) {
+        apiService.getOrdersByAgricultor(agricultorId, "Bearer " + token).enqueue(new Callback<List<Order>>() {
             @Override
             public void onResponse(Call<List<Order>> call, Response<List<Order>> response) {
                 if (response.isSuccessful()) {
