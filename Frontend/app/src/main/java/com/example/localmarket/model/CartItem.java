@@ -21,6 +21,7 @@ public class CartItem {
         this.unidadMedida=unidadMedida;
 
     }
+    public CartItem(){};
 
     public int getAgricultorId() {
         return agricultorId;

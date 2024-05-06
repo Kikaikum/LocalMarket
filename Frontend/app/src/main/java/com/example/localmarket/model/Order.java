@@ -1,21 +1,27 @@
 package com.example.localmarket.model;
 
-import android.util.Log;
-
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class Order  {
-    private int id;
+public class Order implements Serializable {
+   private Integer id;
     private int clientId;
     private int agricultorId;
     private List<Map<String, Integer>> pedido;
     private String estado;
     private String createdAt;
+    public Order(int clientId, int agricultorId, List<Map<String, Integer>> pedido, String estado) {
+        this.clientId = clientId;
+        this.agricultorId = agricultorId;
+        this.pedido = pedido;
+        this.estado = estado;
 
+    }
+    public Order() {
+        // Constructor vacío
+    }
 
 
     // Getters y setters
@@ -23,9 +29,9 @@ public class Order  {
         return id;
     }
 
-    public void setId(int id) {
-        this.id = id;
-    }
+   public void setId(Integer id) {
+       this.id = id;
+   }
 
     public int getIdCliente() {
         return clientId;

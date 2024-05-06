@@ -7,6 +7,7 @@ import com.example.localmarket.model.LoginResponse;
 import com.example.localmarket.model.Order;
 import com.example.localmarket.model.User;
 import com.example.localmarket.network.service.AuthService;
+import com.example.localmarket.utils.TokenManager;
 
 import org.junit.Test;
 
@@ -18,7 +19,7 @@ import java.util.Map;
 public class AuthServiceOrderTest {
 
     //test que permite comprobar que recibo bien los datos de user para poder pasar el idagricultor del producto y recibir el nombre del vendedor
-    @Test
+   @Test
     public void testGetUserProfile_IntegrationWithServer() {
 
         // Credenciales de usuario de prueba
@@ -97,6 +98,7 @@ public class AuthServiceOrderTest {
         productList.add(product2);
         order.setPedido(productList);
         order.setEstado("creado");
+        order.setId(null);
 
         AuthService authService = new AuthService(); // Suponiendo que tienes una instancia adecuada de AuthService
 
@@ -128,7 +130,7 @@ public class AuthServiceOrderTest {
 
                 // Act: Realizar la solicitud de envío del pedido al servidor
                 System.out.println("Iniciando prueba de envío de pedido al servidor...");
-                authService.sendOrder(order, new AuthServiceUnitTest.TestAuthCallback<Void>() {
+                authService.sendOrder(order,token, new AuthServiceUnitTest.TestAuthCallback<Void>() {
                     @Override
                     public void onSuccess(Void data) {
                         // El envío del pedido fue exitoso

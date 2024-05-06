@@ -181,6 +181,7 @@ public class OrderDetailsFragment extends Fragment {
         }
         order.setPedido(productList);
         order.setEstado("creado");
+        order.setId(null);
 
         return order;
     }
