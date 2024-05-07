@@ -18,27 +18,55 @@ import com.example.localmarket.network.service.AuthService;
 
 import java.util.ArrayList;
 import java.util.List;
+
+/**
+ * Adaptador para mostrar los elementos del carrito de compras.
+ * @author Ainoha
+ */
 public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.OrderViewHolder> {
     private List<CartItem> cartItemList;
     private OnCartItemChangedListener onCartItemChangedListener;
 
+    /**
+     * Interfaz para manejar los cambios en los elementos del carrito.
+     */
     public interface OnCartItemChangedListener {
         void onCartItemChanged();
     }
 
+    /**
+     * Establece el listener para los cambios en los elementos del carrito.
+     *
+     * @param listener El listener de cambios en los elementos del carrito.
+     */
     public void setOnCartItemChangedListener(OnCartItemChangedListener listener) {
         this.onCartItemChangedListener = listener;
     }
 
+    /**
+     * Establece la lista de elementos del carrito.
+     *
+     * @param cartItemList La lista de elementos del carrito.
+     */
     public void setCartItemList(List<CartItem> cartItemList) {
         this.cartItemList = cartItemList;
         notifyDataSetChanged();
     }
 
+    /**
+     * Obtiene una copia de la lista de elementos del carrito.
+     *
+     * @return Una copia de la lista de elementos del carrito.
+     */
     public ArrayList<CartItem> getCartItemList() {
         return new ArrayList<>(cartItemList);
     }
 
+    /**
+     * Constructor de la clase OrderAdapter.
+     *
+     * @param cartItemList La lista de elementos del carrito.
+     */
     public OrderAdapter(List<CartItem> cartItemList) {
         this.cartItemList = cartItemList;
     }
@@ -61,6 +89,9 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.OrderViewHol
         return cartItemList.size();
     }
 
+    /**
+     * Clase interna para representar las vistas de los elementos del carrito.
+     */
     public class OrderViewHolder extends RecyclerView.ViewHolder {
         private TextView productNameTextView;
         private TextView quantityTextView;
@@ -73,7 +104,11 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.OrderViewHol
         private TextView agricutlorUsername;
 
 
-
+        /**
+         * Constructor de la clase OrderViewHolder.
+         *
+         * @param itemView La vista del elemento del carrito.
+         */
         public OrderViewHolder(@NonNull View itemView) {
             super(itemView);
             productNameTextView = itemView.findViewById(R.id.textViewProductName);
@@ -88,6 +123,11 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.OrderViewHol
 
         }
 
+        /**
+         * Vincula los datos del elemento del carrito con las vistas correspondientes.
+         *
+         * @param cartItem El objeto CartItem que representa el elemento del carrito.
+         */
         public void bind(CartItem cartItem) {
 
             productNameTextView.setText(cartItem.getProductName());
@@ -149,6 +189,9 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.OrderViewHol
             });
         }
 
+        /**
+         * Notifica al listener de cambios en los elementos del carrito.
+         */
         private void notifyCartItemChanged() {
             if (onCartItemChangedListener != null) {
                 onCartItemChangedListener.onCartItemChanged();

@@ -1,7 +1,6 @@
 package com.example.localmarket.fragments;
 
 import android.content.Intent;
-import android.media.session.MediaSession;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -21,7 +20,6 @@ import com.example.localmarket.activities.ActivityUserLobby;
 import com.example.localmarket.activities.OrderActivity;
 import com.example.localmarket.model.CartItem;
 import com.example.localmarket.model.Order;
-
 import com.example.localmarket.network.service.AuthService;
 import com.example.localmarket.utils.OrderAdapter;
 import com.example.localmarket.utils.OrderManager;
@@ -32,7 +30,12 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * Fragmento que muestra los detalles del pedido.
+ * @author Ainoha
+ */
 public class OrderDetailsFragment extends Fragment {
+
     private List<CartItem> cartItemList;
     private OrderAdapter adapter;
     private RecyclerView recyclerView;
@@ -43,10 +46,16 @@ public class OrderDetailsFragment extends Fragment {
     private TokenManager tokenManager;
     private int numAgricultores;
 
+    /**
+     * Constructor público requerido.
+     */
     public OrderDetailsFragment() {
-        // Constructor público requerido
     }
 
+    /**
+     * Método estático para crear una nueva instancia del fragmento.
+     * @return Una nueva instancia de OrderDetailsFragment.
+     */
     public static OrderDetailsFragment newInstance() {
         return new OrderDetailsFragment();
     }
@@ -55,15 +64,13 @@ public class OrderDetailsFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-
         // Inicialización de la lista de elementos del carrito
         cartItemList = new ArrayList<>();
         // Inicializa el adaptador
         adapter = new OrderAdapter(cartItemList);
         orderManager = OrderManager.getInstance(getContext());
 
-
-        tokenManager=TokenManager.getInstance(getContext());
+        tokenManager = TokenManager.getInstance(getContext());
     }
 
     @Override
@@ -107,7 +114,6 @@ public class OrderDetailsFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 requireActivity().finish();
-                ;
             }
         });
 
@@ -118,6 +124,11 @@ public class OrderDetailsFragment extends Fragment {
         return view;
     }
 
+    /**
+     * Agrupa los productos por agricultor.
+     * @param cartItems Lista de elementos del carrito.
+     * @return Un mapa que contiene la lista de elementos agrupados por agricultor.
+     */
     Map<Integer, List<CartItem>> groupProductsByAgricultor(List<CartItem> cartItems) {
         Map<Integer, List<CartItem>> groupedProducts = new HashMap<>();
 
@@ -132,6 +143,10 @@ public class OrderDetailsFragment extends Fragment {
         return groupedProducts;
     }
 
+    /**
+     * Calcula y muestra el importe total de los productos en el carrito.
+     * @param cartItems Lista de elementos del carrito.
+     */
     void calculateAndDisplayTotalAmount(List<CartItem> cartItems) {
         double totalAmount = 0.0;
         for (CartItem item : cartItems) {
@@ -140,7 +155,10 @@ public class OrderDetailsFragment extends Fragment {
         textViewTotalAmount.setText(String.format("%.2f", totalAmount));
     }
 
-
+    /**
+     * Envía el pedido al servidor.
+     * @param cartItems Lista de elementos del carrito.
+     */
     private void enviarPedidoAlServidor(List<CartItem> cartItems) {
         Map<Integer, List<CartItem>> groupedProducts = groupProductsByAgricultor(cartItems);
         numAgricultores = groupedProducts.size(); // Obtener el número de agricultores
@@ -167,6 +185,14 @@ public class OrderDetailsFragment extends Fragment {
             sendOrderToServer(order);
         }
     }
+
+    /**
+     * Crea un objeto Order a partir de los datos proporcionados.
+     * @param clientId ID del cliente.
+     * @param idAgricultor ID del agricultor.
+     * @param products Lista de productos.
+     * @return Objeto Order creado.
+     */
     Order createOrder(int clientId, int idAgricultor, List<CartItem> products) {
         Order order = new Order();
         order.setIdCliente(clientId);
@@ -186,16 +212,22 @@ public class OrderDetailsFragment extends Fragment {
         return order;
     }
 
+    /**
+     * Envía el pedido al servidor.
+     * @param order Objeto Order a enviar.
+     */
     private void sendOrderToServer(Order order) {
         AuthService authService = new AuthService();
-        String token= tokenManager.getToken();
+        String token = tokenManager.getToken();
         authService.sendOrder(order, token, new AuthService.AuthCallback<Void>() {
             @Override
             public void onSuccess(Void data) {
                 // Manejar el éxito del envío del pedido
-                Toast.makeText(getContext(), "Has realizado "+ numAgricultores +" pedidos exitosamente", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), "Has realizado " + numAgricultores + " pedidos exitosamente", Toast.LENGTH_SHORT).show();
                 // Vaciar la cesta de compras
                 orderManager.clearCartItems();
+                // Navegar de vuelta al lobby del usuario
+                navigateToLobbyUser();
             }
 
             @Override
@@ -206,11 +238,13 @@ public class OrderDetailsFragment extends Fragment {
         });
     }
 
+    /**
+     * Navega de vuelta al lobby del usuario.
+     */
     private void navigateToLobbyUser() {
         Intent intent = new Intent(getContext(), ActivityUserLobby.class);
         startActivity(intent);
         // Opcionalmente, puedes agregar la siguiente línea para cerrar el OrderDetailsFragment
         requireActivity().finish();
     }
-
 }

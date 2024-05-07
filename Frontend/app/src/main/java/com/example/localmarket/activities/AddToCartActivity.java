@@ -26,6 +26,10 @@ import com.example.localmarket.utils.TokenManager;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Actividad para agregar productos al carrito.
+ * @author Ainoha
+ */
 public class AddToCartActivity extends AppCompatActivity {
 
     private AuthService authService;
@@ -89,6 +93,7 @@ public class AddToCartActivity extends AppCompatActivity {
             }
         });
 
+        // Configurar clic en el botón para agregar una unidad
         Button buttonAddUnit = findViewById(R.id.btnAddUnit);
         buttonAddUnit.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -158,15 +163,11 @@ public class AddToCartActivity extends AppCompatActivity {
 
     }
 
-
-
-
     /**
      * Redirige al usuario a la pantalla de inicio.
      */
     private void redirectToLobby() {
         finish();
     }
-
 
 }

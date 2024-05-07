@@ -16,10 +16,17 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * Clase de prueba para AuthService que realiza pruebas de integración con el servidor.
+ */
 public class AuthServiceOrderTest {
 
-    //test que permite comprobar que recibo bien los datos de user para poder pasar el idagricultor del producto y recibir el nombre del vendedor
-   @Test
+    /**
+     * Prueba de integración que verifica si se reciben correctamente los datos del perfil de usuario desde el servidor.
+     *
+     *
+     */
+    @Test
     public void testGetUserProfile_IntegrationWithServer() {
 
         // Credenciales de usuario de prueba
@@ -77,6 +84,9 @@ public class AuthServiceOrderTest {
         assertTrue(callback.isSuccessful());
     }
 
+    /**
+     * Prueba de integración que verifica si se envía correctamente un pedido al servidor.
+     */
     @Test
     public void testSendOrderToServer_IntegrationWithServer() {
         // Credenciales de usuario de prueba
@@ -166,7 +176,4 @@ public class AuthServiceOrderTest {
 
         assertTrue(callback.isSuccessful());
     }
-
-
-
 }

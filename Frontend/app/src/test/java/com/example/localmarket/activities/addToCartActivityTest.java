@@ -8,7 +8,16 @@ import android.view.View;
 import android.widget.TextView;
 
 import org.junit.Test;
+
+/**
+ * Clase de prueba para el OnClickListener del botón de añadir al carrito.
+ * @author  Ainoha
+ */
 public class addToCartActivityTest {
+
+    /**
+     * Prueba unitaria para verificar si al hacer clic en el botón se incrementa la cantidad correctamente.
+     */
     @Test
     public void onClick_ShouldIncrementQuantity() {
         // Mock del TextView

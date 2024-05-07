@@ -137,11 +137,19 @@
   <component name="ChangeListManager">
     <list default="true" id="72ff1c52-651c-4388-8d0f-812589155228" name="Changes" comment="+cambios hechos a UserProductFragment.java + adquisicion de productores en rango v1">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Frontend/app/src/main/java/com/example/localmarket/activities/AddToCartActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/Frontend/app/src/main/java/com/example/localmarket/activities/AddToCartActivity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Frontend/app/src/main/java/com/example/localmarket/activities/OrderActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/Frontend/app/src/main/java/com/example/localmarket/activities/OrderActivity.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Frontend/app/src/main/java/com/example/localmarket/fragments/OrderDetailsFragment.java" beforeDir="false" afterPath="$PROJECT_DIR$/Frontend/app/src/main/java/com/example/localmarket/fragments/OrderDetailsFragment.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Frontend/app/src/main/java/com/example/localmarket/fragments/UserProductFragment.java" beforeDir="false" afterPath="$PROJECT_DIR$/Frontend/app/src/main/java/com/example/localmarket/fragments/UserProductFragment.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Frontend/app/src/main/java/com/example/localmarket/model/CartItem.java" beforeDir="false" afterPath="$PROJECT_DIR$/Frontend/app/src/main/java/com/example/localmarket/model/CartItem.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Frontend/app/src/main/java/com/example/localmarket/model/Order.java" beforeDir="false" afterPath="$PROJECT_DIR$/Frontend/app/src/main/java/com/example/localmarket/model/Order.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Frontend/app/src/main/java/com/example/localmarket/model/OrderItem.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Frontend/app/src/main/java/com/example/localmarket/network/api/ApiService.java" beforeDir="false" afterPath="$PROJECT_DIR$/Frontend/app/src/main/java/com/example/localmarket/network/api/ApiService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Frontend/app/src/main/java/com/example/localmarket/utils/OrderAdapter.java" beforeDir="false" afterPath="$PROJECT_DIR$/Frontend/app/src/main/java/com/example/localmarket/utils/OrderAdapter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Frontend/app/src/main/java/com/example/localmarket/utils/OrderManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/Frontend/app/src/main/java/com/example/localmarket/utils/OrderManager.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Frontend/app/src/test/java/com/example/localmarket/AuthServiceOrderTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/Frontend/app/src/test/java/com/example/localmarket/AuthServiceOrderTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Frontend/app/src/test/java/com/example/localmarket/activities/AddToCartActivityTest.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Frontend/app/src/test/java/com/example/localmarket/activities/addToCartActivityTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/Frontend/app/src/test/java/com/example/localmarket/activities/addToCartActivityTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Frontend/app/src/test/java/com/example/localmarket/fragments/OrderDetailsFragmentTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/Frontend/app/src/test/java/com/example/localmarket/fragments/OrderDetailsFragmentTest.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -216,8 +224,8 @@
   <component name="GithubPullRequestsUISettings">
     <option name="selectedUrlAndAccountId">
       <UrlAndAccount>
-        <option name="accountId" value="02842acc-26e6-409f-9c54-aa0834cd970a" />
-        <option name="url" value="https://github.com/Kikaikum/LocalMarket.git" />
+        <option name="accountId" value="e68e31fa-b593-45e5-8e4a-f1fe0b67e245" />
+        <option name="url" value="https://github.com/Kikaikum/LocalMarket" />
       </UrlAndAccount>
     </option>
   </component>
@@ -288,7 +296,7 @@
       <command value="gradle init" />
     </option>
   </component>
-  <component name="RunManager" selected="Gradle.addToCartActivityTest">
+  <component name="RunManager" selected="Gradle.AuthServiceOrderTest">
     <configuration name="ActivityUserLobby" type="AndroidRunConfigurationType" factoryName="Android App" temporary="true">
       <module name="myapp.app.main" />
       <option name="DEPLOY" value="true" />
@@ -477,9 +485,9 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Gradle.addToCartActivityTest" />
-        <item itemvalue="Gradle.OrderDetailsFragmentTest" />
         <item itemvalue="Gradle.AuthServiceOrderTest" />
+        <item itemvalue="Gradle.OrderDetailsFragmentTest" />
+        <item itemvalue="Gradle.addToCartActivityTest" />
         <item itemvalue="Android App.AddToCartActivity" />
         <item itemvalue="Android App.ActivityUserLobby" />
       </list>
@@ -679,7 +687,7 @@
       <breakpoints>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/Frontend/app/src/main/java/com/example/localmarket/model/Order.java</url>
-          <line>32</line>
+          <line>53</line>
           <option name="timeStamp" value="1" />
         </line-breakpoint>
       </breakpoints>

@@ -1,5 +1,4 @@
 package com.example.localmarket.fragments;
-
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.when;
 
@@ -20,17 +19,27 @@ import java.util.Map;
 
 import com.example.localmarket.model.Order;
 
+/**
+ * Clase de prueba para la clase OrderDetailsFragment.
+ * @author Ainoha
+ */
 @RunWith(MockitoJUnitRunner.class)
 public class OrderDetailsFragmentTest {
 
     @Mock
     private OrderDetailsFragment orderDetailsFragmentMock;
 
+    /**
+     * Método de configuración que se ejecuta antes de cada método de prueba.
+     */
     @Before
     public void setUp() {
-        // No necesitas inicializar el mock en el método setUp() porque MockitoJUnitRunner ya lo hace automáticamente.
+        // No es necesario inicializar el mock aquí porque MockitoJUnitRunner ya lo hace automáticamente.
     }
 
+    /**
+     * Prueba la agrupación de productos por agricultor.
+     */
     @Test
     public void groupProductsByAgricultor_ProductsGroupedCorrectly() {
         // Crear una lista de productos de ejemplo
@@ -59,7 +68,9 @@ public class OrderDetailsFragmentTest {
         assertEquals(expectedGroupedProducts, groupedProducts);
     }
 
-
+    /**
+     * Prueba la creación de una orden a partir de productos.
+     */
     @Test
     public void createOrder_CreatesOrderCorrectly() {
         // Crear una instancia válida de OrderDetailsFragment

@@ -210,19 +210,55 @@ public interface ApiService {
     @DELETE("products/{productId}")
     Call<Void> deleteProduct(@Path("productId") int productId, @Header("Authorization") String token);
 
+    /**
+     * Crea un nuevo pedido.
+     * @author Ainoha
+     * @param idCliente     El ID del cliente que realiza el pedido.
+     * @param idAgricultor  El ID del agricultor al que se realiza el pedido.
+     * @param token         El token de autorización.
+     * @param order         El objeto Order que representa el pedido.
+     * @return Una instancia de Call que representa la llamada asíncrona.
+     */
     @POST("orders")
     Call<Void> createOrder(@Header("idCliente") int idCliente, @Header("idAgricultor") int idAgricultor, @Header("Authorization") String token, @Body Order order);
-    @PATCH ("orders/{id}")
-    Call<Void> updateOrder(@Path("id") int idPedido,@Header("Authorization") String token, @Body Map<String, String> statusUpdate);
 
+    /**
+     * Actualiza un pedido existente.
+     * @author Oriol
+     * @param idPedido      El ID del pedido que se desea actualizar.
+     * @param token         El token de autorización.
+     * @param statusUpdate  El mapa que contiene la actualización del estado del pedido.
+     * @return Una instancia de Call que representa la llamada asíncrona.
+     */
+    @PATCH("orders/{id}")
+    Call<Void> updateOrder(@Path("id") int idPedido, @Header("Authorization") String token, @Body Map<String, String> statusUpdate);
+
+    /**
+     * Obtiene un producto por su ID.
+     * @author Oriol
+     * @param productId El ID del producto que se desea obtener.
+     * @return Una instancia de Call que representa la llamada asíncrona.
+     */
     @GET("products/{productId}")
     Call<Product> getProductById(@Path("productId") int productId);
 
+    /**
+     * Obtiene todos los pedidos de un agricultor.
+     * @author Oriol
+     * @param agricultorId  El ID del agricultor cuyos pedidos se desean obtener.
+     * @param token         El token de autorización.
+     * @return Una instancia de Call que representa la llamada asíncrona.
+     */
     @GET("orders/agricultor/{id}")
-    Call<List<Order>> getOrdersByAgricultor(@Path("id") int agricultorId,@Header("Authorization") String token);
+    Call<List<Order>> getOrdersByAgricultor(@Path("id") int agricultorId, @Header("Authorization") String token);
 
-    //@GET("location/")
-    //Call<List<User>> getNearUsersFromMyLocation(@Body LatLng location);
+    /**
+     * Obtiene una lista de usuarios cercanos a una ubicación dada.
+     * @author Oriol
+     * @param latitude  La latitud de la ubicación.
+     * @param longitude La longitud de la ubicación.
+     * @return Una instancia de Call que representa la llamada asíncrona.
+     */
     @GET("location/")
     Call<List<User>> getNearUsersFromMyLocation(@Query("latitude") double latitude, @Query("longitude") double longitude);
 }
