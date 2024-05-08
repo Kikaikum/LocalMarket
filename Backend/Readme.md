@@ -1,6 +1,6 @@
-# API de Usuarios
+# API de LocalMarket
 
-API para administrar usuarios.
+API para administrar usuarios, productos y ordenes.
 
 ## Instalación
 
