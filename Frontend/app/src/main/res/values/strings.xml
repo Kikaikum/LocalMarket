@@ -15,7 +15,7 @@
     <string name="nombreUsuario">Nombre Usuario</string>
     <string name="listo">Listo</string>
     <string name="cancel">Cancelar</string>
-    <string name="volver" >Volver</string>
+    <string name="volver">Volver</string>
 
     <!-- hints -->
     <string name="insert_email_hint">Correo electrónico</string>
@@ -62,6 +62,10 @@
     <string name="tv_distancia">Rango de busqueda:</string>
     <string name="actualizar_busqueda">Actualizar</string>
     <string name="search_button_productors">Buscar Productos</string>
+    <string name="mis_pedidos">Mis pedidos:</string>
+    <string name="pedido_realizado_por">Pedido realizado por:</string>
+    <string name="productos_pedido">Productos del pedido:</string>
+    <string name="aceptar">Aceptar Pedido</string>
 
 
 </resources>

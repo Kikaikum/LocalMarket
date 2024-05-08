@@ -26,6 +26,7 @@ import com.example.localmarket.network.service.AuthService;
 import com.example.localmarket.utils.ValidationUtils;
 import com.google.android.gms.internal.location.zzz;
 import com.google.android.gms.location.FusedLocationProviderClient;
+import com.google.android.gms.location.LocationServices;
 
 /**
  * Fragmento para el registro de nuevos usuarios.
@@ -52,6 +53,7 @@ public class SignUpfragment extends Fragment implements View.OnFocusChangeListen
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         authService = AuthService.getInstance();
+        locationClient = LocationServices.getFusedLocationProviderClient(requireContext());
     }
 
     @Nullable
@@ -61,6 +63,9 @@ public class SignUpfragment extends Fragment implements View.OnFocusChangeListen
         View view = inflater.inflate(R.layout.signup_fragment, container, false);
 
         authService = AuthService.getInstance();
+        if (ContextCompat.checkSelfPermission(requireContext(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            requestPermissions(new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, MY_LOCATION_REQUEST_CODE);
+        }
 
         // Buscar referencias de los elementos de la interfaz de usuario
         editTextUsername = view.findViewById(R.id.editTextUsername);

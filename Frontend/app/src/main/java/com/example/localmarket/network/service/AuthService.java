@@ -1,5 +1,7 @@
 package com.example.localmarket.network.service;
 
+import android.util.Log;
+
 import com.example.localmarket.context.ContextProvider;
 import com.example.localmarket.model.Order;
 import com.example.localmarket.model.Product;
@@ -18,8 +20,10 @@ import com.example.localmarket.model.UpdateUsernameRequest;
 import com.example.localmarket.model.User;
 import com.example.localmarket.network.api.ApiService;
 import com.example.localmarket.utils.TokenManager;
+import com.google.android.gms.maps.model.LatLng;
 
 import java.util.List;
+import java.util.Map;
 
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
@@ -109,14 +113,14 @@ public class AuthService {
      * @param nombre    Nombre del usuario.
      * @param apellidos Apellidos del usuario.
      * @param isVendor  Indica si el usuario es un vendedor o no.
-     * @param latitud   Indica la latitud del usuario en el mapa.
-     * @param longitud  Indica la longitud del usuario en el mapa.
+     * @param latitude   Indica la latitud del usuario en el mapa.
+     * @param longitude Indica la longitud del usuario en el mapa.
      * @param callback  Callback para manejar la respuesta del registro.
      *
      * @author Oriol Estero Sanchez
      */
-    public void signUpUser(String email, String password, String username, String nombre, String apellidos, Boolean isVendor, double latitud, double longitud, final AuthCallback<SignUpResponse> callback) {
-        SignUpRequest signUpRequest = new SignUpRequest(email, password, username, nombre, apellidos, isVendor);
+    public void signUpUser(String email, String password, String username, String nombre, String apellidos, Boolean isVendor, double latitude, double longitude, final AuthCallback<SignUpResponse> callback) {
+        SignUpRequest signUpRequest = new SignUpRequest(email, password, username, nombre, apellidos, isVendor,latitude,longitude);
         apiService.createUser(signUpRequest).enqueue(new Callback<SignUpResponse>() {
             @Override
             public void onResponse(Call<SignUpResponse> call, Response<SignUpResponse> response) {
@@ -386,6 +390,8 @@ public class AuthService {
         return capturedProductRequest;
     }
 
+
+
     /**
      * Callback para manejar el resultado de la obtención del perfil de usuario.
      *
@@ -493,7 +499,7 @@ public class AuthService {
                 callback.onError(t);
             }
         });
-    }
+    }//cambis
 
     /**
      * Método para obtener todos los productos disponibles desde el servidor.
@@ -597,11 +603,11 @@ public class AuthService {
      * @param callback Callback para manejar la respuesta del envío del pedido.
      * @author Ainoha
      */
-    public void sendOrder(Order order, final AuthCallback<Void> callback) {
+    public void sendOrder(Order order, String token, final AuthCallback<Void> callback) {
         int idCliente = order.getIdCliente();
         int idAgricultor = order.getIdAgricultor();
 
-        apiService.createOrder(idCliente, idAgricultor, order).enqueue(new Callback<Void>() {
+        apiService.createOrder(idCliente, idAgricultor,"Bearer " + token, order).enqueue(new Callback<Void>() {
             @Override
             public void onResponse(Call<Void> call, Response<Void> response) {
                 if (response.isSuccessful()) {
@@ -617,6 +623,84 @@ public class AuthService {
             }
         });
     }
+    public void getUsersInRange(double latitude, double longitude, AuthCallback<List<User>> authCallback) {
+        LatLng location = new LatLng(latitude, longitude);
+        apiService.getNearUsersFromMyLocation(latitude,longitude).enqueue(new Callback<List<User>>() {
+            @Override
+            public void onResponse(Call<List<User>> call, Response<List<User>> response) {
+                if (response.isSuccessful()) {
+                    List<User> usersInRange = response.body();
+                    authCallback.onSuccess(usersInRange);
+                } else {
+                    authCallback.onError(new Exception("Error fetching users in range: " + response.code()));
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<User>> call, Throwable t) {
+                authCallback.onError(t);
+            }
+        });
+    }
+
+    public void getAllOrdersByFarmer(int agricultorId, String token, AuthCallback<List<Order>> authCallback) {
+        apiService.getOrdersByAgricultor(agricultorId, "Bearer " + token).enqueue(new Callback<List<Order>>() {
+            @Override
+            public void onResponse(Call<List<Order>> call, Response<List<Order>> response) {
+                if (response.isSuccessful()) {
+                    authCallback.onSuccess(response.body());
+                } else {
+                    authCallback.onError(new Exception("Error fetching orders"));
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<Order>> call, Throwable t) {
+                authCallback.onError(new Exception("Error: " + t.getMessage()));
+            }
+        });
+    }
+    public void getProductById(int productId, AuthCallback<Product> authCallback) {
+        apiService.getProductById(productId).enqueue(new Callback<Product>() {
+            @Override
+            public void onResponse(Call<Product> call, Response<Product> response) {
+                if (response.isSuccessful()) {
+                    // Aquí se asume que la respuesta del cuerpo es un 'Product'
+                    authCallback.onSuccess(response.body()); // Correctamente se pasa un Product a onSuccess
+                } else {
+                    // Crea una excepción que describe el problema basado en el cuerpo de error de la respuesta
+                    authCallback.onError(new Exception("Failed to fetch product, status code: " + response.code()));
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Product> call, Throwable t) {
+                // Propaga la excepción con un mensaje de error más detallado
+                authCallback.onError(new Exception("Network error: " + t.getMessage()));
+            }
+        });
+    }
+    public void updateOrderStatus(int orderId,String token, Map<String, String> statusUpdate, AuthCallback<Void> authCallback) {
+        apiService.updateOrder(orderId, "Bearer " + token, statusUpdate).enqueue(new Callback<Void>() {
+            @Override
+            public void onResponse(Call<Void> call, Response<Void> response) {
+                if (response.isSuccessful()) {
+                    Log.d("API", "Estado del pedido actualizado correctamente.");
+                    authCallback.onSuccess(null);  // No hay datos específicos que retornar
+                } else {
+                    Log.e("API", "Falló la actualización del estado, código de respuesta: " + response.code());
+                    authCallback.onError(new Exception("Error al actualizar el pedido, código: " + response.code()));
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Void> call, Throwable t) {
+                Log.e("API", "Error al realizar la solicitud: " + t.getMessage());
+                authCallback.onError(new Exception(t));
+            }
+        });
+    }
+
 
 
 

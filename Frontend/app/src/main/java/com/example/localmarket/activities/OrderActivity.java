@@ -15,13 +15,15 @@ import com.example.localmarket.R;
 import com.example.localmarket.fragments.OrderDetailsFragment;
 import com.example.localmarket.network.service.AuthService;
 
+/**
+ * Actividad que muestra los detalles del pedido.
+ * @author Ainoha
+ */
 public class OrderActivity extends AppCompatActivity {
-
 
     private AuthService authService;
     private RecyclerView recyclerView;
     private OrderDetailsFragment orderDetailsFragment;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,10 +42,6 @@ public class OrderActivity extends AppCompatActivity {
                     .commit();
         }
     }
-
-
-
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -68,11 +66,11 @@ public class OrderActivity extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
-
     }
 
-
-
+    /**
+     * Método para cerrar la sesión del usuario.
+     */
     private void logout() {
         authService.logoutUser(new AuthService.AuthCallback<Void>() {
             @Override
@@ -90,13 +88,9 @@ public class OrderActivity extends AppCompatActivity {
     }
 
     /**
-     * Método para hacer visible el RecyclerView.
+     * Método para hacer visible el RecyclerView que contiene los productos añadidos a la cesta
      */
     public void showRecyclerView() {
         recyclerView.setVisibility(View.VISIBLE);
     }
-
-
 }
-
-

@@ -24,9 +24,19 @@
           <theme>@style/NoStyle</theme>
         </config>
       </layout>
+      <layout url="file://$PROJECT_DIR$/Frontend/app/src/main/res/layout/addtocart_activity.xml">
+        <config>
+          <theme>@style/Base.Theme.LocalMarket</theme>
+        </config>
+      </layout>
       <layout url="file://$PROJECT_DIR$/Frontend/app/src/main/res/layout/card_product.xml">
         <config>
           <theme>@style/NoStyle</theme>
+        </config>
+      </layout>
+      <layout url="file://$PROJECT_DIR$/Frontend/app/src/main/res/layout/card_product_userlobby.xml">
+        <config>
+          <theme>@style/Base.Theme.LocalMarket</theme>
         </config>
       </layout>
       <layout url="file://$PROJECT_DIR$/Frontend/app/src/main/res/layout/edit_product.xml">
@@ -94,6 +104,16 @@
           <theme>@style/NoStyle</theme>
         </config>
       </layout>
+      <layout url="file://$PROJECT_DIR$/Frontend/app/src/main/res/layout/orderdetails_fragment.xml">
+        <config>
+          <theme>@style/Base.Theme.LocalMarket</theme>
+        </config>
+      </layout>
+      <layout url="file://$PROJECT_DIR$/Frontend/app/src/main/res/layout/ordered_product_card.xml">
+        <config>
+          <theme>@style/Base.Theme.LocalMarket</theme>
+        </config>
+      </layout>
       <layout url="file://$PROJECT_DIR$/Frontend/app/src/main/res/layout/signup_fragment.xml">
         <config>
           <theme>@style/NoStyle</theme>
@@ -115,9 +135,21 @@
     <option name="autoReloadType" value="NONE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="72ff1c52-651c-4388-8d0f-812589155228" name="Changes" comment="+ Bundle comunication success entre fragments.&#10;+redirect to UserProductFragment desde AddToCartActivity.java para mantener los productos.">
+    <list default="true" id="72ff1c52-651c-4388-8d0f-812589155228" name="Changes" comment="+cambios hechos a UserProductFragment.java + adquisicion de productores en rango v1">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Frontend/app/src/main/java/com/example/localmarket/activities/AddToCartActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/Frontend/app/src/main/java/com/example/localmarket/activities/AddToCartActivity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Frontend/app/src/main/java/com/example/localmarket/activities/OrderActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/Frontend/app/src/main/java/com/example/localmarket/activities/OrderActivity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Frontend/app/src/main/java/com/example/localmarket/fragments/OrderDetailsFragment.java" beforeDir="false" afterPath="$PROJECT_DIR$/Frontend/app/src/main/java/com/example/localmarket/fragments/OrderDetailsFragment.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Frontend/app/src/main/java/com/example/localmarket/fragments/UserProductFragment.java" beforeDir="false" afterPath="$PROJECT_DIR$/Frontend/app/src/main/java/com/example/localmarket/fragments/UserProductFragment.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Frontend/app/src/main/java/com/example/localmarket/model/CartItem.java" beforeDir="false" afterPath="$PROJECT_DIR$/Frontend/app/src/main/java/com/example/localmarket/model/CartItem.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Frontend/app/src/main/java/com/example/localmarket/model/Order.java" beforeDir="false" afterPath="$PROJECT_DIR$/Frontend/app/src/main/java/com/example/localmarket/model/Order.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Frontend/app/src/main/java/com/example/localmarket/model/OrderItem.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Frontend/app/src/main/java/com/example/localmarket/network/api/ApiService.java" beforeDir="false" afterPath="$PROJECT_DIR$/Frontend/app/src/main/java/com/example/localmarket/network/api/ApiService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Frontend/app/src/main/java/com/example/localmarket/utils/OrderAdapter.java" beforeDir="false" afterPath="$PROJECT_DIR$/Frontend/app/src/main/java/com/example/localmarket/utils/OrderAdapter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Frontend/app/src/main/java/com/example/localmarket/utils/OrderManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/Frontend/app/src/main/java/com/example/localmarket/utils/OrderManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Frontend/app/src/test/java/com/example/localmarket/AuthServiceOrderTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/Frontend/app/src/test/java/com/example/localmarket/AuthServiceOrderTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Frontend/app/src/test/java/com/example/localmarket/activities/addToCartActivityTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/Frontend/app/src/test/java/com/example/localmarket/activities/addToCartActivityTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Frontend/app/src/test/java/com/example/localmarket/fragments/OrderDetailsFragmentTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/Frontend/app/src/test/java/com/example/localmarket/fragments/OrderDetailsFragmentTest.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -161,6 +193,7 @@
         <option value="resourceFile" />
         <option value="AnnotationType" />
         <option value="Interface" />
+        <option value="JUnit5 Test Class" />
         <option value="Class" />
       </list>
     </option>
@@ -176,7 +209,7 @@
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="temporal" />
+        <entry key="$PROJECT_DIR$" value="temp-branch" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -191,8 +224,8 @@
   <component name="GithubPullRequestsUISettings">
     <option name="selectedUrlAndAccountId">
       <UrlAndAccount>
-        <option name="accountId" value="02842acc-26e6-409f-9c54-aa0834cd970a" />
-        <option name="url" value="https://github.com/Kikaikum/LocalMarket.git" />
+        <option name="accountId" value="e68e31fa-b593-45e5-8e4a-f1fe0b67e245" />
+        <option name="url" value="https://github.com/Kikaikum/LocalMarket" />
       </UrlAndAccount>
     </option>
   </component>
@@ -221,6 +254,8 @@
     &quot;cidr.known.project.marker&quot;: &quot;true&quot;,
     &quot;com.android.tools.idea.streaming.zoom.toolbar.visible&quot;: &quot;false&quot;,
     &quot;com.google.services.firebase.aqiPopupShown&quot;: &quot;true&quot;,
+    &quot;com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary&quot;: &quot;JUnit5&quot;,
+    &quot;com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit5&quot;: &quot;&quot;,
     &quot;git-widget-placeholder&quot;: &quot;main&quot;,
     &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
     &quot;last_opened_file_path&quot;: &quot;C:/Users/ainoh/Downloads/LocalMarket - copia&quot;,
@@ -228,7 +263,7 @@
     &quot;project.structure.proportion&quot;: &quot;0.17&quot;,
     &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
     &quot;run.code.analysis.last.selected.profile&quot;: &quot;pProject Default&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.lookFeel&quot;
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;
   }
 }</component>
   <component name="RecentsManager">
@@ -243,11 +278,17 @@
       <recent name="C:\Users\rasta\AndroidStudioProjects\LocalMarket\Frontend\app\src\main\java\com\example\localmarket" />
       <recent name="C:\Users\rasta\AndroidStudioProjects\LocalMarket\Frontend\app\src\main\res" />
     </key>
+    <key name="CreateTestDialog.Recents.Supers">
+      <recent name="" />
+    </key>
     <key name="android.template.1012283439">
       <recent name="com.example.localmarket" />
     </key>
     <key name="android.template.521814679">
       <recent name="com.example.localmarket" />
+    </key>
+    <key name="CreateTestDialog.RecentsKey">
+      <recent name="com.example.localmarket.activities" />
     </key>
   </component>
   <component name="RunAnythingCache">
@@ -255,45 +296,7 @@
       <command value="gradle init" />
     </option>
   </component>
-  <component name="RunManager" selected="Android App.ActivityUserLobby">
-    <configuration name="ActivitySellerLobby" type="AndroidRunConfigurationType" factoryName="Android App" temporary="true">
-      <module name="myapp.app.main" />
-      <option name="DEPLOY" value="true" />
-      <option name="DEPLOY_APK_FROM_BUNDLE" value="false" />
-      <option name="DEPLOY_AS_INSTANT" value="false" />
-      <option name="ARTIFACT_NAME" value="" />
-      <option name="PM_INSTALL_OPTIONS" value="" />
-      <option name="ALL_USERS" value="false" />
-      <option name="ALWAYS_INSTALL_WITH_PM" value="false" />
-      <option name="CLEAR_APP_STORAGE" value="false" />
-      <option name="DYNAMIC_FEATURES_DISABLED_LIST" value="" />
-      <option name="ACTIVITY_EXTRA_FLAGS" value="" />
-      <option name="MODE" value="specific_activity" />
-      <option name="CLEAR_LOGCAT" value="false" />
-      <option name="SHOW_LOGCAT_AUTOMATICALLY" value="false" />
-      <option name="INSPECTION_WITHOUT_ACTIVITY_RESTART" value="false" />
-      <option name="TARGET_SELECTION_MODE" value="DEVICE_AND_SNAPSHOT_COMBO_BOX" />
-      <option name="DEBUGGER_TYPE" value="Java" />
-      <Java>
-        <option name="ATTACH_ON_WAIT_FOR_DEBUGGER" value="false" />
-        <option name="DEBUG_SANDBOX_SDK" value="false" />
-      </Java>
-      <Profilers>
-        <option name="ADVANCED_PROFILING_ENABLED" value="false" />
-        <option name="STARTUP_PROFILING_ENABLED" value="false" />
-        <option name="STARTUP_CPU_PROFILING_ENABLED" value="false" />
-        <option name="STARTUP_CPU_PROFILING_CONFIGURATION_NAME" value="Java/Kotlin Method Sample (legacy)" />
-        <option name="STARTUP_NATIVE_MEMORY_PROFILING_ENABLED" value="false" />
-        <option name="NATIVE_MEMORY_SAMPLE_RATE_BYTES" value="2048" />
-      </Profilers>
-      <option name="DEEP_LINK" value="" />
-      <option name="ACTIVITY_CLASS" value="com.example.localmarket.activities.ActivitySellerLobby" />
-      <option name="SEARCH_ACTIVITY_IN_GLOBAL_SCOPE" value="false" />
-      <option name="SKIP_ACTIVITY_VALIDATION" value="false" />
-      <method v="2">
-        <option name="Android.Gradle.BeforeRunTask" enabled="true" />
-      </method>
-    </configuration>
+  <component name="RunManager" selected="Gradle.AuthServiceOrderTest">
     <configuration name="ActivityUserLobby" type="AndroidRunConfigurationType" factoryName="Android App" temporary="true">
       <module name="myapp.app.main" />
       <option name="DEPLOY" value="true" />
@@ -326,6 +329,44 @@
       </Profilers>
       <option name="DEEP_LINK" value="" />
       <option name="ACTIVITY_CLASS" value="com.example.localmarket.activities.ActivityUserLobby" />
+      <option name="SEARCH_ACTIVITY_IN_GLOBAL_SCOPE" value="false" />
+      <option name="SKIP_ACTIVITY_VALIDATION" value="false" />
+      <method v="2">
+        <option name="Android.Gradle.BeforeRunTask" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="AddToCartActivity" type="AndroidRunConfigurationType" factoryName="Android App" temporary="true">
+      <module name="myapp.app.main" />
+      <option name="DEPLOY" value="true" />
+      <option name="DEPLOY_APK_FROM_BUNDLE" value="false" />
+      <option name="DEPLOY_AS_INSTANT" value="false" />
+      <option name="ARTIFACT_NAME" value="" />
+      <option name="PM_INSTALL_OPTIONS" value="" />
+      <option name="ALL_USERS" value="false" />
+      <option name="ALWAYS_INSTALL_WITH_PM" value="false" />
+      <option name="CLEAR_APP_STORAGE" value="false" />
+      <option name="DYNAMIC_FEATURES_DISABLED_LIST" value="" />
+      <option name="ACTIVITY_EXTRA_FLAGS" value="" />
+      <option name="MODE" value="specific_activity" />
+      <option name="CLEAR_LOGCAT" value="false" />
+      <option name="SHOW_LOGCAT_AUTOMATICALLY" value="false" />
+      <option name="INSPECTION_WITHOUT_ACTIVITY_RESTART" value="false" />
+      <option name="TARGET_SELECTION_MODE" value="DEVICE_AND_SNAPSHOT_COMBO_BOX" />
+      <option name="DEBUGGER_TYPE" value="Java" />
+      <Java>
+        <option name="ATTACH_ON_WAIT_FOR_DEBUGGER" value="false" />
+        <option name="DEBUG_SANDBOX_SDK" value="false" />
+      </Java>
+      <Profilers>
+        <option name="ADVANCED_PROFILING_ENABLED" value="false" />
+        <option name="STARTUP_PROFILING_ENABLED" value="false" />
+        <option name="STARTUP_CPU_PROFILING_ENABLED" value="false" />
+        <option name="STARTUP_CPU_PROFILING_CONFIGURATION_NAME" value="Java/Kotlin Method Sample (legacy)" />
+        <option name="STARTUP_NATIVE_MEMORY_PROFILING_ENABLED" value="false" />
+        <option name="NATIVE_MEMORY_SAMPLE_RATE_BYTES" value="2048" />
+      </Profilers>
+      <option name="DEEP_LINK" value="" />
+      <option name="ACTIVITY_CLASS" value="com.example.localmarket.activities.AddToCartActivity" />
       <option name="SEARCH_ACTIVITY_IN_GLOBAL_SCOPE" value="false" />
       <option name="SKIP_ACTIVITY_VALIDATION" value="false" />
       <method v="2">
@@ -370,40 +411,7 @@
         <option name="Android.Gradle.BeforeRunTask" enabled="true" />
       </method>
     </configuration>
-    <configuration name="AddProductFragmentTestEspresso" type="AndroidTestRunConfigurationType" factoryName="Android Instrumented Tests" temporary="true" nameIsGenerated="true">
-      <module name="myapp.app.androidTest" />
-      <option name="TESTING_TYPE" value="2" />
-      <option name="METHOD_NAME" value="" />
-      <option name="CLASS_NAME" value="com.example.localmarket.activities.AddProductFragmentTestEspresso" />
-      <option name="PACKAGE_NAME" value="" />
-      <option name="TEST_NAME_REGEX" value="" />
-      <option name="INSTRUMENTATION_RUNNER_CLASS" value="" />
-      <option name="EXTRA_OPTIONS" value="" />
-      <option name="RETENTION_ENABLED" value="No" />
-      <option name="RETENTION_MAX_SNAPSHOTS" value="2" />
-      <option name="RETENTION_COMPRESS_SNAPSHOTS" value="false" />
-      <option name="CLEAR_LOGCAT" value="false" />
-      <option name="SHOW_LOGCAT_AUTOMATICALLY" value="false" />
-      <option name="INSPECTION_WITHOUT_ACTIVITY_RESTART" value="false" />
-      <option name="TARGET_SELECTION_MODE" value="DEVICE_AND_SNAPSHOT_COMBO_BOX" />
-      <option name="DEBUGGER_TYPE" value="Java" />
-      <Java>
-        <option name="ATTACH_ON_WAIT_FOR_DEBUGGER" value="false" />
-        <option name="DEBUG_SANDBOX_SDK" value="false" />
-      </Java>
-      <Profilers>
-        <option name="ADVANCED_PROFILING_ENABLED" value="false" />
-        <option name="STARTUP_PROFILING_ENABLED" value="false" />
-        <option name="STARTUP_CPU_PROFILING_ENABLED" value="false" />
-        <option name="STARTUP_CPU_PROFILING_CONFIGURATION_NAME" value="Java/Kotlin Method Sample (legacy)" />
-        <option name="STARTUP_NATIVE_MEMORY_PROFILING_ENABLED" value="false" />
-        <option name="NATIVE_MEMORY_SAMPLE_RATE_BYTES" value="2048" />
-      </Profilers>
-      <method v="2">
-        <option name="Android.Gradle.BeforeRunTask" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="AddProductFragmentTest (1)" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+    <configuration name="AuthServiceOrderTest" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
         <option name="executionName" />
         <option name="externalProjectPath" value="$PROJECT_DIR$/Frontend" />
@@ -416,7 +424,7 @@
           <list>
             <option value=":app:testDebugUnitTest" />
             <option value="--tests" />
-            <option value="&quot;com.example.localmarket.fragments.AddProductFragmentTest&quot;" />
+            <option value="&quot;com.example.localmarket.AuthServiceOrderTest&quot;" />
           </list>
         </option>
         <option name="vmOptions" />
@@ -427,7 +435,7 @@
       <RunAsTest>true</RunAsTest>
       <method v="2" />
     </configuration>
-    <configuration name="AuthServiceUnitTest" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+    <configuration name="OrderDetailsFragmentTest" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
         <option name="executionName" />
         <option name="externalProjectPath" value="$PROJECT_DIR$/Frontend" />
@@ -440,7 +448,31 @@
           <list>
             <option value=":app:testDebugUnitTest" />
             <option value="--tests" />
-            <option value="&quot;com.example.localmarket.AuthServiceUnitTest&quot;" />
+            <option value="&quot;com.example.localmarket.fragments.OrderDetailsFragmentTest&quot;" />
+          </list>
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <ExternalSystemDebugServerProcess>false</ExternalSystemDebugServerProcess>
+      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
+      <DebugAllEnabled>false</DebugAllEnabled>
+      <RunAsTest>true</RunAsTest>
+      <method v="2" />
+    </configuration>
+    <configuration name="addToCartActivityTest" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$/Frontend" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" value="" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value=":app:testDebugUnitTest" />
+            <option value="--tests" />
+            <option value="&quot;com.example.localmarket.activities.addToCartActivityTest&quot;" />
           </list>
         </option>
         <option name="vmOptions" />
@@ -453,11 +485,11 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Gradle.AuthServiceOrderTest" />
+        <item itemvalue="Gradle.OrderDetailsFragmentTest" />
+        <item itemvalue="Gradle.addToCartActivityTest" />
+        <item itemvalue="Android App.AddToCartActivity" />
         <item itemvalue="Android App.ActivityUserLobby" />
-        <item itemvalue="Android App.ActivitySellerLobby" />
-        <item itemvalue="Gradle.AuthServiceUnitTest" />
-        <item itemvalue="Gradle.AddProductFragmentTest (1)" />
-        <item itemvalue="Android Instrumented Tests.AddProductFragmentTestEspresso" />
       </list>
     </recent_temporary>
   </component>
@@ -590,7 +622,31 @@
       <option name="project" value="LOCAL" />
       <updated>1714304567775</updated>
     </task>
-    <option name="localTasksCounter" value="16" />
+    <task id="LOCAL-00016" summary="+ Implementados latitud i longitud en User, SignInRequest i AuthService.java">
+      <option name="closed" value="true" />
+      <created>1714418431196</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1714418431196</updated>
+    </task>
+    <task id="LOCAL-00017" summary="+cambios hechos a UserProductFragment.java">
+      <option name="closed" value="true" />
+      <created>1714646372544</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1714646372544</updated>
+    </task>
+    <task id="LOCAL-00018" summary="+cambios hechos a UserProductFragment.java + adquisicion de productores en rango v1">
+      <option name="closed" value="true" />
+      <created>1714659807936</created>
+      <option name="number" value="00018" />
+      <option name="presentableId" value="LOCAL-00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1714659807936</updated>
+    </task>
+    <option name="localTasksCounter" value="19" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -621,7 +677,21 @@
     <MESSAGE value="v1, comunicacion entre fragments usando Bundle" />
     <MESSAGE value="v2, comunicacion entre fragments usando Bundle exitosa" />
     <MESSAGE value="+ Bundle comunication success entre fragments.&#10;+redirect to UserProductFragment desde AddToCartActivity.java para mantener los productos." />
-    <option name="LAST_COMMIT_MESSAGE" value="+ Bundle comunication success entre fragments.&#10;+redirect to UserProductFragment desde AddToCartActivity.java para mantener los productos." />
+    <MESSAGE value="+ Implementados latitud i longitud en User, SignInRequest i AuthService.java" />
+    <MESSAGE value="+cambios hechos a UserProductFragment.java" />
+    <MESSAGE value="+cambios hechos a UserProductFragment.java + adquisicion de productores en rango v1" />
+    <option name="LAST_COMMIT_MESSAGE" value="+cambios hechos a UserProductFragment.java + adquisicion de productores en rango v1" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/Frontend/app/src/main/java/com/example/localmarket/model/Order.java</url>
+          <line>53</line>
+          <option name="timeStamp" value="1" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/Local_Market$AuthServiceUnitTest_testSignUpUser_Failure.ic" NAME="AuthServiceUnitTest.testSignUpUser_Failure Coverage Results" MODIFIED="1711036953776" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />

@@ -244,8 +244,7 @@ public class EditProductActivity extends AppCompatActivity {
      */
     private void redirectToLobby() {
 
-        Intent intent = new Intent(this, ActivitySellerLobby.class);
-        startActivity(intent);
+        finish();
     }
 
 

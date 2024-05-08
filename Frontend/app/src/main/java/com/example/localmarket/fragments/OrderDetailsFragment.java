@@ -30,7 +30,12 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * Fragmento que muestra los detalles del pedido.
+ * @author Ainoha
+ */
 public class OrderDetailsFragment extends Fragment {
+
     private List<CartItem> cartItemList;
     private OrderAdapter adapter;
     private RecyclerView recyclerView;
@@ -39,12 +44,18 @@ public class OrderDetailsFragment extends Fragment {
     private Button buttonEnviarPedido;
     private Button btnVolver;
     private TokenManager tokenManager;
-    private int pedidosEnviados = 0;
+    private int numAgricultores;
 
+    /**
+     * Constructor público requerido.
+     */
     public OrderDetailsFragment() {
-        // Constructor público requerido
     }
 
+    /**
+     * Método estático para crear una nueva instancia del fragmento.
+     * @return Una nueva instancia de OrderDetailsFragment.
+     */
     public static OrderDetailsFragment newInstance() {
         return new OrderDetailsFragment();
     }
@@ -53,12 +64,13 @@ public class OrderDetailsFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-
         // Inicialización de la lista de elementos del carrito
         cartItemList = new ArrayList<>();
         // Inicializa el adaptador
         adapter = new OrderAdapter(cartItemList);
         orderManager = OrderManager.getInstance(getContext());
+
+        tokenManager = TokenManager.getInstance(getContext());
     }
 
     @Override
@@ -101,7 +113,7 @@ public class OrderDetailsFragment extends Fragment {
         btnVolver.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                navigateToLobbyUser();
+                requireActivity().finish();
             }
         });
 
@@ -112,7 +124,12 @@ public class OrderDetailsFragment extends Fragment {
         return view;
     }
 
-    private Map<Integer, List<CartItem>> groupProductsByAgricultor(List<CartItem> cartItems) {
+    /**
+     * Agrupa los productos por agricultor.
+     * @param cartItems Lista de elementos del carrito.
+     * @return Un mapa que contiene la lista de elementos agrupados por agricultor.
+     */
+    Map<Integer, List<CartItem>> groupProductsByAgricultor(List<CartItem> cartItems) {
         Map<Integer, List<CartItem>> groupedProducts = new HashMap<>();
 
         for (CartItem item : cartItems) {
@@ -126,49 +143,91 @@ public class OrderDetailsFragment extends Fragment {
         return groupedProducts;
     }
 
-    private void calculateAndDisplayTotalAmount(List<CartItem> cartItems) {
+    /**
+     * Calcula y muestra el importe total de los productos en el carrito.
+     * @param cartItems Lista de elementos del carrito.
+     */
+    void calculateAndDisplayTotalAmount(List<CartItem> cartItems) {
         double totalAmount = 0.0;
         for (CartItem item : cartItems) {
-            totalAmount += item.getPrice() * item.getQuantity();
+            totalAmount += item.getPrice() * item.getCantidad();
         }
         textViewTotalAmount.setText(String.format("%.2f", totalAmount));
     }
 
-
-
-
+    /**
+     * Envía el pedido al servidor.
+     * @param cartItems Lista de elementos del carrito.
+     */
     private void enviarPedidoAlServidor(List<CartItem> cartItems) {
         Map<Integer, List<CartItem>> groupedProducts = groupProductsByAgricultor(cartItems);
+        numAgricultores = groupedProducts.size(); // Obtener el número de agricultores
 
         for (Map.Entry<Integer, List<CartItem>> entry : groupedProducts.entrySet()) {
-            int idCliente = 0; // Valor predeterminado en caso de que no se pueda obtener el ID del usuario
+            int clientId = tokenManager.getUserId(); // Valor predeterminado en caso de que no se pueda obtener el ID del usuario
             int idAgricultor = entry.getKey();
             List<CartItem> productsForAgricultor = entry.getValue();
 
             // Verificar si el usuario es un agricultor antes de obtener su ID
             if (tokenManager.getUser() != null && !tokenManager.getUser().getAgricultor()) {
-                idCliente = tokenManager.getUser().getId();
+                clientId = tokenManager.getUser().getId();
             } else {
                 // Manejar el caso en el que el usuario es un agricultor
                 // Podrías mostrar un mensaje de error o tomar otra acción apropiada
                 Log.e("OrderDetailsFragment", "El usuario es un agricultor, no se puede obtener el ID del cliente");
             }
 
-            Order order = createOrder(idCliente, idAgricultor, productsForAgricultor);
+            // Crear logs para mostrar los parámetros antes de enviar el pedido al servidor
+            Log.d("OrderDetailsFragment", "ID Cliente: " + clientId);
+            Log.d("OrderDetailsFragment", "ID Agricultor: " + idAgricultor);
+            Log.d("OrderDetailsFragment", "Productos para Agricultor: " + productsForAgricultor.toString());
+            Order order = createOrder(clientId, idAgricultor, productsForAgricultor);
             sendOrderToServer(order);
         }
     }
 
+    /**
+     * Crea un objeto Order a partir de los datos proporcionados.
+     * @param clientId ID del cliente.
+     * @param idAgricultor ID del agricultor.
+     * @param products Lista de productos.
+     * @return Objeto Order creado.
+     */
+    Order createOrder(int clientId, int idAgricultor, List<CartItem> products) {
+        Order order = new Order();
+        order.setIdCliente(clientId);
+        order.setIdAgricultor(idAgricultor);
+
+        List<Map<String, Integer>> productList = new ArrayList<>();
+        for (CartItem item : products) {
+            Map<String, Integer> product = new HashMap<>();
+            product.put("itemId", item.getItemId());
+            product.put("cantidad", item.getCantidad());
+            productList.add(product);
+        }
+        order.setPedido(productList);
+        order.setEstado("creado");
+        order.setId(null);
+
+        return order;
+    }
+
+    /**
+     * Envía el pedido al servidor.
+     * @param order Objeto Order a enviar.
+     */
     private void sendOrderToServer(Order order) {
         AuthService authService = new AuthService();
-        authService.sendOrder(order, new AuthService.AuthCallback<Void>() {
+        String token = tokenManager.getToken();
+        authService.sendOrder(order, token, new AuthService.AuthCallback<Void>() {
             @Override
             public void onSuccess(Void data) {
                 // Manejar el éxito del envío del pedido
-                pedidosEnviados++;
-                Toast.makeText(getContext(), "Pedido enviado exitosamente. Total de pedidos enviados: " + pedidosEnviados, Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), "Has realizado " + numAgricultores + " pedidos exitosamente", Toast.LENGTH_SHORT).show();
                 // Vaciar la cesta de compras
                 orderManager.clearCartItems();
+                // Navegar de vuelta al lobby del usuario
+                navigateToLobbyUser();
             }
 
             @Override
@@ -178,28 +237,14 @@ public class OrderDetailsFragment extends Fragment {
             }
         });
     }
-    private Order createOrder(int idCliente, int idAgricultor, List<CartItem> products) {
-        Order order = new Order();
-        order.setIdCliente(idCliente);
-        order.setIdAgricultor(idAgricultor);
 
-        Map<Integer, Integer> productMap = new HashMap<>();
-        for (CartItem item : products) {
-            productMap.put(item.getProductId(), item.getQuantity());
-        }
-        order.setProductos(productMap);
-        order.setEstado("creado");
-
-        return order;
-    }
-
-
-
+    /**
+     * Navega de vuelta al lobby del usuario.
+     */
     private void navigateToLobbyUser() {
         Intent intent = new Intent(getContext(), ActivityUserLobby.class);
         startActivity(intent);
         // Opcionalmente, puedes agregar la siguiente línea para cerrar el OrderDetailsFragment
         requireActivity().finish();
     }
-
 }
