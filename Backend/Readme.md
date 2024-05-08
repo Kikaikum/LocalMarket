@@ -79,7 +79,49 @@ url : https://kikaikum.ddns.net:3000/localmarket/v1/
   - **Ruta:** /products/agricultor/{id}
   - **Descripción:** Obtiene todos los productos de un agricultor específico según su ID.
 
+### Órdenes
 
+- **Crear una nueva orden**
+  - **Método:** POST
+  - **Ruta:** /orders
+  - **Descripción:** Crea una nueva orden. Se requiere un cuerpo de solicitud JSON con los detalles de la orden.
+
+- **Obtener todas las órdenes**
+  - **Método:** GET
+  - **Ruta:** /orders
+  - **Descripción:** Obtiene un listado de todas las órdenes.
+
+- **Obtener una orden por ID**
+  - **Método:** GET
+  - **Ruta:** /orders/{id}
+  - **Descripción:** Obtiene una orden específica según su ID.
+
+- **Obtener las órdenes de un agricultor**
+  - **Método:** GET
+  - **Ruta:** /orders/agricultor/:idAgricultor
+  - **Descripción:** Obtiene las órdenes de un agricultor específico.
+
+- **Obtener las órdenes de un cliente**
+  - **Método:** GET
+  - **Ruta:** /orders/client/:idClient
+  - **Descripción:** Obtiene las órdenes de un cliente específico.
+
+- **Actualizar una orden por ID**
+  - **Método:** PATCH
+  - **Ruta:** /orders/{id}
+  - **Descripción:** Actualiza el estado de la orden según su ID.
+
+- **Eliminar una orden por ID**
+  - **Método:** DELETE
+  - **Ruta:** /orders/{id}
+  - **Descripción:** Elimina una orden específica según su ID.
+
+### Localización
+
+- **Obtener los agricultores en un radio de 30km**
+  - **Método:** GET
+  - **Ruta:** /location
+  - **Descripción:** Obtiene un listado de todos los agricultores en un radio de 30km.
 
 
 ## Esquema del Usuario

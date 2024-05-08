@@ -10,7 +10,7 @@ const service = new LocationService();
 
 router.get('/', async (req, res, next) => {
   try {
-    const body = req.body;
+    const body = req.query;
     const users = await service.find(body);
     res.json(users);
   } catch (error) {

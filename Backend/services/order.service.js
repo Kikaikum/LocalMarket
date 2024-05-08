@@ -40,11 +40,11 @@ class OrderService {
 
   async update(id, changes, authenticatedUserId) {
     const order = await this.findOne(id);    
-    if (authenticatedUserId === order.idAgricultor) {
+    if (authenticatedUserId === order.agricultorId) {
       const updatedOrder = await order.update(changes);
       return updatedOrder;
     } else {
-      throw new Error("No tienes permiso para actualizar este ordero.");
+      throw new Error("No tienes permiso para actualizar esta orden.");
     }
   }
 
