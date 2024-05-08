@@ -134,7 +134,9 @@ url : https://kikaikum.ddns.net:3000/localmarket/v1/
   "nombre": "string",
   "apellidos": "string",
   "agricultor": "boolean",
-  "createdAt": "string"
+  "createdAt": "string",
+  "latitude": "double",
+  "longitude": "double"
 }
 ```
 ## Ejemplo de solicitud de inicio de sesión

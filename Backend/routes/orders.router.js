@@ -52,6 +52,7 @@ router.get('/client/:idclient',
 });
 
 router.get('/:id',
+  passport.authenticate('jwt', {session: false}),
   validatorHandler(getOrderSchema, 'params'),
   async (req, res, next) => {
     try {
