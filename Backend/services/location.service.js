@@ -1,10 +1,6 @@
-const boom = require('@hapi/boom');
-const bcrypt = require('bcrypt');
-const jwt = require('jsonwebtoken');
 const { Op } = require('sequelize');
 
 const { models } = require('./../libs/sequelize');
-const { config } = require('./../config/config');
 const { PI, cos } = Math;
 
 
@@ -12,32 +8,38 @@ const { PI, cos } = Math;
 
 // Función para calcular las coordenadas máximas y mínimas dentro de un diámetro de 30 km
 function calcularCoordenadas(latitud, longitud) {
-    // Radio de la Tierra en kilómetros
-    const radioTierra = 6371; // km
+  // Radio de la Tierra en kilómetros
+  const radioTierra = 6371; // km
 
-    // Convertimos la latitud a radianes
-    const latitudRad = latitud * (PI / 180);
+  
+  latitud = Number(latitud);
+  longitud = Number(longitud);
 
-    // Calculamos el factor de conversión para la longitud
-    const factorConversionLongitud = cos(latitudRad);
+  // Convertimos la latitud a radianes
+  const latitudRad = latitud * (PI / 180);
 
-    // Convertimos el diámetro de 30 km a grados de longitud
-    const diametroEnGrados = (30 / radioTierra) * (180 / PI) / factorConversionLongitud;
+  // El diámetro en grados de latitud
+  const diametroLatitudEnGrados = (30 / radioTierra) * (180 / PI);
 
-    // Calculamos las coordenadas máximas y mínimas
-    const latitudMaxima = latitud + (diametroEnGrados / 2);
-    const latitudMinima = latitud - (diametroEnGrados / 2);
-    const longitudMaxima = longitud + (diametroEnGrados / 2);
-    const longitudMinima = longitud - (diametroEnGrados / 2);
+  // Longitud por grado basado en la latitud
+  const longitudPorGrado = radioTierra * cos(latitudRad);
+  const diametroLongitudEnGrados = (30 / longitudPorGrado) * (180 / PI);
 
-    // Devolvemos un objeto con las coordenadas calculadas
-    return {
-        latitudMaxima,
-        latitudMinima,
-        longitudMaxima,
-        longitudMinima
-    };
+  // Calculamos las coordenadas máximas y mínimas
+  const latitudMaxima = latitud + (diametroLatitudEnGrados / 2);
+  const latitudMinima = latitud - (diametroLatitudEnGrados / 2);
+  const longitudMaxima = longitud + (diametroLongitudEnGrados / 2);
+  const longitudMinima = longitud - (diametroLongitudEnGrados / 2);
+
+  // Devolvemos un objeto con las coordenadas calculadas
+  return {
+    latitudMaxima,
+    latitudMinima,
+    longitudMaxima,
+    longitudMinima
+  };
 }
+
 
 
 class LocationService {
@@ -46,7 +48,10 @@ class LocationService {
   async find(location) {
 
     const coordenadas = calcularCoordenadas(location.latitude,location.longitude);
-
+    console.log("latitud maxima = "+coordenadas.latitudMaxima)
+    console.log("latitud minima = "+coordenadas.latitudMinima)
+    console.log("longitud maxima = "+coordenadas.longitudMaxima)
+    console.log("longitud minima = "+coordenadas.longitudMinima)
     const agricultores = await models.User.findAll({
       where: {
         latitude: { 
