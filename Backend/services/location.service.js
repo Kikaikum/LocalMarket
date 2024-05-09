@@ -62,6 +62,9 @@ class LocationService {
         }
       }
     });
+    agricultores.forEach((usuario) => {
+      delete usuario.dataValues.password;
+    });
     return agricultores;
   }
 
