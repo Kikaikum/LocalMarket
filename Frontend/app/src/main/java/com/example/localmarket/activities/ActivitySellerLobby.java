@@ -129,6 +129,11 @@ public class ActivitySellerLobby extends AppCompatActivity {
             getSupportFragmentManager().beginTransaction()
                     .replace(R.id.fragment_container2, new SellerOrderFragment())
                     .commit();
+        }else if (id== R.id.back){
+            getSupportFragmentManager().beginTransaction()
+                    .replace(R.id.fragment_container2, new SellerProductFragment())
+                    .addToBackStack(null)  // Asegúrate de agregar la transacción a la pila de retroceso
+                    .commit();
         }
 
         return super.onOptionsItemSelected(item);
@@ -197,6 +202,14 @@ public class ActivitySellerLobby extends AppCompatActivity {
         recyclerView.setVisibility(View.VISIBLE);
     }
 
+    @Override
+    public void onBackPressed() {
+        if (getSupportFragmentManager().getBackStackEntryCount() > 0) {
+            getSupportFragmentManager().popBackStack();
+        } else {
+            super.onBackPressed();
+        }
+    }
 
 }
 

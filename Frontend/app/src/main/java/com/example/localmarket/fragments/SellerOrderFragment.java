@@ -141,4 +141,5 @@ public class SellerOrderFragment extends Fragment implements OrderAdapterSeller.
         this.fragmentManager = fragmentManager;
     }
 
+
 }
