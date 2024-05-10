@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.localmarket.R;
 import com.example.localmarket.fragments.PedidoProductsFragment;
+import com.example.localmarket.fragments.SellerOrderFragment;
 import com.example.localmarket.model.Order;
 import com.example.localmarket.model.User;
 import com.example.localmarket.network.service.AuthService;
@@ -46,6 +47,9 @@ public class OrderAdapterSeller extends RecyclerView.Adapter<OrderAdapterSeller.
     @Override
     public int getItemCount() {
         return orderList.size();
+    }
+
+    public void setOnOrderClickListener(SellerOrderFragment eq) {
     }
 
     public class OrderViewHolder extends RecyclerView.ViewHolder {

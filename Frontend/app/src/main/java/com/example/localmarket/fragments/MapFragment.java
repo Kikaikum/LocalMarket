@@ -1,3 +1,9 @@
+/**
+ * Fragmento que muestra un mapa con la ubicación de agricultores cercanos y permite ajustar un radio de búsqueda.
+ * Permite actualizar la búsqueda y volver al fragmento anterior.
+ *
+ * @author Oriol Estero Sanchez
+ */
 package com.example.localmarket.fragments;
 
 import android.Manifest;
@@ -14,6 +20,7 @@ import android.widget.Toast;
 import androidx.activity.OnBackPressedCallback;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.example.localmarket.R;
@@ -36,25 +43,30 @@ import java.util.List;
 
 public class MapFragment extends Fragment implements OnMapReadyCallback {
     private AuthService authService;
-    //cambis
-    private MapView mapView;
+    public void setAuthService(AuthService authService) {
+        this.authService = authService;
+    }
+
+    protected MapView mapView;
     private GoogleMap gMap;
     private Circle mapCircle;
     private TextView distance;
-    private LatLng centerOfCircle;
-    private double currentRadius;
-    private double latitude;
-    private double longitude;
+    protected LatLng centerOfCircle;
+    protected double currentRadius;
+    protected double latitude;
+    protected double longitude;
 
 
     private SeekBar seekBar;
     private static final int MY_LOCATION_REQUEST_CODE = 101;
     private final List<User> todosLosAgricultores = new ArrayList<>();
-    private final List<User> agricultoresEnRango = new ArrayList<>();
-    UserProductFragment userProductFragment;
+    public List<User> agricultoresEnRango = new ArrayList<>();
+    public UserProductFragment userProductFragment;
     private android.widget.Toast Toast;
 
-
+    /**
+     * Constructor vacío.
+     */
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -151,7 +163,11 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
 
     }
 
-    private void catchAgricultorOnRange() {
+    /**
+     * Método para encontrar agricultores en el rango establecido por el usuario.
+     * Limpia la lista de agricultores en rango y la vuelve a llenar según el centro y el radio del círculo en el mapa.
+     */
+    protected void catchAgricultorOnRange() {
         agricultoresEnRango.clear();
         if (centerOfCircle != null) {
             for (User user : todosLosAgricultores) {
@@ -166,7 +182,11 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
         }
     }
 
-    private void sendAgricultoresToUserProductFragment() {
+    /**
+     * Método para enviar la lista de agricultores en rango al fragmento de productos de usuario.
+     * Crea un bundle con los IDs de los agricultores y lo pasa al fragmento correspondiente.
+     */
+    protected void sendAgricultoresToUserProductFragment() {
 
         Bundle bundle = new Bundle();
         ArrayList<Integer> agricultoresIds = new ArrayList<>();
@@ -180,7 +200,14 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
 
 
     }
-    private void sendLocationAndFetchAgricultores(double latitude, double longitude) {
+    /**
+     * Método para enviar la ubicación actual al servidor y obtener la lista de agricultores en rango.
+     * Una vez obtenida la lista, la procesa y la muestra en el mapa.
+     *
+     * @param latitude  Latitud actual.
+     * @param longitude Longitud actual.
+     */
+    protected void sendLocationAndFetchAgricultores(double latitude, double longitude) {
         // Enviar la ubicación al servidor y recibir la lista de usuarios en rango
 
         authService.getUsersInRange(latitude, longitude, new AuthService.AuthCallback<List<User>>() {
@@ -216,7 +243,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
 
     }
 
-    private void backToUserProductFragment() {
+    protected void backToUserProductFragment() {
 
         // Reemplazar o agregar UserProductFragment en la actividad principal
         FragmentTransaction transaction = getFragmentManager().beginTransaction();
@@ -254,6 +281,10 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
         super.onSaveInstanceState(outState);
         mapView.onSaveInstanceState(outState);
     }
+    public void setGoogleMap(GoogleMap googleMap) {
+        this.gMap = googleMap;
+    }
+
 
 
 }

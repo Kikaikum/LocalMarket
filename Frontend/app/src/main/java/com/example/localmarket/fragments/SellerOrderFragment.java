@@ -1,19 +1,24 @@
+/**
+ * Fragmento que muestra los pedidos del agricultor.
+ * Permite al agricultor ver los pedidos que ha recibido.
+ *
+ * @author Oriol Estero Sanchez
+ */
 package com.example.localmarket.fragments;
 
 import android.os.Bundle;
-import android.os.Parcelable;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.localmarket.R;
 import com.example.localmarket.model.Order;
-import com.example.localmarket.model.Product;
 import com.example.localmarket.network.service.AuthService;
 import com.example.localmarket.utils.OrderAdapterSeller;
 import com.example.localmarket.utils.TokenManager;
@@ -25,14 +30,18 @@ import java.util.Map;
 
 
 public class SellerOrderFragment extends Fragment implements OrderAdapterSeller.OnOrderClickListener {
-    private AuthService authService;
-    private TokenManager tokenManager;
-    private OrderAdapterSeller adapter;
+    protected AuthService authService;
+    protected TokenManager tokenManager;
+    protected OrderAdapterSeller adapter;
     private RecyclerView recyclerViewOrders;
-    private List<Order> orderList = new ArrayList<>();
+    protected List<Order> orderList = new ArrayList<>();
     private int idAgricultor;
     Bundle bundle;
+    private FragmentManager fragmentManager;
 
+    /**
+     * Constructor vacío.
+     */
     public SellerOrderFragment() {
         // Required empty public constructor
     }
@@ -40,11 +49,11 @@ public class SellerOrderFragment extends Fragment implements OrderAdapterSeller.
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        bundle=new Bundle();
+        bundle = new Bundle();
         authService = new AuthService();
         tokenManager = new TokenManager(getActivity());
         idAgricultor = tokenManager.getUserId();
-        adapter = new OrderAdapterSeller(orderList,this);
+        adapter = new OrderAdapterSeller(orderList, this);
     }
 
     @Override
@@ -56,13 +65,18 @@ public class SellerOrderFragment extends Fragment implements OrderAdapterSeller.
         recyclerViewOrders.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerViewOrders.setAdapter(adapter);
 
-        tokenManager= new TokenManager(getActivity());
+        tokenManager = new TokenManager(getActivity());
 
         fetchOrdersByFarmer(idAgricultor);
         return view;
     }
 
-    private void fetchOrdersByFarmer(int farmerId) {
+    /**
+     * Método para obtener los pedidos del agricultor desde el servidor.
+     *
+     * @param farmerId ID del agricultor.
+     */
+    protected void fetchOrdersByFarmer(int farmerId) {
         String token = tokenManager.getToken();
         authService.getAllOrdersByFarmer(farmerId, token, new AuthService.AuthCallback<List<Order>>() {
             @Override
@@ -85,6 +99,12 @@ public class SellerOrderFragment extends Fragment implements OrderAdapterSeller.
         });
     }
 
+
+    /**
+     * Método invocado al hacer clic en un pedido.
+     *
+     * @param order Pedido seleccionado.
+     */
     @Override
     public void onOrderClick(Order order) {
         if (order != null && order.getPedido() != null) {
@@ -99,8 +119,26 @@ public class SellerOrderFragment extends Fragment implements OrderAdapterSeller.
                     .replace(R.id.fragment_container2, productsFragment)
                     .addToBackStack(null)
                     .commit();
-        } else {
-            Log.e("SellerOrderFragment", "Order object or pedido list is null");
         }
     }
+
+
+    /**
+     * Método para obtener la lista de pedidos.
+     *
+     * @return Lista de pedidos.
+     */
+    public List<Order> getOrderList() {
+        return orderList;
+    }
+
+    /**
+     * Método para establecer el FragmentManager.
+     *
+     * @param fragmentManager FragmentManager a establecer.
+     */
+    public void setFragmentManager(FragmentManager fragmentManager) {
+        this.fragmentManager = fragmentManager;
+    }
+
 }

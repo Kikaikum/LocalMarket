@@ -1,3 +1,9 @@
+/**
+ * Fragmento para mostrar los productos de un pedido y permitir al agricultor aceptarlo.
+ * Permite visualizar los productos de un pedido y aceptar el pedido.
+ *
+ * @author Oriol Estero Sanchez
+ */
 package com.example.localmarket.fragments;
 
 import android.os.Bundle;
@@ -25,18 +31,25 @@ public class PedidoProductsFragment extends Fragment {
     private static final String ARG_PEDIDO_ITEMS = "pedidoItems"; // Constante para identificar el argumento del bundle.
     private RecyclerView recyclerView; // RecyclerView para mostrar los productos.
     private ProductsOrderAdapter adapter; // Adaptador para el RecyclerView.
-    private Button butonAcceptOrder;
+    protected Button butonAcceptOrder;
     private List<Map<String, Integer>> pedidoItems;
-    private AuthService authService;
+    protected AuthService authService;
 
-    private String token;
+    protected String token;
 
-
+    /**
+     * Constructor público vacío requerido.
+     */
     public PedidoProductsFragment() {
         // Constructor público vacío requerido.
     }
 
-    // Método factory para crear una nueva instancia de este fragmento con parámetros específicos.
+    /**
+     * Método factory para crear una nueva instancia de este fragmento con parámetros específicos.
+     *
+     * @param args Argumentos para configurar el fragmento.
+     * @return Nueva instancia de PedidoProductsFragment.
+     */
     public static PedidoProductsFragment newInstance(Bundle args) {
         PedidoProductsFragment fragment = new PedidoProductsFragment();
         fragment.setArguments(args);
@@ -79,7 +92,12 @@ public class PedidoProductsFragment extends Fragment {
         return view;
     }
 
-    private void changeOrderStatus(Bundle args) {
+    /**
+     * Método para cambiar el estado del pedido a "aceptado".
+     *
+     * @param args Argumentos que contienen el pedido.
+     */
+    protected void changeOrderStatus(Bundle args) {
         Order order = (Order) args.getSerializable("order");
         if (order != null) {
             // Configurar el nuevo estado del pedido
